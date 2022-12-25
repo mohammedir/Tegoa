@@ -235,7 +235,7 @@
                                 <!--end::Svg Icon-->Export</button>
                             <!--end::Export-->
                             @can('users_create')
-                            <!--begin::Add user-->
+                            <!--begin:Add user-->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                 <span class="svg-icon svg-icon-2">
