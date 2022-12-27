@@ -27,7 +27,7 @@ class CreateCarsTable extends Migration
             $table->text('carlicense');
             $table->text('carinsurance');
             $table->text('passengersinsurance');
-            $table->integer('status')->comment('1(active)/ 2(inactive)')->default(2);
+            $table->integer('status')->comment('0:in review | 1:accepted |2:declined')->default(0);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
