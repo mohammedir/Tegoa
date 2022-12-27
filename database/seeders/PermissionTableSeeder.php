@@ -20,7 +20,11 @@ class PermissionTableSeeder extends Seeder
             'dashboard_create',
             'dashboard_edit',
             'dashboard_delete',
-
+            'users',
+            'users_view',
+            'users_create',
+            'users_edit',
+            'users_delete',
         ];
 
 

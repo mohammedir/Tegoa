@@ -29,7 +29,6 @@ class AdminController extends Controller
     }
     public function edit($id)
     {
-
         $user = User::query()->find($id);
         $roles = Role::query()->get();
         return view('admin-management.Admins.admins_edit', compact('user','roles'));

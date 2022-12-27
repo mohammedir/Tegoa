@@ -18,19 +18,21 @@ class CreateUsersTable extends Migration
             $table->string('full_name');
             $table->string('email');
             $table->string('email_verified_at')->nullable();
-            $table->string('mobile_number')->nullable();
+            $table->string('mobile_number')->nullable()->unique();
             $table->string('password');
+            $table->string('api_token')->unique()->nullable()->default(null);
+            $table->rememberToken();
             $table->text('address')->nullable();
+            $table->integer('gender')->nullable()->comment('1(male)/ 2(female)');
             $table->integer('user_type');
-            $table->integer('user_status')->nullable()->default(1);
-            $table->string('personal_photo')->nullable();
-            $table->text('driver_license')->nullable()->comment('to driver');
-            $table->text('vehicle_type')->nullable()->comment('to driver');
-            $table->text('roles_name')->nullable();
+            $table->string('roles_name')->nullable();
             $table->integer('roles_id')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-
+            $table->integer('user_status')->nullable()->default(1)->comment('1(active)/ 2(inactive)');
+            $table->string('personalphoto')->nullable();
+            $table->text('driverlicense')->nullable()->comment('to driver');
+            $table->integer('vehicle_type')->nullable()->comment('to driver')->comment('1(public)/ 2(private)');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
