@@ -17,17 +17,21 @@ class CreateCarsTable extends Migration
 
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->bigInteger('number');
-            $table->string('brand');
-            $table->string('license');
-            $table->string('insurance_number');
-            $table->date('insurance_expiry_date');
-            $table->string('passengers_insurance');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->integer('status')->comment('0:in review | 1:accepted |2:declined');
-            $table->timestamps();
+            $table->string('type');
+            $table->bigInteger('car_number');
+            $table->string('car_brand');
+            $table->bigInteger('insurance_number');
+            $table->date('insurance_expiry_date');
+            $table->text('carphotos');
+            $table->text('carlicense');
+            $table->text('carinsurance');
+            $table->text('passengersinsurance');
+            $table->integer('status')->comment('1(active)/ 2(inactive)')->default(2);
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
+
         Schema::enableForeignKeyConstraints();
     }
 

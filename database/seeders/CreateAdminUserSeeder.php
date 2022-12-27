@@ -21,7 +21,8 @@ class CreateAdminUserSeeder extends Seeder
             'password' => bcrypt('password'),
             'user_type' => 0,
             'roles_name' => ["owner"],
-            'user_status' => 0
+            'user_status' => 1,
+            'roles_id' => 1,
         ]);
 
         $role = Role::create(['name' => 'owner']);
