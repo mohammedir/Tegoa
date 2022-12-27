@@ -31,7 +31,6 @@ class CreateCarsTable extends Migration
             $table->integer('status')->comment('0:in review | 1:accepted |2:declined')->default(0);
             $table->timestamps();
         });
-
         Schema::enableForeignKeyConstraints();
     }
 

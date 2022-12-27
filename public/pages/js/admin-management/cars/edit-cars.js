@@ -3,10 +3,10 @@ $(function () {
         language = $('#language').val();
 
     $(document).ready(function () {
-        accept_car();
+        update_car();
     });
 
-    function accept_car() {
+    function update_car() {
         "use strict";
         var KTUsersUpdatePermission = function () {
             const t = document.getElementById("kt_modal_update_car"),
@@ -58,14 +58,23 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
+                            var formData = new FormData(document.getElementById("kt_modal_update_car_form"));
+                            formData.append('_method', 'put');
+                            const totalImages = $("#photos_edit")[0].files.length;
+                            let images = $("#photos_edit")[0];
+                            for (let i = 0; i < totalImages; i++) {
+                                formData.append('photos' + i, images.files[i]);
+                            }
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language + "/accept/car",
-                                        data: {id:$('#car_show_id').text()},
+                                        url: app_url + "/" + language + "/cars/" + $('#car_edit_id').text(),
+                                        data: formData,
+                                        processData: false,  // tell jQuery not to process the data
+                                        contentType: false,
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {

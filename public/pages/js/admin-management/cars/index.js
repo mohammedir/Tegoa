@@ -29,12 +29,12 @@ $(function () {
                                 name: 'Name'
                             },
                             {
-                                data: 'number',
-                                name: 'number'
+                                data: 'car_number',
+                                name: 'car_number'
                             },
                             {
-                                data: 'brand',
-                                name: 'brand'
+                                data: 'car_brand',
+                                name: 'car_brand'
                             },
                             {
                                 data: 'insurance_number',

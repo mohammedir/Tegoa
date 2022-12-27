@@ -86,26 +86,7 @@
                     </div>
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
-                    <div class="card-toolbar">
-                        <!--begin::Button-->
-                        <button type="button" class="btn btn-light-primary" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_add_car">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
-                            <span class="svg-icon svg-icon-3">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-														<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
-                                                              fill="currentColor"/>
-														<rect x="10.8891" y="17.8033" width="12" height="2" rx="1"
-                                                              transform="rotate(-90 10.8891 17.8033)"
-                                                              fill="currentColor"/>
-														<rect x="6.01041" y="10.9247" width="12" height="2" rx="1"
-                                                              fill="currentColor"/>
-													</svg>
-												</span>
-                            <!--end::Svg Icon-->@lang('web.Add_Car')</button>
-                        <!--end::Button-->
-                    </div>
+
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -388,7 +369,8 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_update_car_form" class="form" action="#">
+                            <form id="kt_modal_update_car_form" class="form" action="#" enctype="multipart/form-data">
+                                @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_edit_event_scroll" data-kt-scroll="true"
                                      data-kt-scroll-activate="{default: false, lg: true}"
@@ -396,7 +378,7 @@
                                      data-kt-scroll-dependencies="#kt_modal_edit_event_header"
                                      data-kt-scroll-wrappers="#kt_modal_edit_event_scroll"
                                      data-kt-scroll-offset="300px">
-                                <input id="car_edit_id" type="hidden">
+                                    <input id="car_edit_id" type="hidden">
                                     <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
@@ -411,12 +393,12 @@
                                             <option>type 1</option>
                                             <option>type 2</option>
                                         </select>
-                                        <strong id="type_error" class="errors text-danger"
+                                        <strong id="type_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
                                         <!--end::Input-->
                                     </div>
 
-                                <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.Car_number')</span>
@@ -433,7 +415,7 @@
                                         <!--end::Input-->
                                     </div>
 
-                                <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.Car_brand')</span>
@@ -450,7 +432,7 @@
                                         <!--end::Input-->
                                     </div>
 
-                                <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.license')</span>
@@ -468,7 +450,7 @@
                                     </div>
 
 
-                                <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.Car_insurance')</span>
@@ -486,7 +468,7 @@
                                         <!--end::Input-->
                                     </div>
 
-                                <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.insurance_expiry_date')</span>
@@ -505,25 +487,8 @@
                                         <!--end::Input-->
                                     </div>
 
-                        <div class="fv-row col-12 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.passengers_insurance')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="passengers_insurance_edit" class="form-control form-control-solid"
-                                               placeholder="@lang('web.insurance_numberEnter')"
-                                               name="passengers_insurance_edit"/>
-                                        <strong id="passengers_insurance_edit_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
 
-                    <div class="fv-row col-12 mb-7">
+                                    <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.Photos')</span>
@@ -533,6 +498,13 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+                                        <input type="file" id="photos_edit" class="form-control form-control-solid"
+                                               multiple
+                                               name="photos_edit[]"/>
+                                        <!--end::Input-->
                                         <div class="photos_show_edit" id="photos_show_edit">
 
                                         </div>
@@ -680,15 +652,6 @@
                                     <hr>
                                     <div class="row">
                                         <div id="block_containers">
-                                            @lang('web.passengers_insurance')
-                                        </div>
-                                        <div id="block_container">
-                                            <span id="passengers_insurance_show"></span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div id="block_containers">
                                             @lang('web.Photos')
                                         </div>
                                         <div id="photos_show">
@@ -741,21 +704,19 @@
                     url: language + "/cars/" + id,
                     success: function (response) {
                         $("#car_show_id").html(response.car.id);
-                        $("#number_show").html(response.car.number);
-                        $("#brand_show").html(response.car.brand);
-                        $("#license_show").html(response.car.license);
+                        $("#number_show").html(response.car.car_number);
+                        $("#brand_show").html(response.car.car_brand);
+                        $("#license_show").html(response.car.license_number);
                         $("#insurance_number_show").html(response.car.insurance_number);
                         $("#insurance_expiry_date_show").html(response.car.insurance_expiry_date);
-                        $("#passengers_insurance_show").html(response.car.passengers_insurance);
                         $("#type_show").html(response.car.type);
                         $("#user_show").html(response.user);
                         $('div#photos_show').empty();
-                        $.each(response.image, function( index, value ) {
+                        $.each(response.image, function (index, value) {
                             var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;">');
                             img.attr('src', app_url + '/images/cars/' + value);
                             img.appendTo('#photos_show');
                         });
-
 
 
                     },
@@ -771,19 +732,18 @@
                 let id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
-                    url: language + "/cars/"+id+"/edit" ,
+                    url:  "/cars/" + id + "/edit",
                     success: function (response) {
-                        $("#car_edit_id").val(response.car.id);
-                        $("#number_edit").val(response.car.number);
-                        $("#brand_edit").val(response.car.brand);
-                        $("#license_edit").val(response.car.license);
+                        $("#car_edit_id").html(response.car.id);
+                        $("#number_edit").val(response.car.car_number);
+                        $("#brand_edit").val(response.car.car_brand);
+                        $("#license_edit").val(response.car.license_number);
                         $("#insurance_number_edit").val(response.car.insurance_number);
                         $("#insurance_expiry_date_edit").val(response.car.insurance_expiry_date);
-                        $("#passengers_insurance_edit").val(response.car.passengers_insurance);
                         $("#type_edit").val(response.car.type);
                         $("#user_edit").val(response.user);
                         $('div#photos_show_edit').empty();
-                        $.each(response.image, function( index, value ) {
+                        $.each(response.image, function (index, value) {
                             var img = $('<img class="btn" id="image_id" style="max-width: 400px;max-height: 300px;">');
                             var btn = $('<input type="hidden" id="id_image"><button type="button" class="btn btn-danger"  id="button1"><i class="bi bi-trash"></i></button>');
                             img.attr('src', app_url + '/images/cars/' + value);
@@ -791,7 +751,6 @@
                             img.appendTo('#photos_show_edit');
                             btn.appendTo('#photos_show_edit');
                         });
-
 
 
                     },
@@ -805,7 +764,6 @@
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{asset('pages/js/admin-management/cars/add-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/update-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/edit-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/list.js')}}" defer></script>

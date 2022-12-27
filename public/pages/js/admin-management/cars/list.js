@@ -57,10 +57,10 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'GET',
-            url: language + "/delete/image/cars/" ,
+            url: "/delete/image/cars/" ,
             data: {
                 id:id,
-                car_id : $('#car_edit_id').val()
+                car_id : $('#car_edit_id').text()
             },
             success: function (response) {
                 if(response.image){
@@ -71,9 +71,9 @@ $(function () {
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
-                    location.reload();
+                    // location.reload();
                     $('div#photos_show_edit').empty();
-                    $.each(response, function( index, value ) {
+                    $.each(response.image, function( index, value ) {
                         var img = $('<img class="btn" id="image_id" style="max-width: 400px;max-height: 300px;">');
                         var btn = $('<button type="button" class="btn btn-danger"  id="button1"><i class="bi bi-trash"></i></button>');
                         img.attr('src', app_url + '/images/cars/' + value);
