@@ -8,6 +8,7 @@ use App\Models\RolesPermission;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class RolesAdminController extends Controller
 {
@@ -120,6 +121,7 @@ class RolesAdminController extends Controller
                 ->addColumn('created_at', function ($user_roles) {
                     return '<div class="text-center"><div>' . $user_roles->user->created_at . '</div></div>';
                 })
+
                 ->addColumn('action', function ($user_roles) {
                     return '<div class="text-center">
                             <div class="btn-group dropstart text-center">
@@ -144,17 +146,18 @@ class RolesAdminController extends Controller
                             </div>
                         </div>';
                 })
-                ->rawColumns(['id'], ['name'], ['created_at'], ['action'])
-                ->escapeColumns(['id' => 'id'], ['name' => 'name'], ['created_at' => 'created_at'], ['action' => 'action'])
+                ->rawColumns(['id'], ['name'], ['created_at'])
+                ->escapeColumns(['id' => 'id'], ['name' => 'name'], ['created_at' => 'created_at'])
                 ->make(true);
         }
-        return view("admin.users.roles.view", compact("role", "user_roles", "permissions"));
+        return view("admin-management.Roles.edit_roles", compact("role", "user_roles", "permissions"));
     }
 
     public function update(Request $request, $id)
     {
         $data = Role::query()->find($id);
         $user_roles = $data->admin_roles;
+
         //dd($user_roles[0]->user->admin_permission);
         $old_name = $data->name;
         $validator = "";
@@ -180,7 +183,7 @@ class RolesAdminController extends Controller
             }
             if ($validator->passes()) {
                 $data->name = $request->name;
-                $data->guard_name = "admin";
+                $data->guard_name = "web";
                 $data->updated_at = Carbon::now();
                 $data->save();
 
@@ -219,13 +222,13 @@ class RolesAdminController extends Controller
                         if ($permission["id"]) {
                             $admin_permission = new AdminPermissions();
                             $admin_permission->permission_id = $permission["id"];
-                            $admin_permission->model_type = "App\Models\Admin";
+                            $admin_permission->model_type = "App\Models\User";
                             $admin_permission->model_id = $user_role->model_id;
                             foreach ($permission["actions"] as $action) {
                                 $admin_permission_action = new AdminPermissions();
                                 $admin_permission_action->permission_id = $action;
                                 $admin_permission_action->model_id = $user_role->model_id;
-                                $admin_permission_action->model_type = "App\Models\Admin";
+                                $admin_permission_action->model_type = "App\Models\User";
                                 $admin_permission_action->save();
                             }
                             $admin_permission->save();
@@ -233,7 +236,7 @@ class RolesAdminController extends Controller
                     }
                 }
                 $role = Role::query()->find($id);
-                return view("admin.users.roles.roles_permissions_item", compact("role"))->render();
+                return response()->json(['success' => $data]);
             }
             return response()->json(['error' => $validator->errors()->toArray()]);
         }
