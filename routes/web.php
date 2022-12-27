@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\RolesAdminController;
@@ -46,7 +47,10 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix' => LaravelLocalizati
     Route::post( '/permissions/update/{id}', [PermissionAdminController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions/destroy/{id}', [PermissionAdminController::class, 'destroy'])->name('permissions.destroy');
 
-
+    Route::resource('cars', CarController::class);
+    Route::post('/accept/car', [CarController::class, 'accept']);
+    Route::post('/decline/car', [CarController::class, 'decline']);
+    Route::get('/delete/image/cars/', [CarController::class, 'deleteImage']);
 
 });
 
