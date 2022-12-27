@@ -74,12 +74,11 @@ class CarController extends Controller
             if ($validator->passes()) {
                 $data = new Car();
                 $data->type = $request->type;
-                $data->number = $request->number;
-                $data->brand = $request->brand;
+                $data->car_number = $request->number;
+                $data->car_brand = $request->brand;
                 $data->license = $request->license;
                 $data->insurance_number = $request->insurance_number;
                 $data->insurance_expiry_date = $request->insurance_expiry_date;
-                $data->passengers_insurance = $request->passengers_insurance;
                 $data->user_id = Auth::user()->id;
                 $data->status = 0;
                 $data->save();
