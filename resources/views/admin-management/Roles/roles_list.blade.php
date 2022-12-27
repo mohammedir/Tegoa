@@ -118,12 +118,10 @@
                                 <!--end::Card body-->
                                 <!--begin::Card footer-->
                                 <div class="card-footer flex-wrap pt-0">
-                                    @can("role_view")
-                                        <a href="{{url("admin/users-roles/show/".$role->id)}}"
+                                        <a href="{{url("roles/show/".$role->id)}}"
                                            class="btn btn-light btn-active-primary my-1 me-2">{{__("str.View Role")}}</a>
-                                    @endcan
                                     @php
-                                        $static_roles = [67,68,69,70,71,72,73];
+                                        $static_roles = [1];
                                     @endphp
                                     @if(!in_array($role->id,$static_roles))
                                             <button type="button" data-id="{{$role->id}}"

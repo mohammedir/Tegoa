@@ -21,7 +21,7 @@ class AdminController extends Controller
     /*    $users = User::query()->get();
         $roles = Role::query()->get();
         return view('admin-management.admins.admins_list',compact('roles','users'));*/
-        $users = User::orderBy('id','DESC')->paginate(5);
+        $users = User::orderBy('id','DESC')->where('id','!=',1)->paginate(5);
         $roles = Role::query()->get();
         return view('admin-management.admins.admins_list',compact('users','roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -55,7 +55,7 @@ class AdminController extends Controller
                 $image = uniqid() . '.jpg';
                 $image_path = "uploads/admins/$image";
                 file_put_contents($image_path, base64_decode($request->customer_image));
-                $data->personal_photo = $image;
+                $data->personalphoto = $image;
                 $data->full_name = $request->name;
                 $data->email = $request->email;
                 $data->password = Hash::make($request->password);

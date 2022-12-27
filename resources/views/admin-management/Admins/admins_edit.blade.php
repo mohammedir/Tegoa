@@ -54,7 +54,7 @@
                         <div class="card-header">
                             <!--begin::Card title-->
                             <div class="card-title">
-                                <h2>{{__("str.Avatar")}}</h2>
+                                <h2>{{__("web.Avatar")}}</h2>
                             </div>
                             <!--end::Card title-->
                         </div>
@@ -78,7 +78,7 @@
                                         <!--begin::Label-->
                                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                data-kt-image-input-action="change"
-                                               data-bs-toggle="tooltip" title="{{__("str.Change avatar")}}">
+                                               data-bs-toggle="tooltip" title="{{__("web.Change avatar")}}">
                                             <i class="bi bi-pencil-fill fs-7"></i>
                                             <!--begin::Inputs-->
                                             <input id="image_file_input" type="file" name="avatar"
@@ -90,21 +90,21 @@
                                         <!--begin::Cancel-->
                                         <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                               data-kt-image-input-action="cancel"
-                                              data-bs-toggle="tooltip" title="{{__("str.Cancel avatar")}}">
+                                              data-bs-toggle="tooltip" title="{{__("web.Cancel avatar")}}">
 																				<i class="bi bi-x fs-2"></i>
 																			</span>
                                         <!--end::Cancel-->
                                         <!--begin::Remove-->
                                         <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                               data-kt-image-input-action="remove"
-                                              data-bs-toggle="tooltip" title="{{__("str.Remove avatar")}}">
+                                              data-bs-toggle="tooltip" title="{{__("web.Remove avatar")}}">
 																				<i class="bi bi-x fs-2"></i>
 																			</span>
                                         <!--end::Remove-->
                                     </div>
                                     <!--end::Image input-->
                                     <!--begin::Hint-->
-                                    <div class="text-muted fs-7">{{__("str.Allowed file types: png, jpg, jpeg.")}}</div>
+                                    <div class="text-muted fs-7">{{__("web.Allowed file types: png, jpg, jpeg.")}}</div>
                                     <!--end::Hint-->
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                 <div class="d-flex flex-stack fs-4 py-3">
                                     <div class="fw-bolder rotate collapsible" data-bs-toggle="collapse"
                                          href="#kt_user_view_details" role="button" aria-expanded="false"
-                                         aria-controls="kt_user_view_details">{{__("str.Details")}}
+                                         aria-controls="kt_user_view_details">{{__("web.Details")}}
                                         <span class="ms-2 rotate-180">
 														<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
 														<span class="svg-icon svg-icon-3">
@@ -134,16 +134,16 @@
                                 <div id="kt_user_view_details" class="collapse show">
                                     <div class="pb-5 fs-6">
                                         <!--begin::Details item-->
-                                        <div class="fw-bolder mt-5">{{__("str.Account ID")}}</div>
+                                        <div class="fw-bolder mt-5">{{__("web.Account ID")}}</div>
                                         <div class="text-gray-600">ID-{{$user->id}}</div>
                                         <!--begin::Details item-->
                                         <!--begin::Details item-->
-                                        <div class="fw-bolder mt-5">{{__("str.Email")}}</div>
+                                        <div class="fw-bolder mt-5">{{__("web.Email")}}</div>
                                         <div class="text-gray-600">
                                             <a href="#"
                                                class="text-gray-600 text-hover-primary">{{$user->email}}</a>
                                         </div>
-                                        <div class="fw-bolder mt-5">{{__("str.Mobile")}}</div>
+                                        <div class="fw-bolder mt-5">{{__("web.Mobile")}}</div>
                                         <div class="text-gray-600">
                                             <a href="#"
                                                class="text-gray-600 text-hover-primary">{{$user->mobile_number}}</a>
@@ -167,7 +167,7 @@
                         <div class="card-header border-0">
                             <!--begin::Card title-->
                             <div class="card-title">
-                                <h2>{{__("str.Profile")}}</h2>
+                                <h2>{{__("web.Profile")}}</h2>
                             </div>
                             <!--end::Card title-->
                         </div>
@@ -184,12 +184,12 @@
                                         <!--begin::Input group-->
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">{{__("str.Full Name")}}</label>
+                                            <label class="required fw-bold fs-6 mb-2">{{__("web.Full Name")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input id="name" type="text" name="name"
                                                    class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="{{__("str.Full name")}}" value="{{$user->full_name}}"/>
+                                                   placeholder="{{__("web.Full name")}}" value="{{$user->full_name}}"/>
                                             <strong id="name_error" class="errors text-danger"
                                                     role="alert">
                                             </strong>
@@ -199,7 +199,7 @@
                                         <!--begin::Input group-->
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">{{__("str.Email")}}</label>
+                                            <label class="required fw-bold fs-6 mb-2">{{__("web.Email")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input id="email" type="email" name="email"
@@ -214,7 +214,7 @@
                                         <!--begin::Input group-->
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">{{__("str.Mobile")}}</label>
+                                            <label class="required fw-bold fs-6 mb-2">{{__("web.Mobile")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input id="mobile" type="tel" name="mobile"
@@ -230,7 +230,7 @@
                                         <!--begin::Input group-->
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">{{__("str.Password")}}</label>
+                                            <label class="required fw-bold fs-6 mb-2">{{__("web.Password")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input id="password" type="password" name="password"
@@ -245,7 +245,7 @@
                                         <!--begin::Input group-->
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">{{__("str.Confirm Password")}}</label>
+                                            <label class="required fw-bold fs-6 mb-2">{{__("web.Confirm Password")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <input id="password_confirmation" type="password"
@@ -262,7 +262,7 @@
                                         <!--begin::Input group-->
                                         <div class="mb-7">
                                             <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-5">{{__("str.Select Role")}}</label>
+                                            <label class="required fw-bold fs-6 mb-5">{{__("web.Select Role")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Roles-->
                                             @php
@@ -337,8 +337,8 @@
                 <a href="{{ url("admin/users") }}"
                    id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{__("str.Cancel")}}</a>
                 <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                    <span class="indicator-label">{{__("str.Save Changes")}}</span>
-                    <span class="indicator-progress">{{__("str.Please wait...")}}
+                    <span class="indicator-label">{{__("web.Save Changes")}}</span>
+                    <span class="indicator-progress">{{__("web.Please wait...")}}
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                 </button>
             </div>

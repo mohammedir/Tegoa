@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix' => LaravelLocalizati
     Route::delete('/admin/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('/roles', [RolesAdminController::class, 'index'])->name('roles.index');
     Route::post('/roles/store', [RolesAdminController::class, 'store'])->name('roles.store');
+    Route::get('/roles/show/{id}', [RolesAdminController::class, 'show'])->name('roles.show');
+    Route::post('/roles/update/{id}', [RolesAdminController::class, 'update'])->name('roles.update');
     Route::delete('/roles/destroy/{id}', [RolesAdminController::class, 'destroy'])->name('roles.destroy');
     Route::get('/permissions', [PermissionAdminController::class, 'index'])->name('roles.index');
     Route::post('/permissions/store', [PermissionAdminController::class, 'store'])->name('permissions.store');

@@ -1,12 +1,12 @@
 $(function () {
-    const language = $('#language').val();
     const add_cart_button = $("#add_cart_button"),
         app_url = $("#app_url").val(),
         role_id = $("#role_id").val(),
+        language = $("#language").val(),
         action_permission_selected_input = $(".action_permission_selected"),
         permission_selected_input = $(".permission_selected");
     let permissions = [],
-        old_permissions = JSON.parse($("#role_permissions_array").val());
+        old_permissions = [];
 
     $(document).ready(function () {
         roles();
@@ -25,29 +25,45 @@ $(function () {
         this.actions = actions;
     }
 
+    function Per(id) {
+        this.id = id
+    }
+
     function old_permissions_selected() {
         $(".kt_modal_edit_role").click(function () {
             let role_id = $(this).data("id");
-            console.log(role_id);
-
             $('#kt_modal_update_role_form input[type=checkbox]').each(function () {
-                console.log($(this).val());
+                if ($(this).prop("checked")) {
+                    let permission_id = $(this).data("id"),
+                        action_id = $(this).val().trim(),
+                        key = action_id + "" + permission_id,
+                        action = new Action(action_id, permission_id, key),
+                        old_action = permissions.filter(x => x.key === key);
+                    if (old_action.length === 0)
+                        permissions.push(action);
+                    else {
+                        permissions = permissions.filter(x => x.key !== key);
+                    }
+                }
             });
+            if (permissions.length === 0 && old_permissions.length > 0)
+                permissions = old_permissions;
         })
     }
 
     function permissions_selected() {
         action_permission_selected_input.click(function () {
             let permission_id = $(this).data("id"),
-                action_id = $(this).val(),
+                action_id = $(this).val().trim(),
                 key = action_id + "" + permission_id,
                 action = new Action(action_id, permission_id, key),
                 old_action = permissions.filter(x => x.key === key);
-            if (old_action.length === 0)
-                permissions.push(action);
-            else {
-                permissions = permissions.filter(x => x.key !== key);
-            }
+            if (action_id)
+                if (old_action.length === 0)
+                    permissions.push(action);
+                else {
+                    permissions = permissions.filter(x => x.key !== key);
+                }
         });
     }
 
@@ -61,7 +77,7 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {role_name: {validators: {notEmpty: {message: "اسم الدور مطلوب"}}}},
+                            fields: {role_name: {validators: {notEmpty: {message: language === "en" ? "Role name is required" : "إسم الدور مطلوب"}}}},
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -78,10 +94,10 @@ $(function () {
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
                                 confirmButtonText: language === "en" ? "Yes, close it!" : "نعم ، أغلقه!",
-                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
+                                cancelButtonText: language === "en" ? "No, return" : "لا تراجع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value && n.hide()
+                                (e.reset(), n.hide())
                             }))
                         })), t.querySelector('[data-kt-roles-modal-action="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
@@ -89,8 +105,8 @@ $(function () {
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بإلغائها!",
-                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
+                                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بالإلغاء!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا تراجع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
                                 t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
@@ -104,17 +120,34 @@ $(function () {
                         }));
                         const r = t.querySelector('[data-kt-roles-modal-action="submit"]');
                         r.addEventListener("click", (function (t) {
+                            old_permissions = permissions;
+                            let permis = [];
+                            let per_id = [];
+                            $.each(permissions, function (i) {
+                                let old_per_id = per_id.filter(x => x.id === permissions[i].permission_id);
+                                if (old_per_id.length === 0) {
+                                    let pp = new Per(permissions[i].permission_id);
+                                    per_id.push(pp)
+                                    let op_pe = permissions.filter(x => x.permission_id === permissions[i].permission_id);
+                                    let actions = [];
+                                    $.each(op_pe, function (j) {
+                                        actions.push(op_pe[j].id);
+                                    });
+                                    let perm = new Permission(permissions[i].permission_id, actions);
+                                    permis.push(perm);
+                                }
+                            });
                             t.preventDefault(), o && o.validate().then((function (t) {
-                                console.log("validated!"), "Valid" == t ?
+                                "Valid" == t ?
                                     $.ajax({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/admin/users-roles/update/" + role_id,
+                                        url: app_url + "/roles/update/" + role_id,
                                         data: {
                                             name: $("#permission_name_update").val(),
-                                            permissions: permissions,
+                                            permissions: permis,
                                         },
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
@@ -130,8 +163,8 @@ $(function () {
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                 }), 2e3));
-                                                disabled_button(true);
-                                                $("#permissions_content").html(response);
+                                                window.location.reload(true);
+
                                             } else {
                                                 Swal.fire({
                                                     text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
@@ -160,15 +193,16 @@ $(function () {
                                 n.forEach((e => {
                                     e.checked = t.target.checked
                                     let permission_id = e.getAttribute("data-id"),
-                                        action_id = e.value,
+                                        action_id = e.value.trim(),
                                         key = action_id + "" + permission_id,
                                         action = new Action(action_id, permission_id, key),
                                         old_action = permissions.filter(x => x.key === key);
-                                    if (old_action.length === 0)
-                                        permissions.push(action);
-                                    else {
-                                        permissions = permissions.filter(x => x.key !== key);
-                                    }
+                                    if (action_id)
+                                        if (old_action.length === 0)
+                                            permissions.push(action);
+                                        else {
+                                            permissions = permissions.filter(x => x.key !== key);
+                                        }
                                 }))
                             } else {
                                 permissions = [];
