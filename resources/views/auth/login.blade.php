@@ -102,6 +102,13 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Form-->
                 <form class="form w-100" novalidate="novalidate" {{--id="kt_sign_in_form"--}} method="POST" action="{{ route('login') }}">
                     @csrf
+                    @if ($errors->any())
+                        <!--begin::Alert-->
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ __('login.Error') }}</strong><br>@foreach ($errors->all() as $error) {{ $error }}<br> @endforeach
+                            </div>
+
+                    @endif
                      <!--begin::Heading-->
                     <div class="text-center mb-10">
                         <!--begin::Title-->

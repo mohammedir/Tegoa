@@ -13,7 +13,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a href="{{url('/')}}" class="text-muted text-hover-primary">@lang('web.dashboard1')</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -435,7 +435,7 @@
                             </th>
                             <th class="min-w-125px">User</th>
                             <th class="min-w-125px">Role</th>
-                            <th class="min-w-125px">Last login</th>
+                            <th class="min-w-125px">Created at</th>
                             <th class="min-w-125px">Two-step</th>
                             <th class="min-w-125px">Joined Date</th>
                             <th class="text-end min-w-100px">Actions</th>
@@ -461,7 +461,7 @@
                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                     <a href="../../demo1/dist/apps/user-management/users/view.html">
                                         <div class="symbol-label">
-                                            <img src="{{asset('uploads/admins/'.$users->personal_photo)}}" alt="Emma Smith" class="w-100" />
+                                            <img src="{{asset('uploads/admins/'.$users->personalphoto)}}" alt="Emma Smith" class="w-100" />
                                         </div>
                                     </a>
                                 </div>
@@ -479,7 +479,7 @@
                             <!--end::Role=-->
                             <!--begin::Last login=-->
                             <td>
-                                <div class="badge badge-light fw-bold">Yesterday</div>
+                                <div class="badge badge-light fw-bold text-center">{{$users->created_at}}</div>
                             </td>
                             <!--end::Last login=-->
                             <!--begin::Two step=-->

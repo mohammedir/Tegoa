@@ -13,7 +13,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a href="{{url('/')}}" class="text-muted text-hover-primary">@lang('web.dashboard1')</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -22,7 +22,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">User Management</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.User Management')</li>
                     <!--end::Item-->
                     <!--begin::Item-->
                     <li class="breadcrumb-item">
@@ -30,7 +30,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Roles</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.Roles')</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -57,12 +57,12 @@
                                 <button type="button" class="btn btn-clear d-flex flex-column flex-center"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
                                     <!--begin::Illustration-->
-                                    <img src="{{asset("assets/images/4.png")}}" alt=""
+                                    <img src="{{asset("assets/media/illustrations/sketchy-1/4.png")}}" alt=""
                                          class="mw-100 mh-150px mb-7"/>
                                     <!--end::Illustration-->
                                     <!--begin::Label-->
                                     <div
-                                        class="fw-bolder fs-3 text-gray-600 text-hover-primary">{{__("str.Add New Role")}}</div>
+                                        class="fw-bolder fs-3 text-gray-600 text-hover-primary">{{__("web.Add New Role")}}</div>
                                     <!--end::Label-->
                                 </button>
                                 <!--begin::Button-->
@@ -90,7 +90,7 @@
                                 <!--begin::Card body-->
                                 <div class="card-body pt-1">
                                     <!--begin::Users-->
-                                    <div class="fw-bolder text-gray-600 mb-5">{{__("str.Total users with this")}}
+                                    <div class="fw-bolder text-gray-600 mb-5">{{__("web.Total users with this")}}
                                         ({{count($role->admin_roles)}})
                                     </div>
                                     <!--end::Users-->
@@ -101,13 +101,13 @@
                                                 <div class="d-flex align-items-center py-2">
 
                                                     <span
-                                                        class="bullet bg-primary me-3"></span>@lang("str.".$role_permission->permission->name)
+                                                        class="bullet bg-primary me-3"></span>@lang("web.".$role_permission->permission->name)
                                                 </div>
                                             @endif
                                             @if($c == 3)
                                                 <div class='d-flex align-items-center py-2'>
                                                     <span class='bullet bg-primary me-3'></span>
-                                                    <em>{{__("str.and")}} {{count($role->role_permissions) - 3}} {{__("str.more...")}}</em>
+                                                    <em>{{__("web.and")}} {{count($role->role_permissions) - 3}} {{__("web.more...")}}</em>
                                                 </div>
                                                 @break
                                             @endif
@@ -119,7 +119,7 @@
                                 <!--begin::Card footer-->
                                 <div class="card-footer flex-wrap pt-0">
                                         <a href="{{url("roles/show/".$role->id)}}"
-                                           class="btn btn-light btn-active-primary my-1 me-2">{{__("str.View Role")}}</a>
+                                           class="btn btn-light btn-active-primary my-1 me-2">{{__("web.View Role")}}</a>
                                     @php
                                         $static_roles = [1];
                                     @endphp
@@ -129,13 +129,11 @@
                                                 {{__("str.Delete")}}
                                             </button>
                                     @endif
-                                    @can("role_edit")
                                         <button data-id="{{$role->id}}" type="button"
                                                 class="d-none kt_modal_edit_role btn btn-light btn-active-light-primary my-1"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_update_role">{{__("str.Edit Role")}}
+                                                data-bs-target="#kt_modal_update_role">{{__("web.Edit Role")}}
                                         </button>
-                                    @endcan
                                 </div>
                                 <!--end::Card footer-->
                             </div>
@@ -156,7 +154,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__("str.Add a Role")}}</h2>
+                            <h2 class="fw-bolder">{{__("web.Add a Role")}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -192,12 +190,12 @@
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
                                         <label class="fs-5 fw-bolder form-label mb-2">
-                                            <span class="required">{{__("str.Role name")}}</span>
+                                            <span class="required">{{__("web.Role name")}}</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input id="permission_name_create" class="form-control form-control-solid"
-                                               placeholder="{{__("str.Enter Here")}}" name="role_name"/>
+                                               placeholder="{{__("web.Enter Here")}}" name="role_name"/>
                                         <!--end::Input-->
                                         <strong id="name_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -207,7 +205,7 @@
                                     <div class="fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-5 fw-bolder form-label mb-2">{{__("str.Role Permissions")}}</label>
+                                            class="required fs-5 fw-bolder form-label mb-2">{{__("web.Role Permissions")}}</label>
                                         <strong id="permissions_error" class="errors text-danger"
                                                 role="alert"></strong>
                                         <!--end::Label-->
@@ -219,7 +217,7 @@
                                                 <tbody class="text-gray-600 fw-bold">
                                                 <!--begin::Table rows-->
                                                 <tr>
-                                                    <td class="text-gray-800">{{__("str.Administrator Access")}}
+                                                    <td class="text-gray-800">{{__("web.Administrator Access")}}
                                                         <i class="fas fa-exclamation-circle ms-1 fs-7"
                                                            data-bs-toggle="tooltip" title=""
                                                            data-bs-original-title="Allows a full access to the system"
@@ -231,7 +229,7 @@
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                    id="kt_roles_select_all">
                                                             <span class="form-check-label"
-                                                                  for="kt_roles_select_all">{{__("str.Select all")}}</span>
+                                                                  for="kt_roles_select_all">{{__("web.Select all")}}</span>
                                                         </label>
                                                         <!--end::Checkbox-->
                                                     </td>
@@ -242,7 +240,7 @@
                                                     @if(!str_contains($permission->name,"_"))
                                                         <tr>
                                                             <!--begin::Label-->
-                                                            <td class="text-gray-800">@lang("str.$permission->name")</td>
+                                                            <td class="text-gray-800">@lang("web.$permission->name")</td>
                                                             <!--end::Label-->
                                                             <!--begin::Options-->
                                                             <td>
@@ -256,7 +254,7 @@
                                                                                value="{{get_permission_by_name($permission->name.'_view')->id}}"
                                                                                name="user_management_view">
                                                                         <span
-                                                                            class="form-check-label">{{__("str.View")}}</span>
+                                                                            class="form-check-label">{{__("web.View")}}</span>
                                                                     </label>
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -266,7 +264,7 @@
                                                                                value="{{get_permission_by_name($permission->name.'_create')->id}}"
                                                                                name="user_management_create">
                                                                         <span
-                                                                            class="form-check-label">{{__("str.Create")}}</span>
+                                                                            class="form-check-label">{{__("web.Create")}}</span>
                                                                     </label>
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -276,7 +274,7 @@
                                                                                value="{{get_permission_by_name($permission->name.'_edit')->id}}"
                                                                                name="user_management_edit">
                                                                         <span
-                                                                            class="form-check-label">{{__("str.Edit")}}</span>
+                                                                            class="form-check-label">{{__("web.Edit")}}</span>
                                                                     </label>
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
@@ -286,7 +284,7 @@
                                                                                value="{{get_permission_by_name($permission->name.'_delete')->id}}"
                                                                                name="user_management_delete">
                                                                         <span
-                                                                            class="form-check-label">{{__("str.Delete")}}</span>
+                                                                            class="form-check-label">{{__("web.Delete")}}</span>
                                                                     </label>
                                                                 </div>
                                                                 <!--end::Wrapper-->
@@ -310,12 +308,12 @@
                                 <!--begin::Actions-->
                                 <div class="text-center pt-15">
                                     <button type="reset" class="btn btn-light me-3"
-                                            data-kt-roles-modal-action="cancel">{{__("str.Discard")}}
+                                            data-kt-roles-modal-action="cancel">{{__("web.Discard")}}
                                     </button>
                                     <button type="submit" class="btn btn-primary"
                                             data-kt-roles-modal-action="submit">
-                                        <span class="indicator-label">{{__("str.Save Changes")}}</span>
-                                        <span class="indicator-progress">{{__("str.Please wait...")}}
+                                        <span class="indicator-label">{{__("web.Save Changes")}}</span>
+                                        <span class="indicator-progress">{{__("web.Please wait...")}}
 															<span
                                                                 class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>

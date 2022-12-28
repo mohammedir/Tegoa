@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::get('/admin/account', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/update/{id}', [AdminController::class, 'update'])->name('admin.update');
     Route::delete('/admin/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('/roles', [RolesAdminController::class, 'index'])->name('roles.index');

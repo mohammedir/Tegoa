@@ -33,6 +33,11 @@ class AdminController extends Controller
         $roles = Role::query()->get();
         return view('admin-management.Admins.admins_edit', compact('user','roles'));
     }
+    public function profile(){
+        $user = User::query()->find(auth()->user()->id);
+        $roles = Role::query()->get();
+        return view('admin-management.Admins.profile', compact('user','roles'));
+    }
 
     public function store(Request $request)
     {
@@ -116,10 +121,10 @@ class AdminController extends Controller
         $image_path = "uploads/admins/$image";
         file_put_contents($image_path, base64_decode($request->user_image));
         if ($request->image_updated == 1){
-        $data->personal_photo = $request->user_image;
+        $data->personalphoto = $request->user_image;
         }
         if ($request->image_updated == 1)
-            $data->personal_photo = $image;
+            $data->personalphoto = $image;
         $data->full_name = $request->name;
         $data->email = $request->email;
         $data->mobile_number = $request->mobile;

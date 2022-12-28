@@ -35,6 +35,17 @@ return [
     'Password' => 'Password',
     'Confirm Password' => 'Confirm Password',
     'Profile' => 'Profile',
+    'Enter Here' => 'Enter Here',
+    'Role name' => 'Role name',
+    'Add a Role' => 'Add a Role',
+    'View Role' => 'View Role',
+    'and' => 'and',
+    'more...' => 'more...',
+    'Total users with this' => 'Total users with this',
+    'Add New Role' => 'Add New Role',
+    'Roles' => 'Roles',
+    'User Management' => 'User Management',
+
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',

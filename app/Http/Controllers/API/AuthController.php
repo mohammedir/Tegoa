@@ -104,6 +104,7 @@ class AuthController extends Controller
             $car->car_brand = $request->car_brand;
             $car->insurance_number = $request->insurance_number;
             $car->insurance_expiry_date = $request->insurance_expiry_date;
+            $car->type = $request->vehicle_type;
             if ($request->hasFile('carphotos')) {
                 $compFileName =  $request->file('carphotos')->getClientOriginalName();
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);

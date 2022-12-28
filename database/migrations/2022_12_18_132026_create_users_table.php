@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->text('address')->nullable();
             $table->integer('gender')->nullable()->comment('1(male)/ 2(female)');
-            $table->integer('user_type');
+            $table->integer('user_type')->comment('0(admin)/ 1(passenger) / 2(driver)');
             $table->string('roles_name')->nullable();
             $table->integer('roles_id')->nullable();
             $table->integer('user_status')->nullable()->default(1)->comment('1(active)/ 2(inactive)');

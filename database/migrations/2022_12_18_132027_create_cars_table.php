@@ -21,7 +21,7 @@ class CreateCarsTable extends Migration
             $table->string('type');
             $table->bigInteger('car_number');
             $table->string('car_brand');
-            $table->string('license_number');
+            $table->string('license_number')->nullable();
             $table->bigInteger('insurance_number');
             $table->date('insurance_expiry_date');
             $table->text('carphotos')->nullable();

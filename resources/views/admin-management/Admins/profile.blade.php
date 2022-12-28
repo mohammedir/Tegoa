@@ -265,18 +265,18 @@
                                             <label class="required fw-bold fs-6 mb-5">{{__("web.Select Role")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Roles-->
-                                            @php
-                                                $role_id = "";
-                                            @endphp
-                                           {{-- @foreach($user->role as $role)
-                                                @php
-                                                    $role_id = $role->role_id;
-                                                @endphp
-                                                <input id="first_role"
-                                                       data-id="{{$role->role_id}}"
-                                                       data-name="{{$role->name}}"
-                                                       type="hidden" value="{{$role->role_id}}">
-                                        @endforeach--}}
+                                        @php
+                                            $role_id = "";
+                                        @endphp
+                                        {{-- @foreach($user->role as $role)
+                                             @php
+                                                 $role_id = $role->role_id;
+                                             @endphp
+                                             <input id="first_role"
+                                                    data-id="{{$role->role_id}}"
+                                                    data-name="{{$role->name}}"
+                                                    type="hidden" value="{{$role->role_id}}">
+                                     @endforeach--}}
                                         @foreach($roles as $k=>$role)
                                             @if($role->id != 71 )
                                                 <!--begin::Input row-->
@@ -291,11 +291,11 @@
                                                                    data-id="{{$role->id}}"
                                                                    id="kt_modal_update_role_option_{{$role->id}}"
                                                                 {{$role->id == $user->roles_id ? "checked":""}}/>
-                                                        @if($k == 0 && $user->roles_id != "")
-                                                            <input id="first_role"
-                                                                   data-id="{{$role->id}}"
-                                                                   data-name="{{$role->name}}"
-                                                                   type="hidden" value="{{$role->id}}">
+                                                            @if($k == 0 && $user->roles_id != "")
+                                                                <input id="first_role"
+                                                                       data-id="{{$role->id}}"
+                                                                       data-name="{{$role->name}}"
+                                                                       type="hidden" value="{{$role->id}}">
                                                         @endif
                                                         <!--end::Input-->
                                                             <!--begin::Label-->
