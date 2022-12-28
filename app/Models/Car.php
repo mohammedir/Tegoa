@@ -12,4 +12,5 @@ class Car extends Model
     protected $table = "cars";
     protected $guarded = [];
     const Status =[0,1,2];
+    const type =[1,2];
 }

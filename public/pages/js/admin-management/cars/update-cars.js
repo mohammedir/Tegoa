@@ -44,7 +44,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language + "/decline/car",
+                                        url: "/decline/car",
                                         data: {id:$('#car_show_id').text()},
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
@@ -95,7 +95,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language + "/accept/car",
+                                        url: "/accept/car",
                                         data: {id:$('#car_show_id').text()},
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
