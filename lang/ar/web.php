@@ -35,6 +35,10 @@ return [
     'Profile' => 'الملف الشخصي',
     'Accept' => 'قبول',
     'Decline' => 'رفض',
+    'public' => 'عام',
+    'private' => 'خاص',
+    'Selected' => 'تم اختيار الصور',
+
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
@@ -73,13 +77,18 @@ return [
     'license' => 'رخصة',
     'insurance_expiry_date' => 'تاريخ انتهاء التأمين',
     'status' => 'الحالة',
-    'Photos' => 'الصور',
+    'Photos' => 'صور السيارة',
     'passengers_insurance' => 'تأمين الركاب',
     'others' => 'اخرى',
     'review' => 'في مراجعة',
     'accepted' => 'مقبول',
     'declined' => 'مرفوض',
     'Car_Details' => 'تفاصيل السيارة',
+    'Edit_car_info' => 'تعديل بيانات السيارة',
+    'Photos_license' => 'صورة الترخيص',
+    'Photos_insurance' => 'صورة التأمين',
+    'Photos_passengersinsurance' => 'صورة تأمين الركاب',
+
 
     'numberEnter' => 'أدخل رقم السيارة',
     'brandEnter' => 'أدخل ماركة السيارة',

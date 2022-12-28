@@ -18,7 +18,7 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('type');
+            $table->string('type')->comment('1:public | 1:private');
             $table->bigInteger('car_number');
             $table->string('car_brand');
             $table->bigInteger('insurance_number');

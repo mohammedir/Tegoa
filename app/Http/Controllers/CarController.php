@@ -7,6 +7,7 @@ use App\Models\Photos;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -23,22 +24,22 @@ class CarController extends Controller
                     return User::find($data->user_id)->full_name;
                 })
                 ->editColumn('status', function ($data) {
-                   if ($data->status == 0){
-                       $status = '<div style="color: #ffc700">in review</div>';
-                   }elseif ($data->status == 1){
-                       $status = '<div>accepted</div>';
-                   }else{
-                       $status = '<div style="color: red">declined</div>';
-                   }
-                   return $status;
+                    if ($data->status == 0){
+                        $status = '<div style="color: #ffc700">'. trans('web.review').'</div>';
+                    }elseif ($data->status == 1){
+                        $status = '<div>'. trans('web.accepted').'</div>';
+                    }else{
+                        $status = '<div style="color: red">'. trans('web.declined').'</div>';
+                    }
+                    return $status;
                 })
                 ->addColumn('others', function ($data) {
                     if ($data->status == 0 || $data->status == 2){
                         $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning" style="color:black;font-weight: bold;">
-                                    Details</button>';
+                                    '. trans('web.Details').'</button>';
                     }else{
                         $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning" style="color:black;font-weight: bold;">
-                                    Edit</button>';
+                                    '. trans('web.Edit').'</button>';
                     }
 
                     return $other;
@@ -81,6 +82,15 @@ class CarController extends Controller
             $car =  Car::find($request->id);
             $car->status = 1;
             $car->save();
+            if ($car){
+                $details = [
+                    'title' => 'Mail from Teqoa',
+                    'body' => 'This email to inform you that the registered vehicle is enabled successfully'
+                ];
+                $user = User::find($car->user_id)->email;
+                Mail::to($user)->send(new \App\Mail\StatusCar($details));
+            }
+
             return response()->json(['response' => $car]);
         }
     }

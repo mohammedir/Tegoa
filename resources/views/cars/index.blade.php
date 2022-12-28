@@ -17,6 +17,12 @@
             display: inline-block;
         }
 
+         #photos_edit {
+             margin-left: 0.3rem;
+             font-family: sans-serif;
+         }
+
+
         /*.photos_show_edit {*/
         /*    position: relative;*/
         /*    width: 100%;*/
@@ -120,12 +126,12 @@
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-125px">@lang('web.Driver')</th>
-                            <th class="min-w-125px">@lang('web.Car_number')</th>
-                            <th class="min-w-125px">@lang('web.Car_brand')</th>
-                            <th class="min-w-125px">@lang('web.Car_insurance')</th>
-                            <th class="min-w-125px">@lang('web.status')</th>
-                            <th class="min-w-125px">@lang('web.others')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.Driver')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.Car_number')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.Car_brand')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.Car_insurance')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.status')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.others')</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -141,219 +147,6 @@
             </div>
             <!--end::Card-->
             <!--begin::Modals-->
-            <!--begin::Modal - Add permissions-->
-            <div class="modal fade" id="kt_modal_add_car" tabindex="-1" aria-hidden="true">
-                <!--begin::Modal dialog-->
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <!--begin::Modal content-->
-                    <div class="modal-content">
-                        <!--begin::Modal header-->
-                        <div class="modal-header">
-                            <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Add_Car')</h2>
-                            <!--end::Modal title-->
-                            <!--begin::Close-->
-                            <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                                 data-kt-permissions-modal-action="close">
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                <span class="svg-icon svg-icon-1">
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-																<rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                                      height="2" rx="1"
-                                                                      transform="rotate(-45 6 17.3137)"
-                                                                      fill="currentColor"/>
-																<rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                                                      transform="rotate(45 7.41422 6)"
-                                                                      fill="currentColor"/>
-															</svg>
-														</span>
-                                <!--end::Svg Icon-->
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--end::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                            <!--begin::Form-->
-                            <form id="kt_modal_add_car_form" class="form" action="#" enctype="multipart/form-data">
-                                @csrf
-                                <!--begin::Input group-->
-                                <div class="row">
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.type')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select id="type" class="form-select form-select-solid" name="type">
-                                            <option>type 1</option>
-                                            <option>type 2</option>
-                                        </select>
-                                        <strong id="type_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.Car_number')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="number" type="number" class="form-control form-control-solid"
-                                               placeholder="@lang('web.numberEnter')" name="number"/>
-                                        <strong id="number_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.Car_brand')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="brand" class="form-control form-control-solid"
-                                               placeholder="@lang('web.brandEnter')" name="brand"/>
-                                        <strong id="brand_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.license')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="license" class="form-control form-control-solid"
-                                               placeholder="@lang('web.licenseEnter')" name="license"/>
-                                        <strong id="license_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.Car_insurance')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="insurance_number" class="form-control form-control-solid"
-                                               placeholder="@lang('web.insurance_numberEnter')"
-                                               name="insurance_number"/>
-                                        <strong id="insurance_number_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.insurance_expiry_date')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="date" id="insurance_expiry_date"
-                                               class="form-control form-control-solid"
-                                               placeholder="@lang('web.insurance_expiry_dateEnter')"
-                                               name="insurance_expiry_date"/>
-                                        <strong id="insurance_expiry_date_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.passengers_insurance')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="passengers_insurance" class="form-control form-control-solid"
-                                               placeholder="@lang('web.insurance_numberEnter')"
-                                               name="passengers_insurance"/>
-                                        <strong id="passengers_insurance_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
-                                    <div class="fv-row col-md-6 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.Photos')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="file" id="photos" class="form-control form-control-solid" multiple
-                                               name="photos[]"/>
-                                        <strong id="passengers_insurance_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-                                </div>
-
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="text-center pt-15">
-                                    <button type="reset" class="btn btn-light me-3"
-                                            data-kt-permissions-modal-action="cancel">@lang('web.Discard')</button>
-                                    <button type="submit" class="btn btn-primary"
-                                            data-kt-permissions-modal-action="submit">
-                                        <span class="indicator-label">@lang('web.Submit')</span>
-                                        <span class="indicator-progress">Please wait...
-																<span
-                                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    </button>
-                                </div>
-                                <!--end::Actions-->
-                            </form>
-                            <!--end::Form-->
-                        </div>
-                        <!--end::Modal body-->
-                    </div>
-                    <!--end::Modal content-->
-                </div>
-                <!--end::Modal dialog-->
-            </div>
-            <!--end::Modal - Add permissions-->
             <!--begin::Modal - Update permissions-->
             <div class="modal fade" id="kt_modal_update_car" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
@@ -391,7 +184,7 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_update_car_form" class="form" action="#" enctype="multipart/form-data">
+                            <form id="kt_modal_update_car_form" class="form" action="#" enctype="multipart/form-data" style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_edit_event_scroll" data-kt-scroll="true"
@@ -412,8 +205,15 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select id="type_edit" class="form-select form-select-solid" name="type_edit">
-                                            <option>type 1</option>
-                                            <option>type 2</option>
+                                            @foreach(\App\Models\Car::type as $type)
+                                                <option value="{{$type}}">
+                                                    @if($type == 1)
+                                                        @lang('web.public')
+                                                    @else
+                                                        @lang('web.private')
+                                                    @endif
+                                                </option>
+                                            @endforeach
                                         </select>
                                         <strong id="type_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -430,7 +230,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="number_edit" type="number" class="form-control form-control-solid"
+                                        <input id="number_edit" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.numberEnter')" name="number_edit"/>
                                         <strong id="number_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -465,7 +265,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="insurance_number_edit" class="form-control form-control-solid"
+                                        <input id="insurance_number_edit" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_numberEnter')"
                                                name="insurance_number_edit"/>
                                         <strong id="insurance_number_edit_error" class="errors text-danger"
@@ -496,19 +296,34 @@
                                     <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.Photos')</span>
+                                            <span>@lang('web.Photos')</span>
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
 
 
                                         <!--begin::Input-->
-                                        <input type="file" id="photos_edit" class="form-control form-control-solid"
-                                               multiple
-                                               name="photos_edit[]"/>
+{{--                                        <input type="file" id="photos_edit" class="form-control form-control-solid"--}}
+{{--                                               multiple--}}
+{{--                                               name="photos_edit[]"/>--}}
+
+                                        <input type="file" id="photos_edit" name="photos_edit[]" accept="image/png, image/jpg, image/jpeg" multiple
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: white">Choose File: <span
+                                                    id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: white;">اختر ملف : <span
+                                                    id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
                                         <!--end::Input-->
                                         <div class="photos_show_edit" id="photos_show_edit">
 
@@ -579,7 +394,7 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_detail_car_form" class="form" action="#">
+                            <form id="kt_modal_detail_car_form" class="form" action="#" style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_detail_car_scroll" data-kt-scroll="true"
@@ -654,6 +469,37 @@
 
                                         </div>
                                     </div>
+                                    <br>
+                                    <hr>
+                                    <div class="row">
+                                        <div id="block_containers">
+                                            @lang('web.Photos_license')
+                                        </div>
+                                        <div id="photos_carlicense_show">
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <div class="row">
+                                        <div id="block_containers">
+                                            @lang('web.Photos_insurance')
+                                        </div>
+                                        <div id="photos_carinsurance_show">
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <div class="row">
+                                        <div id="block_containers">
+                                            @lang('web.Photos_passengersinsurance')
+                                        </div>
+                                        <div id="photos_passengersinsurance_show">
+
+                                        </div>
+                                    </div>
+
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
                                 </div>
@@ -683,10 +529,22 @@
             <!--end::Modals-->
         </div>
         <!--end::Content container-->
+        <input type="hidden" id="trans" value="{{trans('web.Selected')}}">
     </div>
     <!--end::Content-->
 @endsection
 @section('js')
+    <script>
+        const trans = $('#trans').val();
+        const actualBtn = document.getElementById('photos_edit');
+
+        const fileChosen = document.getElementById('file-chosen');
+
+        actualBtn.addEventListener('change', function () {
+            fileChosen.textContent = trans;
+        })
+
+    </script>
     <script>const
             language = $('#language').val(),
             app_url = $('#app_url').val();</script>
@@ -712,6 +570,18 @@
                             img.attr('src', app_url + '/images/cars/' + value);
                             img.appendTo('#photos_show');
                         });
+                        $('div#photos_carlicense_show').empty();
+                        var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 400px;max-height: 300px;">');
+                        img_carlicense.attr('src', app_url + '/images/cars/' + response.car.carlicense);
+                        img_carlicense.appendTo('#photos_carlicense_show');
+                        $('div#photos_carinsurance_show').empty();
+                        var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 400px;max-height: 300px;">');
+                        img_carlicense.attr('src', app_url + '/images/cars/' + response.car.carinsurance);
+                        img_carlicense.appendTo('#photos_carinsurance_show');
+                        $('div#photos_passengersinsurance_show').empty();
+                        var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 400px;max-height: 300px;">');
+                        img_carlicense.attr('src', app_url + '/images/cars/' + response.car.passengersinsurance);
+                        img_carlicense.appendTo('#photos_passengersinsurance_show');
 
 
                     },
