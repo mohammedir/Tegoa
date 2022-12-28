@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\RolesAdminController;
@@ -18,19 +19,16 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
-{
+Route::group(['middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-    Route::get('/', function()
-    {
+    Route::get('/', function () {
         return redirect(route('login'));
     });
-    require __DIR__.'/auth.php';
+    require __DIR__ . '/auth.php';
 
 });
 
-Route::group(['middleware' => ['auth', 'verified'],'prefix' => LaravelLocalization::setLocale()], function()
-{
+Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
@@ -45,14 +43,21 @@ Route::group(['middleware' => ['auth', 'verified'],'prefix' => LaravelLocalizati
     Route::get('/permissions', [PermissionAdminController::class, 'index'])->name('roles.index');
     Route::post('/permissions/store', [PermissionAdminController::class, 'store'])->name('permissions.store');
     Route::get('/permissions/edit/{id}', [PermissionAdminController::class, 'edit'])->name('permissions.edit');
-    Route::post( '/permissions/update/{id}', [PermissionAdminController::class, 'update'])->name('permissions.update');
+    Route::post('/permissions/update/{id}', [PermissionAdminController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions/destroy/{id}', [PermissionAdminController::class, 'destroy'])->name('permissions.destroy');
 
+    Route::resource('cars', CarController::class);
+    Route::post('/accept/car', [CarController::class, 'accept']);
+    Route::post('/decline/car', [CarController::class, 'decline']);
+    Route::get('/delete/image/cars/', [CarController::class, 'deleteImage']);
 
+    Route::get('language/{locale}', function ($locale) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->back();
+    });
 
 });
-
-
 
 
 Route::middleware('auth')->group(function () {
