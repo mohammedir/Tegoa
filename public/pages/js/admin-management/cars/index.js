@@ -1,4 +1,3 @@
-
 $(function () {
     const
         language = $('#language').val(),
@@ -21,7 +20,6 @@ $(function () {
                         ajax: {
                             "url": app_url + "/" + language + "/cars",
                             "type": 'GET',
-                            /*"data":{core_name:core_name},*/
                         },
                         columns: [
                             {
@@ -48,7 +46,7 @@ $(function () {
                                 data: 'others',
                                 name: 'others'
                             }
-                    ],language: {
+                        ], language: {
                             url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
                         },
                     })).on("draw", (function () {

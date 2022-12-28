@@ -134,7 +134,6 @@ class CarController extends Controller
                 'type_edit' => 'required|string|max:255',
                 'number_edit' => 'required|numeric',
                 'brand_edit' => 'required|string|max:255',
-                'license_edit' => 'required|string|max:255',
                 'insurance_number_edit' => 'required|string|max:255',
                 'insurance_expiry_date_edit' => 'required|date',
                 'photos_edit.*' => 'sometimes|mimes:jpeg,png,jpg'
@@ -146,7 +145,6 @@ class CarController extends Controller
                 $data->type = $request->type_edit;
                 $data->car_number = $request->number_edit;
                 $data->car_brand = $request->brand_edit;
-                $data->license_number = $request->license_edit;
                 $data->insurance_number = $request->insurance_number_edit;
                 $data->insurance_expiry_date = $request->insurance_expiry_date_edit;
                 $data->user_id = Auth::user()->id;

@@ -17,6 +17,28 @@
             display: inline-block;
         }
 
+        /*.photos_show_edit {*/
+        /*    position: relative;*/
+        /*    width: 100%;*/
+        /*    !*border: 2px solid blue;*!*/
+        /*}*/
+        /*img {*/
+        /*    width: 100%;*/
+
+        /*}*/
+        /*.button1{*/
+        /*    position: absolute;*/
+        /*    !*padding: 16px;*!*/
+        /*    !*background-color: green;*!*/
+        /*    border-radius: 16px;*/
+        /*    !*bottom: 10px;*!*/
+        /*    left: 260px;*/
+        /*    top: 20px;*/
+        /*    !*box-sizing: border-box;*!*/
+
+        /*    !*width: 100px;*!*/
+        /*}*/
+
     </style>
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -432,23 +454,6 @@
                                         <!--end::Input-->
                                     </div>
 
-                                    <div class="fv-row col-12 mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span class="required">@lang('web.license')</span>
-                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                               data-bs-trigger="hover" data-bs-html="true"
-                                               data-bs-content="@lang('web.required')"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input id="license_edit" class="form-control form-control-solid"
-                                               placeholder="@lang('web.licenseEnter')" name="license_edit"/>
-                                        <strong id="license_edit_error" class="errors text-danger"
-                                                role="alert"></strong>
-                                        <!--end::Input-->
-                                    </div>
-
 
                                     <div class="fv-row col-12 mb-7">
                                         <!--begin::Label-->
@@ -634,15 +639,6 @@
                                     <hr>
                                     <div class="row">
                                         <div id="block_containers">
-                                            @lang('web.license')
-                                        </div>
-                                        <div id="block_container">
-                                            <span id="license_show"></span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div id="block_containers">
                                             @lang('web.insurance_expiry_date')
                                         </div>
                                         <div id="block_container">
@@ -701,12 +697,11 @@
                 let id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
-                    url: language + "/cars/" + id,
+                    url: "/cars/" + id,
                     success: function (response) {
                         $("#car_show_id").html(response.car.id);
                         $("#number_show").html(response.car.car_number);
                         $("#brand_show").html(response.car.car_brand);
-                        $("#license_show").html(response.car.license_number);
                         $("#insurance_number_show").html(response.car.insurance_number);
                         $("#insurance_expiry_date_show").html(response.car.insurance_expiry_date);
                         $("#type_show").html(response.car.type);
@@ -737,7 +732,6 @@
                         $("#car_edit_id").html(response.car.id);
                         $("#number_edit").val(response.car.car_number);
                         $("#brand_edit").val(response.car.car_brand);
-                        $("#license_edit").val(response.car.license_number);
                         $("#insurance_number_edit").val(response.car.insurance_number);
                         $("#insurance_expiry_date_edit").val(response.car.insurance_expiry_date);
                         $("#type_edit").val(response.car.type);
@@ -745,7 +739,7 @@
                         $('div#photos_show_edit').empty();
                         $.each(response.image, function (index, value) {
                             var img = $('<img class="btn" id="image_id" style="max-width: 400px;max-height: 300px;">');
-                            var btn = $('<input type="hidden" id="id_image"><button type="button" class="btn btn-danger"  id="button1"><i class="bi bi-trash"></i></button>');
+                            var btn = $('<input type="hidden" id="id_image"><button type="button" class="btn btn-icon btn-circle btn-active-color-danger w-25px h-25px bg-body shadow"  id="button1"><i class="bi bi-trash"></i></button>');
                             img.attr('src', app_url + '/images/cars/' + value);
                             btn.attr('data-id', value);
                             img.appendTo('#photos_show_edit');
