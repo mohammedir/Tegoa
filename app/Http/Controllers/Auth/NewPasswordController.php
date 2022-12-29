@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
@@ -20,6 +22,7 @@ class NewPasswordController extends Controller
      */
     public function create(Request $request)
     {
+
         return view('auth.reset-password', ['request' => $request]);
     }
 
@@ -33,16 +36,25 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'token' => ['required'],
-            'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        if ($validator->passes()){
+            $passenger = User::query()->where('api_token','=',$request->token)->get()->first();
+            $passenger->password = Hash::make($request->password);
+            $passenger->save();
+            return redirect()->back()->with('message', 'Password changed success ');
 
+        }else{
+            return
+                  back()->withInput($request->only('email'))
+                    ->withErrors(['email' => __($validator->errors()->first())]);
+        }
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
-        $status = Password::reset(
+        /*$status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
@@ -52,14 +64,14 @@ class NewPasswordController extends Controller
 
                 event(new PasswordReset($user));
             }
-        );
+        );*/
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
+        /*return $status == Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+                            ->withErrors(['email' => __($status)]);*/
     }
 }

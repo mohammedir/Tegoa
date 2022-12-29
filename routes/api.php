@@ -34,6 +34,17 @@ Route::controller(GuestController::class)
         Route::get('/tour_guids', 'tour_guids')->name('tour_guids');
         Route::get('/contact_emergency', 'contact_emergency')->name('contact_emergency');
     });
+Route::controller(PassengerController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/passenger/edit_profile', 'edit_profile')->name('news');
+        Route::post('/passenger/update_profile', 'update_profile');
+        Route::post('/passenger/change_password', 'change_password');
+        Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
+    });
+Route::get('/passenger/reset_password_view/{id}', [PassengerController::class,'reset_password_view']);
+Route::post('/passenger/update-password-with-email', [PassengerController::class,'update_password_with_email']);
+
 
 /*
 Route::post('login',[PassengerController::class,'login'])->name('passenger.login');
