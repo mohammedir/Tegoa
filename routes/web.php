@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
@@ -51,6 +52,9 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::post('/accept/car', [CarController::class, 'accept']);
     Route::post('/decline/car', [CarController::class, 'decline']);
     Route::get('/delete/image/cars/', [CarController::class, 'deleteImage']);
+
+    Route::resource('news', NewsController::class);
+
 
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);

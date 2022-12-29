@@ -3,14 +3,14 @@ $(function () {
         language = $('#language').val();
 
     $(document).ready(function () {
-        update_car();
+        update_news();
     });
 
-    function update_car() {
+    function update_news() {
         "use strict";
         var KTUsersUpdatePermission = function () {
-            const t = document.getElementById("kt_modal_update_car"),
-                e = t.querySelector("#kt_modal_update_car_form"), n = new bootstrap.Modal(t);
+            const t = document.getElementById("kt_modal_update_news"),
+                e = t.querySelector("#kt_modal_update_news_form"), n = new bootstrap.Modal(t);
             return {
                 init: function () {
                     (() => {
@@ -25,7 +25,7 @@ $(function () {
                                 })
                             }
                         });
-                        t.querySelector('[data-kt-permissions-modal-action="close"]').addEventListener("click", (t => {
+                        t.querySelector('[data-kt-permissions-modal-actions="close"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
                                 text: language === "en" ? "Are you sure you would like to close?" : "هل أنت متأكد أنك تريد الإغلاق؟",
                                 icon: "warning",
@@ -35,9 +35,9 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value && $('div#photos_show').empty() && $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
+                                t.value  && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
                             }))
-                        })), t.querySelector('[data-kt-permissions-modal-action="cancel"]').addEventListener("click", (t => {
+                        })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
                                 text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
                                 icon: "warning",
@@ -47,7 +47,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -56,22 +56,19 @@ $(function () {
                                 })
                             }))
                         }));
-                        const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
+                        const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
-                            var formData = new FormData(document.getElementById("kt_modal_update_car_form"));
+                            var formData = new FormData(document.getElementById("kt_modal_update_news_form"));
                             formData.append('_method', 'put');
-                            const totalImages = $("#photos_edit")[0].files.length;
-                            let images = $("#photos_edit")[0];
-                            for (let i = 0; i < totalImages; i++) {
-                                formData.append('photos' + i, images.files[i]);
-                            }
+                            var featured_image = $('#fileuploads')[0].files[0];
+                            formData.append("fileuploads", featured_image);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language + "/cars/" + $('#car_edit_id').text(),
+                                        url: app_url + "/" + language + "/news/" + $('#news_edit_id').text(),
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -89,12 +86,10 @@ $(function () {
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                 }), 2e3));
-                                                $("#file-chosen").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
-                                                $('div#photos_show').empty();
-                                                $("input").val("");
-                                                $(".errors").html("");
+                                                $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
+                                                $("textarea").val("");
                                                 /*table.DataTable().ajax.reload();*/
-                                                $('#kt_cars_table').DataTable().ajax.reload();
+                                                $('#kt_news_table').DataTable().ajax.reload();
 
                                             } else {
                                                 Swal.fire({

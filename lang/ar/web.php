@@ -35,6 +35,13 @@ return [
     'Profile' => 'الملف الشخصي',
     'Accept' => 'قبول',
     'Decline' => 'رفض',
+    'public' => 'عام',
+    'private' => 'خاص',
+    'Selected' => 'تم اختيار الصور',
+    'active' => 'نشط',
+    'inactive' => 'غير نشط',
+    'english' => 'الانجليزيه',
+    'arabic' => 'العربيه',
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
@@ -73,13 +80,18 @@ return [
     'license' => 'رخصة',
     'insurance_expiry_date' => 'تاريخ انتهاء التأمين',
     'status' => 'الحالة',
-    'Photos' => 'الصور',
+    'Photos' => 'صور السيارة',
     'passengers_insurance' => 'تأمين الركاب',
     'others' => 'اخرى',
     'review' => 'في مراجعة',
     'accepted' => 'مقبول',
     'declined' => 'مرفوض',
     'Car_Details' => 'تفاصيل السيارة',
+    'Edit_car_info' => 'تعديل بيانات السيارة',
+    'Photos_license' => 'صورة الترخيص',
+    'Photos_insurance' => 'صورة التأمين',
+    'Photos_passengersinsurance' => 'صورة تأمين الركاب',
+
 
     'numberEnter' => 'أدخل رقم السيارة',
     'brandEnter' => 'أدخل ماركة السيارة',
@@ -87,7 +99,31 @@ return [
     'insurance_numberEnter' => 'أدخل رقم تأمين السيارة',
     'insurance_expiry_dateEnter' => 'أدخل تاريخ انتهاء صلاحية تأمين السيارة',
 
+    /*news*/
+    'news' => 'اخبارية',
+    'announcements' => 'اعلانات',
+    'news_list' => 'قائمه الاخبار',
+    'News_Management' => 'إدارة الأخبار',
+    'Add_News' => 'اضافه خبر',
+    'title' => 'العنوان',
+    'article' => 'مقالة',
+    'description' => 'وصف',
+    'PhotosNews' => 'صورة',
+
+
+    'titleEnter' => 'أدخل عنوان الخبر',
+    'articleEnter' => 'أدخل مقالة إخبارية',
+    'descriptionEnter' => 'أدخل وصف الخبر',
+
+    /*messages*/
     'required' => 'هذا الحقل مطلوب',
+    'string' => 'يجب أن يكون هذا الحقل نصا',
+    'max' => 'يجب ألا يزيد هذا الحقل عن 255 حرفًا.',
+    'numeric' => 'يجب أن يكون هذا الحقل رقمًا',
+    'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
+    'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+
 
 
 ];

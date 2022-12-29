@@ -6,8 +6,6 @@ return [
     'Discard' => 'Discard',
     'Submit' => 'Submit',
     'Please wait...' => 'Please wait...',
-    'Accept' => 'Accept',
-    'Decline' => 'Decline',
     'Users Assigned' => 'Users Assigned',
     'Search Here' => 'Search Here',
     'Joined Date' => 'Joined Date',
@@ -35,17 +33,15 @@ return [
     'Password' => 'Password',
     'Confirm Password' => 'Confirm Password',
     'Profile' => 'Profile',
-    'Enter Here' => 'Enter Here',
-    'Role name' => 'Role name',
-    'Add a Role' => 'Add a Role',
-    'View Role' => 'View Role',
-    'and' => 'and',
-    'more...' => 'more...',
-    'Total users with this' => 'Total users with this',
-    'Add New Role' => 'Add New Role',
-    'Roles' => 'Roles',
-    'User Management' => 'User Management',
-
+    'Accept' => 'Accept',
+    'Decline' => 'Decline',
+    'public' => 'Public',
+    'private' => 'Private',
+    'Selected' => 'Photos have been selected',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'english' => 'English',
+    'arabic' => 'Arabic',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
@@ -84,13 +80,17 @@ return [
     'license' => 'License',
     'insurance_expiry_date' => 'Insurance expiry date',
     'status' => 'status',
-    'Photos' => 'Photos',
+    'Photos' => 'Car photos',
     'passengers_insurance' => 'Passengers insurance',
     'others' => 'others',
     'review' => 'in review',
     'accepted' => 'accepted',
     'declined' => 'declined',
     'Car_Details' => 'Car Details',
+    'Edit_car_info' => 'Edit car info',
+    'Photos_license' => 'License photo',
+    'Photos_insurance' => 'Insurance photo',
+    'Photos_passengersinsurance' => 'Passengers insurance photo',
 
     'numberEnter' => 'Enter a car number',
     'brandEnter' => 'Enter a car brand',
@@ -98,7 +98,33 @@ return [
     'insurance_numberEnter' => 'Enter a car insurance number',
     'insurance_expiry_dateEnter' => 'Enter a car insurance expiry date',
 
+    /*news*/
+    'news' => 'news',
+    'announcements' => 'announcements',
+    'news_list' => 'News List',
+    'News_Management' => 'News Management',
+    'Add_News' => 'Add New',
+    'title' => 'Title',
+    'article' => 'Article',
+    'description' => 'Description',
+    'PhotosNews' => 'Photos',
+
+    'titleEnter' => 'Enter a news title',
+    'articleEnter' => 'Enter a news article',
+    'descriptionEnter' => 'Enter news description',
+
+
+
+
+    /*messages*/
     'required' => 'This filed is required',
+    'string' => 'This field must be string',
+    'max' => 'This field must not be greater than 255 characters.',
+    'numeric' => 'This field must be a number',
+    'date' => 'This field does not match the format',
+    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+
 
 
 ];
