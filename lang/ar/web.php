@@ -38,7 +38,10 @@ return [
     'public' => 'عام',
     'private' => 'خاص',
     'Selected' => 'تم اختيار الصور',
-
+    'active' => 'نشط',
+    'inactive' => 'غير نشط',
+    'english' => 'الانجليزيه',
+    'arabic' => 'العربيه',
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
@@ -96,7 +99,31 @@ return [
     'insurance_numberEnter' => 'أدخل رقم تأمين السيارة',
     'insurance_expiry_dateEnter' => 'أدخل تاريخ انتهاء صلاحية تأمين السيارة',
 
+    /*news*/
+    'news' => 'اخبارية',
+    'announcements' => 'اعلانات',
+    'news_list' => 'قائمه الاخبار',
+    'News_Management' => 'إدارة الأخبار',
+    'Add_News' => 'اضافه خبر',
+    'title' => 'العنوان',
+    'article' => 'مقالة',
+    'description' => 'وصف',
+    'PhotosNews' => 'صورة',
+
+
+    'titleEnter' => 'أدخل عنوان الخبر',
+    'articleEnter' => 'أدخل مقالة إخبارية',
+    'descriptionEnter' => 'أدخل وصف الخبر',
+
+    /*messages*/
     'required' => 'هذا الحقل مطلوب',
+    'string' => 'يجب أن يكون هذا الحقل نصا',
+    'max' => 'يجب ألا يزيد هذا الحقل عن 255 حرفًا.',
+    'numeric' => 'يجب أن يكون هذا الحقل رقمًا',
+    'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
+    'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+
 
 
 ];

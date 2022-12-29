@@ -178,11 +178,26 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-											<span class="menu-title">Cars</span>
+											<span class="menu-title">@lang('web.Cars_List')</span>
                     </a>
                     <!--end:Menu link-->
 
                 </div>
+                    <div class="menu-item menu-accordion {{str_contains($url,"news")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"news") ? "active":""}}" href="{{route('news.index')}}">
+											<span class="menu-icon">
+												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
+												<span class="svg-icon svg-icon-2">
+													<i class="bi bi-newspaper"></i>
+												</span>
+                                                <!--end::Svg Icon-->
+											</span>
+                            <span class="menu-title">@lang('web.news_list')</span>
+                        </a>
+                        <!--end:Menu link-->
+
+                    </div>
 
             </div>
             <!--end::Menu-->

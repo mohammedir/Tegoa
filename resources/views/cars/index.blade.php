@@ -306,9 +306,6 @@
 
 
                                         <!--begin::Input-->
-{{--                                        <input type="file" id="photos_edit" class="form-control form-control-solid"--}}
-{{--                                               multiple--}}
-{{--                                               name="photos_edit[]"/>--}}
 
                                         <input type="file" id="photos_edit" name="photos_edit[]" accept="image/png, image/jpg, image/jpeg" multiple
                                                hidden/>
@@ -316,7 +313,7 @@
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
-                                                   style="color: white">Choose File: <span
+                                                   style="color: CCCCCC">Choose File: <span
                                                     id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
                                         @else
                                             <label for="photos_edit"
@@ -562,7 +559,7 @@
                         $("#brand_show").html(response.car.car_brand);
                         $("#insurance_number_show").html(response.car.insurance_number);
                         $("#insurance_expiry_date_show").html(response.car.insurance_expiry_date);
-                        $("#type_show").html(response.car.type);
+                        $("#type_show").html(response.type);
                         $("#user_show").html(response.user);
                         $('div#photos_show').empty();
                         $.each(response.image, function (index, value) {

@@ -23,9 +23,8 @@ class CreateNewsAndAnnouncementsTable extends Migration
             $table->text('description');
             $table->integer('status')->default(1)->comment('1(active) / 0(inactive)');
             $table->bigInteger('type')->comment('1(news) / 2(announcements)');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

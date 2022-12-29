@@ -38,7 +38,10 @@ return [
     'public' => 'Public',
     'private' => 'Private',
     'Selected' => 'Photos have been selected',
-
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'english' => 'English',
+    'arabic' => 'Arabic',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
@@ -95,7 +98,33 @@ return [
     'insurance_numberEnter' => 'Enter a car insurance number',
     'insurance_expiry_dateEnter' => 'Enter a car insurance expiry date',
 
+    /*news*/
+    'news' => 'news',
+    'announcements' => 'announcements',
+    'news_list' => 'News List',
+    'News_Management' => 'News Management',
+    'Add_News' => 'Add New',
+    'title' => 'Title',
+    'article' => 'Article',
+    'description' => 'Description',
+    'PhotosNews' => 'Photos',
+
+    'titleEnter' => 'Enter a news title',
+    'articleEnter' => 'Enter a news article',
+    'descriptionEnter' => 'Enter news description',
+
+
+
+
+    /*messages*/
     'required' => 'This filed is required',
+    'string' => 'This field must be string',
+    'max' => 'This field must not be greater than 255 characters.',
+    'numeric' => 'This field must be a number',
+    'date' => 'This field does not match the format',
+    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+
 
 
 ];
