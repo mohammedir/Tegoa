@@ -41,6 +41,7 @@ Route::controller(PassengerController::class)
         Route::post('/passenger/update_profile', 'update_profile');
         Route::post('/passenger/change_password', 'change_password');
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
+        Route::post('/passenger/find_transportion', 'find_transportion');
     });
 Route::get('/passenger/reset_password_view/{id}', [PassengerController::class,'reset_password_view']);
 Route::post('/passenger/update-password-with-email', [PassengerController::class,'update_password_with_email']);
