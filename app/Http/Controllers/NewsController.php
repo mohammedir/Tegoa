@@ -14,7 +14,7 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = News::query()->get();
+            $data = News::query()->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
                     if ($data->status == 1) {

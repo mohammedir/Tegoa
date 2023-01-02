@@ -113,7 +113,13 @@ return [
     'articleEnter' => 'Enter a news article',
     'descriptionEnter' => 'Enter news description',
 
-
+    /*places*/
+    'places_list' => 'Places List',
+    'Places_Management' => 'Places Management',
+    'Add_place' => 'Add Place',
+    'map' => 'Location on map',
+    'place' => 'Place',
+    'address' => 'Address',
 
 
     /*messages*/

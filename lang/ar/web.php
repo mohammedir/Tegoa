@@ -115,6 +115,16 @@ return [
     'articleEnter' => 'أدخل مقالة إخبارية',
     'descriptionEnter' => 'أدخل وصف الخبر',
 
+    /*places*/
+    'places_list' => 'قائمة الأماكن',
+    'Places_Management' => 'إدارة الأماكن',
+    'Add_place' => 'أضف مكان',
+    'map' => 'الموقع على الخريطة',
+    'place' => 'المكان',
+    'address' => 'العنوان',
+
+
+
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
     'string' => 'يجب أن يكون هذا الحقل نصا',
