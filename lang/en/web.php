@@ -42,28 +42,29 @@ return [
     'inactive' => 'Inactive',
     'english' => 'English',
     'arabic' => 'Arabic',
+    'maps' => 'map',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
 
 
     /*permission*/
-    'dashboard'=>'dashboard',
-    'dashboard_view'=>'dashboard_view',
-    'dashboard_create'=>'dashboard_create',
-    'dashboard_edit'=>'dashboard_edit',
-    'dashboard_delete'=>'dashboard_delete',
-    'users'=>'users',
-    'users_view'=>'users_view',
-    'users_create'=>'users_create',
-    'users_edit'=>'users_edit',
-    'users_delete'=>'users_delete',
+    'dashboard' => 'dashboard',
+    'dashboard_view' => 'dashboard_view',
+    'dashboard_create' => 'dashboard_create',
+    'dashboard_edit' => 'dashboard_edit',
+    'dashboard_delete' => 'dashboard_delete',
+    'users' => 'users',
+    'users_view' => 'users_view',
+    'users_create' => 'users_create',
+    'users_edit' => 'users_edit',
+    'users_delete' => 'users_delete',
     /*----------------------------*/
     'Permission Name' => 'Permission Name',
     'Add Permission' => 'Add Permission',
     'Name' => 'Name',
-    'Created Date' =>'Created Date',
-    'Actions'   => 'Actions',
+    'Created Date' => 'Created Date',
+    'Actions' => 'Actions',
     'Update Permission' => 'Update Permission',
 
     /*cars*/
@@ -115,12 +116,22 @@ return [
 
     /*places*/
     'places_list' => 'Places List',
+    'name' => 'Name',
     'Places_Management' => 'Places Management',
     'Add_place' => 'Add Place',
     'map' => 'Location on map',
     'place' => 'Place',
     'address' => 'Address',
+    'places' => 'Places',
+    'tourism sites' => 'Tourism sites',
+    'stations' => 'Stations',
+    'location' => 'Location',
+    'Place_Details' => 'Place Details',
 
+
+    'nameEnter' => 'Enter a place name',
+    'addressEnter' => 'Enter a address',
+    'descriptionPlaceEnter' => 'Enter place description',
 
     /*messages*/
     'required' => 'This filed is required',
@@ -130,7 +141,6 @@ return [
     'date' => 'This field does not match the format',
     'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
     'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
-
 
 
 ];

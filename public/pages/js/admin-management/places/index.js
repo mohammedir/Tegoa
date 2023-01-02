@@ -15,7 +15,7 @@ $(function () {
             };
             return {
                 init: function () {
-                    (t = document.querySelector("#kt_news_table")) && ((e = $(t).DataTable({
+                    (t = document.querySelector("#kt_places_table")) && ((e = $(t).DataTable({
                         searchable: true,
                         ajax: {
                             "url": app_url + "/" + language + "/places",

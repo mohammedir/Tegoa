@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('lat');
             $table->string('long');
             $table->integer('type')->comment('1:places | 2:tourism sites | 3:stations');
+            $table->longText('image');
             $table->softDeletes();
             $table->timestamps();
         });

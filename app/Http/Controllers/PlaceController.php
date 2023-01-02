@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class PlaceController extends Controller
@@ -22,20 +23,30 @@ class PlaceController extends Controller
                     return $data->address;
                 })
                 ->addColumn('map', function ($data) {
-                    return "map";
+                    return '<a id="showMap" style="text-decoration:underline;color: #ceb115;" class="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_show_maps">' . trans("web.maps") . '</a>';
                 })
                 ->editColumn('type', function ($data) {
                     if ($data->type == 1) {
-                        $status =  trans('web.place');
-                    } elseif($data->type == 2) {
-                        $status =   trans('web.tourism_sites');
-                    }else{
-                        $status =   trans('web.stations');
+                        $status = trans('web.place');
+                    } elseif ($data->type == 2) {
+                        $status = trans('web.tourism sites');
+                    } else {
+                        $status = trans('web.stations');
                     }
                     return $status;
                 })
                 ->addColumn('others', function ($data) {
-                    $actions = '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_news">
+                    $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_places">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
+                                    <span class="svg-icon svg-icon-3">
+																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"/>
+                                                                    <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"/>
+                                                                    </svg>
+																</span>
+                                    <!--end::Svg Icon-->
+                                </button>
+                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_places">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,26 +87,181 @@ class PlaceController extends Controller
 
     public function store(Request $request)
     {
-        //
+//        dd($request->input());
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'type' => 'required|numeric',
+                'lat' => 'required|numeric',
+                'long' => 'required|numeric',
+                'name_en' => 'required|string|max:255',
+                'name_ar' => 'required|string|max:255',
+                'description_en' => 'required|string|max:255',
+                'description_ar' => 'required|string|max:255',
+                'address_en' => 'required|string|max:255',
+                'address_ar' => 'required|string|max:255',
+                'fileupload' => 'required|mimes:jpeg,png,jpg'
+            ], [
+                'type.required' => trans("web.required"),
+                'type.numeric' => trans("web.numeric"),
+
+                'lat.required' => trans("web.required"),
+                'lat.numeric' => trans("web.numeric"),
+
+                'long.required' => trans("web.required"),
+                'long.numeric' => trans("web.numeric"),
+
+                'name_en.required' => trans("web.required"),
+                'name_en.string' => trans("web.string"),
+                'name_en.max' => trans("web.max"),
+                'name_ar.required' => trans("web.required"),
+                'name_ar.string' => trans("web.string"),
+                'name_ar.max' => trans("web.max"),
+
+                'description_en.required' => trans("web.required"),
+                'description_en.string' => trans("web.string"),
+                'description_en.max' => trans("web.max"),
+                'description_ar.required' => trans("web.required"),
+                'description_ar.string' => trans("web.string"),
+                'description_ar.max' => trans("web.max"),
+
+                'address_en.required' => trans("web.required"),
+                'address_en.string' => trans("web.string"),
+                'address_en.max' => trans("web.max"),
+                'address_ar.required' => trans("web.required"),
+                'address_ar.string' => trans("web.string"),
+                'address_ar.max' => trans("web.max"),
+
+                'fileupload.required' => trans("web.required"),
+                'fileupload.mimes' => trans("web.mimes"),
+
+            ]);
+            if ($validator->passes()) {
+                $data = new Place();
+                $data->name = ['en' => $request->name_en, "ar" => $request->name_ar];
+                $data->description = ['en' => $request->description_en, "ar" => $request->description_ar];
+                $data->address = ['en' => $request->address_en, "ar" => $request->address_ar];
+                $data->type = $request->type;
+                $data->lat = $request->lat;
+                $data->long = $request->long;
+
+                if ($request->file('fileupload')) {
+                    $value = $request->file('fileupload');
+                    $name = time() . rand(1, 100) . '.' . $value->extension();
+                    $value->move('images/places/', $name);
+                    $data->image = $name;
+                }
+
+                $data->save();
+
+
+                return response()->json(['success' => $data]);
+            }
+            return response()->json(['error' => $validator->errors()->toArray()]);
+        }
     }
 
-    public function show(Place $place)
+    public function show(Request $request,Place $place)
     {
-        //
+        if ($request->ajax()) {
+            $place = Place::find($place->id);
+            if ($place->type == 1) {
+                $type =  trans('web.places');
+            }elseif ($place->type == 2) {
+                $type =  trans('web.tourism sites');
+            } else {
+                $type =  trans('web.stations');
+            }
+            return response()->json(['place'=>$place,'type'=>$type]);
+        }
     }
 
-    public function edit(Place $place)
+    public function edit(Request $request, Place $place)
     {
-        //
+        if ($request->ajax()) {
+            $place = Place::find($place->id);
+            return response()->json($place);
+        }
     }
 
     public function update(Request $request, Place $place)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'type_edit' => 'required|numeric',
+            'lat_edit' => 'required|numeric',
+            'long_edit' => 'required|numeric',
+            'name_en_edit' => 'required|string|max:255',
+            'name_ar_edit' => 'required|string|max:255',
+            'description_en_edit' => 'required|string|max:255',
+            'description_ar_edit' => 'required|string|max:255',
+            'address_en_edit' => 'required|string|max:255',
+            'address_ar_edit' => 'required|string|max:255',
+            'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
+        ], [
+            'type_edit.required' => trans("web.required"),
+            'type_edit.numeric' => trans("web.numeric"),
+
+            'lat_edit.required' => trans("web.required"),
+            'lat_edit.numeric' => trans("web.numeric"),
+
+            'long_edit.required' => trans("web.required"),
+            'long_edit.numeric' => trans("web.numeric"),
+
+            'name_en_edit.required' => trans("web.required"),
+            'name_en_edit.string' => trans("web.string"),
+            'name_en_edit.max' => trans("web.max"),
+            'name_ar_edit.required' => trans("web.required"),
+            'name_ar_edit.string' => trans("web.string"),
+            'name_ar_edit.max' => trans("web.max"),
+
+            'description_en_edit.required' => trans("web.required"),
+            'description_en_edit.string' => trans("web.string"),
+            'description_en_edit.max' => trans("web.max"),
+            'description_ar_edit.required' => trans("web.required"),
+            'description_ar_edit.string' => trans("web.string"),
+            'description_ar_edit.max' => trans("web.max"),
+
+            'address_en_edit.required' => trans("web.required"),
+            'address_en_edit.string' => trans("web.string"),
+            'address_en_edit.max' => trans("web.max"),
+            'address_ar_edit.required' => trans("web.required"),
+            'address_ar_edit.string' => trans("web.string"),
+            'address_ar_edit.max' => trans("web.max"),
+
+            'fileuploads.mimes' => trans("web.mimes"),
+
+        ]);
+        if ($validator->passes()) {
+            $data = Place::find($place->id);
+            $data->name = ['en' => $request->name_en_edit, "ar" => $request->name_ar_edit];
+            $data->description = ['en' => $request->description_en_edit, "ar" => $request->description_ar_edit];
+            $data->address = ['en' => $request->address_en_edit, "ar" => $request->address_ar_edit];
+            $data->type = $request->type_edit;
+            $data->lat = $request->lat_edit;
+            $data->long = $request->long_edit;
+            if ($request->input('fileuploads') != 'undefined') {
+                $value = $request->file('fileuploads');
+                $name = time() . rand(1, 100) . '.' . $value->extension();
+                $value->move('images/places/', $name);
+                $data->image = $name;
+            }
+            $data->save();
+
+            return response()->json(['success' => $data]);
+        }
+        return response()->json(['error' => $validator->errors()->toArray()]);
+
     }
 
     public function destroy(Place $place)
     {
-        //
+        $place = Place::find($place->id)->delete();
+        return response()->json(['success' => $place]);
     }
+
+    public function map(Request $request)
+    {
+        $map = Place::find($request->id);
+        return response()->json($map);
+    }
+
 }

@@ -1,4 +1,4 @@
-var table = $('#kt_news_table');
+var table = $('#kt_places_table');
 $(function () {
     const language = $('#language').val(),
         app_url = $('#app_url').val();
@@ -22,19 +22,19 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "GET",
-            url: "/news/" + id + "/edit",
-            data: {id : 1},
+            url: "/places/" + id + "/edit",
             success: function (response) {
-                $("#news_edit_id").html(id);
-                $("#title_en_edit").val(response.title['en']);
-                $("#title_ar_edit").val(response.title['ar']);
-                $("#article_en_edit").val(response.article['en']);
-                $("#article_ar_edit").val(response.article['ar']);
+                $("#place_edit_id").html(id);
+                $("#name_en_edit").val(response.name['en']);
+                $("#name_ar_edit").val(response.name['ar']);
                 $("#description_en_edit").val(response.description['en']);
                 $("#description_ar_edit").val(response.description['ar']);
+                $("#address_en_edit").val(response.address['en']);
+                $("#address_ar_edit").val(response.address['ar']);
                 $("#type_edit").val(response.type);
-                $("#status_edit").val(response.status);
-
+                $("#lat_edit").val(response.lat);
+                $("#long_edit").val(response.long);
+                window.onload = initMaps();
             }
         });
     }
@@ -65,7 +65,7 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'DELETE',
-            url: "news/" + id ,
+            url: "places/" + id ,
             success: function (response) {
                 if (response['success']) {
                     Swal.fire({
@@ -75,7 +75,7 @@ $(function () {
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
-                    $('#kt_news_table').DataTable().ajax.reload();
+                    $('#kt_places_table').DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
                         text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
@@ -130,7 +130,7 @@ $(function () {
             };
             return {
                 init: function () {
-                    (t = document.querySelector("#kt_news_table")) && ((e = $(t).DataTable({
+                    (t = document.querySelector("#kt_places_table")) && ((e = $(t).DataTable({
                         searchable: true,
                         ajax: {
                             "url": base_path + language + "/admins",

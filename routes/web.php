@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
 
     Route::resource('news', NewsController::class);
     Route::resource('places', PlaceController::class);
+    Route::get('/get/map/', [PlaceController::class, 'map']);
 
 
     Route::get('language/{locale}', function ($locale) {

@@ -56,10 +56,10 @@ $(function () {
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
                                 t.value ? (e.reset(), $(".errors").html("") ,$("#file-chosen-input").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                    text: "Your form has not been cancelled!.",
+                                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                     customClass: {confirmButton: "btn btn-primary"}
                                 })
                             }))

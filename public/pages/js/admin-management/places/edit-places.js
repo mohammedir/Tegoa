@@ -9,8 +9,8 @@ $(function () {
     function update_news() {
         "use strict";
         var KTUsersUpdatePermission = function () {
-            const t = document.getElementById("kt_modal_update_news"),
-                e = t.querySelector("#kt_modal_update_news_form"), n = new bootstrap.Modal(t);
+            const t = document.getElementById("kt_modal_update_places"),
+                e = t.querySelector("#kt_modal_update_places_form"), n = new bootstrap.Modal(t);
             return {
                 init: function () {
                     (() => {
@@ -58,7 +58,7 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
-                            var formData = new FormData(document.getElementById("kt_modal_update_news_form"));
+                            var formData = new FormData(document.getElementById("kt_modal_update_places_form"));
                             formData.append('_method', 'put');
                             var featured_image = $('#fileuploads')[0].files[0];
                             formData.append("fileuploads", featured_image);
@@ -68,7 +68,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language + "/news/" + $('#news_edit_id').text(),
+                                        url: app_url + "/" + language + "/places/" + $('#place_edit_id').text(),
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -89,7 +89,7 @@ $(function () {
                                                 $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                 $("textarea").val("");
                                                 /*table.DataTable().ajax.reload();*/
-                                                $('#kt_news_table').DataTable().ajax.reload();
+                                                $('#kt_places_table').DataTable().ajax.reload();
 
                                             } else {
                                                 Swal.fire({

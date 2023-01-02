@@ -9,8 +9,8 @@ $(function () {
     function create_news() {
         "use strict";
         var KTUsersAddPermission = function () {
-            const t = document.getElementById("kt_modal_add_news"),
-                e = t.querySelector("#kt_modal_add_news_form"),
+            const t = document.getElementById("kt_modal_add_places"),
+                e = t.querySelector("#kt_modal_add_places_form"),
                 n = new bootstrap.Modal(t);
             return {
                 init: function () {
@@ -56,10 +56,10 @@ $(function () {
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
                                 t.value ? (e.reset(), $(".errors").html("") ,$("#file-chosen-input").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
-                                    text: "Your form has not been cancelled!.",
+                                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
-                                    confirmButtonText: "Ok, got it!",
+                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                     customClass: {confirmButton: "btn btn-primary"}
                                 })
                             }))
@@ -67,7 +67,7 @@ $(function () {
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
                             $(".errors").html("");
-                            var formData = new FormData(document.getElementById("kt_modal_add_news_form"));
+                            var formData = new FormData(document.getElementById("kt_modal_add_places_form"));
                             var featured_image = $('#fileupload')[0].files[0];
                             formData.append("fileupload", featured_image);
 
@@ -77,7 +77,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language +"/news",
+                                        url: app_url + "/" + language +"/places",
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -100,7 +100,7 @@ $(function () {
                                                 $("textarea").val("");
                                                 $(".errors").html("");
                                                 /*table.DataTable().ajax.reload();*/
-                                                $('#kt_news_table').DataTable().ajax.reload();
+                                                $('#kt_places_table').DataTable().ajax.reload();
 
                                             } else {
                                                 Swal.fire({
