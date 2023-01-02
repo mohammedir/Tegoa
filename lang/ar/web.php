@@ -45,7 +45,9 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-
+    'Admin Management' => 'ادارة مدراء النظام',
+    'Admins' => ' مدراء النظام',
+    'Roles' => 'الادوار',
 
     /*permission*/
     'dashboard'=>'لوحة التحكم',

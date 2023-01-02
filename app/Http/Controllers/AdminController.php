@@ -21,9 +21,9 @@ class AdminController extends Controller
     /*    $users = User::query()->get();
         $roles = Role::query()->get();
         return view('admin-management.admins.admins_list',compact('roles','users'));*/
-        $users = User::orderBy('id','DESC')->where('id','!=',1)->paginate(5);
+        $users = User::orderBy('id','DESC')->where('id','!=',1)->where('user_type','=',0)->paginate(5);
         $roles = Role::query()->get();
-        return view('admin-management.admins.admins_list',compact('users','roles'))
+        return view('admin-management.Admins.admins_list',compact('users','roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
     }

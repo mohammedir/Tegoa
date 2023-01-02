@@ -58,11 +58,11 @@ class User extends Authenticatable
 
     public function getPersonalphotoAttribute($value)
     {
-        return url(asset('personalphoto/'.$value));
+        return url(asset('images/users/'.$value));
     }
     public function getDriverlicenseAttribute($value)
     {
-        return url(asset('driverlicense/'.$value));
+        return url(asset('images/users/'.$value));
     }
 
 }

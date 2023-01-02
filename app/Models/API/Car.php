@@ -26,19 +26,19 @@ class Car extends Model
 
     public function getCarphotosAttribute($value)
     {
-        return url(asset('carphotos/'.$value));
+        return url(asset('images/cars/'.$value));
     }
     public function getCarlicenseAttribute($value)
     {
-        return url(asset('carlicense/'.$value));
+        return url(asset('images/cars/'.$value));
     }
     public function getCarinsuranceAttribute($value)
     {
-        return url(asset('carinsurance/'.$value));
+        return url(asset('images/cars/'.$value));
     }
     public function getPassengersinsuranceAttribute($value)
     {
-        return url(asset('passengersinsurance/'.$value));
+        return url(asset('images/cars/'.$value));
     }
 
 }

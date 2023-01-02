@@ -5,9 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Constants\StatusCodes;
 use App\Http\Controllers\Controller;
 use App\Mail\changePassword;
-use App\Mail\EmailVerified;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
+use App\Models\API\Settings;
+use App\Models\API\TransportationRequests;
 use App\Models\API\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,7 +141,6 @@ class PassengerController extends Controller
     }
 
     public function update_password_with_email(Request $request){
-        dd('asd');
         $validator = Validator::make($request->all(),[
             'password' => 'required|min:8|confirmed',
 
@@ -157,7 +157,47 @@ class PassengerController extends Controller
         }
     }
 
-    public function find_transportion(){
+    public function find_transportion(Request $request){
+        $validator = Validator::make($request->all(),[
+            'passenger_id' => 'required',
+            'lat_from' => 'required',
+            'lng_from' => 'required',
+            'lat_to' => 'required',
+            'lng_to' => 'required',
+            'departure_time' => 'required',
+            'number_of_passenger' => 'required',
+            'vehicle_type' => 'required',
+            'distance' => 'required',
+            'expected_cost' => 'required',
+            'arrival_time' => 'required',
+
+        ]);
+        if ($validator->passes()){
+            $transportation_requests = new TransportationRequests();
+            $transportation_requests->passenger_id = $request->passenger_id;
+            $transportation_requests->lat_from = $request->lat_from;
+            $transportation_requests->lng_from = $request->lng_from;
+            $transportation_requests->lat_to = $request->lat_to;
+            $transportation_requests->lng_to = $request->lng_to;
+            $transportation_requests->departure_time = $request->departure_time;
+            $transportation_requests->number_of_passenger = $request->number_of_passenger;
+            $transportation_requests->vehicle_type = $request->vehicle_type;
+            $transportation_requests->distance = $request->distance;
+            $transportation_requests->expected_cost = $request->expected_cost;
+            $transportation_requests->arrival_time = $request->arrival_time;
+            $transportation_requests->save();
+
+            return  $this->api_response(200,true,trans('api.find_transportion') , $transportation_requests, 200);
+
+        }
+
+
+
+    }
+
+    public function settings(){
+        $settings = Settings::query()->get();
+        return  $this->api_response(200,true,trans('api.Settings ') , $settings , 200);
 
     }
 }

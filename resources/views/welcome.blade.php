@@ -130,3 +130,35 @@
         </div>
     </body>
 </html>
+{{--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA&callback=initMap"
+        async></script>
+<script>
+    $(document).ready(function () {
+        var origin = new google.maps.LatLng( 31.50187, 34.43411 ); // using google.maps.LatLng class
+        var destination = 31.50583 + ', ' + 34.41778; // using string
+        var directionsService = new google.maps.DirectionsService();
+        var request = {
+            origin:  origin, // LatLng|string
+            destination: destination, // LatLng|string
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+        directionsService.route( request, function( response, status ) {
+            alert(status)
+            if ( status === 'OK' ) {
+                var point = response.routes[ 0 ].legs[ 0 ];
+                alert(point.distance.text)
+                alert(point.duration.text)
+
+                $( '#travel_data' ).html( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
+
+            }
+        } );
+
+    });
+
+
+
+
+</script>--}}
