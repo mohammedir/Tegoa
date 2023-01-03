@@ -178,34 +178,55 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request){
+    public function passenger_login(Request $request){
       $input = $request->all();
       $validation = Validator::make($input,[
           'email' => 'required',
           'password' => 'required',
-          'user_type' => 'required',
-
       ]);
 
       if ($validation->fails()){
-          return response()->json(['error' => $validation->errors()]);
+          return  $this->setError(400 ,false, $validation->errors()->first(), 400);
       }
-      if (Auth::attempt(['email' => $input['email'],'password' => $input['password']])){
+      if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
           $data = Auth::user();
-          if ($request->user_type == 1){
-            $token = $data->createToken('passenger');
-          }elseif ($request->user_type == 2){
-              $token = $data->createToken('driver');
-          }
+          $token = $data->createToken('passenger');
           $data->api_token = $token->plainTextToken;
           $data->save();
 
           return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+      }else{
+          return  $this->setError(400 ,false, trans('api.user not found') , 400);
+
+
       }
+    }
+    public function driver_login(Request $request){
+        $input = $request->all();
+        $validation = Validator::make($input,[
+            'email' => 'required',
+            'password' => 'required',
+
+        ]);
+
+        if ($validation->fails()){
+            return  $this->setError(400 ,false, $validation->errors()->first(), 400);
+        }
+        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
+            $data = Auth::user();
+            $token = $data->createToken('driver');
+            $data->api_token = $token->plainTextToken;
+            $data->save();
+
+            return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+        }else{
+            return  $this->setError(400 ,false, trans('api.user not found') , 400);
+
+
+        }
     }
 
     public function logout(Request $request){
-
         $request->user()->currentAccessToken()->delete();
         return response()->json(['success' => 'logout']);
     }

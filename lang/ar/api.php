@@ -21,5 +21,11 @@ return [
     'The password must be at least 8 characters' => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
 
 
+    /*login*/
+
+    'user not found' => 'بيانات الدخول غير صحيحة',
+    'login done' => 'تم تسجيل الدخول بنجاح'
+
+
 
 ];

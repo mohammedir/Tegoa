@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 });*/
 Route::post('passenger_register',[AuthController::class,'passenger_register'])->middleware('localization');
 Route::post('driver_register',[AuthController::class,'driver_register'])->middleware('localization');
-Route::post('login',[AuthController::class,'login'])->middleware('localization');
+Route::post('passenger_login',[AuthController::class,'passenger_login'])->middleware('localization');
+Route::post('driver_login',[AuthController::class,'driver_login'])->middleware('localization');
 Route::post('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 Route::get('user',[AuthController::class,'index'])->middleware('auth:sanctum');
 Route::get('settings',[PassengerController::class,'settings']);
