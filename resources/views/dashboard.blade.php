@@ -86,4 +86,5 @@
     <script src="{{asset('assets/js/custom/utilities/modals/new-target.js')}}" defer></script>
     <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
     <!--end::Custom Javascript-->
+
 @endsection

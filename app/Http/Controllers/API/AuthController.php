@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\API\car;
+use App\Models\API\Car;
 use App\Models\API\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -24,10 +24,22 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed||min:8',
             'mobile_number' => 'required|unique:users|min:8',
             'address' => 'required',
             'gender' => 'required',
+        ], [
+            'full_name.required' => trans("api.full name field is required"),
+            'email.required' => trans("api.email field is required"),
+            'email.email' => trans("api.The email must be a valid email address"),
+            'email.unique' => trans("api.The email has already been taken"),
+            'password.required' => trans("api.password field is required"),
+            'password.confirmed' => trans("api.The password confirmation does not match"),
+            'password.min' => trans("api.The password must be at least 8 characters"),
+            'mobile_number.required' => trans("api.mobile_number field is required"),
+            'mobile_number.unique' => trans("api.The mobile number has already been taken"),
+            'address.required' => trans("api.address field is required"),
+            'gender.required' => trans("api.gender field is required"),
         ]);
         if ($validator->passes()) {
             $user = new User();
@@ -71,6 +83,18 @@ class AuthController extends Controller
             'carlicense' => 'required',
             'carinsurance' => 'required',
             'passengersinsurance' => 'required',
+        ], [
+            'full_name.required' => trans("api.full name field is required"),
+            'email.required' => trans("api.email field is required"),
+            'email.email' => trans("api.The email must be a valid email address"),
+            'email.unique' => trans("api.The email has already been taken"),
+            'password.required' => trans("api.password field is required"),
+            'password.confirmed' => trans("api.The password confirmation does not match"),
+            'password.min' => trans("api.The password must be at least 8 characters"),
+            'mobile_number.required' => trans("api.mobile_number field is required"),
+            'mobile_number.unique' => trans("api.The mobile number has already been taken"),
+            'address.required' => trans("api.address field is required"),
+            'gender.required' => trans("api.gender field is required"),
         ]);
         if ($validator->passes()) {
             $user = new User();
@@ -84,7 +108,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('personalphoto')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('personalphoto')->move(public_path('personalphoto'),$comPic);
+                $path = $request->file('personalphoto')->move('images/users',$comPic);
                 $user->personalphoto = $comPic;
             }
             if ($request->hasFile('driverlicense')) {
@@ -92,7 +116,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('driverlicense')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('driverlicense')->move(public_path('driverlicense'),$comPic);
+                $path = $request->file('driverlicense')->move('images/users',$comPic);
                 $user->driverlicense = $comPic;
             }
             $user->address = $request->address;
@@ -110,7 +134,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('carphotos')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carphotos')->move(public_path('carphotos'),$comPic);
+                $path = $request->file('carphotos')->move('images/cars',$comPic);
                 $car->carphotos = $comPic;
             }
             if ($request->hasFile('carlicense')) {
@@ -118,7 +142,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('carlicense')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carlicense')->move(public_path('carlicense'),$comPic);
+                $path = $request->file('carlicense')->move('images/cars',$comPic);
                 $car->carlicense = $comPic;
             }
             if ($request->hasFile('carinsurance')) {
@@ -126,7 +150,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('carinsurance')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carinsurance')->move(public_path('carinsurance'),$comPic);
+                $path = $request->file('carinsurance')->move('images/cars',$comPic);
                 $car->carinsurance = $comPic;
             }
             if ($request->hasFile('passengersinsurance')) {
@@ -134,7 +158,7 @@ class AuthController extends Controller
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                 $extenshion = $request->file('passengersinsurance')->getClientOriginalExtension();
                 $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('passengersinsurance')->move(public_path('passengersinsurance'),$comPic);
+                $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
                 $car->passengersinsurance = $comPic;
             }
             $car->save();
@@ -154,7 +178,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request){
+    public function passenger_login(Request $request){
       $input = $request->all();
       $validation = Validator::make($input,[
           'email' => 'required',
@@ -162,24 +186,47 @@ class AuthController extends Controller
       ]);
 
       if ($validation->fails()){
-          return response()->json(['error' => $validation->errors()]);
+          return  $this->setError(400 ,false, $validation->errors()->first(), 400);
       }
-      if (Auth::attempt(['email' => $input['email'],'password' => $input['password']])){
+      if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
           $data = Auth::user();
-          if ($request->user_type == 1){
-            $token = $data->createToken('passenger');
-          }elseif ($request->user_type == 2){
-              $token = $data->createToken('driver');
-          }
+          $token = $data->createToken('passenger');
           $data->api_token = $token->plainTextToken;
           $data->save();
 
           return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+      }else{
+          return  $this->setError(400 ,false, trans('api.user not found') , 400);
+
+
       }
+    }
+    public function driver_login(Request $request){
+        $input = $request->all();
+        $validation = Validator::make($input,[
+            'email' => 'required',
+            'password' => 'required',
+
+        ]);
+
+        if ($validation->fails()){
+            return  $this->setError(400 ,false, $validation->errors()->first(), 400);
+        }
+        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
+            $data = Auth::user();
+            $token = $data->createToken('driver');
+            $data->api_token = $token->plainTextToken;
+            $data->save();
+
+            return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+        }else{
+            return  $this->setError(400 ,false, trans('api.user not found') , 400);
+
+
+        }
     }
 
     public function logout(Request $request){
-
         $request->user()->currentAccessToken()->delete();
         return response()->json(['success' => 'logout']);
     }

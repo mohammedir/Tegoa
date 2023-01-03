@@ -109,7 +109,7 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-											<span class="menu-title">User Management</span>
+											<span class="menu-title">@lang('web.Admin Management')</span>
 											<span class="menu-arrow"></span>
 										</span>
                     <!--end:Menu link-->
@@ -123,7 +123,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-													<span class="menu-title">Users</span>
+													<span class="menu-title">@lang('web.Admins')</span>
 
 												</span>
                             </a>
@@ -138,7 +138,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-													<span class="menu-title">Roles</span>
+													<span class="menu-title">@lang('web.Roles')</span>
 
 												</span>
                             </a>
