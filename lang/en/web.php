@@ -46,7 +46,9 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
-
+    'Admin Management' => 'Managing system administrators',
+    'Admins' => 'System administrators',
+    'Roles' => 'roles',
 
     /*permission*/
     'dashboard' => 'dashboard',
@@ -68,7 +70,7 @@ return [
     'Update Permission' => 'Update Permission',
 
     /*cars*/
-    'Cars_List' => 'Cars List',
+    'Cars_List' => 'Cars',
     'Home' => 'Home',
     'Cars_Management' => 'Cars Management',
     'Search' => 'Search',
@@ -102,7 +104,7 @@ return [
     /*news*/
     'news' => 'news',
     'announcements' => 'announcements',
-    'news_list' => 'News List',
+    'news_list' => 'News',
     'News_Management' => 'News Management',
     'Add_News' => 'Add New',
     'title' => 'Title',
@@ -115,7 +117,7 @@ return [
     'descriptionEnter' => 'Enter news description',
 
     /*places*/
-    'places_list' => 'Places List',
+    'places_list' => 'Places',
     'name' => 'Name',
     'Places_Management' => 'Places Management',
     'Add_place' => 'Add Place',
@@ -132,6 +134,10 @@ return [
     'nameEnter' => 'Enter a place name',
     'addressEnter' => 'Enter a address',
     'descriptionPlaceEnter' => 'Enter place description',
+
+    /*places*/
+    'tour_list' => 'Tour guides',
+
 
     /*messages*/
     'required' => 'This filed is required',

@@ -46,7 +46,9 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-
+    'Admin Management' => 'إدارة مسؤولي النظام',
+    'Admins' => 'مسؤولي النظام',
+    'Roles' => 'الأدوار',
 
     /*permission*/
     'dashboard'=>'لوحة التحكم',
@@ -68,7 +70,7 @@ return [
     'Update Permission' => 'تعديل الصلاحيات',
 
     /*cars*/
-    'Cars_List' => 'قائمة السيارات',
+    'Cars_List' => 'السيارات',
     'Home' => 'الرئيسيه',
     'Cars_Management' => 'إدارة السيارات',
     'Search' => 'بحث',
@@ -103,7 +105,7 @@ return [
     /*news*/
     'news' => 'اخبارية',
     'announcements' => 'اعلانات',
-    'news_list' => 'قائمه الاخبار',
+    'news_list' => 'الاخبار',
     'News_Management' => 'إدارة الأخبار',
     'Add_News' => 'اضافه خبر',
     'title' => 'العنوان',
@@ -117,7 +119,7 @@ return [
     'descriptionEnter' => 'أدخل وصف الخبر',
 
     /*places*/
-    'places_list' => 'قائمة الأماكن',
+    'places_list' => 'الأماكن',
     'name' => 'الاسم',
     'Places_Management' => 'إدارة الأماكن',
     'Add_place' => 'أضف مكان',
@@ -135,6 +137,8 @@ return [
     'addressEnter' => 'أدخل عنوان المكان',
     'descriptionPlaceEnter' => 'أدخل وصف المكان',
 
+    /*places*/
+    'tour_list' => 'المرشدين السياحيين',
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
