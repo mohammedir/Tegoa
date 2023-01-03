@@ -8,6 +8,7 @@ use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('news', NewsController::class);
     Route::resource('places', PlaceController::class);
     Route::get('/get/map/', [PlaceController::class, 'map']);
+    Route::resource('tour', TourController::class);
 
 
     Route::get('language/{locale}', function ($locale) {
