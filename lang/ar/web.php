@@ -50,7 +50,7 @@ return [
     'Admins' => 'مسؤولي النظام',
     'Roles' => 'الأدوار',
 
-    /*permission*/
+    /*permissions*/
     'dashboard'=>'لوحة التحكم',
     'dashboard_view'=>'عرض لوحة التحكم',
     'dashboard_create'=>'انشاء لوحة التحكم',
