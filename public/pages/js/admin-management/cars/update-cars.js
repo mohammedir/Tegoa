@@ -27,12 +27,12 @@ $(function () {
                         });
                         t.querySelector('[data-kt-permissions-modal-actions="close"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
-                                text: "Are you sure you would like to close?",
+                                text: language === "en" ? "Are you sure you would like to close?" : "هل أنت متأكد أنك تريد الإغلاق؟",
                                 icon: "warning",
                                 showCancelButton: !0,
                                 buttonsStyling: !1,
-                                confirmButtonText: "Yes, close it!",
-                                cancelButtonText: "No, return",
+                                confirmButtonText: language === "en" ? "Yes, close it!" : "نعم ، أغلقه!",
+                                cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
                                 t.value && $('div#photos_show').empty() && n.hide()

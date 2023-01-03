@@ -42,6 +42,7 @@ return [
     'inactive' => 'غير نشط',
     'english' => 'الانجليزيه',
     'arabic' => 'العربيه',
+    'maps' => 'الموقع',
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
@@ -116,6 +117,26 @@ return [
     'titleEnter' => 'أدخل عنوان الخبر',
     'articleEnter' => 'أدخل مقالة إخبارية',
     'descriptionEnter' => 'أدخل وصف الخبر',
+
+    /*places*/
+    'places_list' => 'قائمة الأماكن',
+    'name' => 'الاسم',
+    'Places_Management' => 'إدارة الأماكن',
+    'Add_place' => 'أضف مكان',
+    'map' => 'الموقع على الخريطة',
+    'place' => 'مكان',
+    'address' => 'العنوان',
+    'places' => 'أماكن',
+    'tourism sites' => 'المواقع السياحية',
+    'stations' => 'المحطات',
+    'location' => 'الموقع',
+    'Place_Details' => 'بيانات المكان',
+
+
+    'nameEnter' => 'أدخل اسم مكان',
+    'addressEnter' => 'أدخل عنوان المكان',
+    'descriptionPlaceEnter' => 'أدخل وصف المكان',
+
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',

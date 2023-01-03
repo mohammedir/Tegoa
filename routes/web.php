@@ -5,6 +5,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PermissionAdminController;
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/delete/image/cars/', [CarController::class, 'deleteImage']);
 
     Route::resource('news', NewsController::class);
+    Route::resource('places', PlaceController::class);
+    Route::get('/get/map/', [PlaceController::class, 'map']);
 
 
     Route::get('language/{locale}', function ($locale) {

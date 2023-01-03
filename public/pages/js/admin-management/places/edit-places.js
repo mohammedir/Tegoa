@@ -3,27 +3,19 @@ $(function () {
         language = $('#language').val();
 
     $(document).ready(function () {
-        create_news();
+        update_news();
     });
 
-    function create_news() {
+    function update_news() {
         "use strict";
-        var KTUsersAddPermission = function () {
-            const t = document.getElementById("kt_modal_add_news"),
-                e = t.querySelector("#kt_modal_add_news_form"),
-                n = new bootstrap.Modal(t);
+        var KTUsersUpdatePermission = function () {
+            const t = document.getElementById("kt_modal_update_places"),
+                e = t.querySelector("#kt_modal_update_places_form"), n = new bootstrap.Modal(t);
             return {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {
-                                permission_name_create: {
-                                    validators:
-                                        {
-
-                                        }
-                                }
-                            },
+                            fields: {permission_name_edit: {}},
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -33,7 +25,7 @@ $(function () {
                                 })
                             }
                         });
-                        t.querySelector('[data-kt-permissions-modal-action="close"]').addEventListener("click", (t => {
+                        t.querySelector('[data-kt-permissions-modal-actions="close"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
                                 text: language === "en" ? "Are you sure you would like to close?" : "هل أنت متأكد أنك تريد الإغلاق؟",
                                 icon: "warning",
@@ -43,9 +35,9 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value && $(".errors").html("") && $("#file-chosen-input").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
+                                t.value  && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
                             }))
-                        })), t.querySelector('[data-kt-permissions-modal-action="cancel"]').addEventListener("click", (t => {
+                        })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
                                 text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
                                 icon: "warning",
@@ -55,7 +47,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), $(".errors").html("") ,$("#file-chosen-input").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -64,20 +56,19 @@ $(function () {
                                 })
                             }))
                         }));
-                        const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
+                        const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
-                            $(".errors").html("");
-                            var formData = new FormData(document.getElementById("kt_modal_add_news_form"));
-                            var featured_image = $('#fileupload')[0].files[0];
-                            formData.append("fileupload", featured_image);
-
+                            var formData = new FormData(document.getElementById("kt_modal_update_places_form"));
+                            formData.append('_method', 'put');
+                            var featured_image = $('#fileuploads')[0].files[0];
+                            formData.append("fileuploads", featured_image);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/" + language +"/news",
+                                        url: app_url + "/" + language + "/places/" + $('#place_edit_id').text(),
                                         data: formData,
                                         processData: false,  // tell jQuery not to process the data
                                         contentType: false,
@@ -95,12 +86,10 @@ $(function () {
                                                             t.isConfirmed && n.hide()
                                                         }))
                                                 }), 2e3));
-                                                $("#file-chosen-input").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
-                                                $("input").val("");
+                                                $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                 $("textarea").val("");
-                                                $(".errors").html("");
                                                 /*table.DataTable().ajax.reload();*/
-                                                $('#kt_news_table').DataTable().ajax.reload();
+                                                $('#kt_places_table').DataTable().ajax.reload();
 
                                             } else {
                                                 Swal.fire({
@@ -110,7 +99,6 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
-                                                $(".errors").html("");
                                                 print_error(response.error);
                                             }
                                         }
@@ -129,7 +117,7 @@ $(function () {
             }
         }();
         KTUtil.onDOMContentLoaded((function () {
-            KTUsersAddPermission.init()
+            KTUsersUpdatePermission.init()
         }));
     }
 

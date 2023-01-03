@@ -198,6 +198,21 @@
                         <!--end:Menu link-->
 
                     </div>
+                    <div class="menu-item menu-accordion {{str_contains($url,"places")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"places") ? "active":""}}" href="{{route('places.index')}}">
+											<span class="menu-icon">
+												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
+												<span class="svg-icon svg-icon-2">
+													<i class="bi bi-newspaper"></i>
+												</span>
+                                                <!--end::Svg Icon-->
+											</span>
+                            <span class="menu-title">@lang('web.places_list')</span>
+                        </a>
+                        <!--end:Menu link-->
+
+                    </div>
 
             </div>
             <!--end::Menu-->
