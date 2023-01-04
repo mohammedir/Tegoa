@@ -155,7 +155,7 @@ class DriverController extends Controller
             if ($driver->vehicle_type == 1) {
                 $type =  trans('web.public');
             } else {
-                $type =   trans('web.rivate');
+                $type =   trans('web.private');
             }
 
             if ($driver->gender == 1) {

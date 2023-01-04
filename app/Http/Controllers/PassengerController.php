@@ -137,7 +137,7 @@ class PassengerController extends Controller
             if ($passenger->vehicle_type == 1) {
                 $type =  trans('web.public');
             } else {
-                $type =   trans('web.rivate');
+                $type =   trans('web.private');
             }
 
             if ($passenger->gender == 1) {
