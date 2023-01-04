@@ -93,7 +93,7 @@ return [
     'review' => 'في مراجعة',
     'accepted' => 'مقبول',
     'declined' => 'مرفوض',
-    'Car_Details' => 'تفاصيل السيارة',
+    'Car_Details' => 'بيانات السيارة',
     'Edit_car_info' => 'تعديل بيانات السيارة',
     'Photos_license' => 'صورة الترخيص',
     'Photos_insurance' => 'صورة التأمين',
@@ -116,6 +116,8 @@ return [
     'article' => 'مقالة',
     'description' => 'وصف',
     'PhotosNews' => 'صورة',
+    'Edit_news_info' => 'تعديل معلومات الأخبار',
+    'News_Details' => 'بيانات الخبر',
 
 
     'titleEnter' => 'أدخل عنوان الخبر',
@@ -135,6 +137,7 @@ return [
     'stations' => 'المحطات',
     'location' => 'الموقع',
     'Place_Details' => 'بيانات المكان',
+    'Edit_place_info' => 'تعديل معلومات المكان',
 
 
     'nameEnter' => 'أدخل اسم مكان',
@@ -149,8 +152,8 @@ return [
     'phone_number' => 'رقم الهاتف',
     'Select Language' => 'اختار اللغات',
     'tour_Management' => 'إدارة المرشدين',
-    'Edit_tour_info' => 'تعديل بيانات المرشد',
-    'Tour_Details' => 'تفاصيل المرشد',
+    'Edit_tour_info' => 'تعديل معلومات المرشد',
+    'Tour_Details' => 'بيانات المرشد',
 
 
     'nameTourEnter' => 'أدخل اسم المرشد',
@@ -167,6 +170,7 @@ return [
     'personalPhoto' => 'صورة شخصية',
     'driverLicense' => 'رخصة قيادة',
     'Confirm_password' => 'تأكيد كلمة المرور',
+    'Driver_Details' => 'بيانات السائق',
 
 
     'nameDriverEnter' => 'أدخل اسم السائق',
@@ -182,7 +186,7 @@ return [
     'Passengers_Management' => 'إدارة الركاب',
     'Add_Passenger' => 'إضافة راكب',
     'Edit_Passenger_info' => 'تعديل معلومات الركاب',
-    'Passengers_Details' => 'تفاصيل الركاب',
+    'Passengers_Details' => 'بيانات الركاب',
 
     'namePassengerEnter' => 'أدخل اسم راكب',
     'emailPassengerEnter' => 'أدخل البريد الإلكتروني للركاب',

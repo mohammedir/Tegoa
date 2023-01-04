@@ -114,6 +114,9 @@ return [
     'article' => 'Article',
     'description' => 'Description',
     'PhotosNews' => 'Photos',
+    'Edit_news_info' => 'Edit news info',
+    'News_Details' => 'News Details',
+
 
     'titleEnter' => 'Enter a news title',
     'articleEnter' => 'Enter a news article',
@@ -132,6 +135,7 @@ return [
     'stations' => 'Stations',
     'location' => 'Location',
     'Place_Details' => 'Place Details',
+    'Edit_place_info' => 'Edit place info',
 
 
     'nameEnter' => 'Enter a place name',
@@ -163,6 +167,7 @@ return [
     'personalPhoto' => 'Personal photo',
     'driverLicense' => 'Driver license',
     'Confirm_password' => 'Confirm password',
+    'Driver_Details' => 'Driver Details',
 
 
     'nameDriverEnter' => 'Enter a driver name',

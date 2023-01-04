@@ -20,7 +20,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="../../demo1/dist/index.html"
+                        <a
                            class="text-muted text-hover-primary">@lang('web.Home')</a>
                     </li>
                     <!--end::Item-->
@@ -392,7 +392,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Edit_car_info')</h2>
+                            <h2 class="fw-bold">@lang('web.Edit_news_info')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -657,7 +657,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Car_Details')</h2>
+                            <h2 class="fw-bold">@lang('web.News_Details')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
