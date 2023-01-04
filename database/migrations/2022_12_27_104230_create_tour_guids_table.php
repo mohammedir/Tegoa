@@ -17,18 +17,16 @@ class CreateTourGuidsTable extends Migration
 
         Schema::create('tour_guids', function (Blueprint $table) {
             $table->id();
-            $table->string('full name');
+            $table->text('full_name');
             $table->integer('gender')->comment('1(male)/ 2(female)');
-            $table->text('spoken_languages');
+            $table->longText('spoken_languages');
             $table->string('email');
-            $table->string('address');
+            $table->longText('address');
             $table->string('phone_number');
             $table->string('image')->nullable();
             $table->bigInteger('status')->comment('1(active)/ 2(inactive)');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
-
+            $table->softDeletes();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

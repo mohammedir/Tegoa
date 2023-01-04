@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('places', PlaceController::class);
     Route::get('/get/map/', [PlaceController::class, 'map']);
     Route::resource('tour', TourController::class);
+    Route::get('/changeStatus/', [TourController::class, 'changeStatus']);
 
 
     Route::get('language/{locale}', function ($locale) {

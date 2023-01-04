@@ -132,7 +132,7 @@ class NewsController extends Controller
             if ($request->file('fileupload')) {
                 $value = $request->file('fileupload');
                 $name = time().rand(1,100).'.'.$value->extension();
-                $value->move('/images/news/', $name);
+                $value->move('images/news/', $name);
                 $data->image = $name;
             }
             $data->save();
@@ -222,7 +222,7 @@ class NewsController extends Controller
             if ($request->input('fileuploads') != 'undefined'){
                 $value = $request->file('fileuploads');
                 $name = time().rand(1,100).'.'.$value->extension();
-                $value->move('/images/news/', $name);
+                $value->move('images/news/', $name);
                 $data->image = $name;
             }
             $data->save();

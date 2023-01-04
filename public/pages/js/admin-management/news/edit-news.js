@@ -35,7 +35,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value  && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
+                                t.value  && $(".errors").html("") && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
                             }))
                         })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
@@ -47,7 +47,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$(".errors").html(""),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -58,6 +58,7 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
+                            $(".errors").html("");
                             var formData = new FormData(document.getElementById("kt_modal_update_news_form"));
                             formData.append('_method', 'put');
                             var featured_image = $('#fileuploads')[0].files[0];
@@ -88,6 +89,7 @@ $(function () {
                                                 }), 2e3));
                                                 $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                 $("textarea").val("");
+                                                $(".errors").html("");
                                                 /*table.DataTable().ajax.reload();*/
                                                 $('#kt_news_table').DataTable().ajax.reload();
 
@@ -99,6 +101,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(".errors").html("");
                                                 print_error(response.error);
                                             }
                                         }

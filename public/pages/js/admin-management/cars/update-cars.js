@@ -35,9 +35,10 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value && $('div#photos_show').empty() && n.hide()
+                                t.value && $(".errors").html("") && $('div#photos_show').empty() && n.hide()
                             }))
                         })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
+                            $(".errors").html("");
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
@@ -62,6 +63,7 @@ $(function () {
                                                 }), 2e3));
                                                 $('div#photos_show').empty();
                                                 $("input").val("");
+                                                $(".errors").html("");
                                                 /*table.DataTable().ajax.reload();*/
                                                 $('#kt_cars_table').DataTable().ajax.reload();
 
@@ -73,6 +75,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(".errors").html("");
                                                 print_error(response.error);
                                             }
                                         }
@@ -89,6 +92,7 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
+                            $(".errors").html("");
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
@@ -113,6 +117,7 @@ $(function () {
                                                 }), 2e3));
                                                 $('div#photos_show').empty();
                                                 $("input").val("");
+                                                $(".errors").html("");
                                                 /*table.DataTable().ajax.reload();*/
                                                 $('#kt_cars_table').DataTable().ajax.reload();
 
@@ -124,6 +129,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(".errors").html("");
                                                 print_error(response.error);
                                             }
                                         }

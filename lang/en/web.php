@@ -43,6 +43,9 @@ return [
     'english' => 'English',
     'arabic' => 'Arabic',
     'maps' => 'map',
+    'Male' => 'Male',
+    'Female' => 'Female',
+    'Status changed successfully' => 'Status changed successfully',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
@@ -135,8 +138,22 @@ return [
     'addressEnter' => 'Enter a address',
     'descriptionPlaceEnter' => 'Enter place description',
 
-    /*places*/
+    /*TOURS*/
     'tour_list' => 'Tour guides',
+    'Add_Tour' => 'Add Tour Guides',
+    'gender' => 'Gender',
+    'spoken_languages' => 'Languages',
+    'phone_number' => 'Phone Number',
+    'Select Language' => 'Select Languages',
+    'tour_Management' => 'Tours Management',
+    'Edit_tour_info' => 'Edit tour info',
+    'Tour_Details' => 'Tour Details',
+
+
+    'nameTourEnter' => 'Enter a tour name',
+    'addressTourEnter' => 'Enter a tour address',
+    'emailEnter' => 'Enter a tour email',
+    'phone_numberEnter' => 'Enter a tour phone number',
 
 
     /*messages*/
@@ -145,8 +162,10 @@ return [
     'max' => 'This field must not be greater than 255 characters.',
     'numeric' => 'This field must be a number',
     'date' => 'This field does not match the format',
-    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
-    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
+    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
+    'email' => 'This field must be a valid email address',
+    'unique' => 'This field email has already been taken.',
 
 
 ];
