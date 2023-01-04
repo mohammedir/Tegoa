@@ -970,8 +970,8 @@
                     type: 'GET',
                     url: "/drivers/" + id,
                     success: function (response) {
-                        $("#name_show").html(response.driver.full_name['en']);
-                        $("#address_show").html(response.driver.address['en']);
+                        $("#name_show").html(response.driver.full_name);
+                        $("#address_show").html(response.driver.address);
                         $("#mobile_show").html(response.driver.mobile_number);
                         $("#gender_show").html(response.gender);
                         $("#type_show").html(response.type);

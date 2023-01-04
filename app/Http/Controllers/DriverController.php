@@ -14,7 +14,7 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Driver::query()->where('user_type',"=",1)->latest();
+            $data = Driver::query()->where('user_type',"=",2)->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
                     if ($data->user_status == 1){
@@ -126,7 +126,7 @@ class DriverController extends Controller
             $data->email = $request->email;
             $data->mobile_number = $request->mobile;
             $data->password = Hash::make($request->password);
-            $data->user_type =1;
+            $data->user_type =2;
             if ($request->input('fileupload') != 'undefined') {
                 $value = $request->file('fileupload');
                 $name = time() . rand(1, 100) . '.' . $value->extension();
