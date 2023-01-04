@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    //1
+    //
 
     public function index(Request $request){
         return  $this->api_response(200,true,trans('api.user info ') , $request->user() , 200);
