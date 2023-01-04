@@ -50,7 +50,7 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-    'Admin Management' => 'إدارة مسؤولي النظام',
+    'Users Management' => 'إدارة مستخدمين النظام',
     'Admins' => 'مسؤولي النظام',
     'Roles' => 'الأدوار',
 
@@ -158,6 +158,29 @@ return [
     'emailEnter' => 'أدخل البريد الإلكتروني المرشد',
     'phone_numberEnter' => 'أدخل رقم هاتف المرشد',
 
+    /*Drivers*/
+    'Drivers' => 'السائقين',
+    'driver_list' => 'قائمة السائقين',
+    'drivers_Management' => 'إدارة السائقين',
+    'Add_driver' => 'إضافة سائق',
+    'Edit_driver_info' => 'تحرير معلومات السائق',
+    'personalPhoto' => 'صورة شخصية',
+    'driverLicense' => 'رخصة قيادة',
+    'Confirm_password' => 'تأكيد كلمة المرور',
+
+
+    'nameDriverEnter' => 'أدخل اسم السائق',
+    'emailDriverEnter' => 'أدخل البريد الإلكتروني للسائق',
+    'addressDriverEnter' => 'أدخل عنوان السائق',
+    'passwordDriverEnter' => 'أدخل كلمة مرور السائق',
+    'confirmPasswordDriverEnter' => 'أدخل كلمة مرور السائق مرة أخرى',
+
+
+    /*Passengers*/
+    'Passengers' => 'ركاب',
+
+
+
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
     'string' => 'يجب أن يكون هذا الحقل نصا',
@@ -168,6 +191,9 @@ return [
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
     'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
+    'min' => 'يجب ألا يقل هذا الحقل عن 8 أحرف',
+    'same' => 'يجب أن تتطابق كلمة المرور مع تأكيد كلمة المرور.',
+    'required_with' => ' وحقل كلمة المرور مطلوب عند وجود تأكيد كلمة المرور.',
 
 
 ];

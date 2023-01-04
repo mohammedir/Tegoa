@@ -49,7 +49,7 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
-    'Admin Management' => 'Managing system administrators',
+    'Users Management' => 'Managing system users',
     'Admins' => 'System administrators',
     'Roles' => 'roles',
 
@@ -149,11 +149,33 @@ return [
     'Edit_tour_info' => 'Edit tour info',
     'Tour_Details' => 'Tour Details',
 
-
     'nameTourEnter' => 'Enter a tour name',
     'addressTourEnter' => 'Enter a tour address',
     'emailEnter' => 'Enter a tour email',
     'phone_numberEnter' => 'Enter a tour phone number',
+
+    /*Drivers*/
+    'Drivers' => 'Drivers',
+    'driver_list' => 'Driver List',
+    'drivers_Management' => 'Drivers Management',
+    'Add_driver' => 'Add driver',
+    'Edit_driver_info' => 'Edit driver info',
+    'personalPhoto' => 'Personal photo',
+    'driverLicense' => 'Driver license',
+    'Confirm_password' => 'Confirm password',
+
+
+    'nameDriverEnter' => 'Enter a driver name',
+    'emailDriverEnter' => 'Enter a driver email',
+    'addressDriverEnter' => 'Enter a driver address',
+    'passwordDriverEnter' => 'Enter a driver password',
+    'confirmPasswordDriverEnter' => 'Enter a driver password again',
+
+
+    /*Drivers*/
+    'Passengers' => 'Passengers',
+
+
 
 
     /*messages*/
@@ -166,6 +188,9 @@ return [
     'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
     'email' => 'This field must be a valid email address',
     'unique' => 'This field email has already been taken.',
+    'min' => 'This field must be at least 8 characters',
+    'same' => 'The password and password confirmation must match.',
+    'required_with' => ' and the password field is required when password confirmation is present.',
 
 
 ];

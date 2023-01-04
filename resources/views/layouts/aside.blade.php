@@ -91,7 +91,7 @@
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion {{str_contains($url,"admins") || str_contains($url,"roles") || str_contains($url,"permissions") ? "hover show":""}} ">
+                     class="menu-item menu-accordion {{str_contains($url,"admins") || str_contains($url,"roles") || str_contains($url,"permissions") || str_contains($url,"drivers") || str_contains($url,"passengers") ? "hover show":""}} ">
                     <!--begin:Menu link-->
                     <span class="menu-link">
 											<span class="menu-icon">
@@ -109,7 +109,7 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-											<span class="menu-title">@lang('web.Admin Management')</span>
+											<span class="menu-title">@lang('web.Users Management')</span>
 											<span class="menu-arrow"></span>
 										</span>
                     <!--end:Menu link-->
@@ -124,6 +124,38 @@
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">@lang('web.Admins')</span>
+
+												</span>
+                            </a>
+                            <!--end:Menu link-->
+
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div data-kt-menu-trigger="click"
+                             class="menu-item menu-accordion mb-1 {{str_contains($url,"drivers") ? "hover show":""}} ">
+                            <!--begin:Menu link-->
+                            <a href="{{route("drivers.index")}}"><span class="menu-link {{str_contains($url,"drivers") ? "active":""}} ">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@lang('web.Drivers')</span>
+
+												</span>
+                            </a>
+                            <!--end:Menu link-->
+
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div data-kt-menu-trigger="click"
+                             class="menu-item menu-accordion mb-1 {{str_contains($url,"passengers") ? "hover show":""}} ">
+                            <!--begin:Menu link-->
+                            <a href="{{route("passengers.index")}}"><span class="menu-link {{str_contains($url,"passengers") ? "active":""}} ">
+													<span class="menu-bullet">
+														<span class="bullet bullet-dot"></span>
+													</span>
+													<span class="menu-title">@lang('web.Passengers')</span>
 
 												</span>
                             </a>

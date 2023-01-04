@@ -669,8 +669,8 @@
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <select id="gender_edit" class="form-control form-control-solid" name="gender_edit">
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
+                                                <option value="1">@lang('web.Male')</option>
+                                                <option value="2">@lang('web.Female')</option>
                                             </select>
                                             <strong id="gender_edit_error" class="errors text-danger"
                                                     role="alert"></strong>

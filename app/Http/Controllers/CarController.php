@@ -21,7 +21,7 @@ class CarController extends Controller
             $data = Car::query()->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
-                    return User::find($data->user_id)->full_name;
+                    return '<a href="'.route("drivers.index").'">'.User::find($data->user_id)->full_name.'</a>';
                 })
                 ->editColumn('status', function ($data) {
                     if ($data->status == 0){
