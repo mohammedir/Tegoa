@@ -10,6 +10,7 @@ use App\Mail\updateProfile;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
+use App\Services\FCMService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,7 @@ use MongoDB\Driver\Session;
 
 class PassengerController extends Controller
 {
+
     //
 
    /* public function index(Request $request){
@@ -172,7 +174,9 @@ class PassengerController extends Controller
             'arrival_time' => 'required',
 
         ]);
+        $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->passenger_id)->get()->first();
         if ($validator->passes()){
+            if ($passenger_id){
             $transportation_requests = new TransportationRequests();
             $transportation_requests->passenger_id = $request->passenger_id;
             $transportation_requests->lat_from = $request->lat_from;
@@ -187,8 +191,23 @@ class PassengerController extends Controller
             $transportation_requests->arrival_time = $request->arrival_time;
             $transportation_requests->save();
 
-            return  $this->api_response(200,true,trans('api.find_transportion') , $transportation_requests, 200);
 
+                $user = User::query()->find(1);
+                FCMService::send(
+                    $user->fcm_token,
+                    [
+                        'title' => 'your title',
+                        'body' => 'your body',
+
+                    ]
+                );
+
+
+            return  $this->api_response(200,true,trans('api.find_transportion') , $transportation_requests, 200);
+            }else{
+               return  $this->setError(500,false, "api.Passenger id not correct" , 500);
+
+            }
         }
 
 

@@ -1,8 +1,10 @@
 <?php
 
 
+use App\Models\API\User;
 use App\Models\Permission;
 use App\Models\RolesPermission;
+use App\Services\FCMService;
 
 function get_permission_by_name($name)
 {
@@ -26,4 +28,19 @@ function get_meters_between_points($latitude1, $longitude1, $latitude2, $longitu
     $r = 6371008; // Earth's average radius, in meters
     $d = $r * $c;
     return $d/1000; // distance, in meters
+}
+
+function firebaseNotification($fcmNotification)
+{
+    $fcmUrl =config('firebase.fcm_url');
+
+    $apiKey=config('firebase.fcm_api_key');
+
+    $http=\Illuminate\Support\Facades\Http::withHeaders([
+        'Authorization:key'=>$apiKey,
+        'Content-Type'=>'application/json'
+    ])  ->post($fcmUrl,$fcmNotification);
+
+    return  $http->json();
+
 }

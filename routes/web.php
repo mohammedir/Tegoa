@@ -29,6 +29,9 @@ Route::group(['middleware' => [ 'localeSessionRedirect', 'localizationRedirect',
     require __DIR__ . '/auth.php';
 
 });
+Route::get('/fcm', [DashboardController::class, 'fcm'])->name('fcm.index');
+Route::get('/send', [DashboardController::class, 'send'])->name('fcm.send');
+
 
 Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');

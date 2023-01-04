@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile_number')->nullable()->unique();
             $table->string('password');
             $table->string('api_token')->unique()->nullable()->default(null);
+            $table->string('fcm_token')->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->text('address')->nullable();
             $table->integer('gender')->nullable()->comment('1(male)/ 2(female)');

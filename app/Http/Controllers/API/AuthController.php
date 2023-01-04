@@ -25,7 +25,7 @@ class AuthController extends Controller
             'full_name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed||min:8',
-            'mobile_number' => 'required|unique:users|min:8',
+            'mobile_number' => 'required|unique:users',
             'address' => 'required',
             'gender' => 'required',
         ], [
@@ -77,6 +77,7 @@ class AuthController extends Controller
             'driverlicense' => 'required',
             'address' => 'required',
             'car_number' => 'required',
+            'car_brand' => 'required',
             'insurance_number' => 'required',
             'insurance_expiry_date' => 'required',
             'carphotos' => 'required',
