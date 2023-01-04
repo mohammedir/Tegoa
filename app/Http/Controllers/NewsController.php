@@ -17,10 +17,18 @@ class NewsController extends Controller
             $data = News::query()->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
-                    if ($data->status == 1) {
-                        $status = '<span class="badge badge-success" style="font-size: 13px;">' . trans('web.active') . '</span>';
-                    } else {
-                        $status = '<span class="badge badge-danger" style="font-size: 13px;">' . trans('web.inactive') . '</span>';
+                    if ($data->status == 1){
+                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                            <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusNews(this)"  checked />
+                            <label class="form-check-label" for="flexSwitchChecked">
+                            </label>
+                                </div>';
+                    }else{
+                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                            <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatusNews(this)" />
+                            <label class="form-check-label" for="flexSwitchChecked">
+                            </label>
+                                </div>';
                     }
                     return $status;
                 })->editColumn('type', function ($data) {
@@ -183,7 +191,6 @@ class NewsController extends Controller
             'description_en_edit' => 'required|string',
             'description_ar_edit' => 'required|string',
             'type_edit' => 'required|numeric',
-            'status_edit' => 'required|numeric',
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
             'title_en_edit.required' => trans("web.required"),
@@ -204,10 +211,6 @@ class NewsController extends Controller
             'type_edit.string' => trans("web.required"),
             'type_edit.numeric' => trans("web.numeric"),
 
-            'status_edit.string' => trans("web.required"),
-            'status_edit.numeric' => trans("web.numeric"),
-
-
             'fileuploads.mimes' => trans("web.mimes"),
             'fileuploads.uploaded' => trans("web.uploaded"),
 
@@ -218,7 +221,6 @@ class NewsController extends Controller
             $data->article = ['en' => $request->article_en_edit, 'ar' => $request->description_ar_edit];
             $data->description = ['en' => $request->description_en_edit, 'ar' => $request->description_ar_edit];
             $data->type = $request->type_edit;
-            $data->status = $request->status_edit;
             if ($request->input('fileuploads') != 'undefined'){
                 $value = $request->file('fileuploads');
                 $name = time().rand(1,100).'.'.$value->extension();
@@ -239,5 +241,20 @@ class NewsController extends Controller
     {
         $news = News::find($news->id)->delete();
         return response()->json(['success' => $news]);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        if ($request->ajax()){
+            $data = News::find($request->id);
+            if ($request->isChecked == "true"){
+                $data->status = 1;
+                $data->save();
+            }else{
+                $data->status = 0;
+                $data->save();
+            }
+            return response()->json('success');
+        }
     }
 }

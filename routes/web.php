@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
@@ -58,8 +60,18 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('news', NewsController::class);
     Route::resource('places', PlaceController::class);
     Route::get('/get/map/', [PlaceController::class, 'map']);
+    Route::get('/changeStatus/news/', [NewsController::class, 'changeStatus']);
+
+
     Route::resource('tour', TourController::class);
     Route::get('/changeStatus/', [TourController::class, 'changeStatus']);
+
+    Route::resource('drivers', DriverController::class);
+    Route::get('/changeStatus/drivers/', [DriverController::class, 'changeStatus']);
+
+
+    Route::resource('passengers', PassengerController::class);
+
 
 
     Route::get('language/{locale}', function ($locale) {
