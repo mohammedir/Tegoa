@@ -72,7 +72,6 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('drivers', DriverController::class);
     Route::get('/changeStatus/drivers/', [DriverController::class, 'changeStatus']);
 
-
     Route::resource('passengers', PassengerController::class);
 
 

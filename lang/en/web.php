@@ -172,9 +172,19 @@ return [
     'confirmPasswordDriverEnter' => 'Enter a driver password again',
 
 
-    /*Drivers*/
+    /*Passengers*/
     'Passengers' => 'Passengers',
+    'Passengers_list' => 'Passengers list',
+    'Passengers_Management' => 'Passengers Management',
+    'Add_Passenger' => 'Add Passenger',
+    'Edit_Passenger_info' => 'Edit passenger info',
+    'Passengers_Details' => 'Passengers Details',
 
+    'namePassengerEnter' => 'Enter a passenger name',
+    'emailPassengerEnter' => 'Enter a passenger email',
+    'addressPassengerEnter' => 'Enter a passenger address',
+    'passwordPassengerEnter' => 'Enter a passenger password',
+    'confirmPasswordPassengerEnter' => 'Enter a passenger password again',
 
 
 
@@ -188,6 +198,7 @@ return [
     'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
     'email' => 'This field must be a valid email address',
     'unique' => 'This field email has already been taken.',
+    'uniqueNumber' => 'This field phone number has already been taken.',
     'min' => 'This field must be at least 8 characters',
     'same' => 'The password and password confirmation must match.',
     'required_with' => ' and the password field is required when password confirmation is present.',

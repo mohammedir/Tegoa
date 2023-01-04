@@ -178,7 +178,17 @@ return [
 
     /*Passengers*/
     'Passengers' => 'ركاب',
+    'Passengers_list' => 'قائمة الركاب',
+    'Passengers_Management' => 'إدارة الركاب',
+    'Add_Passenger' => 'إضافة راكب',
+    'Edit_Passenger_info' => 'تعديل معلومات الركاب',
+    'Passengers_Details' => 'تفاصيل الركاب',
 
+    'namePassengerEnter' => 'أدخل اسم راكب',
+    'emailPassengerEnter' => 'أدخل البريد الإلكتروني للركاب',
+    'addressPassengerEnter' => 'أدخل عنوان الراكب',
+    'passwordPassengerEnter' => 'أدخل كلمة مرور الراكب',
+    'confirmPasswordPassengerEnter' => 'أدخل كلمة مرور الركاب مرة أخرى',
 
 
     /*messages*/
@@ -191,6 +201,8 @@ return [
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
     'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
+    'uniqueNumber' => 'تم أخذ هذا الرقم بالفعل.',
+
     'min' => 'يجب ألا يقل هذا الحقل عن 8 أحرف',
     'same' => 'يجب أن تتطابق كلمة المرور مع تأكيد كلمة المرور.',
     'required_with' => ' وحقل كلمة المرور مطلوب عند وجود تأكيد كلمة المرور.',
