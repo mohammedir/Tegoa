@@ -43,6 +43,10 @@ return [
     'english' => 'الانجليزيه',
     'arabic' => 'العربيه',
     'maps' => 'الموقع',
+    'Male' => 'ذكر',
+    'Female' => 'انثى',
+    'Status changed successfully' => 'تم تغيير الحالة بنجاح',
+
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
@@ -137,8 +141,22 @@ return [
     'addressEnter' => 'أدخل عنوان المكان',
     'descriptionPlaceEnter' => 'أدخل وصف المكان',
 
-    /*places*/
+    /*TOURS*/
     'tour_list' => 'المرشدين السياحيين',
+    'Add_Tour' => 'أضف المرشدين السياحيين',
+    'gender' => 'الجنس',
+    'spoken_languages' => 'اللغات',
+    'phone_number' => 'رقم الهاتف',
+    'Select Language' => 'اختار اللغات',
+    'tour_Management' => 'إدارة المرشدين',
+    'Edit_tour_info' => 'تعديل بيانات المرشد',
+    'Tour_Details' => 'تفاصيل المرشد',
+
+
+    'nameTourEnter' => 'أدخل اسم المرشد',
+    'addressTourEnter' => 'أدخل عنوان المرشد',
+    'emailEnter' => 'أدخل البريد الإلكتروني المرشد',
+    'phone_numberEnter' => 'أدخل رقم هاتف المرشد',
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
@@ -148,7 +166,8 @@ return [
     'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
     'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
-
+    'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
+    'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
 
 
 ];

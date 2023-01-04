@@ -190,7 +190,7 @@ class CarController extends Controller
                 if ($request->file('photos_edit')) {
                     foreach ($request->file('photos_edit') as $value){
                         $name = time().rand(1,100).'.'.$value->extension();
-                        $value->move('/images/cars/', $name);
+                        $value->move('images/cars/', $name);
                         $image = new Photos();
                         $image->images = $name;
                         $image->car_id = $data->id;
