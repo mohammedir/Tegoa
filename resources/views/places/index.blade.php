@@ -82,7 +82,7 @@
                     <div class="card-toolbar">
                         <!--begin::Button-->
                         <button type="button" class="btn btn-light-primary addNew" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_add_places">
+                                data-bs-target="#kt_modal_add_places"  onclick="showlocation()">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
                             <span class="svg-icon svg-icon-3">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -407,7 +407,7 @@
                                         <div class="fv-row col-sm-1 mb-3" style="padding-top: 28px;">
 
                                             <button type="button" class="btn btn-light-primary"
-                                                    onclick="initMap()">
+                                                    onclick="showlocation()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                     <path
@@ -1054,6 +1054,21 @@
     <!--end::Content-->
 @endsection
 @section('js')
+    <!--begin::Vendors Javascript(used for this page only)-->
+    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
+    <!--end::Vendors Javascript-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{{asset('pages/js/admin-management/places/add-places.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/places/edit-places.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/places/list.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/places/index.js')}}" defer></script>
+    <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
+    <!--end::Custom Javascript-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA&callback=initMap"
             async>
     </script>
@@ -1165,12 +1180,7 @@
         }
 
         function showlocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(initMap);
-            } else {
-                showError("Your browser does not support Geolocation!");
-            }
-
+            navigator.geolocation.getCurrentPosition(initMap);
         }
 
         function initMap(position) {
@@ -1204,23 +1214,6 @@
             });
         }
     </script>
-
-
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{asset('pages/js/admin-management/places/add-places.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/places/edit-places.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/places/list.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/places/index.js')}}" defer></script>
-    <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
-    <!--end::Custom Javascript-->
     <!--end::Javascript-->
     <script>
         function resetMaps() {

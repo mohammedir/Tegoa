@@ -43,10 +43,15 @@ return [
     'english' => 'English',
     'arabic' => 'Arabic',
     'maps' => 'map',
+    'Male' => 'Male',
+    'Female' => 'Female',
+    'Status changed successfully' => 'Status changed successfully',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
-
+    'Users Management' => 'Managing system users',
+    'Admins' => 'System administrators',
+    'Roles' => 'roles',
 
     /*permission*/
     'dashboard' => 'dashboard',
@@ -68,7 +73,7 @@ return [
     'Update Permission' => 'Update Permission',
 
     /*cars*/
-    'Cars_List' => 'Cars List',
+    'Cars_List' => 'Cars',
     'Home' => 'Home',
     'Cars_Management' => 'Cars Management',
     'Search' => 'Search',
@@ -102,7 +107,7 @@ return [
     /*news*/
     'news' => 'news',
     'announcements' => 'announcements',
-    'news_list' => 'News List',
+    'news_list' => 'News',
     'News_Management' => 'News Management',
     'Add_News' => 'Add New',
     'title' => 'Title',
@@ -115,7 +120,7 @@ return [
     'descriptionEnter' => 'Enter news description',
 
     /*places*/
-    'places_list' => 'Places List',
+    'places_list' => 'Places',
     'name' => 'Name',
     'Places_Management' => 'Places Management',
     'Add_place' => 'Add Place',
@@ -133,14 +138,59 @@ return [
     'addressEnter' => 'Enter a address',
     'descriptionPlaceEnter' => 'Enter place description',
 
+    /*TOURS*/
+    'tour_list' => 'Tour guides',
+    'Add_Tour' => 'Add Tour Guides',
+    'gender' => 'Gender',
+    'spoken_languages' => 'Languages',
+    'phone_number' => 'Phone Number',
+    'Select Language' => 'Select Languages',
+    'tour_Management' => 'Tours Management',
+    'Edit_tour_info' => 'Edit tour info',
+    'Tour_Details' => 'Tour Details',
+
+    'nameTourEnter' => 'Enter a tour name',
+    'addressTourEnter' => 'Enter a tour address',
+    'emailEnter' => 'Enter a tour email',
+    'phone_numberEnter' => 'Enter a tour phone number',
+
+    /*Drivers*/
+    'Drivers' => 'Drivers',
+    'driver_list' => 'Driver List',
+    'drivers_Management' => 'Drivers Management',
+    'Add_driver' => 'Add driver',
+    'Edit_driver_info' => 'Edit driver info',
+    'personalPhoto' => 'Personal photo',
+    'driverLicense' => 'Driver license',
+    'Confirm_password' => 'Confirm password',
+
+
+    'nameDriverEnter' => 'Enter a driver name',
+    'emailDriverEnter' => 'Enter a driver email',
+    'addressDriverEnter' => 'Enter a driver address',
+    'passwordDriverEnter' => 'Enter a driver password',
+    'confirmPasswordDriverEnter' => 'Enter a driver password again',
+
+
+    /*Drivers*/
+    'Passengers' => 'Passengers',
+
+
+
+
     /*messages*/
     'required' => 'This filed is required',
     'string' => 'This field must be string',
     'max' => 'This field must not be greater than 255 characters.',
     'numeric' => 'This field must be a number',
     'date' => 'This field does not match the format',
-    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
-    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png.',
+    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
+    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
+    'email' => 'This field must be a valid email address',
+    'unique' => 'This field email has already been taken.',
+    'min' => 'This field must be at least 8 characters',
+    'same' => 'The password and password confirmation must match.',
+    'required_with' => ' and the password field is required when password confirmation is present.',
 
 
 ];

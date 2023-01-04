@@ -43,14 +43,18 @@ return [
     'english' => 'الانجليزيه',
     'arabic' => 'العربيه',
     'maps' => 'الموقع',
+    'Male' => 'ذكر',
+    'Female' => 'انثى',
+    'Status changed successfully' => 'تم تغيير الحالة بنجاح',
+
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-    'Admin Management' => 'ادارة مدراء النظام',
-    'Admins' => ' مدراء النظام',
-    'Roles' => 'الادوار',
+    'Users Management' => 'إدارة مستخدمين النظام',
+    'Admins' => 'مسؤولي النظام',
+    'Roles' => 'الأدوار',
 
-    /*permission*/
+    /*permissions*/
     'dashboard'=>'لوحة التحكم',
     'dashboard_view'=>'عرض لوحة التحكم',
     'dashboard_create'=>'انشاء لوحة التحكم',
@@ -70,7 +74,7 @@ return [
     'Update Permission' => 'تعديل الصلاحيات',
 
     /*cars*/
-    'Cars_List' => 'قائمة السيارات',
+    'Cars_List' => 'السيارات',
     'Home' => 'الرئيسيه',
     'Cars_Management' => 'إدارة السيارات',
     'Search' => 'بحث',
@@ -105,7 +109,7 @@ return [
     /*news*/
     'news' => 'اخبارية',
     'announcements' => 'اعلانات',
-    'news_list' => 'قائمه الاخبار',
+    'news_list' => 'الاخبار',
     'News_Management' => 'إدارة الأخبار',
     'Add_News' => 'اضافه خبر',
     'title' => 'العنوان',
@@ -119,7 +123,7 @@ return [
     'descriptionEnter' => 'أدخل وصف الخبر',
 
     /*places*/
-    'places_list' => 'قائمة الأماكن',
+    'places_list' => 'الأماكن',
     'name' => 'الاسم',
     'Places_Management' => 'إدارة الأماكن',
     'Add_place' => 'أضف مكان',
@@ -137,6 +141,45 @@ return [
     'addressEnter' => 'أدخل عنوان المكان',
     'descriptionPlaceEnter' => 'أدخل وصف المكان',
 
+    /*TOURS*/
+    'tour_list' => 'المرشدين السياحيين',
+    'Add_Tour' => 'أضف المرشدين السياحيين',
+    'gender' => 'الجنس',
+    'spoken_languages' => 'اللغات',
+    'phone_number' => 'رقم الهاتف',
+    'Select Language' => 'اختار اللغات',
+    'tour_Management' => 'إدارة المرشدين',
+    'Edit_tour_info' => 'تعديل بيانات المرشد',
+    'Tour_Details' => 'تفاصيل المرشد',
+
+
+    'nameTourEnter' => 'أدخل اسم المرشد',
+    'addressTourEnter' => 'أدخل عنوان المرشد',
+    'emailEnter' => 'أدخل البريد الإلكتروني المرشد',
+    'phone_numberEnter' => 'أدخل رقم هاتف المرشد',
+
+    /*Drivers*/
+    'Drivers' => 'السائقين',
+    'driver_list' => 'قائمة السائقين',
+    'drivers_Management' => 'إدارة السائقين',
+    'Add_driver' => 'إضافة سائق',
+    'Edit_driver_info' => 'تحرير معلومات السائق',
+    'personalPhoto' => 'صورة شخصية',
+    'driverLicense' => 'رخصة قيادة',
+    'Confirm_password' => 'تأكيد كلمة المرور',
+
+
+    'nameDriverEnter' => 'أدخل اسم السائق',
+    'emailDriverEnter' => 'أدخل البريد الإلكتروني للسائق',
+    'addressDriverEnter' => 'أدخل عنوان السائق',
+    'passwordDriverEnter' => 'أدخل كلمة مرور السائق',
+    'confirmPasswordDriverEnter' => 'أدخل كلمة مرور السائق مرة أخرى',
+
+
+    /*Passengers*/
+    'Passengers' => 'ركاب',
+
+
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
@@ -146,7 +189,11 @@ return [
     'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
     'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
-
+    'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
+    'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
+    'min' => 'يجب ألا يقل هذا الحقل عن 8 أحرف',
+    'same' => 'يجب أن تتطابق كلمة المرور مع تأكيد كلمة المرور.',
+    'required_with' => ' وحقل كلمة المرور مطلوب عند وجود تأكيد كلمة المرور.',
 
 
 ];

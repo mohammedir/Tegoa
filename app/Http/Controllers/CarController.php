@@ -21,7 +21,7 @@ class CarController extends Controller
             $data = Car::query()->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
-                    return User::find($data->user_id)->full_name;
+                    return '<a href="'.route("drivers.index").'">'.User::find($data->user_id)->full_name.'</a>';
                 })
                 ->editColumn('status', function ($data) {
                     if ($data->status == 0){
@@ -190,7 +190,7 @@ class CarController extends Controller
                 if ($request->file('photos_edit')) {
                     foreach ($request->file('photos_edit') as $value){
                         $name = time().rand(1,100).'.'.$value->extension();
-                        $value->move(public_path('/images/cars/'), $name);
+                        $value->move('images/cars/', $name);
                         $image = new Photos();
                         $image->images = $name;
                         $image->car_id = $data->id;
