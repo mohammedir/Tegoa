@@ -32,7 +32,19 @@ return [
     /*login*/
 
     'user not found' => 'بيانات الدخول غير صحيحة',
-    'login done' => 'تم تسجيل الدخول بنجاح'
+    'login done' => 'تم تسجيل الدخول بنجاح',
+
+    /*Guest*/
+
+    'Stations List' => 'قائمة المحطات',
+    'Map List' => 'قائمة الاماكن',
+    'News List' => 'قائمة الاخبار',
+    'Announcements List' => 'قائمة الاعلانات',
+    'Contact Emergency List' => 'قائمة الاتصال في حالات الطوارئ',
+    'Tour Guids List' => 'قائمة المرشدين السياحيين',
+
+
+
 
 
 

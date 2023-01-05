@@ -29,12 +29,15 @@ Route::get('user',[AuthController::class,'index'])->middleware('auth:sanctum');
 Route::get('settings',[PassengerController::class,'settings']);
 
 Route::controller(GuestController::class)
+    ->middleware('localization')
     ->group(function () {
-        Route::get('/news', 'news')->name('news');
-        Route::get('/announcements', 'announcements')->name('announcements');
+        Route::get('/stations', 'stations')->name('stations');
+        Route::get('/map', 'map')->name('map');
         Route::get('/tourism_activities', 'tourism_activities')->name('tourism_activities');
         Route::get('/tour_guids', 'tour_guids')->name('tour_guids');
         Route::get('/contact_emergency', 'contact_emergency')->name('contact_emergency');
+        Route::get('/news', 'news')->name('news');
+        Route::get('/announcements', 'announcements')->name('announcements');
     });
 Route::controller(PassengerController::class)
     ->middleware('auth:sanctum')

@@ -33,7 +33,19 @@ return [
     /*login*/
 
     'user not found' => 'user not found',
-    'login done' => 'login done'
+    'login done' => 'login done',
+
+
+    /*Guest*/
+
+    'Stations List' => 'Stations List',
+    'Map List' => 'Site list',
+    'News List' => 'News List',
+    'Announcements List' => 'Announcements List',
+    'Contact Emergency List' => 'Contact Emergency List',
+    'Tour Guids List' => 'Tour Guids List',
+
+
 
 
 ];

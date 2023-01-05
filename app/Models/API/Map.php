@@ -7,18 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
-use function Symfony\Component\String\u;
 
-class TourGuids extends Model
+class Map extends Model
 {
     use HasFactory,SoftDeletes,HasTranslations;
-    protected $table = "tour_guids";
+    protected $table = "places";
+    public $translatable = ['name','description','address'];
     protected $guarded = [];
-    public $translatable = ['full_name','address'];
-
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at','deleted_at'
     ];
     protected $fillable = [
         'image',
@@ -27,12 +25,18 @@ class TourGuids extends Model
 
     public function getImageAttribute($value)
     {
-        return url(asset('images/tours/'.$value));
+        return url(asset('images/places/'.$value));
     }
-    protected function fullName(): Attribute
+    protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->getTranslation('full_name',app()->getLocale()),
+            get: fn ($value) => $this->getTranslation('name',app()->getLocale()),
+        );
+    }
+    protected function description(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->getTranslation('description',app()->getLocale()),
         );
     }
     protected function address(): Attribute
