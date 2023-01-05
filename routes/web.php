@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\PermissionAdminController;
@@ -73,6 +74,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/changeStatus/drivers/', [DriverController::class, 'changeStatus']);
 
     Route::resource('passengers', PassengerController::class);
+    Route::resource('emergencies', EmergencyController::class);
+    Route::get('/changeStatus/emergencies/', [EmergencyController::class, 'changeStatus']);
 
 
 

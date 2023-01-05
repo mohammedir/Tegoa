@@ -194,6 +194,20 @@ return [
     'passwordPassengerEnter' => 'أدخل كلمة مرور الراكب',
     'confirmPasswordPassengerEnter' => 'أدخل كلمة مرور الركاب مرة أخرى',
 
+    /*emergencies*/
+    'emergency_list' => 'قائمة الطوارئ',
+    'emergency_Management' => 'إدارة الطوارئ',
+    'Add_emergency' => 'إضافة جهة اتصال الطوارئ',
+    'scooter_number' => 'رقم السكوتر',
+    '4-wheels' => '4-عجلات',
+    '3-wheels' => '3-عجلات',
+    'Edit_emergency_info' => 'تعديل معلومات الطوارئ',
+    'Emergency_Details' => 'بيانات الطوارئ',
+
+    'phone_numberEmergencyEnter' => 'أدخل رقم هاتف الطوارئ',
+    'scooter_numberEnter' => 'أدخل رقم سكوتر الطوارئ',
+    'titleEmergencyEnter' => 'أدخل عنوان جهة اتصال الطوارئ',
+
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',

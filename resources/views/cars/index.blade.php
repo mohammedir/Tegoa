@@ -257,7 +257,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" id="insurance_expiry_date_edit"
+                                        <input type="date" id="insurance_expiry_date_edit" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl" @endif
                                                class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_expiry_dateEnter')"
                                                name="insurance_expiry_date_edit"/>
@@ -287,12 +287,12 @@
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
-                                                   style="color: CCCCCC">Choose File: <span
+                                                   style="color: #999595FF">Choose File: <span
                                                     id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
                                         @else
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
-                                                   style="color: white;">اختر ملف : <span
+                                                   style="color: #999595FF;">اختر ملف : <span
                                                     id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                         @endif
                                         <!--end::Input-->
