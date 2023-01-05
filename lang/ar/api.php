@@ -42,6 +42,7 @@ return [
     'Announcements List' => 'قائمة الاعلانات',
     'Contact Emergency List' => 'قائمة الاتصال في حالات الطوارئ',
     'Tour Guids List' => 'قائمة المرشدين السياحيين',
+    'Tourism Activities List' => 'قائمة الأنشطة السياحية',
 
 
 
