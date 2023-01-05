@@ -19,9 +19,9 @@ class CreateCarsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('type')->comment('1:public | 2:private');
-            $table->bigInteger('car_number');
+            $table->string('car_number');
             $table->string('car_brand');
-            $table->bigInteger('insurance_number');
+            $table->string('insurance_number');
             $table->date('insurance_expiry_date');
             $table->text('carphotos')->nullable();
             $table->text('carlicense')->nullable();

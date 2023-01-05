@@ -24,7 +24,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed||min:8',
+            'password' => 'required|min:8|confirmed',
             'mobile_number' => 'required|unique:users',
             'address' => 'required',
             'gender' => 'required',
@@ -69,17 +69,17 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|min:8|confirmed',
             'mobile_number' => 'required|unique:users',
             'gender' => 'required',
             'vehicle_type' => 'required',
             'personalphoto' => 'required',
             'driverlicense' => 'required',
             'address' => 'required',
-            'car_number' => 'required',
+            'car_number' => 'required|unique:cars',
             'car_brand' => 'required',
             'insurance_number' => 'required',
-            'insurance_expiry_date' => 'required',
+            'insurance_expiry_date' => 'required|date',
             'carphotos' => 'required',
             'carlicense' => 'required',
             'carinsurance' => 'required',
@@ -96,6 +96,11 @@ class AuthController extends Controller
             'mobile_number.unique' => trans("api.The mobile number has already been taken"),
             'address.required' => trans("api.address field is required"),
             'gender.required' => trans("api.gender field is required"),
+            'personalphoto.required' => trans("api.personalphoto field is required"),
+            'car_number.unique' => trans("api.The car number has already been taken"),
+            'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
+            'driverlicense.required' => trans("api.driverlicense field is required"),
+            'carphotos.required' => trans("api.carphotos field is required"),
         ]);
         if ($validator->passes()) {
             $user = new User();
@@ -182,8 +187,12 @@ class AuthController extends Controller
     public function passenger_login(Request $request){
       $input = $request->all();
       $validation = Validator::make($input,[
-          'email' => 'required',
+          'email' => 'required|email',
           'password' => 'required',
+      ],[
+          'email.required' => trans("api.email field is required"),
+          'email.email' => trans("api.The email must be a valid email address"),
+          'password.required' => trans("api.password field is required"),
       ]);
 
       if ($validation->fails()){
@@ -205,9 +214,13 @@ class AuthController extends Controller
     public function driver_login(Request $request){
         $input = $request->all();
         $validation = Validator::make($input,[
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
 
+        ],[
+            'email.required' => trans("api.email field is required"),
+            'email.email' => trans("api.The email must be a valid email address"),
+            'password.required' => trans("api.password field is required"),
         ]);
 
         if ($validation->fails()){

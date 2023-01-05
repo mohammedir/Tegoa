@@ -44,3 +44,8 @@ function firebaseNotification($fcmNotification)
     return  $http->json();
 
 }
+
+function getUserName($id){
+    $user = User::query()->find($id);
+    return $user->full_name;
+}

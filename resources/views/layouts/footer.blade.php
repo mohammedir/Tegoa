@@ -18,7 +18,7 @@
 <script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"defer></script>
 <script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
 <!--end::Global Javascript Bundle-->
-<script type="module">
+{{--<script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
@@ -42,6 +42,6 @@
     const analytics = getAnalytics(app);
 
 
-</script>
+</script>--}}
 <!--end::Javascript-->
 @yield('js')
