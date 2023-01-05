@@ -195,6 +195,7 @@ return [
     'confirmPasswordPassengerEnter' => 'أدخل كلمة مرور الركاب مرة أخرى',
 
     /*emergencies*/
+    'emergencies' => 'دراجات الطوارئ الإلكترونية',
     'emergency_list' => 'قائمة الطوارئ',
     'emergency_Management' => 'إدارة الطوارئ',
     'Add_emergency' => 'إضافة جهة اتصال الطوارئ',
@@ -207,6 +208,22 @@ return [
     'phone_numberEmergencyEnter' => 'أدخل رقم هاتف الطوارئ',
     'scooter_numberEnter' => 'أدخل رقم سكوتر الطوارئ',
     'titleEmergencyEnter' => 'أدخل عنوان جهة اتصال الطوارئ',
+
+    /*activities*/
+    'activities' => ' الأنشطة السياحية',
+    'Add_activity' => 'أضف نشاط',
+    'activities_list' => ' قائمة الأنشطة السياحية',
+    'activity_Management' => 'إدارة الأنشطة',
+    'start_date' => 'تاريخ البدء',
+    'end_date' => 'تاريخ الانتهاء',
+    'required_tools' => 'أدوات المطلوبة',
+    'Activity_Details' => 'بيانات النشاط',
+    'Edit_avtivity_info' => 'تعديل معلومات النشاط',
+
+
+    'nameActivityEnter' => 'أدخل اسم النشاط',
+    'descriptionActivityEnter' => 'أدخل وصف النشاط',
+    'required_toolsEnter' => 'أدخل الأدوات المطلوبة',
 
 
     /*messages*/

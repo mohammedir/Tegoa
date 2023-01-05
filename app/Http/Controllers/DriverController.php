@@ -179,8 +179,8 @@ class DriverController extends Controller
     public function update(Request $request, Driver $driver)
     {
         $validator = Validator::make($request->all(), [
-            'name_edit' => 'required|string|max:255',
-            'address_edit' => 'required|string|max:255',
+            'name_edit' => 'required|string',
+            'address_edit' => 'required|string',
             'gender_edit' => 'required|numeric',
             'vehicle_type_edit' => 'required|numeric',
             'email_edit' => 'required|email|max:255|unique:users,email,' . $driver->id,

@@ -2,31 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Emergency;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
-class EmergencyController extends Controller
+class ActivityController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Emergency::query()->latest();
+            $data = Activity::query()->latest();
             return Datatables::of($data)->addIndexColumn()
-                ->editColumn('title', function ($data) {
-                    return Str::limit($data->title,20) ;
-                })->editColumn('type', function ($data) {
-                    if ($data->type == 1) {
-                        $type =  trans('web.3-wheels');
-                    } else {
-                        $type =   trans('web.4-wheels');
-                    }
-                    return $type;
-                })
-                ->editColumn('status', function ($data) {
+                ->editColumn('name', function ($data) {
+                    return Str::limit($data->name,20) ;
+                })->editColumn('description', function ($data) {
+                    return Str::limit($data->description,20) ;
+                })->editColumn('status', function ($data) {
                     if ($data->status == 1) {
                         $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusEmergency(this)"  checked />
@@ -43,7 +36,7 @@ class EmergencyController extends Controller
                     return $status;
                 })
                 ->addColumn('others', function ($data) {
-                    $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_emergency">
+                    $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_activities">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +46,7 @@ class EmergencyController extends Controller
 																</span>
                                     <!--end::Svg Icon-->
                                 </button>
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_emergencies">
+                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_activities">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +77,7 @@ class EmergencyController extends Controller
                 ->escapeColumns([])
                 ->make(true);
         }
-        return view('emergencies.index');
+        return view('activities.index');
     }
 
     public function create()
@@ -95,46 +88,52 @@ class EmergencyController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title_en' => 'required|string',
-            'title_ar' => 'required|string',
-            'scooter_number' => 'required|numeric|unique:emergencies,scooter_number',
-            'type' => 'required|numeric',
-            'phone_number' => 'required|numeric|unique:emergencies,phone_number',
+            'name_en' => 'required|string',
+            'name_ar' => 'required|string',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
+            'required_tools_en' => 'required|string',
+            'required_tools_ar' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
             'fileupload' => 'required|mimes:jpeg,png,jpg'
         ], [
-            'title_en.required' => trans("web.required"),
-            'title_en.string' => trans("web.string"),
-            'title_en.max' => trans("web.max"),
+            'name_en.required' => trans("web.required"),
+            'name_en.string' => trans("web.string"),
+            'name_ar.required' => trans("web.required"),
+            'name_ar.string' => trans("web.string"),
 
-            'title_ar.required' => trans("web.required"),
-            'title_ar.string' => trans("web.string"),
-            'title_ar.max' => trans("web.max"),
+            'description_en.required' => trans("web.required"),
+            'description_en.string' => trans("web.string"),
+            'description_ar.required' => trans("web.required"),
+            'description_ar.string' => trans("web.string"),
 
-            'scooter_number.required' => trans("web.required"),
-            'scooter_number.numeric' => trans("web.numeric"),
-            'scooter_number.unique' => trans("web.uniqueScooter"),
+            'required_tools_en.required' => trans("web.required"),
+            'required_tools_en.string' => trans("web.string"),
+            'required_tools_ar.required' => trans("web.required"),
+            'required_tools_ar.string' => trans("web.string"),
 
-            'type.required' => trans("web.required"),
-            'type.numeric' => trans("web.numeric"),
+            'start_date.required' => trans("web.required"),
+            'start_date.date' => trans("web.date"),
 
-            'phone_number.required' => trans("web.required"),
-            'phone_number.numeric' => trans("web.numeric"),
-            'phone_number.unique' => trans("web.uniqueNumber"),
+            'end_date.required' => trans("web.required"),
+            'end_date.date' => trans("web.date"),
 
             'fileupload.required' => trans("web.required"),
             'fileupload.mimes' => trans("web.mimes"),
         ]);
         if ($validator->passes()) {
-            $data = new Emergency();
-            $data->title = ["en" => $request->title_en, "ar" => $request->title_ar];
-            $data->scooter_number = $request->scooter_number;
-            $data->type = $request->type;
-            $data->phone_number = $request->phone_number;
+            $data = new Activity();
+            $data->name = ["en" => $request->name_en, "ar" => $request->name_ar];
+            $data->description = ["en" => $request->description_en, "ar" => $request->description_ar];
+            $data->required_tools = ["en" => $request->required_tools_en, "ar" => $request->required_tools_ar];
+            $data->start_date = $request->start_date;
+            $data->end_date = $request->end_date;
             $data->status = 1;
             if ($request->file('fileupload')) {
                 $value = $request->file('fileupload');
                 $name = time().rand(1,100).'.'.$value->extension();
-                $value->move('images/emergencies/', $name);
+                $value->move('images/activities/', $name);
                 $data->image = $name;
             }
             $data->save();
@@ -145,99 +144,94 @@ class EmergencyController extends Controller
 
     }
 
-    public function show(Request $request,Emergency $emergency)
+    public function show(Request $request,Activity $activity)
     {
         if ($request->ajax()) {
-            $emergency = Emergency::find($emergency->id);
-            if ($emergency->status == 1) {
+            $activity = Activity::find($activity->id);
+            if ($activity->status == 1) {
                 $status = '<span class="badge badge-success" style="font-size: 13px;">' . trans('web.active') . '</span>';
             } else {
                 $status = '<span class="badge badge-danger" style="font-size: 13px;">' . trans('web.inactive') . '</span>';
             }
-            if ($emergency->type == 1) {
-                $gender = '<span >' . trans('web.3-wheels') . '</span>';
-            } else {
-                $gender = '<span>' . trans('web.4-wheels') . '</span>';
-            }
-            return response()->json(['emergency'=>$emergency,'status'=>$status,'gender'=>$gender]);
+            return response()->json(['activity'=>$activity,'status'=>$status]);
         }
     }
 
-    public function edit(Request $request,Emergency $emergency)
+    public function edit(Request $request,Activity $activity)
     {
         if ($request->ajax()) {
-            $emergency = Emergency::find($emergency->id);
-            return response()->json($emergency);
+            $activity = Activity::find($activity->id);
+            return response()->json($activity);
         }
     }
 
-
-    public function update(Request $request, Emergency $emergency)
+    public function update(Request $request, Activity $activity)
     {
         $validator = Validator::make($request->all(), [
-            'title_en_edit' => 'required|string',
-            'title_ar_edit' => 'required|string',
-            'scooter_number_edit' => 'required|numeric|unique:emergencies,scooter_number,' . $emergency->id,
-            'type_edit' => 'required|numeric',
-            'phone_number_edit' => 'required|numeric|unique:emergencies,phone_number,' . $emergency->id,
+            'name_en_edit' => 'required|string',
+            'name_ar_edit' => 'required|string',
+            'description_en_edit' => 'required|string',
+            'description_ar_edit' => 'required|string',
+            'required_tools_en_edit' => 'required|string',
+            'required_tools_ar_edit' => 'required|string',
+            'start_date_edit' => 'required|date',
+            'end_date_edit' => 'required|date',
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
-            'title_en_edit.required' => trans("web.required"),
-            'title_en_edit.string' => trans("web.string"),
-            'title_en_edit.max' => trans("web.max"),
+            'name_en_edit.required' => trans("web.required"),
+            'name_en_edit.string' => trans("web.string"),
+            'name_ar_edit.required' => trans("web.required"),
+            'name_ar_edit.string' => trans("web.string"),
 
-            'title_ar_edit.required' => trans("web.required"),
-            'title_ar_edit.string' => trans("web.string"),
-            'title_ar_edit.max' => trans("web.max"),
+            'description_en_edit.required' => trans("web.required"),
+            'description_en_edit.string' => trans("web.string"),
+            'description_ar_edit.required' => trans("web.required"),
+            'description_ar_edit.string' => trans("web.string"),
 
-            'scooter_number_edit.required' => trans("web.required"),
-            'scooter_number_edit.numeric' => trans("web.numeric"),
-            'scooter_number_edit.unique' => trans("web.uniqueScooter"),
+            'required_tools_en_edit.required' => trans("web.required"),
+            'required_tools_en_edit.string' => trans("web.string"),
+            'required_tools_ar_edit.required' => trans("web.required"),
+            'required_tools_ar_edit.string' => trans("web.string"),
 
-            'type_edit.required' => trans("web.required"),
-            'type_edit.numeric' => trans("web.numeric"),
+            'start_date_edit.required' => trans("web.required"),
+            'start_date_edit.date' => trans("web.date"),
 
-            'phone_number_edit.required' => trans("web.required"),
-            'phone_number_edit.numeric' => trans("web.numeric"),
-            'phone_number_edit.unique' => trans("web.uniqueNumber"),
+            'end_date_edit.required' => trans("web.required"),
+            'end_date_edit.date' => trans("web.date"),
 
             'fileuploads.mimes' => trans("web.mimes"),
             'fileuploads.uploaded' => trans("web.uploaded"),
 
         ]);
         if ($validator->passes()) {
-            $data = Emergency::find($emergency->id);
-            $data->title = ['en' => $request->title_en_edit, 'ar' => $request->title_ar_edit];
-            $data->scooter_number = $request->scooter_number_edit;
-            $data->type = $request->type_edit;
-            $data->phone_number = $request->phone_number_edit;
+            $data = Activity::find($activity->id);
+            $data->name = ["en" => $request->name_en_edit, "ar" => $request->name_ar_edit];
+            $data->description = ["en" => $request->description_en_edit, "ar" => $request->description_ar_edit];
+            $data->required_tools = ["en" => $request->required_tools_en_edit, "ar" => $request->required_tools_ar_edit];
+            $data->start_date = $request->start_date_edit;
+            $data->end_date = $request->end_date_edit;
             if ($request->input('fileuploads') != 'undefined'){
                 $value = $request->file('fileuploads');
                 $name = time().rand(1,100).'.'.$value->extension();
-                $value->move('images/emergencies/', $name);
+                $value->move('images/activities/', $name);
                 $data->image = $name;
             }
             $data->save();
-
-
-
             return response()->json(['success' => $data]);
         }
         return response()->json(['error' => $validator->errors()->toArray()]);
 
     }
 
-
-    public function destroy(Emergency $emergency)
+    public function destroy(Activity $activity)
     {
-        $emergency = Emergency::find($emergency->id)->delete();
-        return response()->json(['success' => $emergency]);
+        $activity = Activity::find($activity->id)->delete();
+        return response()->json(['success' => $activity]);
     }
-
     public function changeStatus(Request $request)
     {
         if ($request->ajax()) {
-            $data = Emergency::find($request->id);
+            $data = Activity::find($request->id);
             if ($request->isChecked == "true") {
                 $data->status = 1;
                 $data->save();

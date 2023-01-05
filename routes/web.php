@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
@@ -66,7 +67,6 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/get/map/', [PlaceController::class, 'map']);
     Route::get('/changeStatus/news/', [NewsController::class, 'changeStatus']);
 
-
     Route::resource('tour', TourController::class);
     Route::get('/changeStatus/', [TourController::class, 'changeStatus']);
 
@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('emergencies', EmergencyController::class);
     Route::get('/changeStatus/emergencies/', [EmergencyController::class, 'changeStatus']);
 
+    Route::resource('activities', ActivityController::class);
+    Route::get('/changeStatus/activities/', [ActivityController::class, 'changeStatus']);
 
 
     Route::get('language/{locale}', function ($locale) {

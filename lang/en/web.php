@@ -192,6 +192,7 @@ return [
     'confirmPasswordPassengerEnter' => 'Enter a passenger password again',
 
     /*emergencies*/
+    'emergencies' => 'Emergency e-scooters',
     'emergency_list' => 'Emergency List',
     'emergency_Management' => 'Emergency Management',
     'Add_emergency' => 'Add Emergency contact',
@@ -204,6 +205,22 @@ return [
     'phone_numberEmergencyEnter' => 'Enter a emergency phone number',
     'scooter_numberEnter' => 'Enter a emergency scooter number',
     'titleEmergencyEnter' => 'Enter a emergency contact title',
+
+    /*activities*/
+    'activities' => ' Tourism Activities',
+    'Add_activity' => 'Add Activity',
+    'activities_list' => ' Tourism Activities List',
+    'activity_Management' => 'Activities Management',
+    'start_date' => 'Start date',
+    'end_date' => 'End date',
+    'required_tools' => 'Required tools',
+    'Activity_Details' => 'Activity Details',
+    'Edit_avtivity_info' => 'Edit activity info',
+
+    'nameActivityEnter' => 'Enter a activity name',
+    'descriptionActivityEnter' => 'Enter a activity description',
+    'required_toolsEnter' => 'Enter a required tools',
+
 
 
     /*messages*/

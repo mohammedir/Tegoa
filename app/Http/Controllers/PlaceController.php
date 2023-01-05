@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class PlaceController extends Controller
@@ -16,11 +17,11 @@ class PlaceController extends Controller
             $data = Place::query()->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('name', function ($data) {
-                    return $data->name;
+                    return Str::limit($data->name,20) ;
                 })->editColumn('description', function ($data) {
-                    return $data->description;
+                    return Str::limit($data->description,20) ;
                 })->editColumn('address', function ($data) {
-                    return $data->address;
+                    return Str::limit($data->address,20) ;
                 })
                 ->addColumn('map', function ($data) {
                     return '<a id="showMap" style="text-decoration:underline;color: #ceb115;" class="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_show_maps">' . trans("web.maps") . '</a>';
@@ -93,12 +94,12 @@ class PlaceController extends Controller
                 'type' => 'required|numeric',
                 'lat' => 'required|numeric',
                 'long' => 'required|numeric',
-                'name_en' => 'required|string|max:255',
-                'name_ar' => 'required|string|max:255',
-                'description_en' => 'required|string|max:255',
-                'description_ar' => 'required|string|max:255',
-                'address_en' => 'required|string|max:255',
-                'address_ar' => 'required|string|max:255',
+                'name_en' => 'required|string',
+                'name_ar' => 'required|string',
+                'description_en' => 'required|string',
+                'description_ar' => 'required|string',
+                'address_en' => 'required|string',
+                'address_ar' => 'required|string',
                 'fileupload' => 'required|mimes:jpeg,png,jpg'
             ], [
                 'type.required' => trans("web.required"),
@@ -189,12 +190,12 @@ class PlaceController extends Controller
             'type_edit' => 'required|numeric',
             'lat_edit' => 'required|numeric',
             'long_edit' => 'required|numeric',
-            'name_en_edit' => 'required|string|max:255',
-            'name_ar_edit' => 'required|string|max:255',
-            'description_en_edit' => 'required|string|max:255',
-            'description_ar_edit' => 'required|string|max:255',
-            'address_en_edit' => 'required|string|max:255',
-            'address_ar_edit' => 'required|string|max:255',
+            'name_en_edit' => 'required|string',
+            'name_ar_edit' => 'required|string',
+            'description_en_edit' => 'required|string',
+            'description_ar_edit' => 'required|string',
+            'address_en_edit' => 'required|string',
+            'address_ar_edit' => 'required|string',
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
             'type_edit.required' => trans("web.required"),
