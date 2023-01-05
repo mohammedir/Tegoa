@@ -6,9 +6,6 @@
             font-family: sans-serif;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!--begin::Toolbar-->
     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -482,7 +479,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Edit_car_info')</h2>
+                            <h2 class="fw-bold">@lang('web.Edit_place_info')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -1054,6 +1051,7 @@
     <!--end::Content-->
 @endsection
 @section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
     <!--end::Vendors Javascript-->

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\PermissionAdminController;
@@ -21,7 +22,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now create something great!s
 |
 */
 Route::group(['middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
@@ -72,8 +73,9 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('drivers', DriverController::class);
     Route::get('/changeStatus/drivers/', [DriverController::class, 'changeStatus']);
 
-
     Route::resource('passengers', PassengerController::class);
+    Route::resource('emergencies', EmergencyController::class);
+    Route::get('/changeStatus/emergencies/', [EmergencyController::class, 'changeStatus']);
 
 
 

@@ -14,14 +14,14 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <!--begin::Title-->
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@lang('web.news_list')</h1>
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@lang('web.emergency_list')</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
                         <a
-                           class="text-muted text-hover-primary">@lang('web.Home')</a>
+                            class="text-muted text-hover-primary">@lang('web.Home')</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -30,7 +30,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">@lang('web.News_Management')</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.emergency_Management')</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -79,7 +79,7 @@
                     <div class="card-toolbar">
                         <!--begin::Button-->
                         <button type="button" class="btn btn-light-primary" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_add_news">
+                                data-bs-target="#kt_modal_add_emergency">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
                             <span class="svg-icon svg-icon-3">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -93,7 +93,7 @@
                                                               fill="currentColor"/>
 													</svg>
 												</span>
-                            <!--end::Svg Icon-->@lang('web.Add_News')</button>
+                            <!--end::Svg Icon-->@lang('web.Add_emergency')</button>
                         <!--end::Button-->
                     </div>
                     <!--end::Card toolbar-->
@@ -102,17 +102,17 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" id="kt_news_table">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" id="kt_emergencies_table">
                         <!--begin::Table head-->
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                             <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.title')</th>
-                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.article')</th>
-                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.description')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.scooter_number')</th>
                             <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.type')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.phone_number')</th>
                             <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.status')</th>
-                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.Actions')</th>
+                            <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang('web.others')</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -129,7 +129,7 @@
             <!--end::Card-->
             <!--begin::Modals-->
             <!--begin::Modal - Update permissions-->
-            <div class="modal fade" id="kt_modal_add_news" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="kt_modal_add_emergency" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <!--begin::Modal content-->
@@ -137,7 +137,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Add_News')</h2>
+                            <h2 class="fw-bold">@lang('web.Add_emergency')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -163,7 +163,8 @@
                         <!--begin::Modal body-->
                         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                             <!--begin::Form-->
-                            <form id="kt_modal_add_news_form" class="form" action="#" enctype="multipart/form-data">
+                            <form id="kt_modal_add_emergencies_form" class="form" action="#"
+                                  enctype="multipart/form-data">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_detail_car_scroll" data-kt-scroll="true"
@@ -184,8 +185,8 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="title_en" type="text" class="form-control form-control-solid"
-                                                      placeholder="@lang('web.titleEnter')" name="title_en"></textarea>
+                                            <input id="title_en" type="text" class="form-control form-control-solid"
+                                                   placeholder="@lang('web.titleEmergencyEnter')" name="title_en">
                                             <strong id="title_en_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
@@ -201,8 +202,8 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="title_ar" type="text" class="form-control form-control-solid"
-                                                      placeholder="@lang('web.titleEnter')" name="title_ar"></textarea>
+                                            <input id="title_ar" type="text" class="form-control form-control-solid"
+                                                   placeholder="@lang('web.titleEmergencyEnter')" name="title_ar">
                                             <strong id="title_ar_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
@@ -213,19 +214,17 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    class="required">@lang('web.article') (@lang('web.english'))</span>
+                                                <span class="required">@lang('web.scooter_number')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="article_en" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.articleEnter')"
-                                                      name="article_en"></textarea>
-                                            <strong id="article_en_error" class="errors text-danger"
+                                            <input id="scooter_number" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl;" @endif
+                                                   class="form-control form-control-solid"
+                                                   placeholder="@lang('web.scooter_numberEnter')" name="scooter_number">
+                                            <strong id="scooter_number_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
@@ -233,88 +232,37 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.article') (@lang('web.arabic'))</span>
+                                                <span class="required">@lang('web.phone_number')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="article_ar" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.articleEnter')"
-                                                      name="article_ar"></textarea>
-                                            <strong id="article_ar_error" class="errors text-danger"
+                                            <input id="phone_number" type="number" class="form-control form-control-solid" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl;" @endif
+                                                   placeholder="@lang('web.phone_numberEmergencyEnter')" name="phone_number">
+                                            <strong id="phone_number_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
-
                                     </div>
+
 
                                     <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
                                                 <span
-                                                    class="required">@lang('web.description') (@lang('web.english'))</span>
+                                                    class="required">@lang('web.type')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="description_en" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.descriptionEnter')"
-                                                      name="description_en"></textarea>
-                                            <strong id="description_en_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    class="required">@lang('web.description') (@lang('web.arabic'))</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <textarea id="description_ar" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.descriptionEnter')"
-                                                      name="description_ar"></textarea>
-                                            <strong id="description_ar_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.type')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select id="type" name="type" class="form-select form-select-solid">
-                                                @foreach(\App\Models\News::type as $type)
-                                                    <option value="{{$type}}">
-                                                        @if($type == 1)
-                                                            @lang('web.news')
-                                                        @else
-                                                            @lang('web.announcements')
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-
+                                            <select id="type" class="form-control form-control-solid" name="type">
+                                                <option value="1">@lang('web.3-wheels')</option>
+                                                <option value="2">@lang('web.4-wheels')</option>
                                             </select>
                                             <strong id="type_error" class="errors text-danger"
                                                     role="alert"></strong>
@@ -331,10 +279,6 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
                                             <input type="file" id="fileupload" name="fileupload[]"
                                                    accept="image/png, image/jpg, image/jpeg"
                                                    hidden/>
@@ -384,7 +328,7 @@
             </div>
             <!--end::Modal - Update permissions-->
             <!--begin::Modal - Update permissions-->
-            <div class="modal fade" id="kt_modal_update_news" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="kt_modal_update_emergencies" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <!--begin::Modal content-->
@@ -392,7 +336,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Edit_news_info')</h2>
+                            <h2 class="fw-bold">@lang('web.Edit_emergency_info')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -420,7 +364,7 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_update_news_form" class="form" action="#" enctype="multipart/form-data"
+                            <form id="kt_modal_update_emergencies_form" class="form" action="#" enctype="multipart/form-data"
                                   style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
@@ -430,7 +374,7 @@
                                      data-kt-scroll-dependencies="#kt_modal_detail_car_header"
                                      data-kt-scroll-wrappers="#kt_modal_detail_car_scroll"
                                      data-kt-scroll-offset="300px">
-                                    <input type="hidden" name="news_edit_id" id="news_edit_id">
+                                    <input type="hidden" name="emergencies_edit_id" id="emergencies_edit_id">
                                     <!--begin::Input group-->
                                     <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
@@ -443,10 +387,8 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="title_en_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.titleEnter')"
-                                                      name="title_en_edit"></textarea>
+                                            <input id="title_en_edit" type="text" class="form-control form-control-solid"
+                                                   placeholder="@lang('web.titleEmergencyEnter')" name="title_en_edit">
                                             <strong id="title_en_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
@@ -462,10 +404,8 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="title_ar_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.titleEnter')"
-                                                      name="title_ar_edit"></textarea>
+                                            <input id="title_ar_edit" type="text" class="form-control form-control-solid"
+                                                   placeholder="@lang('web.titleEmergencyEnter')" name="title_ar_edit">
                                             <strong id="title_ar_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
@@ -476,19 +416,17 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    class="required">@lang('web.article') (@lang('web.english'))</span>
+                                                <span class="required">@lang('web.scooter_number')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="article_en_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.articleEnter')"
-                                                      name="article_en_edit"></textarea>
-                                            <strong id="article_en_edit_error" class="errors text-danger"
+                                            <input id="scooter_number_edit" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl;" @endif
+                                                   class="form-control form-control-solid"
+                                                   placeholder="@lang('web.scooter_numberEnter')" name="scooter_number_edit">
+                                            <strong id="scooter_number_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
@@ -496,89 +434,37 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.article') (@lang('web.arabic'))</span>
+                                                <span class="required">@lang('web.phone_number')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="article_ar_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.articleEnter')"
-                                                      name="article_ar_edit"></textarea>
-                                            <strong id="article_ar_edit_error" class="errors text-danger"
+                                            <input id="phone_number_edit" type="number" class="form-control form-control-solid" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl;" @endif
+                                                   placeholder="@lang('web.phone_numberEmergencyEnter')" name="phone_number_edit">
+                                            <strong id="phone_number_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
-
                                     </div>
+
 
                                     <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
                                                 <span
-                                                    class="required">@lang('web.description') (@lang('web.english'))</span>
+                                                    class="required">@lang('web.type')</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
                                                    data-bs-trigger="hover" data-bs-html="true"
                                                    data-bs-content="@lang('web.required')"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <textarea id="description_en_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.descriptionEnter')"
-                                                      name="description_en_edit"></textarea>
-                                            <strong id="description_en_edit_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    class="required">@lang('web.description') (@lang('web.arabic'))</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <textarea id="description_ar_edit" type="text"
-                                                      class="form-control form-control-solid"
-                                                      placeholder="@lang('web.descriptionEnter')"
-                                                      name="description_ar_edit"></textarea>
-                                            <strong id="description_ar_edit_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.type')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select id="type_edit" name="type_edit"
-                                                    class="form-select form-select-solid">
-                                                @foreach(\App\Models\News::type as $type)
-                                                    <option value="{{$type}}">
-                                                        @if($type == 1)
-                                                            @lang('web.news')
-                                                        @else
-                                                            @lang('web.announcements')
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-
+                                            <select id="type_edit" class="form-control form-control-solid" name="type_edit">
+                                                <option value="1">@lang('web.3-wheels')</option>
+                                                <option value="2">@lang('web.4-wheels')</option>
                                             </select>
                                             <strong id="type_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
@@ -595,10 +481,6 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
                                             <input type="file" id="fileuploads" name="fileuploads"
                                                    accept="image/png, image/jpg, image/jpeg"
                                                    hidden/>
@@ -621,6 +503,7 @@
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
+
 
                                     </div>
                                 </div>
@@ -649,7 +532,7 @@
             </div>
             <!--end::Modal - Update permissions-->
             <!--begin::Modal - Update permissions-->
-            <div class="modal fade" id="kt_modal_show_news" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="kt_modal_show_emergency" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                     <!--begin::Modal content-->
@@ -657,7 +540,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.News_Details')</h2>
+                            <h2 class="fw-bold">@lang('web.Emergency_Details')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -685,7 +568,7 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_detail_car_form" class="form" action="#" style="font-size: 15px;">
+                            <form id="kt_modal_detail_tour_form" class="form" action="#" style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_detail_car_scroll" data-kt-scroll="true"
@@ -700,7 +583,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.title') (@lang('web.english'))</span>
+                                                <span>@lang('web.title') (@lang('web.english'))</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -712,7 +595,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.title') (@lang('web.arabic'))</span>
+                                                <span>@lang('web.title') (@lang('web.arabic'))</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -728,24 +611,24 @@
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
                                                 <span
-                                                    >@lang('web.article') (@lang('web.english'))</span>
+                                                >@lang('web.scooter_number') </span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <span id="article_en_show"></span>
+                                            <span id="scooter_number_show"></span>
                                             <!--end::Input-->
                                         </div>
 
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.article') (@lang('web.arabic'))</span>
+                                                <span>@lang('web.phone_number')</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <span id="article_ar_show"></span>
+                                            <span id="phone_number_show"></span>
                                             <!--end::Input-->
                                         </div>
 
@@ -757,36 +640,7 @@
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
                                                 <span
-                                                    >@lang('web.description') (@lang('web.english'))</span>
-                                            </label>
-                                            <br>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <span id="description_en_show"></span>
-                                            <!--end::Input-->
-                                        </div>
-
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    >@lang('web.description') (@lang('web.arabic'))</span>
-                                            </label>
-                                            <br>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <span id="description_ar_show"></span>
-                                            <!--end::Input-->
-                                        </div>
-
-                                    </div>
-                                    <hr>
-
-                                    <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.type')</span>
+                                                >@lang('web.type')</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -798,7 +652,8 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.status')</span>
+                                                <span
+                                                >@lang('web.status')</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -806,27 +661,27 @@
                                             <span id="status_show"></span>
                                             <!--end::Input-->
                                         </div>
+
                                     </div>
                                     <hr>
-
                                     <div class="row">
 
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.PhotosNews')</span>
-                                            </label>
-                                            <br>
-                                            <br>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.PhotosNews')</span>
+                                        </label>
+                                        <br>
+                                        <br>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
 
 
-                                            <!--begin::Input-->
-                                            <div id="show_image_div">
-                                                <span id="image_show"></span>
+                                        <!--begin::Input-->
+                                        <div id="show_image_div">
+                                            <span id="image_show"></span>
 
-                                            </div>
-                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input-->
                                     </div>
                                 </div>
                                 <div class="text-center pt-15">
@@ -855,16 +710,15 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-        function getStatusNews(el)
-        {
+        function getStatusEmergency(el) {
             var id = el.id;
             var isChecked = el.checked;
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: '/changeStatus/news/',
-                data: {id:id,isChecked:isChecked},
-                success: function(data){
+                url: '/changeStatus/emergencies/',
+                data: {id: id, isChecked: isChecked},
+                success: function (data) {
                     Swal.fire(
                         '@lang('web.Status changed successfully')',
                         '',
@@ -900,37 +754,31 @@
         $(function () {
 
             $(document).on('click', '#close_modal', function () {
-                $('#kt_modal_show_news').modal('hide');
+                $('#kt_modal_show_emergency').modal('hide');
             });
             $(document).on('click', '#cancel_modal', function () {
-                $('#kt_modal_show_news').modal('hide');
+                $('#kt_modal_show_emergency').modal('hide');
             });
         });
     </script>
-
     <script>
         $(function () {
-
             $(document).on('click', '#show', function () {
                 let id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
-                    url: "/news/" + id,
+                    url: "/emergencies/" + id,
                     success: function (response) {
-                        $("#title_en_show").html(response.news.title['en']);
-                        $("#title_ar_show").html(response.news.title['ar']);
-                        $("#article_en_show").html(response.news.article['en']);
-                        $("#article_ar_show").html(response.news.article['ar']);
-                        $("#description_en_show").html(response.news.description['en']);
-                        $("#description_ar_show").html(response.news.description['ar']);
-                        $("#type_show").html(response.type);
+                        $("#title_en_show").html(response.emergency.title['en']);
+                        $("#title_ar_show").html(response.emergency.title['ar']);
+                        $("#scooter_number_show").html(response.emergency.scooter_number);
+                        $("#phone_number_show").html(response.emergency.phone_number);
+                        $("#type_show").html(response.gender);
                         $("#status_show").html(response.status);
                         $('div#show_image_div').empty();
-                        var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 100%;max-height: 100%;">');
-                        img_carlicense.attr('src', app_url + '/images/news/' + response.news.image);
+                        var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 100%;max-height: 300px;">');
+                        img_carlicense.attr('src', app_url + '/images/emergencies/' + response.emergency.image);
                         img_carlicense.appendTo('#show_image_div');
-
-
                     },
                 });
 
@@ -938,15 +786,14 @@
         });
 
     </script>
-
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{asset('pages/js/admin-management/news/add-news.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/news/edit-news.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/news/list.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/news/index.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/emergencies/add-emergencies.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/emergencies/edit-emergencies.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/emergencies/list.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/emergencies/index.js')}}" defer></script>
     <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
     <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
     <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}" defer></script>

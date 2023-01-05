@@ -14,7 +14,7 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Driver::query()->where('user_type',"=",1)->latest();
+            $data = Driver::query()->where('user_type',"=",2)->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
                     if ($data->user_status == 1){
@@ -73,7 +73,6 @@ class DriverController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->input());
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -82,7 +81,7 @@ class DriverController extends Controller
             'gender' => 'required|numeric',
             'vehicle_type' => 'required|numeric',
             'email' => 'required|email|unique:users,email|max:255',
-            'mobile' => 'required|numeric',
+            'mobile' => 'required|numeric|unique:users,mobile_number',
             'fileupload' => 'required|mimes:jpeg,png,jpg',
             'fileuploadsss' =>'required|mimes:jpeg,png,jpg'
         ], [
@@ -112,6 +111,7 @@ class DriverController extends Controller
 
             'mobile.required' => trans("web.required"),
             'mobile.numeric' => trans("web.numeric"),
+            'mobile.unique' => trans("web.uniqueNumber"),
 
             'fileupload.mimes' => trans("web.mimes"),
             'fileuploadsss.mimes' => trans("web.mimes"),
@@ -126,7 +126,7 @@ class DriverController extends Controller
             $data->email = $request->email;
             $data->mobile_number = $request->mobile;
             $data->password = Hash::make($request->password);
-            $data->user_type =1;
+            $data->user_type =2;
             if ($request->input('fileupload') != 'undefined') {
                 $value = $request->file('fileupload');
                 $name = time() . rand(1, 100) . '.' . $value->extension();
@@ -155,7 +155,7 @@ class DriverController extends Controller
             if ($driver->vehicle_type == 1) {
                 $type =  trans('web.public');
             } else {
-                $type =   trans('web.rivate');
+                $type =   trans('web.private');
             }
 
             if ($driver->gender == 1) {
@@ -184,7 +184,7 @@ class DriverController extends Controller
             'gender_edit' => 'required|numeric',
             'vehicle_type_edit' => 'required|numeric',
             'email_edit' => 'required|email|max:255|unique:users,email,' . $driver->id,
-            'mobile_edit' => 'required|numeric',
+            'mobile_edit' => 'required|numeric|unique:users,mobile_number,' . $driver->id,
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
             'fileuploadss' => $request->fileuploadss != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
@@ -209,6 +209,7 @@ class DriverController extends Controller
 
             'mobile_edit.required' => trans("web.required"),
             'mobile_edit.numeric' => trans("web.numeric"),
+            'mobile_edit.unique' => trans("web.uniqueNumber"),
 
             'fileuploads.mimes' => trans("web.mimes"),
             'fileuploadss.mimes' => trans("web.mimes"),

@@ -93,7 +93,7 @@ return [
     'review' => 'في مراجعة',
     'accepted' => 'مقبول',
     'declined' => 'مرفوض',
-    'Car_Details' => 'تفاصيل السيارة',
+    'Car_Details' => 'بيانات السيارة',
     'Edit_car_info' => 'تعديل بيانات السيارة',
     'Photos_license' => 'صورة الترخيص',
     'Photos_insurance' => 'صورة التأمين',
@@ -116,6 +116,8 @@ return [
     'article' => 'مقالة',
     'description' => 'وصف',
     'PhotosNews' => 'صورة',
+    'Edit_news_info' => 'تعديل معلومات الأخبار',
+    'News_Details' => 'بيانات الخبر',
 
 
     'titleEnter' => 'أدخل عنوان الخبر',
@@ -135,6 +137,7 @@ return [
     'stations' => 'المحطات',
     'location' => 'الموقع',
     'Place_Details' => 'بيانات المكان',
+    'Edit_place_info' => 'تعديل معلومات المكان',
 
 
     'nameEnter' => 'أدخل اسم مكان',
@@ -149,8 +152,8 @@ return [
     'phone_number' => 'رقم الهاتف',
     'Select Language' => 'اختار اللغات',
     'tour_Management' => 'إدارة المرشدين',
-    'Edit_tour_info' => 'تعديل بيانات المرشد',
-    'Tour_Details' => 'تفاصيل المرشد',
+    'Edit_tour_info' => 'تعديل معلومات المرشد',
+    'Tour_Details' => 'بيانات المرشد',
 
 
     'nameTourEnter' => 'أدخل اسم المرشد',
@@ -167,6 +170,7 @@ return [
     'personalPhoto' => 'صورة شخصية',
     'driverLicense' => 'رخصة قيادة',
     'Confirm_password' => 'تأكيد كلمة المرور',
+    'Driver_Details' => 'بيانات السائق',
 
 
     'nameDriverEnter' => 'أدخل اسم السائق',
@@ -178,7 +182,31 @@ return [
 
     /*Passengers*/
     'Passengers' => 'ركاب',
+    'Passengers_list' => 'قائمة الركاب',
+    'Passengers_Management' => 'إدارة الركاب',
+    'Add_Passenger' => 'إضافة راكب',
+    'Edit_Passenger_info' => 'تعديل معلومات الركاب',
+    'Passengers_Details' => 'بيانات الركاب',
 
+    'namePassengerEnter' => 'أدخل اسم راكب',
+    'emailPassengerEnter' => 'أدخل البريد الإلكتروني للركاب',
+    'addressPassengerEnter' => 'أدخل عنوان الراكب',
+    'passwordPassengerEnter' => 'أدخل كلمة مرور الراكب',
+    'confirmPasswordPassengerEnter' => 'أدخل كلمة مرور الركاب مرة أخرى',
+
+    /*emergencies*/
+    'emergency_list' => 'قائمة الطوارئ',
+    'emergency_Management' => 'إدارة الطوارئ',
+    'Add_emergency' => 'إضافة جهة اتصال الطوارئ',
+    'scooter_number' => 'رقم السكوتر',
+    '4-wheels' => '4-عجلات',
+    '3-wheels' => '3-عجلات',
+    'Edit_emergency_info' => 'تعديل معلومات الطوارئ',
+    'Emergency_Details' => 'بيانات الطوارئ',
+
+    'phone_numberEmergencyEnter' => 'أدخل رقم هاتف الطوارئ',
+    'scooter_numberEnter' => 'أدخل رقم سكوتر الطوارئ',
+    'titleEmergencyEnter' => 'أدخل عنوان جهة اتصال الطوارئ',
 
 
     /*messages*/
@@ -191,6 +219,8 @@ return [
     'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
     'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
+    'uniqueNumber' => 'تم أخذ هذا الرقم بالفعل.',
+
     'min' => 'يجب ألا يقل هذا الحقل عن 8 أحرف',
     'same' => 'يجب أن تتطابق كلمة المرور مع تأكيد كلمة المرور.',
     'required_with' => ' وحقل كلمة المرور مطلوب عند وجود تأكيد كلمة المرور.',

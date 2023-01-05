@@ -701,7 +701,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bold">@lang('web.Tour_Details')</h2>
+                            <h2 class="fw-bold">@lang('web.Driver_Details')</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -890,7 +890,6 @@
 @endsection
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <script>
         function getStatusDrivers(el)
         {
@@ -970,8 +969,8 @@
                     type: 'GET',
                     url: "/drivers/" + id,
                     success: function (response) {
-                        $("#name_show").html(response.driver.full_name['en']);
-                        $("#address_show").html(response.driver.address['en']);
+                        $("#name_show").html(response.driver.full_name);
+                        $("#address_show").html(response.driver.address);
                         $("#mobile_show").html(response.driver.mobile_number);
                         $("#gender_show").html(response.gender);
                         $("#type_show").html(response.type);

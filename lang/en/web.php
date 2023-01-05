@@ -114,6 +114,9 @@ return [
     'article' => 'Article',
     'description' => 'Description',
     'PhotosNews' => 'Photos',
+    'Edit_news_info' => 'Edit news info',
+    'News_Details' => 'News Details',
+
 
     'titleEnter' => 'Enter a news title',
     'articleEnter' => 'Enter a news article',
@@ -132,6 +135,7 @@ return [
     'stations' => 'Stations',
     'location' => 'Location',
     'Place_Details' => 'Place Details',
+    'Edit_place_info' => 'Edit place info',
 
 
     'nameEnter' => 'Enter a place name',
@@ -163,6 +167,7 @@ return [
     'personalPhoto' => 'Personal photo',
     'driverLicense' => 'Driver license',
     'Confirm_password' => 'Confirm password',
+    'Driver_Details' => 'Driver Details',
 
 
     'nameDriverEnter' => 'Enter a driver name',
@@ -172,10 +177,33 @@ return [
     'confirmPasswordDriverEnter' => 'Enter a driver password again',
 
 
-    /*Drivers*/
+    /*Passengers*/
     'Passengers' => 'Passengers',
+    'Passengers_list' => 'Passengers list',
+    'Passengers_Management' => 'Passengers Management',
+    'Add_Passenger' => 'Add Passenger',
+    'Edit_Passenger_info' => 'Edit passenger info',
+    'Passengers_Details' => 'Passengers Details',
 
+    'namePassengerEnter' => 'Enter a passenger name',
+    'emailPassengerEnter' => 'Enter a passenger email',
+    'addressPassengerEnter' => 'Enter a passenger address',
+    'passwordPassengerEnter' => 'Enter a passenger password',
+    'confirmPasswordPassengerEnter' => 'Enter a passenger password again',
 
+    /*emergencies*/
+    'emergency_list' => 'Emergency List',
+    'emergency_Management' => 'Emergency Management',
+    'Add_emergency' => 'Add Emergency contact',
+    'scooter_number' => 'Scooter Number',
+    '4-wheels' => '4-wheels',
+    '3-wheels' => '3-wheels',
+    'Edit_emergency_info' => 'Edit emergency info',
+    'Emergency_Details' => 'Emergency Details',
+
+    'phone_numberEmergencyEnter' => 'Enter a emergency phone number',
+    'scooter_numberEnter' => 'Enter a emergency scooter number',
+    'titleEmergencyEnter' => 'Enter a emergency contact title',
 
 
     /*messages*/
@@ -188,9 +216,11 @@ return [
     'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
     'email' => 'This field must be a valid email address',
     'unique' => 'This field email has already been taken.',
+    'uniqueNumber' => 'This field phone number has already been taken.',
     'min' => 'This field must be at least 8 characters',
     'same' => 'The password and password confirmation must match.',
     'required_with' => ' and the password field is required when password confirmation is present.',
+    'uniqueScooter' => 'This field scooter number has already been taken.',
 
 
 ];

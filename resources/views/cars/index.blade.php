@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <style>
         #block_container {
@@ -21,29 +18,6 @@
              margin-left: 0.3rem;
              font-family: sans-serif;
          }
-
-
-        /*.photos_show_edit {*/
-        /*    position: relative;*/
-        /*    width: 100%;*/
-        /*    !*border: 2px solid blue;*!*/
-        /*}*/
-        /*img {*/
-        /*    width: 100%;*/
-
-        /*}*/
-        /*.button1{*/
-        /*    position: absolute;*/
-        /*    !*padding: 16px;*!*/
-        /*    !*background-color: green;*!*/
-        /*    border-radius: 16px;*/
-        /*    !*bottom: 10px;*!*/
-        /*    left: 260px;*/
-        /*    top: 20px;*/
-        /*    !*box-sizing: border-box;*!*/
-
-        /*    !*width: 100px;*!*/
-        /*}*/
 
     </style>
     <!--begin::Toolbar-->
@@ -283,7 +257,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" id="insurance_expiry_date_edit"
+                                        <input type="date" id="insurance_expiry_date_edit" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl" @endif
                                                class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_expiry_dateEnter')"
                                                name="insurance_expiry_date_edit"/>
@@ -313,12 +287,12 @@
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
-                                                   style="color: CCCCCC">Choose File: <span
+                                                   style="color: #999595FF">Choose File: <span
                                                     id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
                                         @else
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
-                                                   style="color: white;">اختر ملف : <span
+                                                   style="color: #999595FF;">اختر ملف : <span
                                                     id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                         @endif
                                         <!--end::Input-->
@@ -531,6 +505,7 @@
     <!--end::Content-->
 @endsection
 @section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         const trans = $('#trans').val();
         const actualBtn = document.getElementById('photos_edit');
