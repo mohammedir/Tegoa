@@ -6,6 +6,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class NewsController extends Controller
@@ -39,11 +40,11 @@ class NewsController extends Controller
                     }
                     return $status;
                 })->editColumn('title', function ($data) {
-                    return $data->title;
+                    return Str::limit($data->title,20) ;
                 })->editColumn('article', function ($data) {
-                    return $data->article;
+                    return Str::limit($data->article,20) ;
                 })->editColumn('description', function ($data) {
-                    return $data->description;
+                    return Str::limit($data->description,20) ;
                 })
                 ->addColumn('actions', function ($data) {
                     $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_news">

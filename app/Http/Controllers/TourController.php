@@ -91,10 +91,10 @@ class TourController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name_en' => 'required|string|max:255',
-            'name_ar' => 'required|string|max:255',
-            'address_en' => 'required|string|max:255',
-            'address_ar' => 'required|string|max:255',
+            'name_en' => 'required|string',
+            'name_ar' => 'required|string',
+            'address_en' => 'required|string',
+            'address_ar' => 'required|string',
             'gender' => 'required|numeric',
             'spoken_languages' => 'required|array',
             'email' => 'required|email|unique:tour_guids|max:255',
@@ -194,10 +194,10 @@ class TourController extends Controller
     {
 //        dd($tour->id);
         $validator = Validator::make($request->all(), [
-            'name_en_edit' => 'required|string|max:255',
-            'name_ar_edit' => 'required|string|max:255',
-            'address_en_edit' => 'required|string|max:255',
-            'address_ar_edit' => 'required|string|max:255',
+            'name_en_edit' => 'required|string',
+            'name_ar_edit' => 'required|string',
+            'address_en_edit' => 'required|string',
+            'address_ar_edit' => 'required|string',
             'gender_edit' => 'required|numeric',
             'spoken_languages_edit' => 'required|array',
             'email_edit' => 'required|email|max:255|unique:tour_guids,email,' . $tour->id,

@@ -73,8 +73,8 @@ class PassengerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+            'name' => 'required|string',
+            'address' => 'required|string',
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
             'gender' => 'required|numeric',
