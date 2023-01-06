@@ -13,6 +13,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
+use App\Http\Controllers\TransportationController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -80,6 +81,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('activities', ActivityController::class);
     Route::get('/changeStatus/activities/', [ActivityController::class, 'changeStatus']);
 
+    Route::resource('transportations', TransportationController::class);
+    Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
 
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);
