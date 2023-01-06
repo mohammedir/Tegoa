@@ -50,8 +50,8 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-    'Users Management' => 'إدارة مستخدمين النظام',
-    'Admins' => 'مسؤولي النظام',
+    'Users Management' => 'المستخدمين',
+    'Admins' => 'المشرفين',
     'Roles' => 'الأدوار',
 
     /*permissions*/
@@ -181,7 +181,7 @@ return [
 
 
     /*Passengers*/
-    'Passengers' => 'ركاب',
+    'Passengers' => 'الركاب',
     'Passengers_list' => 'قائمة الركاب',
     'Passengers_Management' => 'إدارة الركاب',
     'Add_Passenger' => 'إضافة راكب',
@@ -224,6 +224,26 @@ return [
     'nameActivityEnter' => 'أدخل اسم النشاط',
     'descriptionActivityEnter' => 'أدخل وصف النشاط',
     'required_toolsEnter' => 'أدخل الأدوات المطلوبة',
+
+    /*transportations*/
+    'transportations' => 'أوامر النقل',
+    'Filter Options' => 'خيارات التصفية',
+    'From' => 'من:',
+    'To' => 'الى:',
+    'Apply' => 'تطبيق',
+    'Reset' => 'إعادة ضبط',
+    'Driver name' => 'اسم السائق',
+    'Passenger name' => 'اسم الراكب',
+    'Car' => 'سيارة',
+    'Time' => 'وقت',
+    'Passenger' => 'راكب',
+    'complaint' => 'شكوى',
+    'No data available in table' => 'لا توجد بيانات متوفرة في الجدول',
+    'transportation_Details' => 'تفاصيل شكوى',
+    'transportations_list' => 'قائمة النقل',
+    'transportations_Management' => 'إدارة النقل',
+    'SearchDriver' => 'ابحث عن سائق',
+
 
 
     /*messages*/
