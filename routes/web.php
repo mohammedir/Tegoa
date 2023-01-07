@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::post('/permissions/update/{id}', [PermissionAdminController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions/destroy/{id}', [PermissionAdminController::class, 'destroy'])->name('permissions.destroy');
 
+    Route::get('/dashboard/statistics/', [DashboardController::class, 'statistics']);
+
     Route::resource('cars', CarController::class);
     Route::post('/accept/car', [CarController::class, 'accept']);
     Route::post('/decline/car', [CarController::class, 'decline']);
