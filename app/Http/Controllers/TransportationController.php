@@ -13,179 +13,44 @@ class TransportationController extends Controller
     public function index(Request $request)
     {
         $transportations_all = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
+        return view('transportations.index', compact('transportations_all'));
+    }
 
+    function fetch_data(Request $request)
+    {
         if ($request->ajax()) {
-            $output = "";
-            $values = [];
-            if ($transportations_all->isEmpty()) {
-                return response('');
-            }
             if ($request->search) {
-                $products = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
-                if ($products->isEmpty()) {
-                    return response('<br><span>'.trans('web.No data available in table').'</span><br>');
-                } else {
-                    foreach ($products as $product) {
+                $values = [];
+                $transportations_all = [];
+                $data = DB::table('users')->where('full_name', 'LIKE', '%' . $request->search . "%")->get();
+                if (array($data)) {
+                    foreach ($data as $product) {
                         $values[] = $product->id;
                     }
                 }
-            } elseif (is_null($request->search)) {
-                $transportationss = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
-                foreach ($transportationss as $v) {
-                    $btn = "";
-                    if ($v->complaint != null){
-                        $btn = ' <button id="show" data-id="' . $v->id . '" class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i class="bi bi-eye"></i></button>';
+                foreach ($values as $value) {
+                    $transportations_Values = DB::table('transportation_requests')->where('driver_id', 'LIKE', '%' . $value . "%")->orderBy('id', 'desc')->get();
+                    foreach ($transportations_Values as $v) {
+                        $transportations_all[] = $v;
                     }
-                    $output .=
-                        '<tr>
-                                <td>' . User::find($v->driver_id)->full_name . '</td>
-                                <td>' . User::find($v->passenger_id)->full_name . '</td>
-                                <td>
-                                    <div class="ratings">
-                                        ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_car) . '
-                                        ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_car) . '
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_time) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_time) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_driver) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_driver) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_passenger) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_passenger) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                '.$btn.'
-                                </td>
-                            </tr>';
                 }
-                return Response($output);
-            }
-            if ($values) {
-                foreach ($values as $key => $value) {
-                    $transportation = DB::table('transportation_requests')->where('driver_id', 'LIKE', '%' . $value . "%")->get();
-                    foreach ($transportation as $v) {
-                        $btn = "";
-                        if ($v->complaint != null){
-                            $btn = ' <button id="show" data-id="' . $v->id . '" class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i class="bi bi-eye"></i></button>';
-                        }
-                        $output .=
-                            '<tr>
-                                <td>' . User::find($v->driver_id)->full_name . '</td>
-                                <td>' . User::find($v->passenger_id)->full_name . '</td>
-                                <td>
-                                    <div class="ratings">
-                                        ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_car) . '
-                                        ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_car) . '
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_time) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_time) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_driver) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_driver) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_passenger) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_passenger) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                '.$btn.'
-                                </td>
-                            </tr>';
-                    }
-
-                }
-                return Response($output);
+                return view('transportations.search', compact('transportations_all'))->render();
+            }else{
+                $transportations_alls = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
+                return view('transportations.searchEmpty', compact('transportations_alls'))->render();
             }
         }
-        return view('transportations.index', compact('transportations_all'));
     }
 
     public function SearchDate(Request $request)
     {
         if ($request->ajax()) {
-            $output = "";
-            $btn = "";
-            $data = Transportation::whereBetween('created_at', [$request->start, $request->end])->orderBy('id', 'desc')->get();
-            if (!$data->isEmpty()) {
-                foreach ($data as $v) {
-                    $btn = "";
-                    if ($v->complaint != null){
-                        $btn = ' <button id="show" data-id="' . $v->id . '" class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i class="bi bi-eye"></i></button>';
-                    }
-                    $output .=
-                        '<tr>
-                                <td>' . User::find($v->driver_id)->full_name . '</td>
-                                <td>' . User::find($v->passenger_id)->full_name . '</td>
-                                <td>
-                                    <div class="ratings">
-                                        ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_car) . '
-                                        ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_car) . '
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_time) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_time) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_driver) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_driver) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="ratings">
-                                        <div class="ratings">
-                                            ' . str_repeat('<span> <i class="fa fa-star rating-color"></i>', $v->rating_passenger) . '
-                                            ' . str_repeat('<span><i class="fa fa-star"></i>', 5 - $v->rating_passenger) . '
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                '.$btn.'
-                                </td>
-                            </tr>';
-                }
-                return Response($output);
-            }else{
-                return response('<br><span>'.trans('web.No data available in table').'</span><br>');
+            $transportations_all = Transportation::whereBetween('created_at', [$request->start, $request->end])->orderBy('id', 'desc')->get();
+            if ($transportations_all->isEmpty()) {
+                $transportations_alls = [];
+                return view('transportations.searchEmpty', compact('transportations_alls'))->render();
+            } else {
+                return view('transportations.search', compact('transportations_all'))->render();
             }
         }
     }
@@ -200,7 +65,7 @@ class TransportationController extends Controller
         //
     }
 
-    public function show(Request $request,Transportation $transportation)
+    public function show(Request $request, Transportation $transportation)
     {
         if ($request->ajax()) {
             $activity = Transportation::find($transportation->id);

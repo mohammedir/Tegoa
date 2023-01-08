@@ -149,92 +149,8 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0" id="Table1">
-                            <!--begin::Table head-->
-                            <thead>
-                            <!--begin::Table row-->
-                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Driver name')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Passenger name')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Car')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Time')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Driver')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.Passenger')
-                                </th>
-                                <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
-                                    @lang('web.complaint')
-                                </th>
-                            </tr>
-                            <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-                            <!--begin::Table body-->
-                            <tbody class="fw-semibold text-gray-600">
-                            @foreach($transportations_all as $transportation)
-                                <tr>
-                                    <td>{{\App\Models\User::find($transportation->driver_id)->full_name}}</td>
-                                    <td>{{\App\Models\User::find($transportation->passenger_id)->full_name}}</td>
-                                    <td>
-                                        <div class="ratings">
-                                            {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_car) !!}
-                                            {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $transportation->rating_car) !!}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="ratings">
-                                            <div class="ratings">
-                                                {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_time) !!}
-                                                {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $transportation->rating_time) !!}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="ratings">
-                                            <div class="ratings">
-                                                {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_driver) !!}
-                                                {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $transportation->rating_driver) !!}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="ratings">
-                                            <div class="ratings">
-                                                {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_passenger) !!}
-                                                {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $transportation->rating_passenger) !!}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if($transportation->complaint)
-                                            <button id="show" data-id="{{$transportation->id}}"
-                                                    class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3"
-                                                    data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i
-                                                    class="bi bi-eye"></i></button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-
-                            <!--end::Table body-->
-                        </table>
-                        <div class="links">{{$transportations_all->links()}}</div>
-                        @if(!count($transportations_all))
-                            <br>
-                            <span style="display: flex; justify-content: center">@lang('web.No data available in table')</span>
-                        @endif
+                    <div class="table-responsive" id="table_data">
+                        @include('transportations/all')
                     </div>
                 </div>
                 <!--end::Card body-->
@@ -328,22 +244,21 @@
                 url: '/search/date/',
                 data: {start:start,end:end},
                 success: function (data) {
-                    $('#Table1').children('tbody').html("");
-                    $('#Table1').children('tbody').html(data);
+                    $('#table_data').html(data);
                 }
             });
         })
     </script>
+
     <script type="text/javascript">
         $('#search').on('keyup', function () {
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{route('transportations.index')}}',
+                url: '/search',
                 data: {'search': $value},
                 success: function (data) {
-                    $('#Table1').children('tbody').html("");
-                    $('#Table1').children('tbody').html(data);
+                    $('#table_data').html(data);
                 }
             });
         })
@@ -353,11 +268,12 @@
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '{{route('transportations.index')}}',
+                url: '/search',
                 data: {'search': $value},
                 success: function (data) {
-                    $('#Table1').children('tbody').html("");
-                    $('#Table1').children('tbody').html(data);
+                    $('#start_date').val("");
+                    $('#end_date').val("");
+                    $('#table_data').html(data);
                 }
             });
         })
