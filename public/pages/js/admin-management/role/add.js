@@ -111,7 +111,7 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {role_name: {validators: {notEmpty: {message: "اسم الدور مطلوب"}}}},
+                            fields: {role_name: {validators: {}}},
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
