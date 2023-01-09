@@ -82,6 +82,7 @@ $(function () {
                                         },
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(".errors").html("");
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1, Swal.fire({
                                                         text: language === "en" ? "Form has been successfully submitted!" : "تم أضافة المستخدم بنجاح!",
@@ -128,7 +129,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا تراجع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$(".errors").html("") ,$("#uploaded_image").css("background-image", ""), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -146,7 +147,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا تراجع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$(".errors").html("") ,$("#uploaded_image").css("background-image", ""), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,

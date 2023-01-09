@@ -266,6 +266,9 @@
                                             <!--end::Scroll-->
                                             <!--begin::Actions-->
                                             <div class="text-center pt-15">
+                                                <button type="submit" class="btn btn-light me-5" data-kt-users-modal-action="cancel">
+                                                    @lang('web.Discard')
+                                                </button>
                                                 <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                                     <span class="indicator-label">@lang('web.Submit')</span>
                                                     <span class="indicator-progress">@lang('web.Please wait...')
@@ -351,7 +354,6 @@
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{asset('pages/js/admin-management/admin/list.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/admin/index.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/apps/user-management/users/list/export-users.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/admin/add.js')}}" defer></script>
     <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
     <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
