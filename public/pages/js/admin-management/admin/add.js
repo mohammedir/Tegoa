@@ -2,8 +2,8 @@ $(function () {
     const language = $('#language').val(),
         id = $('#customer_id').val(),
         app_url = $('#app_url').val(),
-        name_input = $("#user_name"),
-        email_input = $("#user_email"),
+        name_input = $("#name"),
+        email_input = $("#email"),
         mobile_input = $("#mobile"),
         password_input = $("#password"),
         password_confirmation_input = $("#password_confirmation"),
@@ -39,8 +39,6 @@ $(function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
                             fields: {
-                                user_name: {validators: {notEmpty: {message: "Full name is required"}}},
-                                user_email: {validators: {notEmpty: {message: "Valid email address is required"}}}
                             },
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
@@ -58,6 +56,7 @@ $(function () {
                                 let name = name_input.val(),
                                     email = email_input.val(),
                                     password = password_input.val(),
+                                    mobile = mobile_input.val(),
                                     password_confirm = password_confirmation_input.val(),
                                     customer_image = prepare_image_base64(uploaded_image.css('background-image'));
                                 if (customer_image == "none") {
@@ -69,7 +68,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/admin/store",
+                                        url: app_url + "/" + language + "/admin/store",
                                         data: {
                                             name: name,
                                             email: email,
@@ -79,6 +78,7 @@ $(function () {
                                             image_updated: image_updated,
                                             roles_id: role_id,
                                             roles_name: role_name,
+                                            mobile: mobile,
                                         },
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
@@ -93,9 +93,10 @@ $(function () {
                                                         t.isConfirmed && n.hide()
                                                     }))
                                                 }), 2e3));
+                                                $("#uploaded_image").css("background-image", "");
                                                 $("input").val("");
                                                 $(".errors").html("");
-                                                window.load()
+                                                $('#kt_table_users').DataTable().ajax.reload();
                                             } else {
                                                 Swal.fire({
                                                     text: $('#language').val() === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",

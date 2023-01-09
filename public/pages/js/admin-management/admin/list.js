@@ -1,153 +1,195 @@
-"use strict";
-var KTUsersList = function () {
-    var e, t, n, r, o = document.getElementById("kt_table_users"), c = () => {
-        o.querySelectorAll('[data-kt-users-table-filter="delete_row"]').forEach((t => {
-            t.addEventListener("click", (function (t) {
-                let id = $(this).data('id'),
-                    app_url = $('#app_url').val();
-                t.preventDefault();
-                const n = t.target.closest("tr"), r = n.querySelectorAll("td")[1].querySelectorAll("a")[1].innerText;
-                Swal.fire({
-                    text: "Are you sure you want to delete " + r + "?",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    buttonsStyling: !1,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then((function (t) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: "DELETE",
-                        url: app_url + "/admin/destroy/" + id,
-                        success: function (response) {
-                            if (response['success']) {
-                            } else if (response['error']) {
-                                Swal.fire({
-                                    text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
-                                    icon: "error",
-                                    buttonsStyling: !1,
-                                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
-                                    customClass: {confirmButton: "btn fw-bold btn-primary"}
-                                });
-                            }
-                        }
-                    });
-                    t.value ? Swal.fire({
-                        text: "You have deleted " + r + "!.",
+var table = $('#kt_table_users');
+$(function () {
+    const language = $('#language').val(),
+        app_url = $('#app_url').val();
+    $(document).ready(function () {
+        "use strict";
+        /*Table Actions*/
+
+        $(document).on('click', '#delete', function () {
+            let id = $(this).data('id');
+            confirm_delete(id);
+        });
+        $(document).on('click', '#edit', function () {
+            let id = $(this).data('id');
+            edit_user(id);
+        });
+    });
+
+    function edit_user(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "GET",
+            url: "/activities/" + id + "/edit",
+            dataType: 'json',
+            success: function (response) {
+                $("#activities_edit_id").html(response.id);
+                $("#name_en_edit").val(response.name['en']);
+                $("#name_ar_edit").val(response.name['ar']);
+                $("#description_en_edit").val(response.description['en']);
+                $("#description_ar_edit").val(response.description['ar']);
+                $("#required_tools_en_edit").val(response.required_tools['en']);
+                $("#required_tools_ar_edit").val(response.required_tools['ar']);
+                $("#start_date_edit").val(response.start_date);
+                $("#end_date_edit").val(response.end_date);
+            }
+        });
+    }
+
+    function confirm_delete(id) {
+        const o = "sads";
+        Swal.fire({
+            text: language === "en" ? "Are you sure you want to delete this item?" : "هل أنت متأكد أنك تريد حذف هذا البند؟",
+            icon: "warning",
+            showCancelButton: !0,
+            buttonsStyling: !1,
+            confirmButtonText: language === "en" ? "Yes, delete!" : "نعم ، احذف!",
+            cancelButtonText: language === "en" ? "No, cancel" : "لا ، إلغاء",
+            customClass: {
+                confirmButton: "btn fw-bold btn-danger",
+                cancelButton: "btn fw-bold btn-active-light-primary"
+            }
+        });
+        var confirm_delete = document.getElementsByClassName("swal2-confirm");
+        confirm_delete[0].addEventListener('click', function () {
+            delete_user(id);
+        });
+    }
+
+    function delete_user(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'DELETE',
+            url: "/admin/destroy/" + id ,
+            success: function (response) {
+                if (response['success']) {
+                    Swal.fire({
+                        text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
                         icon: "success",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
-                    }).then((function () {
-                        e.row($(n)).remove().draw()
-                    })).then((function () {
-                        a()
-                    })) : "cancel" === t.dismiss && Swal.fire({
-                        text: customerName + " was not deleted.",
+                    });
+                    $('#kt_table_users').DataTable().ajax.reload();
+                } else if (response['error']) {
+                    Swal.fire({
+                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
                         icon: "error",
                         buttonsStyling: !1,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
-                    })
-                }))
-            }))
-        }))
-    }, l = () => {
-        const c = o.querySelectorAll('[type="checkbox"]');
-        t = document.querySelector('[data-kt-user-table-toolbar="base"]'), n = document.querySelector('[data-kt-user-table-toolbar="selected"]'), r = document.querySelector('[data-kt-user-table-select="selected_count"]');
-        const s = document.querySelector('[data-kt-user-table-select="delete_selected"]');
-        c.forEach((e => {
-            e.addEventListener("click", (function () {
-                setTimeout((function () {
-                    a()
-                }), 50)
-            }))
-        })), s.addEventListener("click", (function () {
-            Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
-                icon: "warning",
-                showCancelButton: !0,
-                buttonsStyling: !1,
-                confirmButtonText: "Yes, delete!",
-                cancelButtonText: "No, cancel",
-                customClass: {
-                    confirmButton: "btn fw-bold btn-danger",
-                    cancelButton: "btn fw-bold btn-active-light-primary"
+                    });
                 }
-            }).then((function (t) {
-                t.value ? Swal.fire({
-                    text: "You have deleted all selected customers!.",
-                    icon: "success",
-                    buttonsStyling: !1,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {confirmButton: "btn fw-bold btn-primary"}
-                }).then((function () {
-                    c.forEach((t => {
-                        t.checked && e.row($(t.closest("tbody tr"))).remove().draw()
-                    }));
-                    o.querySelectorAll('[type="checkbox"]')[0].checked = !1
-                })).then((function () {
-                    a(), l()
-                })) : "cancel" === t.dismiss && Swal.fire({
-                    text: "Selected customers was not deleted.",
-                    icon: "error",
-                    buttonsStyling: !1,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {confirmButton: "btn fw-bold btn-primary"}
-                })
-            }))
-        }))
-    };
-    const a = () => {
-        const e = o.querySelectorAll('tbody [type="checkbox"]');
-        let c = !1, l = 0;
-        e.forEach((e => {
-            e.checked && (c = !0, l++)
-        })), c ? (r.innerHTML = l, t.classList.add("d-none"), n.classList.remove("d-none")) : (t.classList.remove("d-none"), n.classList.add("d-none"))
-    };
-    return {
-        init: function () {
-            o && (o.querySelectorAll("tbody tr").forEach((e => {
-                const t = e.querySelectorAll("td"), n = t[3].innerText.toLowerCase();
-                let r = 0, o = "minutes";
-                n.includes("yesterday") ? (r = 1, o = "days") : n.includes("mins") ? (r = parseInt(n.replace(/\D/g, "")), o = "minutes") : n.includes("hours") ? (r = parseInt(n.replace(/\D/g, "")), o = "hours") : n.includes("days") ? (r = parseInt(n.replace(/\D/g, "")), o = "days") : n.includes("weeks") && (r = parseInt(n.replace(/\D/g, "")), o = "weeks");
-                const c = moment().subtract(r, o).format();
-                t[3].setAttribute("data-order", c);
-                const l = moment(t[5].innerHTML, "DD MMM YYYY, LT").format();
-                t[5].setAttribute("data-order", l)
-            })), (e = $(o).DataTable({
-                info: !1,
-                order: [],
-                pageLength: 10,
-                lengthChange: !1,
-                columnDefs: [{orderable: !1, targets: 0}, {orderable: !1, targets: 6}]
-            })).on("draw", (function () {
-                l(), c(), a()
-            })), l(), document.querySelector('[data-kt-user-table-filter="search"]').addEventListener("keyup", (function (t) {
-                e.search(t.target.value).draw()
-            })), document.querySelector('[data-kt-user-table-filter="reset"]').addEventListener("click", (function () {
-                document.querySelector('[data-kt-user-table-filter="form"]').querySelectorAll("select").forEach((e => {
-                    $(e).val("").trigger("change")
-                })), e.search("").draw()
-            })), c(), (() => {
-                const t = document.querySelector('[data-kt-user-table-filter="form"]'),
-                    n = t.querySelector('[data-kt-user-table-filter="filter"]'), r = t.querySelectorAll("select");
-                n.addEventListener("click", (function () {
-                    var t = "";
-                    r.forEach(((e, n) => {
-                        e.value && "" !== e.value && (0 !== n && (t += " "), t += e.value)
-                    })), e.search(t).draw()
-                }))
-            })())
-        }
+            }
+        });
     }
-}();
-KTUtil.onDOMContentLoaded((function () {
-    KTUsersList.init()
-}));
+
+    function get_forms() {
+        var KTAppEcommerceCategories = function () {
+            var t, e, n = () => {
+                t.querySelectorAll('[data-kt-ecommerce-forms-filter="delete_row"]').forEach((t => {
+                    t.addEventListener("click", (function (t) {
+                        t.preventDefault();
+                        const n = t.target.closest("tr"),
+                            o = n.querySelector('[data-kt-ecommerce-forms-filter="forms_name"]').innerText;
+                        Swal.fire({
+                            text: "Are you sure you want to delete " + o + "?",
+                            icon: "warning",
+                            showCancelButton: !0,
+                            buttonsStyling: !1,
+                            confirmButtonText: "Yes, delete!",
+                            cancelButtonText: "No, cancel",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-danger",
+                                cancelButton: "btn fw-bold btn-active-light-primary"
+                            }
+                        }).then((function (t) {
+                            t.value ? Swal.fire({
+                                text: "You have deleted " + o + "!.",
+                                icon: "success",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                            }).then((function () {
+                                e.row($(n)).remove().draw()
+                            })) : "cancel" === t.dismiss && Swal.fire({
+                                text: o + " was not deleted.",
+                                icon: "error",
+                                buttonsStyling: !1,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                            })
+                        }))
+                    }))
+                }))
+            };
+            return {
+                init: function () {
+                    (t = document.querySelector("#kt_table_users")) && ((e = $(t).DataTable({
+                        searchable: true,
+                        ajax: {
+                            "url": base_path + language + "/admins",
+                            "type": 'GET',
+                            /*"data":{core_name:core_name},*/
+                        },
+                        columns: [
+                            {
+                                data: 'name',
+                                name: 'name'
+                            },
+                            {
+                                data: 'description',
+                                name: 'description'
+                            },
+                            {
+                                data: 'start_date',
+                                name: 'start_date'
+                            },
+                            {
+                                data: 'end_date',
+                                name: 'end_date'
+                            },
+                            {
+                                data: 'status',
+                                name: 'status'
+                            },
+                            {
+                                data: 'others',
+                                name: 'others',
+
+                            },
+                        ],language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        },
+                    })).on("draw", (function () {
+                        n()
+                    })), document.querySelector('[data-kt-ecommerce-forms-filter="search"]').addEventListener("keyup", (function (t) {
+                        e.search(t.target.value).draw()
+                    })),/* filter_class.click(function () {
+                        $("<option></option>").insertBefore($('.filter_data option:first-child'));
+                        filter_class.val("")
+                        e.search("").draw()
+                        $("option:selected").prop("selected", false)
+                    }),*/ $("#reset").click(function () {
+                        $("#search").val("");
+                        $("<option></option>").insertBefore($('.filter_data option:first-child'));
+                        filter_class.val("")
+                        e.search("").draw()
+                        $("option:selected").prop("selected", false)
+                    }), filter_class.on("change", function () {
+                        core_name = $(this).val();
+                        e.search(core_name.trim()).draw()
+                    }), n())
+                }
+            }
+        }();
+        KTUtil.onDOMContentLoaded((function () {
+            KTAppEcommerceCategories.init()
+        }));
+    }
+
+});

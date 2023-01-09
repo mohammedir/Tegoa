@@ -54,6 +54,11 @@ return [
     'Admins' => 'المشرفين',
     'Roles' => 'الأدوار',
 
+    /*users*/
+    'Admin List' => 'قائمة المشرفين',
+    'Admins Management' => 'إدارة المشرفين',
+    'Add_Admin' => 'إضافة مشرف',
+
     /*permissions*/
     'dashboard'=>'لوحة التحكم',
     'dashboard_view'=>'عرض لوحة التحكم',
@@ -72,6 +77,7 @@ return [
     'Created Date' =>'تاريخ الإنشاء',
     'Actions'   => 'الاحداث',
     'Update Permission' => 'تعديل الصلاحيات',
+    'UserDetails' => 'بيانات المستخدم',
 
     /*cars*/
     'Cars_List' => 'السيارات',
@@ -243,6 +249,8 @@ return [
     'transportations_list' => 'قائمة النقل',
     'transportations_Management' => 'إدارة النقل',
     'SearchDriver' => 'ابحث عن سائق',
+    'The start and end date must be added !' => 'يجب إضافة تاريخ البدء والانتهاء !',
+    'Sorry' => 'المعذرة!',
 
 
 
@@ -252,8 +260,8 @@ return [
     'max' => 'يجب ألا يزيد هذا الحقل عن 255 حرفًا.',
     'numeric' => 'يجب أن يكون هذا الحقل رقمًا',
     'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
-    'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
-    'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'mimes' =>  'يجب اختيار صورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'uploaded' => 'يجب اختيار صورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
     'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
     'uniqueNumber' => 'تم أخذ هذا الرقم بالفعل.',

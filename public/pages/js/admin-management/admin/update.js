@@ -55,7 +55,7 @@ $(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: app_url + "/admin/update/" + id,
+                url: app_url + "/" + language + "/admin/update/" + id,
                 data: {
                     name: name,
                     email: email,
@@ -73,7 +73,7 @@ $(function () {
                         $(".errors").html("");
                     } else {
                         console.log(response)
-                        failed_submit();
+                        failed_submit(response);
                     }
                 }
             })
@@ -132,7 +132,7 @@ $(function () {
                 customClass: {confirmButton: "btn btn-primary"}
             })
             submit_button.disabled = !1
-            print_error(errors);
+            print_error(errors.error);
         }), 1000));
     }
 
