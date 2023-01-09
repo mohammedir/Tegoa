@@ -42,10 +42,10 @@ class RolesAdminController extends Controller
                 'name' => 'required|unique:roles',
                 'permissions' => 'required',
             ], [
-                'name.required' => trans("str.Name is required"),
-                'permissions.required' => trans("str.permissions is required"),
+                'name.required' => trans("web.required"),
+                'name.unique' => trans("web.uniqueRole"),
+                'permissions.required' => trans("web.requiredPermissions"),
             ]);
-            //dd($request);
             if ($validator->passes()) {
                 $data = new Role();
                 $data->name = $request->name;

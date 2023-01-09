@@ -178,7 +178,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/roles/store",
+                                        url: app_url + "/" + language + "/roles/store",
                                         data: {
                                             name: $("#permission_name_create").val(),
                                             permissions: permis,

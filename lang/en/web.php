@@ -279,6 +279,8 @@ return [
     'same' => 'The password and password confirmation must match.',
     'required_with' => ' and the password field is required when password confirmation is present.',
     'uniqueScooter' => 'This field scooter number has already been taken.',
+    'uniqueRole' => 'This role name has already been taken.',
+    'requiredPermissions' => 'Permission select is required',
 
 
 ];
