@@ -29,6 +29,7 @@ return [
     'The car number must be an integer' => 'The car number must be an integer',
     'driverlicense field is required' => 'driver license field is required',
     'carphotos field is required' => 'car photos field is required',
+    'passengersinsurance field is required' => 'passengers insurance field is required',
 
     /*login*/
 

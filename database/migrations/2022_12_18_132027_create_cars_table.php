@@ -27,7 +27,7 @@ class CreateCarsTable extends Migration
             $table->text('carlicense')->nullable();
             $table->text('carinsurance')->nullable();
             $table->text('passengersinsurance')->nullable();
-            $table->boolean('is_email_verified')->nullable();
+            $table->integer('is_email_verified')->nullable();
             $table->integer('status')->comment('0:in review | 1:accepted |2:declined')->default(0);
             $table->timestamps();
         });
