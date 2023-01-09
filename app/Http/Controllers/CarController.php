@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class CarController extends Controller
@@ -18,10 +19,19 @@ class CarController extends Controller
     {
         $cars = Car::query()->get();
         if ($request->ajax()) {
-            $data = Car::query()->get();
+            $data = Car::query()->where('is_email_verified',"=",1)->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
                     return '<a href="'.route("drivers.index").'">'.User::find($data->user_id)->full_name.'</a>';
+                })
+                ->editColumn('car_number', function ($data) {
+                    return Str::limit($data->car_number,20) ;;
+                })
+                ->editColumn('car_brand', function ($data) {
+                    return Str::limit($data->car_brand,20) ;;
+                })
+                ->editColumn('insurance_number', function ($data) {
+                    return Str::limit($data->insurance_number,20) ;;
                 })
                 ->editColumn('status', function ($data) {
                     if ($data->status == 0){
@@ -35,10 +45,10 @@ class CarController extends Controller
                 })
                 ->addColumn('others', function ($data) {
                     if ($data->status == 0 || $data->status == 2){
-                        $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning" style="color:black;font-weight: bold;">
+                        $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
                                     '. trans('web.Details').'</button>';
                     }else{
-                        $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning" style="color:black;font-weight: bold;">
+                        $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
                                     '. trans('web.Edit').'</button>';
                     }
 

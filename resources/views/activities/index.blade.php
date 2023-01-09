@@ -790,7 +790,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.start_date') (@lang('web.english'))</span>
+                                                <span>@lang('web.start_date')</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -802,7 +802,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.end_date') (@lang('web.arabic'))</span>
+                                                <span>@lang('web.end_date')</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->

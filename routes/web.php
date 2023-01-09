@@ -13,6 +13,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
+use App\Http\Controllers\TransportationController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -23,7 +24,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!s
+| contains the "web" middleware group. Now create something great!
 |
 */
 Route::group(['middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::post('/permissions/update/{id}', [PermissionAdminController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions/destroy/{id}', [PermissionAdminController::class, 'destroy'])->name('permissions.destroy');
 
+    Route::get('/dashboard/statistics/', [DashboardController::class, 'statistics']);
+
     Route::resource('cars', CarController::class);
     Route::post('/accept/car', [CarController::class, 'accept']);
     Route::post('/decline/car', [CarController::class, 'decline']);
@@ -80,6 +83,9 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('activities', ActivityController::class);
     Route::get('/changeStatus/activities/', [ActivityController::class, 'changeStatus']);
 
+    Route::resource('transportations', TransportationController::class);
+    Route::get('/search', [TransportationController::class, 'fetch_data']);
+    Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
 
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);

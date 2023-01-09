@@ -49,9 +49,14 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
-    'Users Management' => 'Managing system users',
-    'Admins' => 'System administrators',
+    'Users Management' => 'Users',
+    'Admins' => 'Admins',
     'Roles' => 'roles',
+
+    /*users*/
+    'Admin List' => 'Admins List',
+    'Admins Management' => 'Admins Management',
+    'Add_Admin' => 'Add Admin',
 
     /*permission*/
     'dashboard' => 'dashboard',
@@ -71,6 +76,7 @@ return [
     'Created Date' => 'Created Date',
     'Actions' => 'Actions',
     'Update Permission' => 'Update Permission',
+    'UserDetails' => 'User Details',
 
     /*cars*/
     'Cars_List' => 'Cars',
@@ -207,7 +213,7 @@ return [
     'titleEmergencyEnter' => 'Enter a emergency contact title',
 
     /*activities*/
-    'activities' => ' Tourism Activities',
+    'activities' => ' Tourism activities',
     'Add_activity' => 'Add Activity',
     'activities_list' => ' Tourism Activities List',
     'activity_Management' => 'Activities Management',
@@ -221,6 +227,26 @@ return [
     'descriptionActivityEnter' => 'Enter a activity description',
     'required_toolsEnter' => 'Enter a required tools',
 
+    /*transportations*/
+    'transportations' => 'Transportation orders',
+    'Filter Options' => 'Filter Options',
+    'From' => 'From:',
+    'To' => 'To:',
+    'Apply' => 'Apply',
+    'Reset' => 'Reset',
+    'Driver name' => 'Driver name',
+    'Passenger name' => 'Passenger name',
+    'Car' => 'Car',
+    'Time' => 'Time',
+    'Passenger' => 'Passenger',
+    'complaint' => 'Complaint',
+    'No data available in table' => 'No data available in table',
+    'transportation_Details' => 'Complaint Details',
+    'transportations_list' => 'Transportations list',
+    'transportations_Management' => 'Transportations Management',
+    'SearchDriver' => 'Search for driver',
+    'The start and end date must be added !' => 'The start and end date must be added !',
+    'Sorry' => 'Sorry',
 
 
     /*messages*/
@@ -229,8 +255,8 @@ return [
     'max' => 'This field must not be greater than 255 characters.',
     'numeric' => 'This field must be a number',
     'date' => 'This field does not match the format',
-    'mimes' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
-    'uploaded' => 'Failed to upload an image. Please select an image, type: jpg,jpeg,png',
+    'mimes' => 'You must choose an image. Please select an image, type: jpg,jpeg,png',
+    'uploaded' => 'You must choose an image. Please select an image, type: jpg,jpeg,png',
     'email' => 'This field must be a valid email address',
     'unique' => 'This field email has already been taken.',
     'uniqueNumber' => 'This field phone number has already been taken.',

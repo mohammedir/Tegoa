@@ -3,19 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Transportation;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class DashboardController extends Controller
 {
     public function index(){
+        $users = User::all()->count();
+        $passengers = User::all()->where('user_type','==',1)->count();
+        $drivers = User::all()->where('user_type','==',2)->count();
 
-        return view('dashboard');
+        $percentPassengers = $passengers  == 0 ? 0 : $passengers / ($passengers + $drivers) * 100;
+        $totalPassengers = number_format((float)$percentPassengers, 0, '.', ',');
+
+        $percentDrivers = $drivers == 0 ? 0 : $drivers / ($passengers + $drivers) * 100;
+        $totalDrivers = number_format((float)$percentDrivers, 0, '.', ',');
+        return view('dashboard',compact('users','passengers','drivers','totalPassengers','totalDrivers'));
+    }
+
+    public function statistics(Request $request){
+        if ($request->ajax()){
+            $requested = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->get()->groupBy(function ($data) {
+                return Carbon::parse($data->created_at)->format('d-m');
+            });
+            $accepted = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 4)->get()->groupBy(function ($data) {
+                return Carbon::parse($data->created_at)->format('d-m');
+            });
+            $rejected = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 5)->get()->groupBy(function ($data) {
+                return Carbon::parse($data->created_at)->format('d-m');
+            });
+
+
+            $historyRequested = [];
+            $countRequested = [];
+            foreach ($requested as $days => $values) {
+                $historyRequested[] = $days;
+                $countRequested[] = count($values);
+            }
+
+            $countAccepted = [];
+            foreach ($accepted as $values) {
+                $countAccepted[] = count($values);
+            }
+
+            $countRejected = [];
+            foreach ($rejected as $values) {
+                $countRejected[] = count($values);
+            }
+
+            return response(['historyRequested' => $historyRequested, 'countRequested' => $countRequested,'countAccepted' => $countAccepted,'countRejected' => $countRejected]);
+
+        }
     }
     public function fcm(){
-        return view('welcome');
 
+        return view('welcome');
 
     }
 

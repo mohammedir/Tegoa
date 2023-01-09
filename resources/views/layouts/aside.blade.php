@@ -295,6 +295,22 @@
 
                     </div>
 
+                    <div class="menu-item menu-accordion {{str_contains($url,"transportations")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"transportations") ? "active":""}}" href="{{route('transportations.index')}}">
+											<span class="menu-icon">
+												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
+												<span class="svg-icon svg-icon-2">
+													<i class="bi bi-exclamation-triangle"></i>
+												</span>
+                                                <!--end::Svg Icon-->
+											</span>
+                            <span class="menu-title">@lang('web.transportations')</span>
+                        </a>
+                        <!--end:Menu link-->
+
+                    </div>
+
 
             </div>
             <!--end::Menu-->

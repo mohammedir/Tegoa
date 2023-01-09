@@ -7,13 +7,13 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <!--begin::Title-->
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Users List</h1>
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@lang('web.Admin List')</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a class="text-muted text-hover-primary">@lang('web.dashboard1')</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -22,7 +22,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">User Management</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.Admins Management')</li>
                     <!--end::Item-->
                     <!--begin::Item-->
                     <li class="breadcrumb-item">
@@ -30,7 +30,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Users</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.Admins')</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -54,7 +54,7 @@
                         <div class="card-header">
                             <!--begin::Card title-->
                             <div class="card-title">
-                                <h2>{{__("web.Avatar")}}</h2>
+                                <h2>@lang('web.Avatar')</h2>
                             </div>
                             <!--end::Card title-->
                         </div>
@@ -69,11 +69,11 @@
                                     <!--begin::Image input-->
                                     <div class="image-input image-input-empty image-input-outline mb-3"
                                          data-kt-image-input="true"
-                                         style="background-image: url({{asset("uploads/admins/".$user->personalphoto)}})">
+                                         style="background-image: url({{asset("images/users/".$user->personalphoto)}})">
                                         <!--begin::Preview existing avatar-->
                                         <div id="uploaded_image" data-value="{{$user->personalphoto}}"
                                              class="image-input-wrapper w-125px h-125px"
-                                             style="background-image: url({{asset("uploads/admins/".$user->personal_photo)}});"></div>
+                                             style="background-image: url({{asset("images/users/".$user->personal_photo)}});"></div>
                                         <!--end::Preview existing avatar-->
                                         <!--begin::Label-->
                                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -189,7 +189,7 @@
                                             <!--begin::Input-->
                                             <input id="name" type="text" name="name"
                                                    class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="{{__("web.Full name")}}" value="{{$user->full_name}}"/>
+                                                   placeholder="@lang('web.Full Name')" value="{{$user->full_name}}"/>
                                             <strong id="name_error" class="errors text-danger"
                                                     role="alert">
                                             </strong>
@@ -204,7 +204,7 @@
                                             <!--begin::Input-->
                                             <input id="email" type="email" name="email"
                                                    class="text-start form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="example@domain.com" value="{{$user->email}}"/>
+                                                   placeholder="@lang('web.Email')" value="{{$user->email}}"/>
                                             <strong id="email_error" class="errors text-danger"
                                                     role="alert">
                                             </strong>
@@ -219,7 +219,7 @@
                                             <!--begin::Input-->
                                             <input id="mobile" type="tel" name="mobile"
                                                    class="text-start form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="97846123"
+                                                   placeholder="@lang('web.Mobile')"
                                                    value="{{$user->mobile_number}}"/>
                                             <strong id="mobile_error" class="errors text-danger"
                                                     role="alert">
@@ -268,15 +268,6 @@
                                             @php
                                                 $role_id = "";
                                             @endphp
-                                           {{-- @foreach($user->role as $role)
-                                                @php
-                                                    $role_id = $role->role_id;
-                                                @endphp
-                                                <input id="first_role"
-                                                       data-id="{{$role->role_id}}"
-                                                       data-name="{{$role->name}}"
-                                                       type="hidden" value="{{$role->role_id}}">
-                                        @endforeach--}}
                                         @foreach($roles as $k=>$role)
                                             @if($role->id != 71 )
                                                 <!--begin::Input row-->
@@ -326,6 +317,15 @@
                                 <!--end::Scroll-->
                             </form>
                         </div>
+                        <div class="d-flex justify-content-end p-5 mb-2">
+                            <a href="{{ route('admins.index') }}"
+                               id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">@lang('web.Discard')</a>
+                            <button id="kt_modal_update_user_submit" class="btn btn-primary">
+                                <span class="indicator-label">@lang('web.Submit')</span>
+                                <span class="indicator-progress">@lang('web.Please wait...')
+												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
                         <!--end::Card body-->
                     </div>
                     <!--end:::Tab content-->
@@ -333,15 +333,7 @@
                 <!--end::Content-->
             </div>
             <!--begin::Actions-->
-            <div class="d-flex justify-content-end p-5 mb-2">
-                <a href="{{ url("admin/users") }}"
-                   id="kt_ecommerce_edit_user_cancel" class="btn btn-light me-5">{{__("str.Cancel")}}</a>
-                <button id="kt_modal_update_user_submit" class="btn btn-primary">
-                    <span class="indicator-label">{{__("web.Save Changes")}}</span>
-                    <span class="indicator-progress">{{__("web.Please wait...")}}
-												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                </button>
-            </div>
+
             <!--end::Actions-->
             <!--end::Layout-->
             <!--begin::Modals-->

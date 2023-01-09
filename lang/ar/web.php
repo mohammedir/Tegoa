@@ -50,9 +50,14 @@ return [
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
-    'Users Management' => 'إدارة مستخدمين النظام',
-    'Admins' => 'مسؤولي النظام',
+    'Users Management' => 'المستخدمين',
+    'Admins' => 'المشرفين',
     'Roles' => 'الأدوار',
+
+    /*users*/
+    'Admin List' => 'قائمة المشرفين',
+    'Admins Management' => 'إدارة المشرفين',
+    'Add_Admin' => 'إضافة مشرف',
 
     /*permissions*/
     'dashboard'=>'لوحة التحكم',
@@ -72,6 +77,7 @@ return [
     'Created Date' =>'تاريخ الإنشاء',
     'Actions'   => 'الاحداث',
     'Update Permission' => 'تعديل الصلاحيات',
+    'UserDetails' => 'بيانات المستخدم',
 
     /*cars*/
     'Cars_List' => 'السيارات',
@@ -181,7 +187,7 @@ return [
 
 
     /*Passengers*/
-    'Passengers' => 'ركاب',
+    'Passengers' => 'الركاب',
     'Passengers_list' => 'قائمة الركاب',
     'Passengers_Management' => 'إدارة الركاب',
     'Add_Passenger' => 'إضافة راكب',
@@ -225,6 +231,28 @@ return [
     'descriptionActivityEnter' => 'أدخل وصف النشاط',
     'required_toolsEnter' => 'أدخل الأدوات المطلوبة',
 
+    /*transportations*/
+    'transportations' => 'أوامر النقل',
+    'Filter Options' => 'خيارات التصفية',
+    'From' => 'من:',
+    'To' => 'الى:',
+    'Apply' => 'تطبيق',
+    'Reset' => 'إعادة ضبط',
+    'Driver name' => 'اسم السائق',
+    'Passenger name' => 'اسم الراكب',
+    'Car' => 'سيارة',
+    'Time' => 'وقت',
+    'Passenger' => 'راكب',
+    'complaint' => 'شكوى',
+    'No data available in table' => 'لا توجد بيانات متوفرة في الجدول',
+    'transportation_Details' => 'تفاصيل شكوى',
+    'transportations_list' => 'قائمة النقل',
+    'transportations_Management' => 'إدارة النقل',
+    'SearchDriver' => 'ابحث عن سائق',
+    'The start and end date must be added !' => 'يجب إضافة تاريخ البدء والانتهاء !',
+    'Sorry' => 'المعذرة!',
+
+
 
     /*messages*/
     'required' => 'هذا الحقل مطلوب',
@@ -232,8 +260,8 @@ return [
     'max' => 'يجب ألا يزيد هذا الحقل عن 255 حرفًا.',
     'numeric' => 'يجب أن يكون هذا الحقل رقمًا',
     'date' => 'هذا الحقل لا يطابق التنسيق المطلوب',
-    'mimes' =>  'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
-    'uploaded' => 'فشل تحميل الصورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'mimes' =>  'يجب اختيار صورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
+    'uploaded' => 'يجب اختيار صورة. الرجاء تحديد صورة ، من نوع: jpg ، jpeg ، png.',
     'email' => 'يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحًا',
     'unique' => 'تم أخذ هذا البريد الإلكتروني بالفعل.',
     'uniqueNumber' => 'تم أخذ هذا الرقم بالفعل.',

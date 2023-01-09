@@ -44,8 +44,8 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
-        $user = User::query()->where('email',$this->email)->where('user_type','==',0)->get()->first();
-        if ($user){
+        $user = User::query()->where('email',$this->email)->where('user_type','==',0)->first();
+        if ($user->user_status == 1){
             $this->ensureIsNotRateLimited();
             RateLimiter::hit($this->throttleKey());
 
