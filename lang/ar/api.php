@@ -27,6 +27,8 @@ return [
     'The car number must be an integer' => 'يجب أن يكون رقم السيارة عددًا صحيحًا',
     'driverlicense field is required' => 'حقل رخصة القيادة مطلوب',
     'carphotos field is required' => 'حقل صور السيارة مطلوب',
+    'passengersinsurance field is required' => 'حقل التأمين على الركاب مطلوب',
+
 
 
     /*login*/

@@ -3,6 +3,9 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\GuestController;
 use App\Http\Controllers\API\PassengerController;
+use App\Http\Controllers\API\VerificationController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.apiverify'); // Make sure to keep this as your route name
+
+Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
+
 Route::post('passenger_register',[AuthController::class,'passenger_register'])->middleware('localization');
 Route::post('driver_register',[AuthController::class,'driver_register'])->middleware('localization');
 Route::post('passenger_login',[AuthController::class,'passenger_login'])->middleware('localization');

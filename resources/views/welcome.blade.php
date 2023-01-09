@@ -1,109 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FCM</title>
-    <!-- firebase integration started -->
 
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
-    <!-- Firebase App is always required and must be first -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
-
-    <!-- Add additional services that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
-
-    <!-- firebase integration end -->
-
-    <!-- Comment out (or don't include) services that you don't want to use -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-storage.js"></script> -->
-
-    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
-</head>
-<body>
-        firebase
-</body>
-<script type="text/javascript">
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyDNboSoMB-1iRe6dKFm_7VoD3BBC5bq43w",
-        authDomain: "teqoa-2b0d6.firebaseapp.com",
-        projectId: "teqoa-2b0d6",
-        storageBucket: "teqoa-2b0d6.appspot.com",
-        messagingSenderId: "1075920682482",
-        appId: "1:1075920682482:web:0c042b6b5fd6cb37823f6b",
-        measurementId: "G-LE9NTVB50E"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    //firebase.analytics();
-    const messaging = firebase.messaging();
-    messaging
-        .requestPermission()
-        .then(function () {
-//MsgElem.innerHTML = "Notification permission granted."
-            console.log("Notification permission granted.");
-
-            // get the token in the form of promise
-            return messaging.getToken()
-        })
-        .then(function(token) {
-            // print the token on the HTML page
-            console.log(token);
-
-
-
-        })
-        .catch(function (err) {
-            console.log("Unable to get permission to notify.", err);
-        });
-
-    messaging.onMessage(function(payload) {
-        console.log(payload);
-        var notify;
-        notify = new Notification(payload.notification.title,{
-            body: payload.notification.body,
-            icon: payload.notification.icon,
-            tag: "Dummy"
-        });
-        console.log(payload.notification);
-    });
-
-    //firebase.initializeApp(config);
-    var database = firebase.database().ref().child("/users/");
-
-    database.on('value', function(snapshot) {
-        renderUI(snapshot.val());
-    });
-
-    // On child added to db
-    database.on('child_added', function(data) {
-        console.log("Comming");
-        if(Notification.permission!=='default'){
-            var notify;
-
-            notify= new Notification('CodeWife - '+data.val().username,{
-                'body': data.val().message,
-                'icon': 'bell.png',
-                'tag': data.getKey()
-            });
-            notify.onclick = function(){
-                alert(this.tag);
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        /**
+         * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
+         */
+        @media screen {
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
             }
-        }else{
-            alert('Please allow the notification first');
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 700;
+                src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
+            }
         }
-    });
 
-    self.addEventListener('notificationclick', function(event) {
-        event.notification.close();
-    });
+        /**
+         * Avoid browser level font resizing.
+         * 1. Windows Mobile
+         * 2. iOS / OSX
+         */
+        body,
+        table,
+        td,
+        a {
+            -ms-text-size-adjust: 100%; /* 1 */
+            -webkit-text-size-adjust: 100%; /* 2 */
+        }
 
-</script>
-<script>
+        /**
+         * Remove extra space added to tables and cells in Outlook.
+         */
+        table,
+        td {
+            mso-table-rspace: 0pt;
+            mso-table-lspace: 0pt;
+        }
 
-</script>
+        /**
+         * Better fluid images in Internet Explorer.
+         */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /**
+         * Remove blue links for iOS devices.
+         */
+        a[x-apple-data-detectors] {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        /**
+         * Fix centering issues in Android 4.4.
+         */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+
+        body {
+            width: 100% !important;
+            height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /**
+         * Collapse table borders to avoid space between cells.
+         */
+        table {
+            border-collapse: collapse !important;
+        }
+
+        a {
+            color: #1a82e2;
+        }
+
+        img {
+            height: auto;
+            line-height: 100%;
+            text-decoration: none;
+            border: 0;
+            outline: none;
+        }
+    </style>
+
+</head>
+<body style="background-color: #e9ecef;">
+
+<!-- start preheader -->
+<div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
+    A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+</div>
+<!-- end preheader -->
+
+<!-- start body -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+    <!-- start logo -->
+    <tr>
+        <td align="center" bgcolor="#e9ecef">
+            <!--[if (gte mso 9)|(IE)]>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+                <tr>
+                    <td align="center" valign="top" width="600">
+            <![endif]-->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                <tr>
+                    <td align="center" valign="top" style="padding: 36px 24px;">
+                        <a href="https://sendgrid.com" target="_blank" style="display: inline-block;">
+                            <img src="{{asset('images/logo_n.jpg')}}" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+    <!-- end logo -->
+
+    <!-- start hero -->
+    <tr>
+        <td align="center" bgcolor="#e9ecef">
+            <!--[if (gte mso 9)|(IE)]>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+                <tr>
+                    <td align="center" valign="top" width="600">
+            <![endif]-->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                <tr>
+                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+                        <h1 style="color: #22ec46;margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Your e-mail has been verified successfully. You can enjoy using our services</h1>
+                    </td>
+                </tr>
+            </table>
+            <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+    <!-- end hero -->
+
+</table>
+<!-- end body -->
+
+</body>
 </html>

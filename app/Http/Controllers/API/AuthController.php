@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\API\Car;
+use App\Models\API\Photos;
 use App\Models\API\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ class AuthController extends Controller
             $user->save();
                 $token = $user->createToken('passenger');
             $user->update(['api_token' =>$token->plainTextToken]);
-
+            $user->sendEmailVerificationNotification();
             return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
 
         }else{
@@ -101,6 +102,7 @@ class AuthController extends Controller
             'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
             'driverlicense.required' => trans("api.driverlicense field is required"),
             'carphotos.required' => trans("api.carphotos field is required"),
+            'passengersinsurance.required' => trans("api.passengersinsurance field is required"),
         ]);
         if ($validator->passes()) {
             $user = new User();
@@ -135,14 +137,6 @@ class AuthController extends Controller
             $car->insurance_number = $request->insurance_number;
             $car->insurance_expiry_date = $request->insurance_expiry_date;
             $car->type = $request->vehicle_type;
-            if ($request->hasFile('carphotos')) {
-                $compFileName =  $request->file('carphotos')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('carphotos')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carphotos')->move('images/cars',$comPic);
-                $car->carphotos = $comPic;
-            }
             if ($request->hasFile('carlicense')) {
                 $compFileName =  $request->file('carlicense')->getClientOriginalName();
                 $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
@@ -168,12 +162,24 @@ class AuthController extends Controller
                 $car->passengersinsurance = $comPic;
             }
             $car->save();
+            if ($request->hasFile('carphotos')) {
+                $photos = new Photos();
+                $compFileName =  $request->file('carphotos')->getClientOriginalName();
+                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                $extenshion = $request->file('carphotos')->getClientOriginalExtension();
+                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                $path = $request->file('carphotos')->move('images/cars',$comPic);
+                $photos->images = $comPic;
+                $photos->car_id = $car->id;
+                $photos->save();
+            }
                 $token = $user->createToken('driver');
             $user->update(['api_token' =>$token->plainTextToken]);
             $res = [
                 'user' => $user,
                 'car' => $car
             ];
+            $user->sendEmailVerificationNotification();
             return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
 
         }else{
