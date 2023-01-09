@@ -91,13 +91,19 @@ class RolesAdminController extends Controller
     {
         $role = Role::query()->find($id);
         $user_roles = $role->admin_roles;
-        //$permissions = Permission::query()->get();
         $permissions = Permission::query()->where("status",1)->get();
-        //dd($user_roles[0]->users->name);
         if ($request->ajax()) {
             return DataTables::of($user_roles)
                 ->addColumn('id', function ($user_roles) {
                     return '<a href="' . url("/admin/users/edit/" . $user_roles->user->id) . '" class="text-gray-600 text-hover-primary mb-1 "><div>ID-' . $user_roles->user->id . '</div></div>';
+                })
+                ->editColumn('status', function ($user_roles) {
+                    if ($user_roles->user->user_status == 1) {
+                        $status = trans('web.active');
+                    } else {
+                        $status = trans('web.inactive');
+                    }
+                    return $status;
                 })
                 ->addColumn('name', function ($user_roles) {
                     return '<div class="d-flex align-items-center">
@@ -105,7 +111,7 @@ class RolesAdminController extends Controller
 											<div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
 												<a href="' . url("/admin/users/edit/" . $user_roles->user->id) . '">
 													<div class="symbol-label">
-														<img src="' . env("assets") . '/uploads/users/' . $user_roles->user->image . '" alt="' . $user_roles->user->name . '" class="w-100">
+														<img src="'.asset('images/users/'.$user_roles->user->personalphoto) . '" alt="' . $user_roles->user->name . '" class="w-100">
 													</div>
 												</a>
 											</div>
@@ -119,9 +125,8 @@ class RolesAdminController extends Controller
 										</div>';
                 })
                 ->addColumn('created_at', function ($user_roles) {
-                    return '<div class="text-center"><div>' . $user_roles->user->created_at . '</div></div>';
+                    return $user_roles->user->created_at;
                 })
-
                 ->addColumn('action', function ($user_roles) {
                     return '<div class="text-center">
                             <div class="btn-group dropstart text-center">
@@ -242,21 +247,28 @@ class RolesAdminController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        $data = Role::query()->find($id);
-        $user_roles = $data->admin_roles;
-        foreach ($user_roles as $user_role) {
-            $user_permissions = $user_role->user->admin_permission;
-            $old_permission = AdminPermissions::query()->where("model_id", $user_role->model_id)->delete();
+        if ($request->ajax()) {
+            $item = \Spatie\Permission\Models\Role::withCount('users')->findOrFail($id);
+            if ($item->users_count !== 0){
+                return response()->json(['error' => "error"]);
+            }else{
+                $data = Role::query()->find($id);
+                $user_roles = $data->admin_roles;
+                foreach ($user_roles as $user_role) {
+                    $user_permissions = $user_role->user->admin_permission;
+                    $old_permission = AdminPermissions::query()->where("model_id", $user_role->model_id)->delete();
+                }
+                $role_per = RolesPermission::query()->where("role_id", $id)->delete();
+                $data->delete();
+                if ($data) {
+                    $roles = Role::query()->get();
+                    return response()->json(['success' => $data]);
+                } else
+                    return response()->json(['error' => 'error']);
+            }
         }
-        $role_per = RolesPermission::query()->where("role_id", $id)->delete();
-        $data->delete();
-        if ($data) {
-            $roles = Role::query()->get();
-            return response()->json(['success' => $data]);
-        } else
-            return response()->json(['error' => 'error']);
     }
 
     public function destroy_user($role, $user)

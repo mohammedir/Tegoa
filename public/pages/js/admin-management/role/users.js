@@ -66,7 +66,7 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "DELETE",
-            url: app_url + "/admin/users-roles/delete/" + role_id + "/user/" + id,
+            url: app_url + "/" + language + "/admin/users-roles/delete/" + role_id + "/user/" + id,
             success: function (response) {
                 if (response['success']) {
                     Swal.fire({
@@ -76,7 +76,7 @@ $(function () {
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
                     });
-                    table.DataTable().ajax.reload();
+                    // table.DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
                         text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
@@ -135,7 +135,7 @@ $(function () {
                         searchable: true,
                         order: [[0, "asc"]],
                         ajax: {
-                            "url": app_url + "/roles/show/" + role_id,
+                            "url": app_url + "/" + language + "/roles/show/" + role_id,
                             "type": 'GET',
                         },
                         columns: [
@@ -148,10 +148,16 @@ $(function () {
                                 name: 'name',
                             },
                             {
+                                data: 'status',
+                                name: 'status',
+                            },
+                            {
                                 data: 'created_at',
                                 name: 'created_at',
                             }
-                        ], "columnDefs": [{
+                        ], language: {
+                            url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
+                        }, "columnDefs": [{
                             "render": function (data, type, full, meta) {
                                 return meta.row + 1; // adds id to serial no
                             },

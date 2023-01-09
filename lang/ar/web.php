@@ -59,6 +59,23 @@ return [
     'Admins Management' => 'إدارة المشرفين',
     'Add_Admin' => 'إضافة مشرف',
 
+    /*roles*/
+    'Roles List' => 'قائمة الأدوار',
+    'Roles Management' => 'إدارة الأدوار',
+    'Add New Role' => 'إضافة دور جديد',
+    'Total users with this' => 'إجمالي المستخدمين مع هذا',
+    'and' => 'و',
+    'View Role' => 'عرض الدور',
+    'Edit Role' => 'تعديل الدور',
+    'Add a Role' => 'أضف دورًا',
+    'Role name' => 'اسم الدور',
+    'Enter Here' => 'أدخل هنا',
+    'more...' => 'أكثر...',
+    'Update Role' => 'تحديث الدور',
+    'Allows a full access to the system' => 'يسمح بالوصول الكامل إلى النظام',
+
+
+
     /*permissions*/
     'dashboard'=>'لوحة التحكم',
     'dashboard_view'=>'عرض لوحة التحكم',

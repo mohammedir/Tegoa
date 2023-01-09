@@ -58,6 +58,21 @@ return [
     'Admins Management' => 'Admins Management',
     'Add_Admin' => 'Add Admin',
 
+    /*roles*/
+    'Roles List' => 'Roles List',
+    'Roles Management' => 'Roles Management',
+    'Add New Role' => 'Add New Role',
+    'Total users with this' => 'Total users with this',
+    'and' => 'and',
+    'View Role' => 'View Role',
+    'Edit Role' => 'Edit Role',
+    'Add a Role' => 'Add a Role',
+    'Role name' => 'Role name',
+    'Enter Here' => 'Enter Here',
+    'more...' => 'more...',
+    'Update Role' => 'Update Role',
+    'Allows a full access to the system' => 'Allows a full access to the system',
+
     /*permission*/
     'dashboard' => 'dashboard',
     'dashboard_view' => 'dashboard_view',
