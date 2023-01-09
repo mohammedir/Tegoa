@@ -87,3 +87,4 @@
     <span style="display: flex; justify-content: center">@lang('web.No data available in table')</span>
     <br>
 @endif
+

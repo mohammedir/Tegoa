@@ -580,7 +580,7 @@
                         $("#user_edit").val(response.user);
                         $('div#photos_show_edit').empty();
                         $.each(response.image, function (index, value) {
-                            var img = $('<img class="btn" id="image_id" style="max-width: 400px;max-height: 300px;">');
+                            var img = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
                             var btn = $('<input type="hidden" id="id_image"><button type="button" class="btn btn-icon btn-circle btn-active-color-danger w-25px h-25px bg-body shadow"  id="button1"><i class="bi bi-trash"></i></button>');
                             img.attr('src', app_url + '/images/cars/' + value);
                             btn.attr('data-id', value);

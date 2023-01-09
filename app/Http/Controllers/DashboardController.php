@@ -28,13 +28,13 @@ class DashboardController extends Controller
 
     public function statistics(Request $request){
         if ($request->ajax()){
-            $requested = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 1)->get()->groupBy(function ($data) {
+            $requested = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
-            $accepted = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 2)->get()->groupBy(function ($data) {
+            $accepted = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 4)->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
-            $rejected = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 3)->get()->groupBy(function ($data) {
+            $rejected = DB::table('transportation_requests')->orderBy('created_at', 'ASC')->where('status', 5)->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
 

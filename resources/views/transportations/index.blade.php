@@ -239,14 +239,23 @@
         $('.apply').click(function(){
             var start = $("#start_date").val();
             var end = $("#end_date").val();
-            $.ajax({
-                type: 'get',
-                url: '/search/date/',
-                data: {start:start,end:end},
-                success: function (data) {
-                    $('#table_data').html(data);
-                }
-            });
+            if (start == "" || end == ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The start and end date must be added !')',
+                    footer: ''
+                })
+            }else{
+                $.ajax({
+                    type: 'get',
+                    url: '/search/date/',
+                    data: {start:start,end:end},
+                    success: function (data) {
+                        $('#table_data').html(data);
+                    }
+                });
+            }
         })
     </script>
 
@@ -262,6 +271,29 @@
                 }
             });
         })
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $(document).on('click', '.pagination a', function(event){
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+            function fetch_data(page)
+            {
+                $.ajax({
+                    url:"/search?page="+page,
+                    // data: {search:1},
+                    success:function(data)
+                    {
+                        $('#table_data').html(data);
+                    }
+                });
+            }
+
+        });
     </script>
     <script type="text/javascript">
         $('.reset').click(function(){

@@ -26,7 +26,11 @@
     @if(App::getLocale() == 'ar')
         <link href="{{asset('assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/global/plugins.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
-
+        <style>
+            div.dataTables_wrapper div.dataTables_length {
+                padding-left: 10px;
+            }
+        </style>
     @else
             <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
             <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
