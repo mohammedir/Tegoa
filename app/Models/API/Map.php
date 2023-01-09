@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
-class TourismActivities extends Model
+class Map extends Model
 {
     use HasFactory,SoftDeletes,HasTranslations;
-    protected $table = "activities";
+    protected $table = "places";
+    public $translatable = ['name','description','address'];
     protected $guarded = [];
-    public $translatable = ['name','description','required_tools'];
-
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at','deleted_at'
     ];
     protected $fillable = [
         'image',
@@ -26,7 +25,7 @@ class TourismActivities extends Model
 
     public function getImageAttribute($value)
     {
-        return url(asset('images/activities/'.$value));
+        return url(asset('images/places/'.$value));
     }
     protected function name(): Attribute
     {
@@ -40,10 +39,10 @@ class TourismActivities extends Model
             get: fn ($value) => $this->getTranslation('description',app()->getLocale()),
         );
     }
-    protected function requiredTools(): Attribute
+    protected function address(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->getTranslation('required_tools',app()->getLocale()),
+            get: fn ($value) => $this->getTranslation('address',app()->getLocale()),
         );
     }
 

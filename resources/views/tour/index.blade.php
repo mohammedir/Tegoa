@@ -830,7 +830,6 @@
                                                 <option value="yi">Yiddish</option>
                                                 <option value="yo">Yoruba - Èdè Yorùbá</option>
                                                 <option value="zu">Zulu - isiZulu</option>
-
                                             </select>
 
                                             <strong id="spoken_languages_edit_error" class="errors text-danger"

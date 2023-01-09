@@ -193,10 +193,11 @@ class PassengerController extends Controller
 
 
                 $user = User::query()->find(1);
+/*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
                 FCMService::send(
                     $user->fcm_token,
                     [
-                        'title' => 'your title',
+                        'title' => 'Request a new trip from '.getUserName($request->passenger_id) ,
                         'body' => 'your body',
 
                     ]
