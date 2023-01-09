@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -43,21 +44,24 @@ class AuthController extends Controller
             'gender.required' => trans("api.gender field is required"),
         ]);
         if ($validator->passes()) {
-            $user = new User();
-            $user->full_name = $request->full_name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->mobile_number = $request->mobile_number;
-            $user->address = $request->address;
-            $user->gender = $request->gender;
-            $user->user_status = 1;
-            $user->user_type = 1;
-            $user->save();
+            try {
+                $user = new User();
+                $user->full_name = $request->full_name;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->mobile_number = $request->mobile_number;
+                $user->address = $request->address;
+                $user->gender = $request->gender;
+                $user->user_status = 1;
+                $user->user_type = 1;
+                $user->save();
                 $token = $user->createToken('passenger');
-            $user->update(['api_token' =>$token->plainTextToken]);
-            $user->sendEmailVerificationNotification();
-            return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
-
+                $user->update(['api_token' =>$token->plainTextToken]);
+                $user->sendEmailVerificationNotification();
+                return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
+            }catch (Exception){
+                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+            }
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
 
@@ -97,6 +101,7 @@ class AuthController extends Controller
             'mobile_number.unique' => trans("api.The mobile number has already been taken"),
             'address.required' => trans("api.address field is required"),
             'gender.required' => trans("api.gender field is required"),
+            'vehicle_type.required' => trans("api.The vehicle type field is required."),
             'personalphoto.required' => trans("api.personalphoto field is required"),
             'car_number.unique' => trans("api.The car number has already been taken"),
             'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
@@ -105,82 +110,88 @@ class AuthController extends Controller
             'passengersinsurance.required' => trans("api.passengersinsurance field is required"),
         ]);
         if ($validator->passes()) {
-            $user = new User();
-            $user->full_name = $request->full_name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->gender = $request->gender;
-            $user->vehicle_type = $request->vehicle_type;
-            if ($request->hasFile('personalphoto')){
-                $compFileName =  $request->file('personalphoto')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('personalphoto')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('personalphoto')->move('images/users',$comPic);
-                $user->personalphoto = $comPic;
-            }
-            if ($request->hasFile('driverlicense')) {
-                $compFileName =  $request->file('driverlicense')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('driverlicense')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('driverlicense')->move('images/users',$comPic);
-                $user->driverlicense = $comPic;
-            }
-            $user->address = $request->address;
-            $user->user_type = 2;
-            $user->save();
-            $car = new Car();
-            $car->user_id = $user->id;
-            $car->car_number = $request->car_number;
-            $car->car_brand = $request->car_brand;
-            $car->insurance_number = $request->insurance_number;
-            $car->insurance_expiry_date = $request->insurance_expiry_date;
-            $car->type = $request->vehicle_type;
-            if ($request->hasFile('carlicense')) {
-                $compFileName =  $request->file('carlicense')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('carlicense')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carlicense')->move('images/cars',$comPic);
-                $car->carlicense = $comPic;
-            }
-            if ($request->hasFile('carinsurance')) {
-                $compFileName =  $request->file('carinsurance')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('carinsurance')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carinsurance')->move('images/cars',$comPic);
-                $car->carinsurance = $comPic;
-            }
-            if ($request->hasFile('passengersinsurance')) {
-                $compFileName =  $request->file('passengersinsurance')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('passengersinsurance')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
-                $car->passengersinsurance = $comPic;
-            }
-            $car->save();
-            if ($request->hasFile('carphotos')) {
-                $photos = new Photos();
-                $compFileName =  $request->file('carphotos')->getClientOriginalName();
-                $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                $extenshion = $request->file('carphotos')->getClientOriginalExtension();
-                $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                $path = $request->file('carphotos')->move('images/cars',$comPic);
-                $photos->images = $comPic;
-                $photos->car_id = $car->id;
-                $photos->save();
-            }
+            try {
+                $user = new User();
+                $user->full_name = $request->full_name;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->mobile_number = $request->mobile_number;
+                $user->gender = $request->gender;
+                $user->vehicle_type = $request->vehicle_type;
+                if ($request->hasFile('personalphoto')){
+                    $compFileName =  $request->file('personalphoto')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('personalphoto')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('personalphoto')->move('images/users',$comPic);
+                    $user->personalphoto = $comPic;
+                }
+                if ($request->hasFile('driverlicense')) {
+                    $compFileName =  $request->file('driverlicense')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('driverlicense')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('driverlicense')->move('images/users',$comPic);
+                    $user->driverlicense = $comPic;
+                }
+                $user->address = $request->address;
+                $user->user_type = 2;
+                $user->save();
+                $car = new Car();
+                $car->user_id = $user->id;
+                $car->car_number = $request->car_number;
+                $car->car_brand = $request->car_brand;
+                $car->insurance_number = $request->insurance_number;
+                $car->insurance_expiry_date = $request->insurance_expiry_date;
+                $car->type = $request->vehicle_type;
+                if ($request->hasFile('carlicense')) {
+                    $compFileName =  $request->file('carlicense')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('carlicense')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('carlicense')->move('images/cars',$comPic);
+                    $car->carlicense = $comPic;
+                }
+                if ($request->hasFile('carinsurance')) {
+                    $compFileName =  $request->file('carinsurance')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('carinsurance')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('carinsurance')->move('images/cars',$comPic);
+                    $car->carinsurance = $comPic;
+                }
+                if ($request->hasFile('passengersinsurance')) {
+                    $compFileName =  $request->file('passengersinsurance')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('passengersinsurance')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
+                    $car->passengersinsurance = $comPic;
+                }
+                $car->save();
+                if ($request->hasFile('carphotos')) {
+                    $photos = new Photos();
+                    $compFileName =  $request->file('carphotos')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('carphotos')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('carphotos')->move('images/cars',$comPic);
+                    $photos->images = $comPic;
+                    $photos->car_id = $car->id;
+                    $photos->save();
+                }
                 $token = $user->createToken('driver');
-            $user->update(['api_token' =>$token->plainTextToken]);
-            $res = [
-                'user' => $user,
-                'car' => $car
-            ];
-            $user->sendEmailVerificationNotification();
-            return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
+                $user->update(['api_token' =>$token->plainTextToken]);
+                $res = [
+                    'user' => $user,
+                    'car' => $car
+                ];
+                $user->sendEmailVerificationNotification();
+                return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
+
+            }catch (Exception){
+                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+            }
 
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);

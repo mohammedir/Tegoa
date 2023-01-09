@@ -2,6 +2,8 @@
 
 return [
 
+    'An error occurred during the sending process, please try again' => 'An error occurred during the sending process, please try again',
+
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'account has been created but car is under review, we will inform you when it get reviewed',
 
@@ -30,6 +32,7 @@ return [
     'driverlicense field is required' => 'driver license field is required',
     'carphotos field is required' => 'car photos field is required',
     'passengersinsurance field is required' => 'passengers insurance field is required',
+    'The vehicle type field is required.' => 'The vehicle type field is required.',
 
     /*login*/
 
