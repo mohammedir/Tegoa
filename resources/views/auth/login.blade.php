@@ -73,7 +73,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{asset('images/logo_n.jpg')}}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -94,7 +94,7 @@ License: For each use you must have a valid license purchased only from above li
         <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
             <!--begin::Logo-->
             <a href="../../demo1/dist/index.html" class="mb-12">
-                <img alt="Logo" src="{{asset('assets/media/logos/default.svg')}}" class="h-40px" />
+                <img alt="Logo" src="{{asset('images/logo_n.jpg')}}" class="h-75px" />
             </a>
             <!--end::Logo-->
             <!--begin::Wrapper-->
@@ -114,10 +114,6 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Title-->
                         <h1 class="text-dark mb-3">@lang('login.Sign In to Tegoa')</h1>
                         <!--end::Title-->
-                        <!--begin::Link-->
-                        <div class="text-gray-400 fw-bold fs-4">New Here?
-                            <a href="{{url('register')}}" class="link-primary fw-bolder">Create an Account</a></div>
-                        <!--end::Link-->
                     </div>
                     <!--begin::Heading-->
                     <!--begin::Input group-->
@@ -137,9 +133,6 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Label-->
                             <label class="form-label fw-bolder text-dark fs-6 mb-0">@lang('login.password')</label>
                             <!--end::Label-->
-                            <!--begin::Link-->
-                            <a href="../../demo1/dist/authentication/layouts/dark/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                            <!--end::Link-->
                         </div>
                         <!--end::Wrapper-->
                         <!--begin::Input-->
