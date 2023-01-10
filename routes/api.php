@@ -61,7 +61,8 @@ Route::controller(DriverController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
-        Route::post('/passenger/update_profile', 'update_profile');
+        Route::post('/driver/start_trip', 'start_trip');
+        Route::post('/driver/end_trip', 'end_trip');
         Route::post('/passenger/change_password', 'change_password');
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
         Route::post('/passenger/find_transportion', 'find_transportion');

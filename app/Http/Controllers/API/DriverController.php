@@ -139,6 +139,63 @@ class DriverController extends Controller
 
     }
 
+    public function start_trip(Request $request){
+        $validator = Validator::make($request->all(),[
+            'driver_id' => 'required',
+            'transportation_id' => 'required',
+            'time_start_trip' => 'required',
+        ]);
+        /*1*/
+        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
+        $transportation = TransportationRequests::query()->find($request->transportation_id);
+        if ($validator->passes()){
+            if ($driver || $transportation){
+                if ($transportation->status == 2){
+                    $transportation->start_trip = $request->time_start_trip;
+                    $transportation->status = 3;
+                    $transportation->save();
+                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
+                }else{
+                    return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
+                }
+
+
+            }else{
+                return  $this->setError(400 ,false, trans('api.driver or transportation not found') , 400);
+
+            }
+        }
+
+    }
+    public function end_trip(Request $request){
+        $validator = Validator::make($request->all(),[
+            'driver_id' => 'required',
+            'transportation_id' => 'required',
+            'time_end_trip' => 'required',
+        ]);
+        /*1*/
+        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
+        $transportation = TransportationRequests::query()->find($request->transportation_id);
+        if ($validator->passes()){
+            if ($driver || $transportation){
+                if ($transportation->status == 3){
+                    $transportation->end_trip = $request->time_end_trip;
+                    $transportation->status = 4;
+                    $transportation->save();
+                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
+                }else{
+                    return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
+                }
+
+
+            }else{
+                return  $this->setError(400 ,false, trans('api.driver or transportation not found') , 400);
+
+            }
+        }
+
+    }
+
     public function settings(){
         $settings = Settings::query()->get();
         return  $this->api_response(200,true,trans('api.Settings ') , $settings , 200);
