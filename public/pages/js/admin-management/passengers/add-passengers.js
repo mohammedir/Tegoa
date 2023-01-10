@@ -66,6 +66,7 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
+                            $(':input[type="submit"]').prop('disabled', true);
                             $(".errors").html("");
                             var formData = new FormData(document.getElementById("kt_modal_add_drivers_form"));
 
@@ -109,6 +110,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 $(".errors").html("");
                                                 print_error(response.error);
                                             }

@@ -154,6 +154,7 @@ $(function () {
                         }));
                         const r = t.querySelector('[data-kt-roles-modal-action="submit"]');
                         r.addEventListener("click", (function (t) {
+                            $(':input[type="submit"]').prop('disabled', true);
                             let permis = [];
                             let per_id = [];
                             $.each(permissions, function (i) {
@@ -209,6 +210,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 print_error(response.error);
                                             }
                                         }

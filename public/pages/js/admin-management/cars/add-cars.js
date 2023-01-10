@@ -67,6 +67,7 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
+                            $(':input[type="submit"]').prop('disabled', true);
                             // var formData = new FormData(document.getElementById("kt_modal_add_car_form"));
                             // var featured_image = $('#photos')[0].files[0];
                             // formData.append("image", featured_image);
@@ -119,6 +120,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 print_error(response.error);
                                             }
                                         }

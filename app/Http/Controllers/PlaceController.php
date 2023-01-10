@@ -88,7 +88,6 @@ class PlaceController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->input());
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
                 'type' => 'required|numeric',

@@ -57,6 +57,7 @@ function create_permission(){
                     }));
                     const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                     i.addEventListener("click", (function (t) {
+                        $(':input[type="submit"]').prop('disabled', true);
                         t.preventDefault(), o && o.validate().then((function (t) {
                             "Valid" == t ? $.ajax({
                                     headers: {
@@ -93,6 +94,7 @@ function create_permission(){
                                                 confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                 customClass: {confirmButton: "btn btn-primary"}
                                             })
+                                            $(':input[type="submit"]').prop('disabled', false);
                                             print_error(response.error);
                                         }
                                     }
