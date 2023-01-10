@@ -86,7 +86,7 @@
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">Pages</span>
                     </div>
-                    <!--end:Menu content-->
+                    <!--end:Menu content.-->
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
