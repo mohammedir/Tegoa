@@ -272,7 +272,7 @@ return [
     'date' => 'This field does not match the format',
     'mimes' => 'You must choose an image. Please select an image, type: jpg,jpeg,png',
     'uploaded' => 'You must choose an image. Please select an image, type: jpg,jpeg,png',
-    'email' => 'This field must be a valid email address',
+    'email' => 'This field must be a valid email address.',
     'unique' => 'This field email has already been taken',
     'uniqueNumber' => 'This field phone number has already been taken',
     'min' => 'This field must be at least 8 characters',
@@ -282,6 +282,7 @@ return [
     'uniqueRole' => 'This role name has already been taken',
     'requiredPermissions' => 'Permission select is required',
     'after_or_equal' => 'The end date must be a date after or equal to start date',
+    'regex' => ' The email format is invalid',
 
 
 ];

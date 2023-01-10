@@ -111,7 +111,7 @@ class AdminController extends Controller
 //            dd($request->input());
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|string|unique:users,email',
+                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
                 'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
                 'password_confirmation' => 'min:8',
                 'roles_id' => 'required',
@@ -127,6 +127,7 @@ class AdminController extends Controller
                 'email.email' => trans("web.email"),
                 'email.max' => trans("web.max"),
                 'email.unique' => trans("web.unique"),
+                'email.regex' => trans("web.regex"),
 
                 'password.min' => trans("web.min"),
                 'password.same' => trans("web.same"),
@@ -208,7 +209,7 @@ class AdminController extends Controller
 //            dd($request->input());
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email,' . $id,
+                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $id,
                 'password' => $request->password != null ? 'min:8|required_with:password_confirmation|same:password_confirmation' : '',
                 'password_confirmation' => $request->password_confirmation != null ? 'min:8' : '',
                 'roles_id' => 'required',
@@ -224,6 +225,7 @@ class AdminController extends Controller
                 'email.email' => trans("web.email"),
                 'email.max' => trans("web.max"),
                 'email.unique' => trans("web.unique"),
+                'email.regex' => trans("web.regex"),
 
                 'password.min' => trans("web.min"),
                 'password.same' => trans("web.same"),

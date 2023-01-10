@@ -80,7 +80,7 @@ class DriverController extends Controller
             'password_confirmation' => 'min:8',
             'gender' => 'required|numeric',
             'vehicle_type' => 'required|numeric',
-            'email' => 'required|email|unique:users,email|max:255',
+            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:users,email|max:255',
             'mobile' => 'required|numeric|unique:users,mobile_number',
             'fileupload' => 'required|mimes:jpeg,png,jpg',
             'fileuploadsss' =>'required|mimes:jpeg,png,jpg'
@@ -108,6 +108,7 @@ class DriverController extends Controller
             'email.email' => trans("web.email"),
             'email.max' => trans("web.max"),
             'email.unique' => trans("web.unique"),
+            'email.regex' => trans("web.regex"),
 
             'mobile.required' => trans("web.required"),
             'mobile.numeric' => trans("web.numeric"),
@@ -183,7 +184,7 @@ class DriverController extends Controller
             'address_edit' => 'required|string',
             'gender_edit' => 'required|numeric',
             'vehicle_type_edit' => 'required|numeric',
-            'email_edit' => 'required|email|max:255|unique:users,email,' . $driver->id,
+            'email_edit' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $driver->id,
             'mobile_edit' => 'required|numeric|unique:users,mobile_number,' . $driver->id,
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
             'fileuploadss' => $request->fileuploadss != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
@@ -206,6 +207,7 @@ class DriverController extends Controller
             'email_edit.email' => trans("web.email"),
             'email_edit.max' => trans("web.max"),
             'email_edit.unique' => trans("web.unique"),
+            'email_edit.regex' => trans("web.regex"),
 
             'mobile_edit.required' => trans("web.required"),
             'mobile_edit.numeric' => trans("web.numeric"),
