@@ -114,6 +114,7 @@ class DriverController extends Controller
             'transportation_id' => 'required',
 
         ]);
+        /*1*/
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
