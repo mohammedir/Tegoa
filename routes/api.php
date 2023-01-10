@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DriverController;
 use App\Http\Controllers\API\GuestController;
 use App\Http\Controllers\API\PassengerController;
 use App\Http\Controllers\API\VerificationController;
@@ -50,6 +51,16 @@ Route::controller(PassengerController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/passenger/edit_profile', 'edit_profile')->name('news');
+        Route::post('/passenger/update_profile', 'update_profile');
+        Route::post('/passenger/change_password', 'change_password');
+        Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
+        Route::post('/passenger/find_transportion', 'find_transportion');
+
+    });
+Route::controller(DriverController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
         Route::post('/passenger/update_profile', 'update_profile');
         Route::post('/passenger/change_password', 'change_password');
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');

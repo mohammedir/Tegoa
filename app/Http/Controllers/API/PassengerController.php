@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use MongoDB\Driver\Session;
+use Exception;
 
 class PassengerController extends Controller
 {
@@ -177,34 +178,39 @@ class PassengerController extends Controller
         $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->passenger_id)->get()->first();
         if ($validator->passes()){
             if ($passenger_id){
-            $transportation_requests = new TransportationRequests();
-            $transportation_requests->passenger_id = $request->passenger_id;
-            $transportation_requests->lat_from = $request->lat_from;
-            $transportation_requests->lng_from = $request->lng_from;
-            $transportation_requests->lat_to = $request->lat_to;
-            $transportation_requests->lng_to = $request->lng_to;
-            $transportation_requests->departure_time = $request->departure_time;
-            $transportation_requests->number_of_passenger = $request->number_of_passenger;
-            $transportation_requests->vehicle_type = $request->vehicle_type;
-            $transportation_requests->distance = $request->distance;
-            $transportation_requests->expected_cost = $request->expected_cost;
-            $transportation_requests->arrival_time = $request->arrival_time;
-            $transportation_requests->save();
+                if ($passenger_id->email_verified_at != null) {
+                    try {
+                        $transportation_requests = new TransportationRequests();
+                        $transportation_requests->passenger_id = $request->passenger_id;
+                        $transportation_requests->lat_from = $request->lat_from;
+                        $transportation_requests->lng_from = $request->lng_from;
+                        $transportation_requests->lat_to = $request->lat_to;
+                        $transportation_requests->lng_to = $request->lng_to;
+                        $transportation_requests->departure_time = $request->departure_time;
+                        $transportation_requests->number_of_passenger = $request->number_of_passenger;
+                        $transportation_requests->vehicle_type = $request->vehicle_type;
+                        $transportation_requests->distance = $request->distance;
+                        $transportation_requests->expected_cost = $request->expected_cost;
+                        $transportation_requests->arrival_time = $request->arrival_time;
+                        $transportation_requests->save();
 
+                        $user = User::query()->find(1);
+                        /*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
+                        FCMService::send(
+                            $user->fcm_token,
+                            [
+                                'title' => 'Request a new trip from ' . getUserName($request->passenger_id),
+                                'body' => 'your body',
 
-                $user = User::query()->find(1);
-/*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
-                FCMService::send(
-                    $user->fcm_token,
-                    [
-                        'title' => 'Request a new trip from '.getUserName($request->passenger_id) ,
-                        'body' => 'your body',
-
-                    ]
-                );
-
-
-            return  $this->api_response(200,true,trans('api.find_transportion') , $transportation_requests, 200);
+                            ]
+                        );
+                        return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
+                    }catch (Exception){
+                        return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+                    }
+                }else{
+                    return  $this->setError(500,false, "api.Passenger email, no verification" , 500);
+                }
             }else{
                return  $this->setError(500,false, "api.Passenger id not correct" , 500);
 

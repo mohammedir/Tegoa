@@ -2,6 +2,7 @@
 
 return [
 
+    'An error occurred during the sending process, please try again' => 'حدث خطاء اثناء عملية الارسال يرجى المحاولة مجدداً',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'تم إنشاء الحساب ولكن السيارة قيد المراجعة ، سنبلغك عندما تتم مراجعتها',
 
@@ -28,6 +29,7 @@ return [
     'driverlicense field is required' => 'حقل رخصة القيادة مطلوب',
     'carphotos field is required' => 'حقل صور السيارة مطلوب',
     'passengersinsurance field is required' => 'حقل التأمين على الركاب مطلوب',
+    'The vehicle type field is required.' => 'حقل نوع السيارة مطلوب.',
 
 
 
