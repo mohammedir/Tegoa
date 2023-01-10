@@ -7,7 +7,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <!--begin::Title-->
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Roles List</h1>
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@lang('web.Roles List')</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -22,7 +22,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">User Management</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.Roles Management')</li>
                     <!--end::Item-->
                     <!--begin::Item-->
                     <li class="breadcrumb-item">
@@ -30,7 +30,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Roles</li>
+                    <li class="breadcrumb-item text-muted">@lang('web.Roles')</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -86,14 +86,14 @@
                                     <button data-id="{{$role->id}}" type="button"
                                             class="kt_modal_edit_role btn btn-light btn-active-primary"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_update_role">{{__("str.Edit Role")}}
+                                            data-bs-target="#kt_modal_update_role">{{__("web.Edit Role")}}
                                     </button>
                             @endif
                             @if(!in_array($role->id,$static_roles))
                                     <button type="button" data-id="{{$role->id}}"
                                             class="d-none btn delete_role btn btn-light btn-active-light-danger my-1"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_delete_role">{{__("str.Delete")}}
+                                            data-bs-target="#kt_modal_delete_role">{{__("web.Delete")}}
                                     </button>
                             @endif
                         </div>
@@ -110,7 +110,7 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">{{__("str.Update Role")}}</h2>
+                                    <h2 class="fw-bolder">{{__("web.Update Role")}}</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
                                     <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -149,13 +149,13 @@
                                             <div class="fv-row mb-10">
                                                 <!--begin::Label-->
                                                 <label class="fs-5 fw-bolder form-label mb-2">
-                                                    <span class="required">{{__("str.Role name")}}</span>
+                                                    <span class="required">{{__("web.Role name")}}</span>
                                                 </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input id="permission_name_update"
                                                        class="form-control form-control-solid"
-                                                       placeholder="@lang("str.Enter Here")" name="role_name"
+                                                       placeholder="@lang("web.Enter Here")" name="role_name"
                                                        value="{{$role->name}}"/>
                                                 <!--end::Input-->
                                                 <strong id="name_update_error" class="errors text-danger"
@@ -188,7 +188,7 @@
                                                                 <i class="fas fa-exclamation-circle ms-1 fs-7"
                                                                    data-bs-toggle="tooltip" title=""
                                                                    data-bs-original-title="Allows a full access to the system"
-                                                                   aria-label="Allows a full access to the system"></i>
+                                                                   aria-label="@lang('web.Allows a full access to the system')"></i>
                                                             </td>
                                                             <td>
                                                                 <!--begin::Checkbox-->
@@ -287,12 +287,12 @@
                                         <!--begin::Actions-->
                                         <div class="text-center pt-15">
                                             <button type="reset" class="btn btn-light me-3"
-                                                    data-kt-roles-modal-action="cancel">{{__("str.Discard")}}
+                                                    data-kt-roles-modal-action="cancel">{{__("web.Discard")}}
                                             </button>
                                             <button type="submit" class="btn btn-primary"
                                                     data-kt-roles-modal-action="submit">
-                                                <span class="indicator-label">{{__("str.Submit")}}</span>
-                                                <span class="indicator-progress">{{__("str.Please wait...")}}
+                                                <span class="indicator-label">{{__("web.Submit")}}</span>
+                                                <span class="indicator-progress">{{__("web.Please wait...")}}
 																	<span
                                                                         class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                             </button>
@@ -372,9 +372,10 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="">@lang("web.ID")</th>
-                                    <th class="">@lang("web.User")</th>
-                                    <th class="text-center">@lang("web.Joined Date")</th>
+                                    <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang("web.ID")</th>
+                                    <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang("web.User")</th>
+                                    <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang("web.status")</th>
+                                    <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">@lang("web.Joined Date")</th>
                                 </tr>
                                 <!--end::Table row-->
                                 </thead>

@@ -78,7 +78,7 @@
 										</span></a>
                         <!--end:Menu link-->
                     </div>
-                    <!--end:Menu item-->
+                    <!--end:Menu item.-->
                 @endcan
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">

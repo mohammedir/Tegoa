@@ -77,7 +77,7 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {role_name: {validators: {notEmpty: {message: language === "en" ? "Role name is required" : "إسم الدور مطلوب"}}}},
+                            fields: {role_name: {validators: {}}},
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -144,7 +144,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/roles/update/" + role_id,
+                                        url: app_url + "/" + language + "/roles/update/" + role_id,
                                         data: {
                                             name: $("#permission_name_update").val(),
                                             permissions: permis,
@@ -160,11 +160,11 @@ $(function () {
                                                             confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
-                                                            t.isConfirmed && n.hide()
+                                                            t.isConfirmed && n.hide();
+                                                            if(t.isConfirmed){window.location.href = "/roles/show/"+role_id;}
                                                         }))
                                                 }), 2e3));
-                                                window.location.reload(true);
-
+                                                // window.location.reload(true);
                                             } else {
                                                 Swal.fire({
                                                     text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",

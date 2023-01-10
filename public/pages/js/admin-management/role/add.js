@@ -34,6 +34,7 @@ $(function () {
         confirm_delete[0].addEventListener('click', function () {
             delete_now(id);
         });
+
     }
 
     function delete_now(id) {
@@ -42,16 +43,16 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: "DELETE",
-            url: app_url + "/roles/destroy/" + id,
+            url: app_url + "/" + language + "/roles/destroy/" + id,
             success: function (response) {
                 if (response['error']) {
                     Swal.fire({
-                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
+                        text: language === "en" ? "The role has not been deleted.. Please delete the registrants for this role." : "لم يتم حذف الدور .. يرجى حذف المسجلين لهذا الدور.",
                         icon: "error",
                         buttonsStyling: !1,
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
-                    });
+                    })
                 } else {
                     Swal.fire({
                         text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
@@ -59,14 +60,15 @@ $(function () {
                         buttonsStyling: !1,
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                         customClass: {confirmButton: "btn fw-bold btn-primary"}
-                    });
-                    console.log(response)
-                    window.location.reload(true);
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "/roles";
+                        }
+                    })
                 }
             }
         });
     }
-
 
     function Action(id, permission_id, key) {
         this.id = id;
@@ -109,7 +111,7 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {role_name: {validators: {notEmpty: {message: "اسم الدور مطلوب"}}}},
+                            fields: {role_name: {validators: {}}},
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -176,7 +178,7 @@ $(function () {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
                                         type: "POST",
-                                        url: app_url + "/roles/store",
+                                        url: app_url + "/" + language + "/roles/store",
                                         data: {
                                             name: $("#permission_name_create").val(),
                                             permissions: permis,
@@ -192,13 +194,13 @@ $(function () {
                                                             confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
-                                                            t.isConfirmed && n.hide()
+                                                            t.isConfirmed && n.hide();
+                                                            if(t.isConfirmed){window.location.href = "/roles";}
                                                         }))
                                                 }), 2e3));
                                                 $("input").val("");
-                                                disabled_button(true);
+                                                // location.reload();
                                                 $(".permission_selected").prop("checked", "");
-                                                window.location.reload(true);
                                             } else {
                                                 Swal.fire({
                                                     text: language === "en" ? "Sorry, looks like there are some errors detected, please try again." : "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى.",
