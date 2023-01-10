@@ -206,7 +206,7 @@
                                     <input type="hidden" name="news_edit_id" id="news_edit_id">
                                     <!--begin::Input group-->
                                     <label class="fs-6 fw-semibold form-label mb-2">
-                                        <span style="font-weight: bold;">@lang('web.complaint')</span>
+                                        <span style="font-weight: bold;">@lang('web.complaint') :</span>
                                     </label>
                                     <textarea disabled id="complaint_show" name="complaint_show" class="form-control form-control-solid" style="height: 155px;"></textarea>
                                 </div>

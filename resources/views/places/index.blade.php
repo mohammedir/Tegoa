@@ -874,7 +874,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.name') (@lang('web.english'))</span>
+                                                <span style="font-weight: bold">@lang('web.name') (@lang('web.english')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -886,7 +886,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.name') (@lang('web.arabic'))</span>
+                                                <span style="font-weight: bold">@lang('web.name') (@lang('web.arabic')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -901,8 +901,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                >@lang('web.description') (@lang('web.english'))</span>
+                                                <span style="font-weight: bold">@lang('web.description') (@lang('web.english')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -914,7 +913,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.description') (@lang('web.arabic'))</span>
+                                                <span style="font-weight: bold">@lang('web.description') (@lang('web.arabic')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -930,8 +929,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                >@lang('web.address') (@lang('web.english'))</span>
+                                                <span style="font-weight: bold">@lang('web.address') (@lang('web.english')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -943,8 +941,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                >@lang('web.address') (@lang('web.arabic'))</span>
+                                                <span style="font-weight: bold">@lang('web.address') (@lang('web.arabic')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -960,7 +957,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.type')</span>
+                                                <span style="font-weight: bold">@lang('web.type') :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -976,7 +973,7 @@
 
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
-                                            <span>@lang('web.PhotosNews')</span>
+                                            <span style="font-weight: bold">@lang('web.PhotosNews') :</span>
                                         </label>
                                         <br>
                                         <br>

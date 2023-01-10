@@ -177,6 +177,7 @@ return [
     'tour_Management' => 'إدارة المرشدين',
     'Edit_tour_info' => 'تعديل معلومات المرشد',
     'Tour_Details' => 'بيانات المرشد',
+    'selectSearch' => 'ابحث أو حدد أحد الخيارات',
 
 
     'nameTourEnter' => 'أدخل اسم المرشد',

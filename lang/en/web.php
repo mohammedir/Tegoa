@@ -173,6 +173,7 @@ return [
     'tour_Management' => 'Tours Management',
     'Edit_tour_info' => 'Edit tour info',
     'Tour_Details' => 'Tour Details',
+    'selectSearch' => 'Search or select an options',
 
     'nameTourEnter' => 'Enter a tour name',
     'addressTourEnter' => 'Enter a tour address',

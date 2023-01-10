@@ -5,6 +5,14 @@
             margin-left: 0.3rem;
             font-family: sans-serif;
         }
+        @if(\Illuminate\Support\Facades\App::getLocale() == "ar")
+            .select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) {
+            direction: rtl;
+        }
+        .select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) .select2-selection__choice {
+            direction: ltr;
+        }
+        @endif
     </style>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <!--begin::Toolbar-->
@@ -276,7 +284,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <select  id="spoken_languages" data-kt-select2="true" data-placeholder="" name="spoken_languages[]" class="form-select form-select-solid" multiple>
+                                            <select  id="spoken_languages" data-kt-select2="true" data-placeholder="@lang('web.selectSearch')" name="spoken_languages[]" class="form-select form-select-solid" multiple>
                                                 <option value="af">Afrikaans</option>
                                                 <option value="sq">Albanian - shqip</option>
                                                 <option value="am">Amharic - አማርኛ</option>
@@ -687,7 +695,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <select  id="spoken_languages_edit" data-kt-select2="true" data-placeholder="" name="spoken_languages_edit[]" class="form-select form-select-solid" multiple>
+                                            <select  id="spoken_languages_edit" data-kt-select2="true" data-placeholder="@lang('web.selectSearch')" name="spoken_languages_edit[]" class="form-select form-select-solid" multiple>
                                                 <option value="af">Afrikaans</option>
                                                 <option value="sq">Albanian - shqip</option>
                                                 <option value="am">Amharic - አማርኛ</option>
@@ -997,7 +1005,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.name') (@lang('web.english'))</span>
+                                                <span style="font-weight: bold">@lang('web.name') (@lang('web.english')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1009,7 +1017,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.name') (@lang('web.arabic'))</span>
+                                                <span style="font-weight: bold">@lang('web.name') (@lang('web.arabic')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1024,8 +1032,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    >@lang('web.address') (@lang('web.english'))</span>
+                                                <span style="font-weight: bold">@lang('web.address') (@lang('web.english')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1037,7 +1044,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.address') (@lang('web.arabic'))</span>
+                                                <span style="font-weight: bold">@lang('web.address') (@lang('web.arabic')) :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1053,8 +1060,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    >@lang('web.status')</span>
+                                                <span style="font-weight: bold">@lang('web.status') :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1066,8 +1072,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span
-                                                    >@lang('web.spoken_languages')</span>
+                                                <span style="font-weight: bold">@lang('web.spoken_languages') :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1228,7 +1233,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span >@lang('web.gender')</span>
+                                                <span style="font-weight: bold">@lang('web.gender') :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1240,7 +1245,7 @@
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.Email')</span>
+                                                <span style="font-weight: bold">@lang('web.Email') :</span>
                                             </label>
                                             <br>
                                             <!--end::Label-->
@@ -1255,7 +1260,7 @@
 
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.PhotosNews')</span>
+                                                <span style="font-weight: bold">@lang('web.PhotosNews') :</span>
                                             </label>
                                             <br>
                                             <br>
