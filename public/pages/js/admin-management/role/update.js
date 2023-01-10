@@ -77,7 +77,21 @@ $(function () {
                 init: function () {
                     (() => {
                         var o = FormValidation.formValidation(e, {
-                            fields: {role_name: {validators: {}}},
+                            fields: {
+                                user_management_view: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: '<strong id="permissions_update_error" class="errors text-danger"role="alert">' + language === "en" ? "Permission select is required" : "تحديد الإذن مطلوب" + '</strong>'
+                                        }
+                                    }
+                                },role_name: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: '<strong id="permissions_update_error" class="errors text-danger"role="alert">' + language === "en" ? "This filed is required" : "هذا الحقل مطلوب" + '</strong>'
+                                        }
+                                    }
+                                },
+                            },
                             plugins: {
                                 trigger: new FormValidation.plugins.Trigger,
                                 bootstrap: new FormValidation.plugins.Bootstrap5({
@@ -161,7 +175,9 @@ $(function () {
                                                             customClass: {confirmButton: "btn btn-primary"}
                                                         }).then((function (t) {
                                                             t.isConfirmed && n.hide();
-                                                            if(t.isConfirmed){window.location.href = "/roles/show/"+role_id;}
+                                                            if (t.isConfirmed) {
+                                                                window.location.href = "/roles/show/" + role_id;
+                                                            }
                                                         }))
                                                 }), 2e3));
                                                 // window.location.reload(true);

@@ -219,7 +219,7 @@ class NewsController extends Controller
         if ($validator->passes()) {
             $data = News::find($news->id);
             $data->title = ['en' => $request->title_en_edit, 'ar' => $request->title_ar_edit];
-            $data->article = ['en' => $request->article_en_edit, 'ar' => $request->description_ar_edit];
+            $data->article = ['en' => $request->article_en_edit, 'ar' => $request->article_ar_edit];
             $data->description = ['en' => $request->description_en_edit, 'ar' => $request->description_ar_edit];
             $data->type = $request->type_edit;
             if ($request->input('fileuploads') != 'undefined'){

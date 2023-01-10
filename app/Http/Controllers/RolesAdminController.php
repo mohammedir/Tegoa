@@ -62,20 +62,6 @@ class RolesAdminController extends Controller
                             $role_permission_action->permission_id = $action;
                             $role_permission_action->role_id = $data->id;
                             $role_permission_action->save();
-                            /* switch ($action) {
-                                 case 0:
-                                     $role_permission->pr_view = 1;
-                                     break;
-                                 case 1:
-                                     $role_permission->pr_create = 1;
-                                     break;
-                                 case 2:
-                                     $role_permission->pr_edit = 1;
-                                     break;
-                                 case 3:
-                                     $role_permission->pr_delete = 1;
-                                     break;
-                             }*/
                         }
                         $role_permission->save();
                     }
@@ -163,27 +149,26 @@ class RolesAdminController extends Controller
         $data = Role::query()->find($id);
         $user_roles = $data->admin_roles;
 
-        //dd($user_roles[0]->user->admin_permission);
         $old_name = $data->name;
         $validator = "";
         $old_role_permission = RolesPermission::query()->where("role_id", $id)->delete();
-        //dd($request);
         if ($request->ajax()) {
             if ($old_name == $request->name) {
                 $validator = Validator::make($request->all(), [
                     'name' => 'required:roles',
                     'permissions' => 'required',
                 ], [
-                    'name.required' => trans("str.Name is required"),
-                    'permissions.required' => trans("str.permissions is required"),
+                    'name.required' => trans("web.required"),
+                    'permissions.required' => trans("web.requiredPermissions"),
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
                     'name' => 'required|unique:roles',
                     'permissions' => 'required',
                 ], [
-                    'name.required' => trans("str.Name is required"),
-                    'permissions.required' => trans("str.permissions is required"),
+                    'name.required' => trans("web.required"),
+                    'name.unique' => trans("web.uniqueRole"),
+                    'permissions.required' => trans("web.requiredPermissions"),
                 ]);
             }
             if ($validator->passes()) {

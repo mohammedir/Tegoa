@@ -95,7 +95,7 @@ class ActivityController extends Controller
             'required_tools_en' => 'required|string',
             'required_tools_ar' => 'required|string',
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'fileupload' => 'required|mimes:jpeg,png,jpg'
         ], [
             'name_en.required' => trans("web.required"),
@@ -118,6 +118,7 @@ class ActivityController extends Controller
 
             'end_date.required' => trans("web.required"),
             'end_date.date' => trans("web.date"),
+            'end_date.after_or_equal' => trans("web.after_or_equal"),
 
             'fileupload.required' => trans("web.required"),
             'fileupload.mimes' => trans("web.mimes"),

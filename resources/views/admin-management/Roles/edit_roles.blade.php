@@ -13,7 +13,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="{{url('/')}}" class="text-muted text-hover-primary">@lang('web.dashboard1')</a>
+                        <a class="text-muted text-hover-primary">@lang('web.dashboard1')</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -79,23 +79,16 @@
                         <!--end::Card body-->
                         <!--begin::Card footer-->
                         <div class="card-footer pt-0">
-                            @php
-                                $static_roles = [1,73];
-                            @endphp
-                            @if(!in_array($role->id,$static_roles))
                                     <button data-id="{{$role->id}}" type="button"
                                             class="kt_modal_edit_role btn btn-light btn-active-primary"
                                             data-bs-toggle="modal"
                                             data-bs-target="#kt_modal_update_role">{{__("web.Edit Role")}}
                                     </button>
-                            @endif
-                            @if(!in_array($role->id,$static_roles))
                                     <button type="button" data-id="{{$role->id}}"
                                             class="d-none btn delete_role btn btn-light btn-active-light-danger my-1"
                                             data-bs-toggle="modal"
                                             data-bs-target="#kt_modal_delete_role">{{__("web.Delete")}}
                                     </button>
-                            @endif
                         </div>
                         <!--end::Card footer-->
                     </div>
@@ -167,6 +160,8 @@
                                                 <!--begin::Label-->
                                                 <label
                                                     class="fs-5 fw-bolder form-label mb-2">{{__("web.Role Permissions")}}</label>
+                                                <strong id="permissions_update_error" class="errors text-danger"
+                                                        role="alert"></strong>
                                                 <!--end::Label-->
                                                 <!--begin::Table wrapper-->
                                                 <div class="table-responsive">

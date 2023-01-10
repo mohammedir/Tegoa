@@ -281,6 +281,7 @@ return [
     'uniqueScooter' => 'This field scooter number has already been taken.',
     'uniqueRole' => 'This role name has already been taken.',
     'requiredPermissions' => 'Permission select is required',
+    'after_or_equal' => 'The end date must be a date after or equal to start date.',
 
 
 ];
