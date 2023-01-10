@@ -54,10 +54,10 @@ class AuthController extends Controller
                 $user->gender = $request->gender;
                 $user->user_status = 1;
                 $user->user_type = 1;
+                $user->sendEmailVerificationNotification();
                 $user->save();
                 $token = $user->createToken('passenger');
                 $user->update(['api_token' =>$token->plainTextToken]);
-                $user->sendEmailVerificationNotification();
                 return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
             }catch (Exception){
                 return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
@@ -136,6 +136,7 @@ class AuthController extends Controller
                 }
                 $user->address = $request->address;
                 $user->user_type = 2;
+                $user->sendEmailVerificationNotification();
                 $user->save();
                 $car = new Car();
                 $car->user_id = $user->id;
@@ -186,7 +187,6 @@ class AuthController extends Controller
                     'user' => $user,
                     'car' => $car
                 ];
-                $user->sendEmailVerificationNotification();
                 return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
 
             }catch (Exception){
