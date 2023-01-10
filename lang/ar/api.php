@@ -2,7 +2,7 @@
 
 return [
 
-    'An error occurred during the sending process, please try again' => 'حدث خطأ اثناء ارسال البريد الاكتروني للتحقق بسبب ان الايميل غير موجود',
+    'An error occurred during the sending process, please try again' => 'تم الاضافة بنجاح ولاكن حدث خطأ اثناء ارسال البريد الاكتروني للتحقق',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'تم إنشاء الحساب ولكن السيارة قيد المراجعة ، سنبلغك عندما تتم مراجعتها',
 
