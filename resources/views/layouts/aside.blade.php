@@ -76,7 +76,7 @@
 											</span>
 											<span class="menu-title">@lang('web.dashboard')</span>
 										</span></a>
-                        <!--end:Menu link-->
+                        <!--end:Menu link1-->
                     </div>
                     <!--end:Menu item.-->
                 @endcan
