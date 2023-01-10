@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.apiverify'); // Make sure to keep this as your route name
+Route::get('email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
 Route::get('email/resend', 'VerificationController@resend')->name('verification.resend');
 
