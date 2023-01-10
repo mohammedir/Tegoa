@@ -2,7 +2,7 @@
 
 return [
 
-    'An error occurred during the sending process, please try again' => 'An error occurred during the sending process, please try again',
+    'An error occurred during the sending process, please try again' => 'An error occurred while sending the verification email because the email does not exist',
 
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'account has been created but car is under review, we will inform you when it get reviewed',
