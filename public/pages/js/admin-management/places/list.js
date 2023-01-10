@@ -16,6 +16,18 @@ $(function () {
         });
     });
 
+    function show_type(response){
+        alert(1);
+        $('#typeStation_edit').change(function() {
+            if(response.type === "3"){
+                $("#typeStation_edit").css("display", "block");
+                $("#type_station_edit").val(response.type_station);
+            }else{
+                $("#typeStation_edit").css("display", "none");
+            }
+        });
+    }
+
     function edit_user(id) {
         $.ajax({
             headers: {
@@ -32,6 +44,12 @@ $(function () {
                 $("#address_en_edit").val(response.address['en']);
                 $("#address_ar_edit").val(response.address['ar']);
                 $("#type_edit").val(response.type);
+                if(response.type === 3){
+                    $("#typeStation_edit").css("display", "block");
+                    $("#type_station_edit").val(response.type_station);
+                }else{
+                    $("#typeStation_edit").css("display", "none");
+                }
                 $("#lat_edit").val(response.lat);
                 $("#long_edit").val(response.long);
                 window.onload = initMaps();
