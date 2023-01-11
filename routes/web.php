@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/search', [TransportationController::class, 'fetch_data']);
     Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
 
-    Route::post('/settings/update/one/', [SettingController::class, 'updateOne']);
+    Route::get('/settings/update/one/', [SettingController::class, 'updateOne']);
     Route::resource('settings', SettingController::class);
 
 
