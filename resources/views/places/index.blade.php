@@ -79,7 +79,7 @@
                     <div class="card-toolbar">
                         <!--begin::Button-->
                         <button type="button" class="btn btn-light-primary addNew" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_add_places"  onclick="showlocation()">
+                                data-bs-target="#kt_modal_add_places" onclick="showlocation()">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
                             <span class="svg-icon svg-icon-3">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -324,6 +324,27 @@
                                             <!--end::Input-->
                                         </div>
 
+                                        <div class="fv-row col-md-6 mb-7 typeStation" id="typeStation"
+                                             style="display: none">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">@lang('web.typeStation')</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                   data-bs-content="@lang('web.required')"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <select id="type_station" name="type_station"
+                                                    class="form-select form-select-solid">
+                                                <option value="1">@lang('web.Bus')</option>
+                                                <option value="2">@lang('web.Taxi')</option>
+                                            </select>
+                                            <strong id="type_station_error" class="errors text-danger"
+                                                    role="alert"></strong>
+                                            <!--end::Input-->
+                                        </div>
+
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
@@ -359,7 +380,10 @@
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
+                                    </div>
 
+
+                                    <div class="row">
                                         <div class="fv-row col-md-4 mb-3">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold form-label mb-2">
@@ -425,8 +449,9 @@
                                                 </svg>
                                             </button>
                                         </div>
+                                    </div>
 
-
+                                    <div class="row">
                                         <div class="fv-row mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-bold form-label mb-2">
@@ -671,6 +696,27 @@
 
                                             </select>
                                             <strong id="type_edit_error" class="errors text-danger"
+                                                    role="alert"></strong>
+                                            <!--end::Input-->
+                                        </div>
+
+                                        <div class="fv-row col-md-6 mb-7 typeStation_edit" id="typeStation_edit"
+                                             style="display: none">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mb-2">
+                                                <span class="required">@lang('web.typeStation')</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                                   data-bs-trigger="hover" data-bs-html="true"
+                                                   data-bs-content="@lang('web.required')"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <select id="type_station_edit" name="type_station_edit"
+                                                    class="form-select form-select-solid">
+                                                <option value="1">@lang('web.Bus')</option>
+                                                <option value="2">@lang('web.Taxi')</option>
+                                            </select>
+                                            <strong id="type_station_edit_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
@@ -1035,7 +1081,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">@lang('web.Discard')</button>
+                            <button type="button" class="btn btn-light"
+                                    data-bs-dismiss="modal">@lang('web.Discard')</button>
                         </div>
                     </div>
                 </div>
@@ -1049,6 +1096,28 @@
 @endsection
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $('#type').change(function () {
+            if ($(this).val() === "3") {
+
+                $("#typeStation").css("display", "block");
+
+            } else {
+                $("#typeStation").css("display", "none");
+
+            }
+        });
+    </script>
+    <script>
+        $('#type_edit').change(function () {
+            if ($(this).val() === "3") {
+                $("#typeStation_edit").css("display", "block");
+
+            } else {
+                $("#typeStation_edit").css("display", "none");
+            }
+        });
+    </script>
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
     <!--end::Vendors Javascript-->
@@ -1117,7 +1186,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "GET",
-                url: "places/"+id,
+                url: "places/" + id,
                 success: function (response) {
                     $("#name_en_show").html(response.place.name['en']);
                     $("#name_ar_show").html(response.place.name['ar']);

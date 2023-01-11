@@ -6,6 +6,7 @@ use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class PlaceController extends Controller
@@ -90,7 +91,8 @@ class PlaceController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'type' => 'required|numeric',
+                'type' => ['required','numeric',Rule::in(['1','2','3'])],
+                'type_station' => ['sometimes','numeric',Rule::in(['1','2'])],
                 'lat' => 'required|numeric',
                 'long' => 'required|numeric',
                 'name_en' => 'required|string',
@@ -103,6 +105,11 @@ class PlaceController extends Controller
             ], [
                 'type.required' => trans("web.required"),
                 'type.numeric' => trans("web.numeric"),
+                'type.in' => trans("web.in"),
+
+                'type_station.required' => trans("web.required"),
+                'type_station.numeric' => trans("web.numeric"),
+                'type_station.in' => trans("web.in"),
 
                 'lat.required' => trans("web.required"),
                 'lat.numeric' => trans("web.numeric"),
@@ -141,6 +148,7 @@ class PlaceController extends Controller
                 $data->description = ['en' => $request->description_en, "ar" => $request->description_ar];
                 $data->address = ['en' => $request->address_en, "ar" => $request->address_ar];
                 $data->type = $request->type;
+                $data->type_station = $request->type_station;
                 $data->lat = $request->lat;
                 $data->long = $request->long;
 
@@ -186,7 +194,8 @@ class PlaceController extends Controller
     public function update(Request $request, Place $place)
     {
         $validator = Validator::make($request->all(), [
-            'type_edit' => 'required|numeric',
+            'type_edit' => ['required','numeric',Rule::in(['1','2','3'])],
+            'type_station_edit' => ['sometimes','numeric',Rule::in(['1','2'])],
             'lat_edit' => 'required|numeric',
             'long_edit' => 'required|numeric',
             'name_en_edit' => 'required|string',
@@ -199,6 +208,11 @@ class PlaceController extends Controller
         ], [
             'type_edit.required' => trans("web.required"),
             'type_edit.numeric' => trans("web.numeric"),
+            'type_edit.in' => trans("web.in"),
+
+            'type_station_edit.required' => trans("web.required"),
+            'type_station_edit.numeric' => trans("web.numeric"),
+            'type_station_edit.in' => trans("web.in"),
 
             'lat_edit.required' => trans("web.required"),
             'lat_edit.numeric' => trans("web.numeric"),
@@ -236,6 +250,7 @@ class PlaceController extends Controller
             $data->description = ['en' => $request->description_en_edit, "ar" => $request->description_ar_edit];
             $data->address = ['en' => $request->address_en_edit, "ar" => $request->address_ar_edit];
             $data->type = $request->type_edit;
+            $data->type_station = $request->type_station_edit;
             $data->lat = $request->lat_edit;
             $data->long = $request->long_edit;
             if ($request->input('fileuploads') != 'undefined') {

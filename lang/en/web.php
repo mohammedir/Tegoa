@@ -157,6 +157,9 @@ return [
     'location' => 'Location',
     'Place_Details' => 'Place Details',
     'Edit_place_info' => 'Edit place info',
+    'typeStation' => 'Type of station',
+    'Bus' => 'Bus',
+    'Taxi' => 'Taxi',
 
 
     'nameEnter' => 'Enter a place name',
@@ -283,7 +286,8 @@ return [
     'uniqueRole' => 'This role name has already been taken',
     'requiredPermissions' => 'Permission select is required',
     'after_or_equal' => 'The end date must be a date after or equal to start date',
-    'regex' => ' The email format is invalid',
+    'regex' => 'The email format is invalid',
+    'in' => 'The selected type is invalid',
 
 
 ];
