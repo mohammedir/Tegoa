@@ -12,6 +12,7 @@ use App\Http\Controllers\PermissionAdminController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\RolesAdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\TransportationController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
     Route::get('/admin/account', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/update/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::post('/admin/update/profile/{id}', [AdminController::class, 'updateProfile'])->name('admin.update');
     Route::delete('/admin/destroy/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('/roles', [RolesAdminController::class, 'index'])->name('roles.index');
     Route::post('/roles/store', [RolesAdminController::class, 'store'])->name('roles.store');
@@ -59,6 +61,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::delete('/permissions/destroy/{id}', [PermissionAdminController::class, 'destroy'])->name('permissions.destroy');
 
     Route::get('/dashboard/statistics/', [DashboardController::class, 'statistics']);
+    Route::get('/search/statistics/', [DashboardController::class, 'SearchDateStatistics']);
 
     Route::resource('cars', CarController::class);
     Route::post('/accept/car', [CarController::class, 'accept']);
@@ -86,6 +89,10 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('transportations', TransportationController::class);
     Route::get('/search', [TransportationController::class, 'fetch_data']);
     Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
+
+    Route::resource('settings', SettingController::class);
+    Route::post('/settings/update/', [SettingController::class, 'update']);
+
 
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);

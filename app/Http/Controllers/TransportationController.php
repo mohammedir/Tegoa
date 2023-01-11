@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transportation;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -87,4 +88,6 @@ class TransportationController extends Controller
     {
         //
     }
+
+
 }

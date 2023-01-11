@@ -17,9 +17,9 @@ class CreateSettingsTable extends Migration
 
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('public_price_per_km');
-            $table->bigInteger('private_price_per_km');
-            $table->timestamp('deleted_at');
+            $table->double('public_price_per_km');
+            $table->double('private_price_per_km');
+            $table->string('map_key');
             $table->timestamps();
 
         });

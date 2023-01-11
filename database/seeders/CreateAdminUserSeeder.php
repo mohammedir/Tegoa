@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -33,6 +34,10 @@ class CreateAdminUserSeeder extends Seeder
 
         $user->assignRole([$role->id]);
 
-
+        $settings = Setting::create([
+            'public_price_per_km' => '1.1',
+            'private_price_per_km' => '2.2',
+            'map_key' => 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA'
+        ]);
     }
 }

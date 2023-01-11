@@ -307,6 +307,67 @@ class AdminController extends Controller
 
     }
 
+    public function updateProfile(Request $request, $id)
+    {
+
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $id,
+                'password' => $request->password != null ? 'min:8|required_with:password_confirmation|same:password_confirmation' : '',
+                'password_confirmation' => $request->password_confirmation != null && $request->password != null ? 'min:8' : '',
+                'mobile' => 'required|numeric',
+            ], [
+                'name.required' => trans("web.required"),
+                'name.string' => trans("web.string"),
+                'name.max' => trans("web.max"),
+
+                'email.required' => trans("web.required"),
+                'email.email' => trans("web.email"),
+                'email.max' => trans("web.max"),
+                'email.unique' => trans("web.unique"),
+                'email.regex' => trans("web.regex"),
+
+                'password.min' => trans("web.min"),
+                'password.same' => trans("web.same"),
+                'password.required_with' => trans("web.required_with"),
+                'password_confirmation.min' => trans("web.min"),
+
+                'mobile.required' => trans("web.required"),
+                'mobile.numeric' => trans("web.numeric"),
+
+                'customer_image.required' => trans("web.required"),
+                'customer_image.mimes' => trans("web.mimes"),
+            ]);
+            if ($validator->passes()) {
+                $data = User::query()->find($id);
+                $old_email = $data->email;
+                $old_mobile = $data->mobile;
+                $image = uniqid() . '.jpg';
+                $image_path = "images/users/$image";
+                file_put_contents($image_path, base64_decode($request->user_image));
+                if ($request->image_updated == 1) {
+                    $data->personalphoto = $request->user_image;
+                }
+                if ($request->image_updated == 1)
+                    $data->personalphoto = $image;
+                $data->full_name = $request->name;
+                $data->email = $request->email;
+                $data->mobile_number = $request->mobile;
+                $data->user_status = 1;
+                $data->roles_id = $request->roles_id;
+                $data->updated_at = Carbon::now();
+                if ($request->password) {
+                    $data->password = Hash::make($request->password);
+                }
+                $data->save();
+                return response()->json(['success' => $data]);
+            }
+            return response()->json(['error' => $validator->errors()->toArray()]);
+        }
+
+    }
+
     public function destroy($id)
     {
         $data = User::query()->find($id)->delete();

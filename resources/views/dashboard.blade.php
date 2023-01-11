@@ -99,8 +99,7 @@
                         <!--begin::Body-->
                         <div class="card-body d-flex align-items-center pt-3 pb-0">
                             <div class="d-flex flex-column flex-grow-1 py-2 py-lg-13 me-2">
-                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">Total system
-                                    users</a>
+                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Total system users')</a>
                                 <span class="text-dark fs-1 fw-bold me-2">{{$users}}</span>
 
                             </div>
@@ -120,7 +119,7 @@
                         <!--begin::Body-->
                         <div class="card-body d-flex align-items-center pt-3 pb-0">
                             <div class="d-flex flex-column flex-grow-1 py-2 py-lg-13 me-2">
-                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">Passengers</a>
+                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Passengers')</a>
                                 <span class="text fs-1 fw-bold me-2" style="color: #ceb115 !important">{{$totalPassengers}}%</span>
 
                             </div>
@@ -136,7 +135,7 @@
                         <!--begin::Body-->
                         <div class="card-body d-flex align-items-center pt-3 pb-0">
                             <div class="d-flex flex-column flex-grow-1 py-2 py-lg-13 me-2">
-                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">Drivers</a>
+                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Drivers')</a>
                                 <span class="text fs-1 fw-bold me-2" style="color: #ceb115 !important">{{$totalDrivers}}%</span>
 
                             </div>
@@ -155,21 +154,7 @@
                     <!--begin::Title-->
                     <h3 class="card-title align-items-start flex-column">
                         <span class="card-label fw-bold fs-3 mb-1">
-                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                <span class="dot"></span><span
-                                    style="padding-left: 13px; color: #648fc5">requested</span>
-                                <span class="dot2"></span><span
-                                    style="padding-left: 13px; color: #5eab97">accepted</span>
-                                <span class="dot3"></span><span
-                                    style="padding-left: 13px; color: #A45976">rejected</span>
-                            @else
-                                <span class="dot6"></span><span
-                                    style="padding-left: 50px; color: #648fc5">طلب</span>
-                                <span class="dot5"></span><span
-                                    style="padding-left: 50px; color: #5eab97">مقبول</span>
-                                <span class="dot4"></span><span
-                                    style="padding-left: 50px; color: #A45976;" >مرفوض</span>
-                            @endif
+
                         </span>
 
                     </h3>
@@ -276,11 +261,99 @@
         var data3 = [];
         var labels = [];
     </script>
+    <script type="text/javascript">
+        $('.apply').click(function () {
+            data1 = [];
+            data2 = [];
+            data3 = [];
+            labels = [];
+            var start = $("#start_date").val();
+            var end = $("#end_date").val();
+            if (start == "" || end == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The start and end date must be added !')',
+                    footer: ''
+                })
+            } else {
+                let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                }
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                Chart.defaults.font.size = 18;
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: '@lang('web.requested')',
+                        data: data1,
+                        fill: false,
+                        borderColor: '#648fc5',
+                        tension: 0.1,
+                    }, {
+                        label: '@lang('web.Accepted')',
+                        data: data2,
+                        fill: false,
+                        borderColor: '#5eab97',
+                        tension: 0.1
+                    }, {
+                        label: '@lang('web.rejected')',
+                        data: data3,
+                        fill: false,
+                        borderColor: '#A45976',
+                        tension: 0.1
+                    }]
+                };
+                var ctx = document.getElementById("myBarChart");
+                var myLineChart1 = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                });
+
+                $.ajax({
+                    type: 'get',
+                    url: '/search/statistics/',
+                    data: {start: start, end: end},
+                    success: function (data) {
+                        if (data.historyRequested.length > 0) {
+                            jQuery.each(data.historyRequested, function (index, item) {
+                                labels.push(item);
+                            });
+                            jQuery.each(data.countRequested, function (index, item) {
+                                data1.push(item);
+                            });
+                            jQuery.each(data.countAccepted, function (index, item) {
+                                data2.push(item);
+                            });
+                            jQuery.each(data.countRejected, function (index, item) {
+                                data3.push(item);
+                            });
+                            myLineChart1.update();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '@lang('web.Sorry')',
+                                text: '@lang('web.No data founded!')',
+                                footer: ''
+                            });
+                            startFun();
+                        }
+                    }
+                });
+            }
+        })
+    </script>
     <script>
-        window.onload = function() {
-            start();
+        window.onload = function () {
+            startFun();
         };
-        function start(){
+
+        function startFun() {
             let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
             if (chartStatus != undefined) {
                 chartStatus.destroy();
@@ -290,22 +363,23 @@
                     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                 }
             });
+            Chart.defaults.font.size = 18;
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: 'requested',
+                    label: '@lang('web.requested')',
                     data: data1,
                     fill: false,
                     borderColor: '#648fc5',
-                    tension: 0.1
-                },{
-                    label: 'accepted',
+                    tension: 0.1,
+                }, {
+                    label: '@lang('web.Accepted')',
                     data: data2,
                     fill: false,
                     borderColor: '#5eab97',
                     tension: 0.1
-                },{
-                    label: 'rejected',
+                }, {
+                    label: '@lang('web.rejected')',
                     data: data3,
                     fill: false,
                     borderColor: '#A45976',
@@ -320,19 +394,19 @@
             $.ajax({
                 type: "GET",
                 url: '/dashboard/statistics/',
-                data: {statistics : 1},
+                data: {statistics: 1},
                 dataType: 'json',
                 success: function (data) {
-                    jQuery.each(data.historyRequested, function (index, item) {
+                    jQuery.each(data.historyRequested.slice(0, 10), function (index, item) {
                         labels.push(item);
                     });
-                    jQuery.each(data.countRequested, function (index, item) {
+                    jQuery.each(data.countRequested.slice(0, 10), function (index, item) {
                         data1.push(item);
                     });
-                    jQuery.each(data.countAccepted, function (index, item) {
+                    jQuery.each(data.countAccepted.slice(0, 10), function (index, item) {
                         data2.push(item);
                     });
-                    jQuery.each(data.countRejected, function (index, item) {
+                    jQuery.each(data.countRejected.slice(0, 10), function (index, item) {
                         data3.push(item);
                     });
                     myLineChart1.update();

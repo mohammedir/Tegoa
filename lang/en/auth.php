@@ -17,4 +17,10 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'requiredEmail' => 'The email field is required',
+    'stringEmail' => 'The email must be string',
+    'emailEmail' => 'The email must be a valid email address.',
+
+    'requiredPassword' => 'The password field is required',
+    'stringPassword' => 'The password must be string',
 ];

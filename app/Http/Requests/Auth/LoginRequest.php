@@ -35,6 +35,18 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'email.required' => trans("auth.requiredEmail"),
+            'email.string' => trans("auth.stringEmail"),
+            'email.email' => trans("auth.emailEmail"),
+
+            'password.required' => trans("auth.requiredPassword"),
+            'password.string' => trans("auth.stringPassword"),
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -45,12 +57,17 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $user = User::query()->where('email',$this->email)->where('user_type','==',0)->first();
-        if ($user->user_status == 1){
-            $this->ensureIsNotRateLimited();
-            RateLimiter::hit($this->throttleKey());
+        if ($user){
+            if ($user->user_status == 1){
+                $this->ensureIsNotRateLimited();
+                RateLimiter::hit($this->throttleKey());
+                if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
 
-            if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-
+                    throw ValidationException::withMessages([
+                        'email' => trans('auth.failed'),
+                    ]);
+                }
+            }else{
                 throw ValidationException::withMessages([
                     'email' => trans('auth.failed'),
                 ]);
@@ -60,6 +77,7 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
+
 
 
         RateLimiter::clear($this->throttleKey());

@@ -46,18 +46,36 @@ return [
     'Male' => 'ذكر',
     'Female' => 'انثى',
     'Status changed successfully' => 'تم تغيير الحالة بنجاح',
-
+    'Light' => 'فاتح',
+    'Dark' => 'داكن',
+    'emaillEnter' => 'أدخل البريد الإلكتروني',
+    'passwordEnter' => 'أدخل كلمة المرور',
 
     /*sidebar*/
     'dashboard1' => 'لوحة التحكم',
     'Users Management' => 'المستخدمين',
     'Admins' => 'المشرفين',
     'Roles' => 'الأدوار',
+    'Pages' => 'الصفحات',
+    'Settings' => 'إعدادات',
+
+
+    /*dashboard*/
+    'Total system users' => 'إجمالي مستخدمي النظام',
+    'requested' => 'طلب',
+    'Accepted' => 'مقبول',
+    'rejected' => 'مرفوض',
 
     /*users*/
     'Admin List' => 'قائمة المشرفين',
     'Admins Management' => 'إدارة المشرفين',
     'Add_Admin' => 'إضافة مشرف',
+    'User Management' => 'إدارةالمستخدم',
+    'Users' => 'المستخدمون',
+    'My Profile' => 'الملف الشخصي',
+    'Language' => 'اللغة',
+    'Sign Out' => 'خروج',
+    'No data founded!' => 'لا توجد بيانات!',
 
     /*roles*/
     'Roles List' => 'قائمة الأدوار',
@@ -73,6 +91,7 @@ return [
     'more...' => 'أكثر...',
     'Update Role' => 'تحديث الدور',
     'Allows a full access to the system' => 'يسمح بالوصول الكامل إلى النظام',
+    'Role' => 'الدور',
 
 
 
@@ -272,6 +291,15 @@ return [
     'The start and end date must be added !' => 'يجب إضافة تاريخ البدء والانتهاء !',
     'Sorry' => 'المعذرة!',
 
+    /*settings*/
+    'Settings_list' => 'إعدادات',
+    'Settings_Management' => 'إدارة الإعدادات',
+    'public_price_per_km' => 'السعر العام لكل كيلومتر',
+    'private_price_per_km' => 'السعر الخاص لكل كيلومتر',
+    'License' => 'مفتاح ترخيص خرائط جوجل',
+    'public_price_per_kmPlace' => 'أدخل السعر العام لكل كيلومتر',
+    'private_price_per_kmPlace' => 'أدخل السعر الخاص لكل كيلومتر',
+    'keyEnter' => 'أدخل مفتاح ترخيص خرائط جوجل',
 
 
     /*messages*/
@@ -292,6 +320,9 @@ return [
     'requiredPermissions' => 'تحديد الإذن مطلوب',
     'after_or_equal' => 'يجب أن يكون تاريخ الانتهاء تاريخًا بعد تاريخ البدء أو مساويًا له',
     'regex' => ' تنسيق البريد الإلكتروني غير صالح',
+    'regexPrice' => 'تنسيق السعر غير صالح ، التنسيق الصحيح (12.1)',
+    'minPrice' => 'يجب ألا يقل هذا الحقل عن 1 أحرف',
+
     'in' => 'النوع المحدد غير صالح',
 
 ];

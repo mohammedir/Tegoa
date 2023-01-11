@@ -217,7 +217,7 @@
                                             <label class="required fw-bold fs-6 mb-2">{{__("web.Mobile")}}</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input id="mobile" type="tel" name="mobile"
+                                            <input id="mobile" type="number" name="mobile"
                                                    class="text-start form-control form-control-solid mb-3 mb-lg-0"
                                                    placeholder="@lang('web.Mobile')"
                                                    value="{{$user->mobile_number}}"/>

@@ -46,17 +46,35 @@ return [
     'Male' => 'Male',
     'Female' => 'Female',
     'Status changed successfully' => 'Status changed successfully',
+    'Light' => 'Light',
+    'Dark' => 'Dark',
+    'emaillEnter' => 'Enter email',
+    'passwordEnter' => 'Enter password',
 
     /*sidebar*/
     'dashboard1' => 'Dashboard',
     'Users Management' => 'Users',
     'Admins' => 'Admins',
     'Roles' => 'roles',
+    'Pages' => 'Pages',
+    'Settings' => 'Settings',
+
+    /*dashboard*/
+    'Total system users' => 'Total system users',
+    'requested' => 'requested',
+    'Accepted' => 'accepted',
+    'rejected' => 'rejected',
 
     /*users*/
     'Admin List' => 'Admins List',
     'Admins Management' => 'Admins Management',
     'Add_Admin' => 'Add Admin',
+    'User Management' => 'User Management',
+    'Users' => 'Users',
+    'My Profile' => 'My Profile',
+    'Language' => 'Language',
+    'Sign Out' => 'Sign Out',
+    'No data founded!' => 'No data founded!',
 
     /*roles*/
     'Roles List' => 'Roles List',
@@ -72,6 +90,7 @@ return [
     'more...' => 'more...',
     'Update Role' => 'Update Role',
     'Allows a full access to the system' => 'Allows a full access to the system',
+    'Role' => 'Role',
 
     /*permission*/
     'dashboard' => 'dashboard',
@@ -267,6 +286,16 @@ return [
     'The start and end date must be added !' => 'The start and end date must be added !',
     'Sorry' => 'Sorry',
 
+    /*settings*/
+    'Settings_list' => 'Settings',
+    'Settings_Management' => 'Settings Management',
+    'public_price_per_km' => 'Public price per km',
+    'private_price_per_km' => 'Private price per km',
+    'License' => 'Google Maps License Key',
+    'public_price_per_kmPlace' => 'Enter a public price per km',
+    'private_price_per_kmPlace' => 'Enter a private price per km',
+    'keyEnter' => 'Enter a google maps license key',
+
 
     /*messages*/
     'required' => 'This filed is required',
@@ -288,6 +317,8 @@ return [
     'after_or_equal' => 'The end date must be a date after or equal to start date',
     'regex' => 'The email format is invalid',
     'in' => 'The selected type is invalid',
+    'regexPrice' => 'The price format is invalid, the correct format (12.1)',
+    'minPrice' => 'This field must be at least 1 characters',
 
 
 ];
