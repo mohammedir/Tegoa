@@ -2,7 +2,7 @@
 
 return [
 
-    'An error occurred during the sending process, please try again' => 'Added successfully, but an error occurred while sending the verification email',
+    'An error occurred during the sending process, please try again' => 'An error occurred during the sending process. Please verify that the data entered is correct and try again',
     'An error occurred during the modification process. Please check that the converted data is correct again' => 'An error occurred during the modification process. Please check that the converted data is correct again',
 
     /*driver_register*/
