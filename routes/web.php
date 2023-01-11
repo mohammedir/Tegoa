@@ -90,8 +90,8 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::get('/search', [TransportationController::class, 'fetch_data']);
     Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
 
+    Route::post('/settings/update/one/', [SettingController::class, 'updateOne']);
     Route::resource('settings', SettingController::class);
-    Route::post('/settings/update/', [SettingController::class, 'update']);
 
 
     Route::get('language/{locale}', function ($locale) {

@@ -16,27 +16,7 @@ class SettingController extends Controller
         return view('settings.index',compact('settings'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request)
+    public function updateOne(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'public_price' => 'required|numeric|min:1',
@@ -64,6 +44,31 @@ class SettingController extends Controller
             return response()->json(['success' => $data]);
         }
         return response()->json(['error' => $validator->errors()->toArray()]);
+    }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit($id)
+    {
+        //
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     public function destroy($id)

@@ -6,7 +6,7 @@ $(function () {
         id = $('#user_id').val(),
         app_url = $('#app_url').val(),
         public_input = $("#public_price"),
-        private_input = $("#private_price");
+        private_input = $("#private_price"),
         key_input = $("#key");
 
 
@@ -27,7 +27,7 @@ $(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "POST",
-                url: app_url + "/" + language + "/settings/update/",
+                url: app_url + "/" + language + "/settings/update/one/",
                 data: {
                     public_price: publics,
                     private_price: privates,
@@ -45,28 +45,6 @@ $(function () {
             })
         })
     }
-
-    /*function discard_update() {
-        discard_button.addEventListener("click", function () {
-            Swal.fire({
-                text: language === "en" ? "Are you sure you would like to cancel?" : "هل أنت متأكد أنك تريد الإلغاء؟",
-                icon: "warning",
-                showCancelButton: !0,
-                buttonsStyling: !1,
-                confirmButtonText: language === "en" ? "Yes, cancel it!" : "نعم ، قم بالإلغاء!",
-                cancelButtonText: language === "en" ? "No, return" : "لا تراجع",
-                customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
-            }).then((function (t) {
-                t.value ? (e.reset(), n.hide()) : "cancel" === (window.location.href = app_url + "/admin/users") && Swal.fire({
-                    text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
-                    icon: "error",
-                    buttonsStyling: !1,
-                    confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
-                    customClass: {confirmButton: "btn btn-primary"}
-                })
-            }))
-        })
-    }*/
 
     function success_submit() {
         //Success Submit
