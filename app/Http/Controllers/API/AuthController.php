@@ -60,8 +60,8 @@ class AuthController extends Controller
                 $user->sendEmailVerificationNotification();
                 return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
             }catch (Exception){
-                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
                 $user->findOrFail($user->id)->delete();
+                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
             }
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
