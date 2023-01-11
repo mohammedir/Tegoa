@@ -83,22 +83,34 @@ class PassengerController extends Controller
     public function update_profile(Request $request){
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
             'mobile_number' => 'required',
             'address' => 'required',
 
+        ],[
+            'full_name.required' => trans("api.full name field is required"),
+            'email.required' => trans("api.email field is required"),
+            'email.email' => trans("api.The email must be a valid email address"),
+            'address.required' => trans("api.address field is required"),
         ]);
         if ($validator->passes()) {
-            $passenger = User::query()->find($request->user()->id);
-            $passenger->full_name = $request->full_name;
-            $passenger->email = $request->email;
-            $passenger->mobile_number = $request->mobile_number;
-            $passenger->address = $request->address;
-            $passenger->save();
-            Mail::to($request->email)->send(new updateProfile($passenger));
+            $passenger = User::query()->where('id','=',$request->user()->id)->where('user_type','=',1)->get()->first();
+            if ($passenger){
+                try {
+                    $passenger->full_name = $request->full_name;
+                    $passenger->email = $request->email;
+                    $passenger->mobile_number = $request->mobile_number;
+                    $passenger->address = $request->address;
+                    Mail::to($request->email)->send(new updateProfile($passenger));
+                    $passenger->save();
+                    return  $this->api_response(200,true,trans('api.user info ') , $passenger , 200);
+                }catch (Exception){
+                    return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
+                }
 
-            return  $this->api_response(200,true,trans('api.user info ') , $passenger , 200);
-
+            }else{
+                return  $this->setError(400 ,false, trans('api.user not found') , 400);
+            }
 
         }else{
             return  $this->setError(500,false, $validator->errors()->first() , 500);

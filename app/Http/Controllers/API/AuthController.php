@@ -61,6 +61,7 @@ class AuthController extends Controller
                 return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
             }catch (Exception){
                 return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+                $user->delete();
             }
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
@@ -259,6 +260,7 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['success' => 'logout']);
+        return  $this->api_response(200 ,true,trans('api.Success logout') , "" , 200);
+
     }
 }
