@@ -2,7 +2,8 @@
 
 return [
 
-    'An error occurred during the sending process, please try again' => 'تم الاضافة بنجاح ولاكن حدث خطأ اثناء ارسال البريد الاكتروني للتحقق',
+    'An error occurred during the sending process, please try again' => 'حدث خطاء اثناء عملية الارسال يرجى التحقق من صحة البيانات المدخلة والمحاولة مرة اخرى',
+    'An error occurred during the modification process. Please check that the converted data is correct again' => 'حدث خطاء اثناء عملية التعديل يرجى التاكد من صحة البيانات والمحولة مرة اخرى',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'تم إنشاء الحساب ولكن السيارة قيد المراجعة ، سنبلغك عندما تتم مراجعتها',
 

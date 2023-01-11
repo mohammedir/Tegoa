@@ -16,7 +16,7 @@ class Map extends Model
     protected $guarded = [];
 
     protected $hidden = [
-        'created_at', 'updated_at','deleted_at'
+        'created_at', 'updated_at','deleted_at','type','type_station'
     ];
     protected $fillable = [
         'image',

@@ -16,7 +16,7 @@ class Stations extends Model
     protected $guarded = [];
 
     protected $hidden = [
-        'created_at', 'updated_at','deleted_at'
+        'created_at', 'updated_at','deleted_at','type'
     ];
     protected $fillable = [
         'image',
@@ -45,5 +45,6 @@ class Stations extends Model
             get: fn ($value) => $this->getTranslation('address',app()->getLocale()),
         );
     }
+
 
 }

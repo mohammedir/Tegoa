@@ -2,7 +2,8 @@
 
 return [
 
-    'An error occurred during the sending process, please try again' => 'Added successfully, but an error occurred while sending the verification email',
+    'An error occurred during the sending process, please try again' => 'An error occurred during the sending process. Please verify that the data entered is correct and try again',
+    'An error occurred during the modification process. Please check that the converted data is correct again' => 'An error occurred during the modification process. Please check that the converted data is correct again',
 
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'account has been created but car is under review, we will inform you when it get reviewed',
@@ -15,7 +16,7 @@ return [
     'full name field is required' => 'full name field is required',
     'email field is required' => 'email field is required',
     'password field is required' => 'password field is required',
-    'mobile_number field is required' => 'mobile_number field is required',
+    'mobile_number field is required' => 'mobile number field is required',
     'address field is required' => 'address field is required',
     'gender field is required' => 'gender field is required',
     'The email must be a valid email address' => 'The email must be a valid email address',
