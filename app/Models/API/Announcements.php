@@ -18,7 +18,7 @@ class Announcements extends Model
 
 
     protected $hidden = [
-        'created_at', 'updated_at','type','deleted_at'
+       'type','deleted_at'
     ];
     protected $fillable = [
         'image',
