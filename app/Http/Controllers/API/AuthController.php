@@ -22,7 +22,7 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
-
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -54,6 +54,7 @@ class AuthController extends Controller
                 $user->gender = $request->gender;
                 $user->user_status = 1;
                 $user->user_type = 1;
+                $user->fcm_token = $fcm_token;
                 $user->save();
                 $token = $user->createToken('passenger');
                 $user->update(['api_token' =>$token->plainTextToken]);
@@ -231,6 +232,7 @@ class AuthController extends Controller
       }
     }
     public function driver_login(Request $request){
+        $fcm_token = $request->header('X-User-FCM-Token');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
@@ -249,6 +251,7 @@ class AuthController extends Controller
             $data = Auth::user();
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
+            $data->fcm_token = $fcm_token;
             $data->save();
 
             return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
@@ -257,6 +260,10 @@ class AuthController extends Controller
 
 
         }
+    }
+
+    public function fcm_token(Request $request){
+
     }
 
     public function logout(Request $request){
