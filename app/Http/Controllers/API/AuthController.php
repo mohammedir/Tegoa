@@ -15,7 +15,7 @@ use Exception;
 
 class AuthController extends Controller
 {
-    //
+    //.
 
     public function index(Request $request){
         return  $this->api_response(200,true,trans('api.user info ') , $request->user() , 200);
