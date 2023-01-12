@@ -81,13 +81,13 @@ $(function () {
                                 user_management_view: {
                                     validators: {
                                         notEmpty: {
-                                            message: '<strong id="permissions_update_error" class="errors text-danger"role="alert">' + language === "en" ? "Permission select is required" : "تحديد الإذن مطلوب" + '</strong>'
+                                            message: language === "en" ? "Role permission select is required" : "تحديد الإذن مطلوب",
                                         }
                                     }
                                 },role_name: {
                                     validators: {
                                         notEmpty: {
-                                            message: '<strong id="permissions_update_error" class="errors text-danger"role="alert">' + language === "en" ? "This filed is required" : "هذا الحقل مطلوب" + '</strong>'
+                                            message: language === "en" ? "This filed is required" : "هذا الحقل مطلوب",
                                         }
                                     }
                                 },
