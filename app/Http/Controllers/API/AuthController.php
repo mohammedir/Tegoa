@@ -65,9 +65,6 @@ class AuthController extends Controller
             }
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
-
-/*            return response()->json(['error'=>$validator->errors()->first()],409);*/
-
         }
     }
     public function driver_register(Request $request){
@@ -191,13 +188,12 @@ class AuthController extends Controller
                 return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
 
             }catch (Exception){
+                $user->findOrFail($user->id)->delete();
                 return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
             }
 
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
-
-            /*            return response()->json(['error'=>$validator->errors()->first()],409);*/
 
         }
     }
