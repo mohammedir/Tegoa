@@ -4,33 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class DriverController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware(['permission:drivers_view|drivers_create|drivers_edit']);
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Driver::query()->where('user_type',"=",2)->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
-                    if ($data->user_status == 1){
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                    if (Auth::user()->hasPermissionTo('drivers_edit')) {
+                        if ($data->user_status == 1) {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusDrivers(this)"  checked />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
-                    }else{
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                        } else {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatusDrivers(this)" />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
+                        }
+                        return $status;
+                    }else{
+                        if ($data->status == 1){
+                            return trans('web.active');
+                        }else{
+                            return trans('web.inactive');
+                        }
                     }
-                    return $status;
                 })
                 ->addColumn('others', function ($data) {
                     $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_drivers">
@@ -42,9 +54,9 @@ class DriverController extends Controller
                                                                     </svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_drivers">
+                                </button>';
+                    if (Auth::user()->hasPermissionTo('drivers_edit')) {
+                        $actions = $actions . '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_drivers">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +67,7 @@ class DriverController extends Controller
                                     <!--end::Svg Icon-->
                                 </button>
                                 <!--end::Update-->';
-
+                    }
                     return $actions;
 
                 })

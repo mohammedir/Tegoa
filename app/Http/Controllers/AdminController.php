@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:admins_view|admins_create|admins_edit']);
+    }
     public function index(Request $request)
     {
         $roles = Role::query()->get();
@@ -40,20 +44,28 @@ class AdminController extends Controller
                                     <span>' . $data->email . '</span>
                                 </div>';
                 })->editColumn('status', function ($data) {
-                    if ($data->user_status == 1) {
-                        $status = '<div class="form-check form-switch form-check-custom form-check-solid">
+                    if (Auth::user()->hasPermissionTo('admins_edit')) {
+                        if ($data->user_status == 1) {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusAdmins(this)"  checked />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
-                    } else {
-                        $status = '<div class="form-check form-switch form-check-custom form-check-solid">
+                        } else {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatusAdmins(this)" />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
+                        }
+                        return $status;
+                    }else{
+                        if ($data->status == 1){
+                            return trans('web.active');
+                        }else{
+                            return trans('web.inactive');
+                        }
                     }
-                    return $status;
                 })->editColumn('role', function ($data) {
                     if (count($data->getRoleNames()) > 0)
                         return '<div class="badge badge-light-primary" style="font-size: 15px;">' . $data->getRoleNames()->implode(', ') . '</div>';
@@ -65,7 +77,8 @@ class AdminController extends Controller
                     return $data->mobile_number;
                 })
                 ->editColumn('others', function ($data) {
-                    $actions = '
+                    if (Auth::user()->hasPermissionTo('admins_edit')) {
+                        $actions = '
                     <a href="' . url('admin/edit/' . $data->id) . '">
                     <button class="btn btn-icon btn-active-light-primary w-30px h-30px me-3">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
@@ -80,8 +93,8 @@ class AdminController extends Controller
                                 </a>    <!--end::Update-->
                                 ';
 
-                    return $actions;
-
+                        return $actions;
+                    }
                 })
                 ->rawColumns(['others'])
                 ->escapeColumns([])

@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Tour;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class TourController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:tour_view|tour_create|tour_edit|tour_delete']);
+    }
 
     public function index(Request $request)
     {
@@ -23,20 +28,28 @@ class TourController extends Controller
                     return '<a id="showMap" style="text-decoration:underline;color: #ceb115;" class="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_show_maps">' . trans("web.maps") . '</a>';
                 })
                 ->editColumn('status', function ($data) {
-                    if ($data->status == 1){
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                    if (Auth::user()->hasPermissionTo('tour_edit')) {
+                        if ($data->status == 1) {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatus(this)"  checked />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
-                    }else{
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                        } else {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatus(this)" />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
+                        }
+                        return $status;
+                    } else {
+                        if ($data->status == 1) {
+                            return trans('web.active');
+                        } else {
+                            return trans('web.inactive');
+                        }
                     }
-                    return $status;
                 })
                 ->addColumn('others', function ($data) {
                     $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_tour">
@@ -48,8 +61,9 @@ class TourController extends Controller
                                                                     </svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_tours">
+                                </button>';
+                    if (Auth::user()->hasPermissionTo('tour_edit')) {
+                        $actions = $actions . '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_tours">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,10 +72,10 @@ class TourController extends Controller
 																	</svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <!--end::Update-->
-                                <!--begin::Delete-->
-                                <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
+                                </button>';
+                    }
+                    if (Auth::user()->hasPermissionTo('tour_delete')) {
+                        $actions = $actions . '<button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +86,8 @@ class TourController extends Controller
 																</span>
                                     <!--end::Svg Icon-->
                                 </button>';
-
+                    }
                     return $actions;
-
                 })
                 ->rawColumns(['others'])
                 ->escapeColumns([])
@@ -143,7 +156,7 @@ class TourController extends Controller
             $data->phone_number = $request->phone_number;
             if ($request->file('fileupload')) {
                 $value = $request->file('fileupload');
-                $name = time().rand(1,100).'.'.$value->extension();
+                $name = time() . rand(1, 100) . '.' . $value->extension();
                 $value->move('images/tours/', $name);
                 $data->image = $name;
             }
@@ -154,10 +167,10 @@ class TourController extends Controller
 
     }
 
-    public function show(Request $request,Tour $tour)
+    public function show(Request $request, Tour $tour)
     {
         if ($request->ajax()) {
-            $selected =[];
+            $selected = [];
             $tour = Tour::find($tour->id);
             if ($tour->status == 1) {
                 $status = '<span class="badge badge-success" style="font-size: 13px;">' . trans('web.active') . '</span>';
@@ -170,23 +183,23 @@ class TourController extends Controller
                 $gender = '<span>' . trans('web.Female') . '</span>';
             }
             $values = [$tour->spoken_languages];
-            foreach ($values as $value){
+            foreach ($values as $value) {
                 $selected[] = $value;
             }
-            return response()->json(['tour'=>$tour,'status'=>$status,'spoken'=>$values,'gender'=>$gender]);
+            return response()->json(['tour' => $tour, 'status' => $status, 'spoken' => $values, 'gender' => $gender]);
         }
     }
 
-    public function edit(Request $request,Tour $tour)
+    public function edit(Request $request, Tour $tour)
     {
         if ($request->ajax()) {
             $selected = [];
             $tour = Tour::find($tour->id);
             $values = [$tour->spoken_languages];
-            foreach ($values as $value){
+            foreach ($values as $value) {
                 $selected[] = $value;
             }
-            return response()->json(['tour'=>$tour,'selected'=>$selected]);
+            return response()->json(['tour' => $tour, 'selected' => $selected]);
         }
     }
 
@@ -256,21 +269,22 @@ class TourController extends Controller
 
     }
 
-    public function destroy(Request $request,Tour $tour)
+    public function destroy(Request $request, Tour $tour)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $tour = Tour::find($tour->id)->delete();
             return response()->json(['success' => $tour]);
         }
     }
+
     public function changeStatus(Request $request)
     {
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $data = Tour::find($request->id);
-            if ($request->isChecked == "true"){
+            if ($request->isChecked == "true") {
                 $data->status = 1;
                 $data->save();
-            }else{
+            } else {
                 $data->status = 0;
                 $data->save();
             }

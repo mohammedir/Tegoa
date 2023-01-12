@@ -4,32 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\Passenger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class PassengerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:passengers_view|passengers_create|passengers_edit']);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Passenger::query()->where('user_type',"=",1)->latest();
+            $data = Passenger::query()->where('user_type', "=", 1)->latest();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('status', function ($data) {
-                    if ($data->user_status == 1){
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                    if (Auth::user()->hasPermissionTo('passengers_edit')) {
+                        if ($data->user_status == 1) {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusDrivers(this)"  checked />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
-                    }else{
-                        $status =  '<div class="form-check form-switch form-check-custom form-check-solid">
+                        } else {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatusDrivers(this)" />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
+                        }
+                        return $status;
+                    } else {
+                        if ($data->status == 1) {
+                            return trans('web.active');
+                        } else {
+                            return trans('web.inactive');
+                        }
                     }
-                    return $status;
                 })
                 ->addColumn('others', function ($data) {
                     $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_drivers">
@@ -41,9 +55,9 @@ class PassengerController extends Controller
                                                                     </svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_drivers">
+                                </button>';
+                    if (Auth::user()->hasPermissionTo('passengers_edit')) {
+                        $actions = $actions . '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_drivers">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,11 +66,9 @@ class PassengerController extends Controller
 																	</svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <!--end::Update-->';
-
+                                </button>';
+                    }
                     return $actions;
-
                 })
                 ->rawColumns(['others'])
                 ->escapeColumns([])
@@ -121,7 +133,7 @@ class PassengerController extends Controller
             $data->email = $request->email;
             $data->mobile_number = $request->mobile;
             $data->password = Hash::make($request->password);
-            $data->user_type =1;
+            $data->user_type = 1;
             $data->save();
 
             return response()->json(['success' => $data]);
@@ -130,28 +142,28 @@ class PassengerController extends Controller
 
     }
 
-    public function show(Request $request,Passenger $passenger)
+    public function show(Request $request, Passenger $passenger)
     {
         if ($request->ajax()) {
             $passenger = Passenger::find($passenger->id);
 
             if ($passenger->vehicle_type == 1) {
-                $type =  trans('web.public');
+                $type = trans('web.public');
             } else {
-                $type =   trans('web.private');
+                $type = trans('web.private');
             }
 
             if ($passenger->gender == 1) {
-                $gender =  trans('web.Male');
+                $gender = trans('web.Male');
             } else {
-                $gender =   trans('web.Female');
+                $gender = trans('web.Female');
             }
 
-            return response()->json(['driver'=>$passenger,'gender'=>$gender,'type'=>$type]);
+            return response()->json(['driver' => $passenger, 'gender' => $gender, 'type' => $type]);
         }
     }
 
-    public function edit(Request $request,Passenger $passenger)
+    public function edit(Request $request, Passenger $passenger)
     {
         if ($request->ajax()) {
             $passenger = Passenger::find($passenger->id);

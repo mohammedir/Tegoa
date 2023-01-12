@@ -12,6 +12,11 @@ use Yajra\DataTables\DataTables;
 
 class PermissionAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:roles_view|roles_create|roles_edit|roles_delete']);
+    }
+
     public function index(Request $request)
     {
         $permissions = Permission::query()->get();

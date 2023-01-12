@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 class TransportationController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['permission:transportations_view']);
+    }
+
     public function index(Request $request)
     {
         $transportations_all = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);

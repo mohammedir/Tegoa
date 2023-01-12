@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class ActivityController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:activities_view|activities_create|activities_edit|activities_delete']);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -20,20 +26,28 @@ class ActivityController extends Controller
                 })->editColumn('description', function ($data) {
                     return Str::limit($data->description,20) ;
                 })->editColumn('status', function ($data) {
-                    if ($data->status == 1) {
-                        $status = '<div class="form-check form-switch form-check-custom form-check-solid">
+                    if (Auth::user()->hasPermissionTo('activities_edit')) {
+                        if ($data->status == 1) {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked" onclick="getStatusEmergency(this)"  checked />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
-                    } else {
-                        $status = '<div class="form-check form-switch form-check-custom form-check-solid">
+                        } else {
+                            $status = '<div class="form-check form-switch form-check-custom form-check-solid">
                             <input class="form-check-input checkBox" name="toggle[' . $data->id . ']" id="' . $data->id . '"  type="checkbox" value="' . $data->id . '" id="flexSwitchChecked"  onclick="getStatusEmergency(this)" />
                             <label class="form-check-label" for="flexSwitchChecked">
                             </label>
                                 </div>';
+                        }
+                        return $status;
+                    }else{
+                        if ($data->status == 1){
+                            return trans('web.active');
+                        }else{
+                            return trans('web.inactive');
+                        }
                     }
-                    return $status;
                 })
                 ->addColumn('others', function ($data) {
                     $actions = '<button id="show" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_show_activities">
@@ -45,8 +59,9 @@ class ActivityController extends Controller
                                                                     </svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_activities">
+                                </button>';
+                    if (Auth::user()->hasPermissionTo('activities_edit')) {
+                        $actions = $actions . '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_activities">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,10 +70,10 @@ class ActivityController extends Controller
 																	</svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <!--end::Update-->
-                                <!--begin::Delete-->
-                                <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
+                                </button>';
+                    }
+                    if (Auth::user()->hasPermissionTo('activities_delete')) {
+                        $actions = $actions . '<button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,6 +84,7 @@ class ActivityController extends Controller
 																</span>
                                     <!--end::Svg Icon-->
                                 </button>';
+                    }
 
                     return $actions;
 

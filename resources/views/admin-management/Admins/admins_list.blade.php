@@ -72,6 +72,7 @@
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             <!--end::Filter-->
                             <!--begin:Add user-->
+                            @can('admins_create')
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -80,7 +81,10 @@
 															<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
 														</svg>
 													</span>
-                                <!--end::Svg Icon-->@lang('web.Add_Admin')</button>
+                                <!--end::Svg Icon-->
+                                @lang('web.Add_Admin')
+                            </button>
+                            @endcan
                             <!--end::Add user-->
                         </div>
                         <!--end::Toolbar-->

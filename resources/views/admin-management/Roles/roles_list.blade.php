@@ -256,6 +256,7 @@
                                                                         <span
                                                                             class="form-check-label">@lang('web.View')</span>
                                                                     </label>
+                                                                    @if(get_permission_by_name($permission->name.'_create') != null)
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                         <input data-id="{{$permission->id}}"
@@ -266,6 +267,8 @@
                                                                         <span
                                                                             class="form-check-label">@lang('web.Create')</span>
                                                                     </label>
+                                                                    @endif
+                                                                    @if(get_permission_by_name($permission->name.'_edit') != null)
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                         <input data-id="{{$permission->id}}"
@@ -276,6 +279,8 @@
                                                                         <span
                                                                             class="form-check-label">@lang('web.Edit')</span>
                                                                     </label>
+                                                                    @endif
+                                                                    @if(get_permission_by_name($permission->name.'_delete') != null)
                                                                     <label
                                                                         class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                         <input data-id="{{$permission->id}}"
@@ -286,6 +291,8 @@
                                                                         <span
                                                                             class="form-check-label">@lang('web.Delete')</span>
                                                                     </label>
+                                                                    @endif
+
                                                                 </div>
                                                                 <!--end::Wrapper-->
                                                             </td>

@@ -13,16 +13,19 @@
         <!--begin::Logo image-->
         <a href="{{url('/')}}">
             <div class="symbol-label">
-                    @if(auth()->user()->personalphoto)
-                <img alt="Logo"
-                     src="{{asset('images/users/' . \Illuminate\Support\Facades\Auth::user()->personalphoto)}}" style="border-radius: 50%;width: 20% !important;"
-                     class=" app-sidebar-logo-default"/>
-                <img alt="Logo"
-                     src="{{asset('images/users/' . \Illuminate\Support\Facades\Auth::user()->personalphoto)}}" style="border-radius: 50%;width: 20% !important;"
-                     class=" app-sidebar-logo-minimize"/>
-                    @else
-                        <img alt="Logo" src="{{asset('assets/media/avatars/300-1.jpg')}}" style="border-radius: 50%;width: 20% !important;" />
-                    @endif
+                @if(auth()->user()->personalphoto)
+                    <img alt="Logo"
+                         src="{{asset('images/users/' . \Illuminate\Support\Facades\Auth::user()->personalphoto)}}"
+                         style="border-radius: 50%;width: 20% !important;"
+                         class=" app-sidebar-logo-default"/>
+                    <img alt="Logo"
+                         src="{{asset('images/users/' . \Illuminate\Support\Facades\Auth::user()->personalphoto)}}"
+                         style="border-radius: 50%;width: 20% !important;"
+                         class=" app-sidebar-logo-minimize"/>
+                @else
+                    <img alt="Logo" src="{{asset('assets/media/avatars/300-1.jpg')}}"
+                         style="border-radius: 50%;width: 20% !important;"/>
+                @endif
                 <a class="text-hover-primary mb-1"
                    style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")padding-right: 15px; @else padding-left: 15px; @endif color: white; font-size:14px; display: inline">{{\Illuminate\Support\Facades\Auth::user()->full_name}}</a>
             </div>
@@ -42,8 +45,8 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu"
                  data-kt-menu="true" data-kt-menu-expand="false">
-                @can('dashboard')
-                    <!--begin:Menu item-->
+                <!--begin:Menu item-->
+                @can('dashboard_view')
                     <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
                         <!--begin:Menu link-->
                         <a href="{{url('dashboard')}}"><span
@@ -84,8 +87,11 @@
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion {{str_contains($url,"admins") || str_contains($url,"roles") || str_contains($url,"permissions") || str_contains($url,"drivers") || str_contains($url,"passengers") ? "hover show":""}} ">
                     <!--begin:Menu link-->
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasAnyPermission(['admins_view','drivers_view','passengers_view','roles_view']))
+
                     <span class="menu-link">
-											<span class="menu-icon">
+
+                            <span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -98,101 +104,99 @@
                                                               fill="currentColor"/>
 													</svg>
 												</span>
-                                                <!--end::Svg Icon-->
+                                <!--end::Svg Icon-->
 											</span>
-											<span class="menu-title">@lang('web.Users Management')</span>
-											<span class="menu-arrow"></span>
+                            <span class="menu-title">@lang('web.Users Management')</span>
+                            <span class="menu-arrow"></span>
 										</span>
+                    @endif
+
                     <!--end:Menu link-->
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click"
-                             class="menu-item menu-accordion mb-1 {{str_contains($url,"admins") ? "hover show":""}} ">
-                            <!--begin:Menu link-->
-                            <a href="{{url("admins")}}"><span
-                                    class="menu-link {{str_contains($url,"admins") ? "active":""}} ">
+                        @can('admins_view')
+                            <div data-kt-menu-trigger="click"
+                                 class="menu-item menu-accordion mb-1 {{str_contains($url,"admins") ? "hover show":""}} ">
+                                <!--begin:Menu link-->
+                                <a href="{{url("admins")}}"><span
+                                        class="menu-link {{str_contains($url,"admins") ? "active":""}} ">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">@lang('web.Admins')</span>
 
 												</span>
-                            </a>
-                            <!--end:Menu link-->
+                                </a>
+                                <!--end:Menu link-->
 
-                        </div>
+                            </div>
+                        @endcan
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click"
-                             class="menu-item menu-accordion mb-1 {{str_contains($url,"drivers") ? "hover show":""}} ">
-                            <!--begin:Menu link-->
-                            <a href="{{route("drivers.index")}}"><span
-                                    class="menu-link {{str_contains($url,"drivers") ? "active":""}} ">
+                        @can('drivers_view')
+                            <div data-kt-menu-trigger="click"
+                                 class="menu-item menu-accordion mb-1 {{str_contains($url,"drivers") ? "hover show":""}} ">
+                                <!--begin:Menu link-->
+                                <a href="{{route("drivers.index")}}"><span
+                                        class="menu-link {{str_contains($url,"drivers") ? "active":""}} ">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">@lang('web.Drivers')</span>
 
 												</span>
-                            </a>
-                            <!--end:Menu link-->
+                                </a>
+                                <!--end:Menu link-->
 
-                        </div>
+                            </div>
+                        @endcan
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click"
-                             class="menu-item menu-accordion mb-1 {{str_contains($url,"passengers") ? "hover show":""}} ">
-                            <!--begin:Menu link-->
-                            <a href="{{route("passengers.index")}}"><span
-                                    class="menu-link {{str_contains($url,"passengers") ? "active":""}} ">
+                        @can('passengers_view')
+                            <div data-kt-menu-trigger="click"
+                                 class="menu-item menu-accordion mb-1 {{str_contains($url,"passengers") ? "hover show":""}} ">
+                                <!--begin:Menu link-->
+                                <a href="{{route("passengers.index")}}"><span
+                                        class="menu-link {{str_contains($url,"passengers") ? "active":""}} ">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">@lang('web.Passengers')</span>
 
 												</span>
-                            </a>
-                            <!--end:Menu link-->
+                                </a>
+                                <!--end:Menu link-->
 
-                        </div>
+                            </div>
+                        @endcan
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                            <!--begin:Menu link-->
-                            <a href="{{url("roles")}}"><span
-                                    class="menu-link {{str_contains($url,"roles") ? "active":""}}">
+                        @can('roles_view')
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <!--begin:Menu link-->
+                                <a href="{{url("roles")}}"><span
+                                        class="menu-link {{str_contains($url,"roles") ? "active":""}}">
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
 													<span class="menu-title">@lang('web.Roles')</span>
 
 												</span>
-                            </a>
-                            <!--end:Menu link-->
+                                </a>
+                                <!--end:Menu link-->
 
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link {{str_contains($url,"permissions") ? "active":""}}"
-                               href="{{url("permissions")}}">
-													<span class="menu-bullet">
-														<span class="bullet bullet-dot"></span>
-													</span>
-                                <span class="menu-title">Permissions</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
+                            </div>
+                        @endcan
                         <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
-                <div class="menu-item menu-accordion {{str_contains($url,"cars")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"cars") ? "active":""}}" href="{{route('cars.index')}}">
+                @can('cars_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"cars")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"cars") ? "active":""}}" href="{{route('cars.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -205,14 +209,17 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.Cars_List')</span>
-                    </a>
-                    <!--end:Menu link-->
+                            <span class="menu-title">@lang('web.Cars_List')</span>
+                        </a>
+                        <!--end:Menu link-->
 
-                </div>
-                <div class="menu-item menu-accordion {{str_contains($url,"places")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"places") ? "active":""}}" href="{{route('places.index')}}">
+                    </div>
+                @endcan
+                @can('places_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"places")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"places") ? "active":""}}"
+                           href="{{route('places.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -220,15 +227,16 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.places_list')</span>
-                    </a>
-                    <!--end:Menu link-->
+                            <span class="menu-title">@lang('web.places_list')</span>
+                        </a>
+                        <!--end:Menu link-->
 
-                </div>
-
-                <div class="menu-item menu-accordion {{str_contains($url,"news")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"news") ? "active":""}}" href="{{route('news.index')}}">
+                    </div>
+                @endcan
+                @can('news_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"news")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"news") ? "active":""}}" href="{{route('news.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -236,15 +244,15 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.news_list')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
-
-                <div class="menu-item menu-accordion {{str_contains($url,"Tour")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"tour") ? "active":""}}" href="{{route('tour.index')}}">
+                            <span class="menu-title">@lang('web.news_list')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
+                @can('tour_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"Tour")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"tour") ? "active":""}}" href="{{route('tour.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -252,16 +260,16 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.tour_list')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
-
-                <div class="menu-item menu-accordion {{str_contains($url,"emergencies")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"emergencies") ? "active":""}}"
-                       href="{{route('emergencies.index')}}">
+                            <span class="menu-title">@lang('web.tour_list')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
+                @can('emergencies_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"emergencies")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"emergencies") ? "active":""}}"
+                           href="{{route('emergencies.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -269,16 +277,16 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.emergencies')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
-
-                <div class="menu-item menu-accordion {{str_contains($url,"activities")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"activities") ? "active":""}}"
-                       href="{{route('activities.index')}}">
+                            <span class="menu-title">@lang('web.emergencies')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
+                @can('activities_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"activities")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"activities") ? "active":""}}"
+                           href="{{route('activities.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -286,16 +294,16 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.activities')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
-
-                <div class="menu-item menu-accordion {{str_contains($url,"transportations")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"transportations") ? "active":""}}"
-                       href="{{route('transportations.index')}}">
+                            <span class="menu-title">@lang('web.activities')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
+                @can('transportations_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"transportations")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"transportations") ? "active":""}}"
+                           href="{{route('transportations.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -303,18 +311,19 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.transportations')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
+                            <span class="menu-title">@lang('web.transportations')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
                 <br>
                 <br>
                 <br>
-                <div class="menu-item menu-accordion {{str_contains($url,"settings")  ? "hover show":""}} ">
-                    <!--begin:Menu link-->
-                    <a class="menu-link {{str_contains($url,"settings") ? "active":""}}"
-                       href="{{route('settings.index')}}">
+                @can('settings_view')
+                    <div class="menu-item menu-accordion {{str_contains($url,"settings")  ? "hover show":""}} ">
+                        <!--begin:Menu link-->
+                        <a class="menu-link {{str_contains($url,"settings") ? "active":""}}"
+                           href="{{route('settings.index')}}">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/abstract/abs029.svg-->
 												<span class="svg-icon svg-icon-2">
@@ -322,11 +331,11 @@
 												</span>
                                                 <!--end::Svg Icon-->
 											</span>
-                        <span class="menu-title">@lang('web.Settings')</span>
-                    </a>
-                    <!--end:Menu link-->
-
-                </div>
+                            <span class="menu-title">@lang('web.Settings')</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                @endcan
                 <div class="menu-item menu-accordion {{str_contains($url,"Sign Out")  ? "hover show":""}} ">
                     <!--begin:Menu link-->
                     <form method="POST" action="{{ route('logout') }}">

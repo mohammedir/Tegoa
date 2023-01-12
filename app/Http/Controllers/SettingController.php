@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:settings_view|settings_edit']);
+    }
 
     public function index()
     {

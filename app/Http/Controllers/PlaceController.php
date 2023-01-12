@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -11,6 +12,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PlaceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:places_view|places_create|places_edit|places_delete']);
+    }
 
     public function index(Request $request)
     {
@@ -47,8 +52,9 @@ class PlaceController extends Controller
                                                                     </svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_places">
+                                </button>';
+                    if (Auth::user()->hasPermissionTo('places_edit')) {
+                        $actions = $actions . '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_places">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,11 +63,10 @@ class PlaceController extends Controller
 																	</svg>
 																</span>
                                     <!--end::Svg Icon-->
-                                </button>
-                                <!--end::Update-->
-                                <!--begin::Delete-->
-                                <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                </button>';
+                    }
+                    if (Auth::user()->hasPermissionTo('places_delete')) {
+                        $actions = $actions . ' <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 																		<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
@@ -71,6 +76,7 @@ class PlaceController extends Controller
 																</span>
                                     <!--end::Svg Icon-->
                                 </button>';
+                    }
 
                     return $actions;
 

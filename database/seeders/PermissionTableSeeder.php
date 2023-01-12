@@ -12,25 +12,61 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-
-
         $permissions = [
             'dashboard',
             'dashboard_view',
-            'dashboard_create',
-            'dashboard_edit',
-            'dashboard_delete',
-            'users',
-            'users_view',
-            'users_create',
-            'users_edit',
-            'users_delete',
+            'admins',
+            'admins_view',
+            'admins_create',
+            'admins_edit',
+            'drivers',
+            'drivers_view',
+            'drivers_create',
+            'drivers_edit',
+            'passengers',
+            'passengers_view',
+            'passengers_create',
+            'passengers_edit',
+            'roles',
+            'roles_view',
+            'roles_create',
+            'roles_edit',
+            'roles_delete',
+            'cars',
+            'cars_view',
+            'cars_edit',
+            'places',
+            'places_view',
+            'places_create',
+            'places_edit',
+            'places_delete',
+            'news',
+            'news_view',
+            'news_create',
+            'news_edit',
+            'news_delete',
+            'tour',
+            'tour_view',
+            'tour_create',
+            'tour_edit',
+            'tour_delete',
+            'emergencies',
+            'emergencies_view',
+            'emergencies_create',
+            'emergencies_edit',
+            'emergencies_delete',
+            'activities',
+            'activities_view',
+            'activities_create',
+            'activities_edit',
+            'activities_delete',
+            'transportations',
+            'transportations_view',
+            'settings',
+            'settings_view',
+            'settings_edit',
         ];
-
-
-
         foreach ($permissions as $permission) {
-
             Permission::create(['name' => $permission]);
         }
 

@@ -117,6 +117,7 @@
                             <!--end::Content-->
                         </div>
                         <!--begin::Actions-->
+                        @can('settings_edit')
                         <div class="d-flex justify-content-end">
                             <button id="kt_modal_update_user_submit" class="btn btn-primary">
                                 <span class="indicator-label">{{ __('web.Submit') }}</span>
@@ -124,6 +125,7 @@
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                         </div>
+                        @endcan
 
                         <!--end::Actions-->
                         <!--end::Layout-->

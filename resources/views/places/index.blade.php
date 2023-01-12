@@ -78,6 +78,7 @@
                     <!--begin::Card toolbar-->
                     <div class="card-toolbar">
                         <!--begin::Button-->
+                        @can('places_create')
                         <button type="button" class="btn btn-light-primary addNew" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_add_places" onclick="showlocation()">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
@@ -93,7 +94,9 @@
                                                               fill="currentColor"/>
 													</svg>
 												</span>
-                            <!--end::Svg Icon-->@lang('web.Add_place')</button>
+                            <!--end::Svg Icon-->@lang('web.Add_place')
+                        </button>
+                        @endcan
                         <!--end::Button-->
                     </div>
                     <!--end::Card toolbar-->

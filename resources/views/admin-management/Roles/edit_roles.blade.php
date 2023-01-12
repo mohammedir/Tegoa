@@ -78,6 +78,7 @@
                         </div>
                         <!--end::Card body-->
                         <!--begin::Card footer-->
+                        @if($role->id != 1)
                         <div class="card-footer pt-0">
                                     <button data-id="{{$role->id}}" type="button"
                                             class="kt_modal_edit_role btn btn-light btn-active-primary"
@@ -90,6 +91,7 @@
                                             data-bs-target="#kt_modal_delete_role">{{__("web.Delete")}}
                                     </button>
                         </div>
+                        @endif
                         <!--end::Card footer-->
                     </div>
                     <!--end::Card-->
@@ -226,6 +228,7 @@
                                                                                 <span
                                                                                     class="form-check-label">{{__("web.View")}}</span>
                                                                             </label>
+                                                                            @if(get_permission_by_name($permission->name.'_create') != null)
                                                                             <label
                                                                                 class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                                 <input data-id="{{$permission->id}}"
@@ -237,6 +240,8 @@
                                                                                 <span
                                                                                     class="form-check-label">{{__("web.Create")}}</span>
                                                                             </label>
+                                                                            @endif
+                                                                            @if(get_permission_by_name($permission->name.'_edit') != null)
                                                                             <label
                                                                                 class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                                 <input data-id="{{$permission->id}}"
@@ -248,6 +253,8 @@
                                                                                 <span
                                                                                     class="form-check-label">{{__("web.Edit")}}</span>
                                                                             </label>
+                                                                            @endif
+                                                                            @if(get_permission_by_name($permission->name.'_delete') != null)
                                                                             <label
                                                                                 class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                                 <input data-id="{{$permission->id}}"
@@ -259,6 +266,7 @@
                                                                                 <span
                                                                                     class="form-check-label">{{__("web.Delete")}}</span>
                                                                             </label>
+                                                                            @endif
                                                                             <!--end::Checkbox-->
                                                                         </div>
                                                                         <!--end::Wrapper-->

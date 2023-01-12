@@ -14,6 +14,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:cars_view|cars_edit']);
+    }
 
     public function index(Request $request)
     {
@@ -44,16 +48,16 @@ class CarController extends Controller
                     return $status;
                 })
                 ->addColumn('others', function ($data) {
-                    if ($data->status == 0 || $data->status == 2){
-                        $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
-                                    '. trans('web.Details').'</button>';
-                    }else{
-                        $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
-                                    '. trans('web.Edit').'</button>';
+                    if (Auth::user()->hasPermissionTo('cars_edit')) {
+                        if ($data->status == 0 || $data->status == 2) {
+                            $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
+                                    ' . trans('web.Details') . '</button>';
+                        } else {
+                            $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
+                                    ' . trans('web.Edit') . '</button>';
+                        }
+                        return $other;
                     }
-
-                    return $other;
-
                 })
                 ->rawColumns(['others'])
                 ->escapeColumns([])
