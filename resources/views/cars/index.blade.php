@@ -204,7 +204,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="number_edit" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="number_edit" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.numberEnter')" name="number_edit"/>
                                         <strong id="number_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -239,7 +239,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="insurance_number_edit" type="number" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="insurance_number_edit" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_numberEnter')"
                                                name="insurance_number_edit"/>
                                         <strong id="insurance_number_edit_error" class="errors text-danger"

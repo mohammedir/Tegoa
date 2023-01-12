@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Admin;
 use App\Models\AdminPermissions;
 use App\Models\AdminRoles;
 use App\Models\Role;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -145,42 +145,20 @@ class AdminController extends Controller
             ]);
             if ($validator->passes()) {
                 $data = new User();
+                if (!File::exists('images/users')) {
+                    File::makeDirectory('images/users');
+                }
                 $file = base64_decode($request['customer_image']);
                 $folderName = 'images/users/';
                 $safeName = uniqid() . '.' . 'png';
                 $destinationPath = $folderName;
                 file_put_contents('images/users/' . $safeName, $file);
                 $data->personalphoto = $safeName;
-
                 $data->full_name = $request->name;
                 $data->email = $request->email;
                 $data->mobile_number = $request->mobile;
                 $data->password = Hash::make($request->password);
-                $type = 0;
-                switch ($request->roles_id) {
-                    case 67: //Admin
-                        $type = 0;
-                        break;
-                    case 68: //Case Manager
-                        $type = 1;
-                        break;
-                    case 69: //Specialists
-                        $type = 2;
-                        break;
-                    case 70: //Facilitators
-                        $type = 3;
-                        break;
-                    case 71: //Supervisors
-                        $type = 4;
-                        break;
-                    case 72: //Case Managers Supervisors
-                        $type = 5;
-                        break;
-                    case 73: //Specialist Supervisors
-                        $type = 6;
-                        break;
-                }
-                $data->user_type = $type;
+                $data->user_type = 0;
                 $data->user_status = 1;
                 $data->roles_id = $request->roles_id;
                 $data->roles_name = $request->roles_name;
