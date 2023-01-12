@@ -31,6 +31,15 @@ return [
     'carphotos field is required' => 'حقل صور السيارة مطلوب',
     'passengersinsurance field is required' => 'حقل التأمين على الركاب مطلوب',
     'The vehicle type field is required.' => 'حقل نوع السيارة مطلوب.',
+    'The car number field is required' => 'حقل رقم السيارة مطلوب',
+    'The car brand field is required' => 'حقل ماركة السيارة مطلوب',
+    'The insurance number field is required' => 'حقل رقم التأمين مطلوب',
+    'The carlicense field is required' => 'حقل رخصة السيارة مطلوب',
+    'The carinsurance field is required' => 'حقل التأمين على السيارات مطلوب',
+
+
+
+
 
 
 
