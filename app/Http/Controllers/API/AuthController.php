@@ -65,9 +65,6 @@ class AuthController extends Controller
             }
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
-
-/*            return response()->json(['error'=>$validator->errors()->first()],409);*/
-
         }
     }
     public function driver_register(Request $request){
@@ -104,10 +101,15 @@ class AuthController extends Controller
             'gender.required' => trans("api.gender field is required"),
             'vehicle_type.required' => trans("api.The vehicle type field is required."),
             'personalphoto.required' => trans("api.personalphoto field is required"),
+            'car_number.required' => trans("api.The car number field is required"),
             'car_number.unique' => trans("api.The car number has already been taken"),
+            'car_brand.required' => trans("api.The car brand field is required"),
+            'insurance_number.required' => trans("api.The insurance number field is required"),
             'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
             'driverlicense.required' => trans("api.driverlicense field is required"),
             'carphotos.required' => trans("api.carphotos field is required"),
+            'carlicense.required' => trans("api.The carlicense field is required"),
+            'carinsurance.required' => trans("api.The carinsurance field is required"),
             'passengersinsurance.required' => trans("api.passengersinsurance field is required"),
         ]);
         if ($validator->passes()) {
@@ -191,13 +193,12 @@ class AuthController extends Controller
                 return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
 
             }catch (Exception){
+                $user->findOrFail($user->id)->delete();
                 return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
             }
 
         }else{
             return  $this->setError(400 ,false, $validator->errors()->first() , 400);
-
-            /*            return response()->json(['error'=>$validator->errors()->first()],409);*/
 
         }
     }

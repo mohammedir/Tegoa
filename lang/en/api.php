@@ -34,6 +34,11 @@ return [
     'carphotos field is required' => 'car photos field is required',
     'passengersinsurance field is required' => 'passengers insurance field is required',
     'The vehicle type field is required.' => 'The vehicle type field is required.',
+    'The car number field is required' => 'The car number field is required',
+    'The car brand field is required' => 'The car brand field is required',
+    'The insurance number field is required' => 'The insurance number field is required',
+    'The carlicense field is required' => 'The car license field is required',
+    'The carinsurance field is required' => 'The car insurance field is required',
 
     /*login*/
 
