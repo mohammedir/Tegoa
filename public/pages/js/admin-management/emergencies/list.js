@@ -25,7 +25,6 @@ $(function () {
             url: "/emergencies/" + id + "/edit",
             dataType: 'json',
             success: function (response) {
-                $(':input[type="submit"]').prop('disabled', false);
                 $("#emergencies_edit_id").html(response.id);
                 $("#title_en_edit").val(response.title['en']);
                 $("#title_ar_edit").val(response.title['ar']);

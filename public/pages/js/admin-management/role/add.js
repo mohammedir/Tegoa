@@ -186,6 +186,7 @@ $(function () {
                                         },
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 (r.setAttribute("data-kt-indicator", "on"), r.disabled = !0, setTimeout((function () {
                                                     r.removeAttribute("data-kt-indicator"), r.disabled = !1,
                                                         Swal.fire({

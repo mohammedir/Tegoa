@@ -25,7 +25,6 @@ $(function () {
             url: "/news/" + id + "/edit",
             data: {id : 1},
             success: function (response) {
-                $(':input[type="submit"]').prop('disabled', false);
                 $("#news_edit_id").html(id);
                 $("#title_en_edit").val(response.title['en']);
                 $("#title_ar_edit").val(response.title['ar']);
