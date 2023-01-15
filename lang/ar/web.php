@@ -92,8 +92,13 @@ return [
     'Update Role' => 'تحديث الدور',
     'Allows a full access to the system' => 'يسمح بالوصول الكامل إلى النظام',
     'Role' => 'الدور',
-
-
+    'admins' => 'المشرفين',
+    'drivers' => 'السائقين',
+    'passengers' => 'الركاب',
+    'roles' => 'الأدوار',
+    'cars' => 'السيارات',
+    'tour' => 'المرشدين',
+    'settings' => 'الإعدادات',
 
     /*permissions*/
     'dashboard'=>'لوحة التحكم',
@@ -324,5 +329,4 @@ return [
     'minPrice' => 'يجب ألا يقل هذا الحقل عن 1 أحرف',
 
     'in' => 'النوع المحدد غير صالح',
-
 ];

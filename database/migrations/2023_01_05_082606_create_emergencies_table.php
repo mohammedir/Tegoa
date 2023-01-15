@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('emergencies', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->longText('title');
             $table->string('image');
             $table->bigInteger('scooter_number');
             $table->bigInteger('type')->comment('1(3-wheels)/ 2(4-wheels)');

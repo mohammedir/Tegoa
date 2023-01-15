@@ -25,6 +25,7 @@ $(function () {
             url: "/passengers/" + id + "/edit",
             dataType: 'json',
             success: function (response) {
+                $(':input[type="submit"]').prop('disabled', false);
                 $("#driver_edit_id").html(response.id);
                 $("#name_edit").val(response.full_name);
                 $("#email_edit").val(response.email);

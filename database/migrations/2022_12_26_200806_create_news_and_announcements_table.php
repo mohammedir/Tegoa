@@ -18,9 +18,9 @@ class CreateNewsAndAnnouncementsTable extends Migration
         Schema::create('news_and_announcements', function (Blueprint $table) {
             $table->id();
             $table->text('image');
-            $table->text('title');
+            $table->longText('title');
             $table->longText('article');
-            $table->text('description');
+            $table->longText('description');
             $table->integer('status')->default(1)->comment('1(active) / 0(inactive)');
             $table->bigInteger('type')->comment('1(news) / 2(announcements)');
             $table->softDeletes();

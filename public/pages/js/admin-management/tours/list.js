@@ -25,6 +25,7 @@ $(function () {
             url: "/tour/" + id + "/edit",
             dataType: 'json',
             success: function (response) {
+                $(':input[type="submit"]').prop('disabled', false);
                 $("#tours_edit_id").html(response.tour.id);
                 jQuery.each(response.selected, function (index, item) {
                     $("#spoken_languages_edit").val(item).trigger('change');

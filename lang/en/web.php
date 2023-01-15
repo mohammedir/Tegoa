@@ -90,7 +90,13 @@ return [
     'more...' => 'more...',
     'Update Role' => 'Update Role',
     'Allows a full access to the system' => 'Allows a full access to the system',
-    'Role' => 'Role',
+    'admins' => 'admins',
+    'drivers' => 'drivers',
+    'passengers' => 'passengers',
+    'roles' => 'roles',
+    'cars' => 'cars',
+    'tour' => 'tours',
+    'settings' => 'settings',
 
     /*permission*/
     'dashboard' => 'dashboard',

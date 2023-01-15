@@ -23,6 +23,7 @@ $(function () {
             type: "GET",
             url: app_url + "/permissions/edit/" + id,
             success: function (response) {
+                $(':input[type="submit"]').prop('disabled', false);
                 $("#edit_id").val(id);
                 $("#permission_name_edit").val(response.permission.name);
 

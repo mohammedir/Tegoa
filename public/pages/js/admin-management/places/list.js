@@ -36,6 +36,7 @@ $(function () {
             type: "GET",
             url: "/places/" + id + "/edit",
             success: function (response) {
+                $(':input[type="submit"]').prop('disabled', false);
                 $("#place_edit_id").html(id);
                 $("#name_en_edit").val(response.name['en']);
                 $("#name_ar_edit").val(response.name['ar']);
