@@ -4,7 +4,10 @@ return [
 
     'An error occurred during the sending process, please try again' => 'An error occurred during the sending process. Please verify that the data entered is correct and try again',
     'An error occurred during the modification process. Please check that the converted data is correct again' => 'An error occurred during the modification process. Please check that the converted data is correct again',
-
+    'The data has been modified successfully'=>'The data has been modified successfully',
+    'changed password successfully' => 'changed password successfully',
+    'the current password is not true' => 'the current password is not true',
+    'Reset link has  been send to your email, please check it' => 'Reset link has  been send to your email, please check it',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'account has been created but car is under review, we will inform you when it get reviewed',
 
@@ -24,6 +27,8 @@ return [
     'The mobile number has already been taken' => 'The mobile number has already been taken',
     'The password confirmation does not match' => 'The password confirmation does not match',
     'The password must be at least 8 characters' => 'The password must be at least 8 characters',
+    'Passenger email, no verification' => 'Passenger email, no verification',
+    'An email has been sent to verify your email' => 'An email has been sent to verify your email',
 
     /*driver register*/
     'personalphoto field is required' => 'personal photo field is required',

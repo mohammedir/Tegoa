@@ -4,8 +4,13 @@ return [
 
     'An error occurred during the sending process, please try again' => 'حدث خطاء اثناء عملية الارسال يرجى التحقق من صحة البيانات المدخلة والمحاولة مرة اخرى',
     'An error occurred during the modification process. Please check that the converted data is correct again' => 'حدث خطاء اثناء عملية التعديل يرجى التاكد من صحة البيانات والمحولة مرة اخرى',
+    'The data has been modified successfully'=>'تم تعديل البيانات بنجاح',
+    'changed password successfully' => 'تم تغيير كلمة المرور بنجاح',
+    'the current password is not true' => 'كلمة المرور الحالية غير صحيحة',
+    'Reset link has  been send to your email, please check it' => 'تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني ، يرجى التحقق منه',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'تم إنشاء الحساب ولكن السيارة قيد المراجعة ، سنبلغك عندما تتم مراجعتها',
+
 
 
     /*passenger register*/
@@ -21,6 +26,8 @@ return [
     'The mobile number has already been taken' => 'تم أخذ رقم الهاتف المحمول بالفعل',
     'The password confirmation does not match' => 'تأكيد كلمة المرور غير متطابق',
     'The password must be at least 8 characters' => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
+    'Passenger email, no verification' => 'لم تقم بالتحقق من البريد الألكتروني اذا كنت تريد ارسال بريد تحقق اخر قم بالضغط على زر ارسال',
+    'An email has been sent to verify your email' => 'تم ارسال بريد للتحقق على الايميل الخاص بك',
 
     /*driver register*/
     'personalphoto field is required' => 'حقل الصورة الشخصية مطلوب',

@@ -35,6 +35,7 @@ Route::post('driver_login',[AuthController::class,'driver_login'])->middleware('
 Route::post('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 Route::get('user',[AuthController::class,'index'])->middleware('auth:sanctum');
 Route::get('settings',[PassengerController::class,'settings']);
+Route::post('fcm_token',[AuthController::class,'fcm_token'])->middleware('auth:sanctum');
 
 Route::controller(GuestController::class)
     ->middleware('localization')
@@ -51,10 +52,11 @@ Route::controller(PassengerController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/passenger/edit_profile', 'edit_profile')->name('news');
-        Route::post('/passenger/update_profile', 'update_profile');
-        Route::post('/passenger/change_password', 'change_password');
-        Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
+        Route::post('/passenger/update_profile', 'update_profile')->middleware('localization');
+        Route::post('/passenger/change_password', 'change_password')->middleware('localization');
+        Route::get('/passenger/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
         Route::post('/passenger/find_transportion', 'find_transportion');
+        Route::post('/passenger/send_email_verification ', 'verification_email')->middleware('localization');
 
     });
 Route::controller(DriverController::class)
@@ -63,9 +65,9 @@ Route::controller(DriverController::class)
         Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
         Route::post('/driver/start_trip', 'start_trip');
         Route::post('/driver/end_trip', 'end_trip');
-        Route::post('/passenger/change_password', 'change_password');
-        Route::get('/passenger/reset-password-with-email', 'reset_password_with_email');
-        Route::post('/passenger/find_transportion', 'find_transportion');
+        Route::post('/driver/change_password', 'change_password');
+        Route::get('/driver/reset-password-with-email', 'reset_password_with_email');
+        Route::post('/driver/find_transportion', 'find_transportion');
 
     });
 Route::get('/passenger/reset_password_view/{id}', [PassengerController::class,'reset_password_view']);
