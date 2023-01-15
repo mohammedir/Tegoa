@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Page;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -39,5 +40,18 @@ class CreateAdminUserSeeder extends Seeder
             'private_price_per_km' => '2.2',
             'map_key' => 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA'
         ]);
+
+        $pages = [
+            'home',
+            'news',
+            'activities',
+            'tours',
+            'emergencies',
+            'reserves',
+            'settings',
+        ];
+        foreach ($pages as $page) {
+            Page::create(['page' => $page]);
+        }
     }
 }
