@@ -85,7 +85,6 @@ class DriverController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->allFiles());
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
