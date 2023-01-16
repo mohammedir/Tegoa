@@ -69,10 +69,10 @@ $(function () {
                             $(".errors").html("");
                             var formData = new FormData(document.getElementById("kt_modal_add_drivers_form"));
 
-                            var featured_image = $('#fileupload')[0].files[0];
+                            var featured_image = $('#fileupload').prop('files')[0];
                             formData.append("fileupload", featured_image);
 
-                            var featured_images = $('#fileuploadsss')[0].files[0];
+                            var featured_images = $('#fileuploadsss').prop('files')[0];
                             formData.append("fileuploadsss", featured_images);
 
                             $(':input[type="submit"]').prop('disabled', true);
