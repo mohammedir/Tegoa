@@ -66,14 +66,29 @@ $(function () {
                         }));
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
+
+                            // $("#kt_modal_add_drivers_form").find("input[type=file]").each(function(index, field){
+                            //     for(var i=0;i<field.files.length;i++) {
+                            //         const file = field.files[i];
+                            //         console.log(i);
+                            //         // if(file.size > 5242880 || file.fileSize > 5242880) {
+                            //         //     errorMessage = 'Files must be less than 5MB.';
+                            //         //     alert(errorMessage);
+                            //         // }
+                            //     }
+                            // });
                             $(".errors").html("");
                             var formData = new FormData(document.getElementById("kt_modal_add_drivers_form"));
 
-                            var featured_image = $('#fileupload').prop('files')[0];
-                            formData.append("fileupload", featured_image);
+                            // $.each($("input[type='file']")[0].files, function(i, file) {
+                            //     // formData.append('file', file);
+                            // });
 
-                            var featured_images = $('#fileuploadsss').prop('files')[0];
-                            formData.append("fileuploadsss", featured_images);
+                            // var featured_image = $('#fileupload').prop('files')[0];
+                            // formData.append("fileupload", featured_image);
+                            //
+                            // var featured_images = $('#fileuploadsss').prop('files')[0];
+                            // formData.append("fileuploadsss", featured_images);
 
                             $(':input[type="submit"]').prop('disabled', true);
 
