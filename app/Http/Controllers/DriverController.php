@@ -127,7 +127,9 @@ class DriverController extends Controller
             'mobile.unique' => trans("web.uniqueNumber"),
 
             'fileupload.mimes' => trans("web.mimes"),
+            'fileupload.required' => trans("web.uploaded"),
             'fileuploadsss.mimes' => trans("web.mimes"),
+            'fileuploadsss.required' => trans("web.uploaded"),
 
         ]);
         if ($validator->passes()) {
