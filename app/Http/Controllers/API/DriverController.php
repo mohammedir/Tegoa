@@ -110,20 +110,21 @@ class DriverController extends Controller
 
     public function accept_transportion(Request $request){
         $validator = Validator::make($request->all(),[
-            'driver_id' => 'required',
             'transportation_id' => 'required',
 
         ]);
         /*1*/
-        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
+        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
             if ($driver || $transportation){
                 if ($transportation->status == 1){
-                  $transportation->driver_id = $request->driver_id;
+                  $transportation->driver_id = $request->user()->id;
                   $transportation->status = 2;
                   $transportation->save();
-                  return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
+                  return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
+                }else if ($transportation->status == 2 &&$transportation->driver_id == $request->user()->id){
+                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else{
                     return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
                 }
@@ -141,17 +142,15 @@ class DriverController extends Controller
 
     public function start_trip(Request $request){
         $validator = Validator::make($request->all(),[
-            'driver_id' => 'required',
             'transportation_id' => 'required',
-            'time_start_trip' => 'required',
         ]);
         /*1*/
-        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
+        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
             if ($driver || $transportation){
                 if ($transportation->status == 2){
-                    $transportation->start_trip = $request->time_start_trip;
+                    $transportation->start_trip = now();
                     $transportation->status = 3;
                     $transportation->save();
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
@@ -169,17 +168,16 @@ class DriverController extends Controller
     }
     public function end_trip(Request $request){
         $validator = Validator::make($request->all(),[
-            'driver_id' => 'required',
             'transportation_id' => 'required',
             'time_end_trip' => 'required',
         ]);
         /*1*/
-        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->driver_id)->get()->first();
+        $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
             if ($driver || $transportation){
                 if ($transportation->status == 3){
-                    $transportation->end_trip = $request->time_end_trip;
+                    $transportation->end_trip = now();
                     $transportation->status = 4;
                     $transportation->save();
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
@@ -196,6 +194,31 @@ class DriverController extends Controller
 
     }
 
+
+    public function rating(Request $request){
+        $validator = Validator::make($request->all(),[
+            'transportation_id' => 'required',
+            'passenger_rating' => 'required',
+        ]);
+        if ($validator->passes()) {
+            $transportation = TransportationRequests::query()->find($request->transportion_id);
+            $transportation->passenger_rating = $request->rating_passenger;
+            $transportation->save();
+        }
+        return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+
+    }
+    public function report_passenger(Request $request){
+        $validator = Validator::make($request->all(),[
+            'transportation_id' => 'required',
+            'text_report' => 'required',
+        ]);
+        if ($validator->passes()) {
+            $transportation = TransportationRequests::query()->find($request->transportion_id);
+            $transportation->complaint = $request->text_report;
+            $transportation->save();
+        }
+    }
     public function settings(){
         $settings = Settings::query()->get();
         return  $this->api_response(200,true,trans('api.Settings ') , $settings , 200);

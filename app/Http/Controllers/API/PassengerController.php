@@ -82,18 +82,15 @@ class PassengerController extends Controller
     }
     public function update_profile(Request $request){
         $passenger = User::query()->where('id','=',$request->user()->id)->where('user_type','=',1)->get()->first();
-        if($passenger->email == $request->email){
+        $fcm_token = $request->header('X-User-FCM-Token');
+        if($passenger->mobile_number == $request->mobile_number){
             $validator = Validator::make($request->all(),[
                 'full_name' => 'required',
-                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string',
                 'mobile_number' => 'required',
                 'address' => 'required',
 
             ],[
                 'full_name.required' => trans("api.full name field is required"),
-                'email.required' => trans("api.email field is required"),
-                'email.email' => trans("api.The email must be a valid email address"),
-                'email.unique' => trans("api.The email has already been taken"),
                 'mobile_number.required' => trans("api.mobile_number field is required"),
                 'mobile_number.unique' => trans("api.The mobile number has already been taken"),
                 'address.required' => trans("api.address field is required"),
@@ -101,15 +98,11 @@ class PassengerController extends Controller
         }else{
             $validator = Validator::make($request->all(),[
                 'full_name' => 'required',
-                'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
                 'mobile_number' => 'required|unique:users',
                 'address' => 'required',
 
             ],[
                 'full_name.required' => trans("api.full name field is required"),
-                'email.required' => trans("api.email field is required"),
-                'email.email' => trans("api.The email must be a valid email address"),
-                'email.unique' => trans("api.The email has already been taken"),
                 'mobile_number.required' => trans("api.mobile_number field is required"),
                 'mobile_number.unique' => trans("api.The mobile number has already been taken"),
                 'address.required' => trans("api.address field is required"),
@@ -120,13 +113,13 @@ class PassengerController extends Controller
             if ($passenger){
                 try {
                     $passenger->full_name = $request->full_name;
-                    $passenger->email = $request->email;
                     $passenger->mobile_number = $request->mobile_number;
                     $passenger->address = $request->address;
+                    $passenger->fcm_token = $fcm_token;
                     Mail::to($request->email)->send(new updateProfile($passenger));
                     $passenger->save();
                     return  $this->api_response(200,true,trans('api.The data has been modified successfully') , $passenger , 200);
-                }catch (Exception){
+                }catch (Exception $e){
                     return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
                 }
 
@@ -148,8 +141,10 @@ class PassengerController extends Controller
         ]);
         if ($validator->passes()) {
             $passenger = User::query()->find($request->user()->id);
+            $fcm_token = $request->header('X-User-FCM-Token');
             if (Hash::check($request->current_password,$passenger->password) ){
                 $passenger->password = Hash::make($request->new_password);
+                $passenger->fcm_token = $fcm_token;
                 $passenger->save();
                 Mail::to($passenger->email)->send(new updatePassword($passenger));
                 return  $this->api_response(200,true,trans('api.changed password successfully') , $request->user() , 200);
@@ -253,6 +248,12 @@ class PassengerController extends Controller
 
 
     }
+
+    public function my_transportion(Request $request){
+        $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
+        return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+
+    }
     public function verification_email(Request $request){
         try {
             $request->user()->sendEmailVerificationNotification();
@@ -263,6 +264,36 @@ class PassengerController extends Controller
 
         }
     }
+
+    public function rating(Request $request){
+        $validator = Validator::make($request->all(),[
+            'transportation_id' => 'required',
+            'rating_car' => 'required',
+        ]);
+        if ($validator->passes()) {
+            $transportation = TransportationRequests::query()->find($request->transportion_id);
+            $transportation->rating_car = $request->rating_car;
+            $transportation->rating_driver = $request->rating_driver;
+            $transportation->rating_time = $request->rating_time;
+            $transportation->save();
+        }
+
+        return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+
+    }
+
+    public function report_driver(Request $request){
+        $validator = Validator::make($request->all(),[
+            'transportation_id' => 'required',
+            'text_report' => 'required',
+        ]);
+        if ($validator->passes()) {
+            $transportation = TransportationRequests::query()->find($request->transportion_id);
+            $transportation->complaint = $request->text_report;
+            $transportation->save();
+        }
+    }
+
 
     public function settings(){
         $settings = Settings::query()->get();
