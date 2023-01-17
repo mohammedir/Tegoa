@@ -69,7 +69,7 @@ class AuthController extends Controller
         }
     }
     public function driver_register(Request $request){
-
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -139,6 +139,7 @@ class AuthController extends Controller
                     $user->driverlicense = $comPic;
                 }
                 $user->address = $request->address;
+                $user->fcm_token = $fcm_token;
                 $user->user_type = 2;
                 $user->save();
                 $car = new Car();
@@ -205,7 +206,8 @@ class AuthController extends Controller
     }
 
     public function passenger_login(Request $request){
-      $input = $request->all();
+        $fcm_token = $request->header('X-User-FCM-Token');
+        $input = $request->all();
       $validation = Validator::make($input,[
           'email' => 'required|email',
           'password' => 'required',
@@ -222,6 +224,7 @@ class AuthController extends Controller
           $data = Auth::user();
           $token = $data->createToken('passenger');
           $data->api_token = $token->plainTextToken;
+          $data->fcm_token = $fcm_token;
           $data->save();
 
           return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
