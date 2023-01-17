@@ -177,6 +177,85 @@
                                      data-kt-scroll-offset="300px">
                                     <!--begin::Input group-->
                                     <div class="row">
+                                    <div class="fv-row col-md-6 mb-7" style="padding-left: 10px;">
+                                        <!--begin::Label-->
+                                        <label class="d-block fw-semibold fs-6 mb-5">@lang('web.personalPhoto')</label>
+                                        <!--end::Label-->
+                                        <!--begin::Image placeholder-->
+                                        <!--end::Image placeholder-->
+                                        <!--begin::Image input-->
+                                        <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                            <!--begin::Preview existing avatar-->
+                                            <div id="uploaded_image" class="image-input-wrapper w-125px h-125px" ></div>
+                                            <!--end::Preview existing avatar-->
+                                            <!--begin::Label-->
+                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="@lang('web.Change avatar')">
+                                                <i class="bi bi-pencil-fill fs-7"></i>
+                                                <!--begin::Inputs-->
+                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                <input type="hidden" name="avatar_remove" />
+                                                <!--end::Inputs-->
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Cancel-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="@lang('web.Cancel avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                            <!--end::Cancel-->
+                                            <!--begin::Remove-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="@lang('web.Remove avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                            <!--end::Remove-->
+                                        </div>
+                                        <!--end::Image input-->
+                                        <!--begin::Hint-->
+                                        <div class="form-text">@lang('web.Allowed file types: png, jpg, jpeg.')</div>
+                                        <strong id="fileupload_error" class="errors text-danger" role="alert">
+                                        </strong>
+                                        <!--end::Hint-->
+                                    </div>
+                                        <div class="fv-row col-md-6 mb-7" style="padding-left: 10px;">
+                                            <!--begin::Label-->
+                                            <label class="d-block fw-semibold fs-6 mb-5">@lang('web.driverLicense')</label>
+                                            <!--end::Label-->
+                                            <!--begin::Image placeholder-->
+                                            <!--end::Image placeholder-->
+                                            <!--begin::Image input-->
+                                            <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                                <!--begin::Preview existing avatar-->
+                                                <div id="uploaded_image2" class="image-input-wrapper w-450px h-125px" ></div>
+                                                <!--end::Preview existing avatar-->
+                                                <!--begin::Label-->
+                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="@lang('web.Change avatar')">
+                                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                                    <!--begin::Inputs-->
+                                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                    <input type="hidden" name="avatar_remove" />
+                                                    <!--end::Inputs-->
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Cancel-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="@lang('web.Cancel avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Cancel-->
+                                                <!--begin::Remove-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="@lang('web.Remove avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Remove-->
+                                            </div>
+                                            <!--end::Image input-->
+                                            <!--begin::Hint-->
+                                            <div class="form-text">@lang('web.Allowed file types: png, jpg, jpeg.')</div>
+                                            <strong id="fileuploadsss_error" class="errors text-danger" role="alert">
+                                            </strong>
+                                            <!--end::Hint-->
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
@@ -324,84 +403,6 @@
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.personalPhoto')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
-                                            <input type="file" id="fileupload" name="fileupload"
-                                                   accept="image/png, image/jpg, image/jpeg"
-                                                   hidden/>
-
-                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                <label for="fileupload"
-                                                       class="form-control form-control-solid"
-                                                       style="color :#999595FF">Choose File: <span
-                                                        id="file-chosen-input"
-                                                        style="color: #5a6268">    No file chosen</span></label>
-                                            @else
-                                                <label for="fileupload"
-                                                       class="form-control form-control-solid"
-                                                       style="color: #999595FF;">اختر ملف : <span
-                                                        id="file-chosen-input"
-                                                        style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
-                                            @endif
-                                            <!--end::Input-->
-                                            <strong id="fileupload_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.driverLicense')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
-                                            <input type="file" id="fileuploadsss" name="fileuploadsss"
-                                                   accept="image/png, image/jpg, image/jpeg"
-                                                   hidden/>
-
-                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                <label for="fileuploadsss"
-                                                       class="form-control form-control-solid"
-                                                       style="color :#999595FF">Choose File: <span
-                                                        id="file-chosensss"
-                                                        style="color: #5a6268">    No file chosen</span></label>
-                                            @else
-                                                <label for="fileuploadsss"
-                                                       class="form-control form-control-solid"
-                                                       style="color: #999595FF;">اختر ملف : <span
-                                                        id="file-chosensss"
-                                                        style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
-                                            @endif
-                                            <!--end::Input-->
-                                            <strong id="fileuploadsss_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
                                     </div>
                                 </div>
 
@@ -479,6 +480,85 @@
                                      data-kt-scroll-offset="300px">
                                     <input type="hidden" name="driver_edit_id" id="driver_edit_id">
                                     <!--begin::Input group-->
+                                    <div class="row">
+                                        <div class="fv-row col-md-6 mb-7" style="padding-left: 10px;">
+                                            <!--begin::Label-->
+                                            <label class="d-block fw-semibold fs-6 mb-5">@lang('web.personalPhoto')</label>
+                                            <!--end::Label-->
+                                            <!--begin::Image placeholder-->
+                                            <!--end::Image placeholder-->
+                                            <!--begin::Image input-->
+                                            <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                                <!--begin::Preview existing avatar-->
+                                                <div id="uploaded_image3" class="image-input-wrapper w-125px h-125px" ></div>
+                                                <!--end::Preview existing avatar-->
+                                                <!--begin::Label-->
+                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="@lang('web.Change avatar')">
+                                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                                    <!--begin::Inputs-->
+                                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                    <input type="hidden" name="avatar_remove" />
+                                                    <!--end::Inputs-->
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Cancel-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="@lang('web.Cancel avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Cancel-->
+                                                <!--begin::Remove-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="@lang('web.Remove avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Remove-->
+                                            </div>
+                                            <!--end::Image input-->
+                                            <!--begin::Hint-->
+                                            <div class="form-text">@lang('web.Allowed file types: png, jpg, jpeg.')</div>
+                                            <strong id="fileuploads_error" class="errors text-danger" role="alert">
+                                            </strong>
+                                            <!--end::Hint-->
+                                        </div>
+                                        <div class="fv-row col-md-6 mb-7" style="padding-left: 10px;">
+                                            <!--begin::Label-->
+                                            <label class="d-block fw-semibold fs-6 mb-5">@lang('web.driverLicense')</label>
+                                            <!--end::Label-->
+                                            <!--begin::Image placeholder-->
+                                            <!--end::Image placeholder-->
+                                            <!--begin::Image input-->
+                                            <div class="image-input image-input-outline image-input-placeholder" data-kt-image-input="true">
+                                                <!--begin::Preview existing avatar-->
+                                                <div id="uploaded_image4" class="image-input-wrapper w-450px h-125px" ></div>
+                                                <!--end::Preview existing avatar-->
+                                                <!--begin::Label-->
+                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="@lang('web.Change avatar')">
+                                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                                    <!--begin::Inputs-->
+                                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                    <input type="hidden" name="avatar_remove" />
+                                                    <!--end::Inputs-->
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Cancel-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="@lang('web.Cancel avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Cancel-->
+                                                <!--begin::Remove-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="@lang('web.Remove avatar')">
+																					<i class="bi bi-x fs-2"></i>
+																				</span>
+                                                <!--end::Remove-->
+                                            </div>
+                                            <!--end::Image input-->
+                                            <!--begin::Hint-->
+                                            <div class="form-text">@lang('web.Allowed file types: png, jpg, jpeg.')</div>
+                                            <strong id="fileuploadss_error" class="errors text-danger" role="alert">
+                                            </strong>
+                                            <!--end::Hint-->
+                                        </div>
+
+                                    </div>
                                     <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
@@ -588,83 +668,6 @@
                                                 <option value="2">@lang('web.private')</option>
                                             </select>
                                             <strong id="vehicle_type_edit_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.personalPhoto')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
-                                            <input type="file" id="fileuploadss" name="fileuploadss"
-                                                   accept="image/png, image/jpg, image/jpeg"
-                                                   hidden/>
-
-                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                <label for="fileuploadss"
-                                                       class="form-control form-control-solid"
-                                                       style="color :#999595FF">Choose File: <span
-                                                        id="file-chosenss"
-                                                        style="color: #5a6268">    No file chosen</span></label>
-                                            @else
-                                                <label for="fileuploadss"
-                                                       class="form-control form-control-solid"
-                                                       style="color: #999595FF;">اختر ملف : <span
-                                                        id="file-chosenss"
-                                                        style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
-                                            @endif
-                                            <!--end::Input-->
-                                            <strong id="fileuploadss_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span>@lang('web.driverLicense')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-
-
-                                            <!--begin::Input-->
-
-                                            <input type="file" id="fileuploads" name="fileuploads"
-                                                   accept="image/png, image/jpg, image/jpeg"
-                                                   hidden/>
-
-                                            @if(\Illuminate\Support\Facades\App::getLocale() == "en")
-                                                <label for="fileuploads"
-                                                       class="form-control form-control-solid"
-                                                       style="color :#999595FF">Choose File: <span
-                                                        id="file-chosens"
-                                                        style="color: #5a6268">    No file chosen</span></label>
-                                            @else
-                                                <label for="fileuploads"
-                                                       class="form-control form-control-solid"
-                                                       style="color: #999595FF;">اختر ملف : <span
-                                                        id="file-chosens"
-                                                        style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
-                                            @endif
-                                            <!--end::Input-->
-                                            <strong id="fileuploads_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
@@ -926,13 +929,7 @@
         }
     </script>
     <script>
-        const actualBtn = document.getElementById('fileupload');
 
-        const fileChosen = document.getElementById('file-chosen-input');
-
-        actualBtn.addEventListener('change', function () {
-            fileChosen.textContent = this.files[0].name
-        })
 
         const actualBtns = document.getElementById('fileuploads');
 
@@ -950,13 +947,7 @@
             fileChosenss.textContent = this.files[0].name
         })
 
-        const actualBtnsss = document.getElementById('fileuploadsss');
 
-        const fileChosensss = document.getElementById('file-chosensss');
-
-        actualBtnsss.addEventListener('change', function () {
-            fileChosensss.textContent = this.files[0].name
-        })
 
     </script>
     <script>

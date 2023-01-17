@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -94,8 +95,8 @@ class DriverController extends Controller
             'vehicle_type' => 'required|numeric',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:users,email|max:255',
             'mobile' => 'required|numeric|unique:users,mobile_number',
-            'fileupload' => 'required|mimes:jpeg,png,jpg',
-            'fileuploadsss' =>'required|mimes:jpeg,png,jpg'
+            'fileupload' => 'required',
+            'fileuploadsss' =>'required'
         ], [
             'name.required' => trans("web.required"),
             'name.string' => trans("web.string"),
@@ -143,16 +144,26 @@ class DriverController extends Controller
             $data->password = Hash::make($request->password);
             $data->user_type =2;
             if ($request->input('fileupload') != 'undefined') {
-                $value = $request->file('fileupload');
-                $name = time() . rand(1, 100) . '.' . $value->extension();
-                $value->move('images/users/', $name);
-                $data->personalphoto = $name;
+                if (!File::exists('images/users')) {
+                    File::makeDirectory('images/users');
+                }
+                $file = base64_decode($request['fileupload']);
+                $folderName = 'images/users/';
+                $safeName = uniqid() . '.' . 'png';
+                $destinationPath = $folderName;
+                file_put_contents('images/users/' . $safeName, $file);
+                $data->personalphoto = $safeName;
             }
             if ($request->input('fileuploadsss') != 'undefined') {
-                $value = $request->file('fileuploadsss');
-                $name = time() . rand(1, 100) . '.' . $value->extension();
-                $value->move('images/users/', $name);
-                $data->driverlicense = $name;
+                if (!File::exists('images/users')) {
+                    File::makeDirectory('images/users');
+                }
+                $file = base64_decode($request['fileuploadsss']);
+                $folderName = 'images/users/';
+                $safeName = uniqid() . '.' . 'png';
+                $destinationPath = $folderName;
+                file_put_contents('images/users/' . $safeName, $file);
+                $data->driverlicense = $safeName;
             }
             $data->save();
 
@@ -193,6 +204,7 @@ class DriverController extends Controller
 
     public function update(Request $request, Driver $driver)
     {
+//        dd($request->all());
         $validator = Validator::make($request->all(), [
             'name_edit' => 'required|string',
             'address_edit' => 'required|string',
@@ -200,8 +212,8 @@ class DriverController extends Controller
             'vehicle_type_edit' => 'required|numeric',
             'email_edit' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $driver->id,
             'mobile_edit' => 'required|numeric|unique:users,mobile_number,' . $driver->id,
-            'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
-            'fileuploadss' => $request->fileuploadss != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
+            'fileuploads' => 'required',
+            'fileuploadss' => 'required',
         ], [
             'name_edit.required' => trans("web.required"),
             'name_edit.string' => trans("web.string"),
@@ -227,8 +239,8 @@ class DriverController extends Controller
             'mobile_edit.numeric' => trans("web.numeric"),
             'mobile_edit.unique' => trans("web.uniqueNumber"),
 
-            'fileuploads.mimes' => trans("web.mimes"),
-            'fileuploadss.mimes' => trans("web.mimes"),
+            'fileuploads.required' => trans("web.mimes"),
+            'fileuploadss.required' => trans("web.mimes"),
 
         ]);
         if ($validator->passes()) {
@@ -240,16 +252,26 @@ class DriverController extends Controller
             $data->email = $request->email_edit;
             $data->mobile_number = $request->mobile_edit;
             if ($request->input('fileuploads') != 'undefined') {
-                $value = $request->file('fileuploads');
-                $name = time() . rand(1, 100) . '.' . $value->extension();
-                $value->move('images/users/', $name);
-                $data->personalphoto = $name;
+                if (!File::exists('images/users')) {
+                    File::makeDirectory('images/users');
+                }
+                $file = base64_decode($request['fileuploads']);
+                $folderName = 'images/users/';
+                $safeName = uniqid() . '.' . 'png';
+                $destinationPath = $folderName;
+                file_put_contents('images/users/' . $safeName, $file);
+                $data->personalphoto = $safeName;
             }
             if ($request->input('fileuploadss') != 'undefined') {
-                $value = $request->file('fileuploadss');
-                $name = time() . rand(1, 100) . '.' . $value->extension();
-                $value->move('images/users/', $name);
-                $data->driverlicense = $name;
+                if (!File::exists('images/users')) {
+                    File::makeDirectory('images/users');
+                }
+                $file = base64_decode($request['fileuploadss']);
+                $folderName = 'images/users/';
+                $safeName = uniqid() . '.' . 'png';
+                $destinationPath = $folderName;
+                file_put_contents('images/users/' . $safeName, $file);
+                $data->driverlicense = $safeName;
             }
             $data->save();
 

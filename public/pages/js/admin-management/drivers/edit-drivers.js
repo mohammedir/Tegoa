@@ -1,6 +1,14 @@
 $(function () {
     const app_url = $('#app_url').val(),
-        language = $('#language').val();
+        language = $('#language').val(),
+        name_input = $("#name_edit"),
+        address_input = $("#address_edit"),
+        vehicle_type_input = $("#vehicle_type_edit"),
+        email_input = $("#email_edit"),
+        gender_input = $("#gender_edit"),
+        mobile_input = $("#mobile_edit"),
+        uploaded_image3 = $("#uploaded_image3"),
+        uploaded_image4 = $("#uploaded_image4");
 
     $(document).ready(function () {
         update_news();
@@ -35,7 +43,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value  && $(".errors").html("") && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosenss").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
+                                t.value  && $(".errors").html("") && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"),$('#uploaded_image3').css('background-image','none'),$('#uploaded_image4').css('background-image','none') && $("#file-chosenss").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
                             }))
                         })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
@@ -47,7 +55,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(),$(".errors").html(""),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"),$("#file-chosenss").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(),$(".errors").html(""),$('#uploaded_image3').css('background-image','none'),$('#uploaded_image4').css('background-image','none'),$("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"),$("#file-chosenss").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), n.hide()) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -59,24 +67,44 @@ $(function () {
                         const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
                             $(".errors").html("");
-                            var formData = new FormData(document.getElementById("kt_modal_update_drivers_form"));
-                            formData.append('_method', 'put');
-                            var featured_image = $('#fileuploads')[0].files[0];
-                            formData.append("fileuploads", featured_image);
-                            var featured_images = $('#fileuploadss')[0].files[0];
-                            formData.append("fileuploadss", featured_images);
+                            let name = name_input.val(),
+                                address = address_input.val(),
+                                vehicle_type = vehicle_type_input.val(),
+                                email = email_input.val(),
+                                gender = gender_input.val(),
+                                mobile = mobile_input.val(),
+                                customer_image3 = prepare_image_base64(uploaded_image3.css('background-image'));
+                            if (customer_image3 == "none") {
+                                customer_image3 = "";
+                            }
+                            let customer_image4 = prepare_image_base64(uploaded_image4.css('background-image'));
+                            if (customer_image4 == "none") {
+                                customer_image4 = "";
+                            }
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
                                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                         },
-                                        type: "POST",
+                                        type: "PUT",
                                         url: app_url + "/" + language + "/drivers/" + $('#driver_edit_id').text(),
-                                        data: formData,
-                                        processData: false,  // tell jQuery not to process the data
-                                        contentType: false,
+                                        async: true,
+                                        cache: false,
+
+                                        data: {
+                                            name_edit: name,
+                                            address_edit: address,
+                                            vehicle_type_edit: vehicle_type,
+                                            email_edit: email,
+                                            gender_edit: gender,
+                                            mobile_edit: mobile,
+                                            fileuploads: customer_image3,
+                                            fileuploadss: customer_image4,
+                                        },
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $('#uploaded_image3').css('background-image','none');
+                                                $('#uploaded_image4').css('background-image','none');
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1,
                                                         Swal.fire({
@@ -125,6 +153,18 @@ $(function () {
         KTUtil.onDOMContentLoaded((function () {
             KTUsersUpdatePermission.init()
         }));
+    }
+
+    function prepare_image_base64(image) {
+        image = image.replace('url("data:image/jpeg;base64,', '');
+        image = image.replace('url("data:image/jpeg;base64,', '');
+        image = image.replace('url("data:image/png;base64,', '');
+        image = image.replace('url("data:image/jpg;base64,', '');
+        image = image.replace('")', '');
+        if (image == "none") {
+            return "";
+        } else
+            return image;
     }
 
     function print_error(errors) {

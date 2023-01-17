@@ -1,7 +1,9 @@
 var table = $('#kt_drivers_table');
 $(function () {
     const language = $('#language').val(),
-        app_url = $('#app_url').val();
+        app_url = $('#app_url').val(),
+        uploaded_image3 = $("#uploaded_image3"),
+        uploaded_image4 = $("#uploaded_image4");
     $(document).ready(function () {
         "use strict";
         /*Table Actions*/
@@ -32,6 +34,35 @@ $(function () {
                 $("#address_edit").val(response.address);
                 $("#gender_edit").val(response.gender);
                 $("#vehicle_type_edit").val(response.vehicle_type);
+                const toDataURL = url => fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => new Promise((resolve, reject) => {
+                        const reader = new FileReader()
+                        reader.onloadend = () => resolve(reader.result)
+                        reader.onerror = reject
+                        reader.readAsDataURL(blob)
+                    }))
+                toDataURL(app_url + "/images/users/" +response.personalphoto)
+                    .then(dataUrl => {
+                        console.log('RESULT:', dataUrl)
+                        $('#uploaded_image3').css('background-image',"url(" + dataUrl +")");
+
+                    })
+
+                const toDataURLs = url => fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => new Promise((resolve, reject) => {
+                        const reader = new FileReader()
+                        reader.onloadend = () => resolve(reader.result)
+                        reader.onerror = reject
+                        reader.readAsDataURL(blob)
+                    }))
+                toDataURLs(app_url + "/images/users/" +response.driverlicense)
+                    .then(dataUrl => {
+                        console.log('RESULT:', dataUrl)
+                        $('#uploaded_image4').css('background-image',"url(" + dataUrl +")");
+
+                    })
             }
         });
     }
@@ -196,6 +227,34 @@ $(function () {
         KTUtil.onDOMContentLoaded((function () {
             KTAppEcommerceCategories.init()
         }));
+    }
+
+    function toDataUrl(urls) {
+        const getBase64FromUrl = async (url) => {
+            const data = await fetch(url);
+            const blob = await data.blob();
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = () => {
+                    const base64data = reader.result;
+                    resolve(base64data);
+                }
+            });
+        }
+
+    }
+
+    function prepare_image_base64(image) {
+        image = image.replace('url("data:image/jpeg;base64,', '');
+        image = image.replace('url("data:image/jpeg;base64,', '');
+        image = image.replace('url("data:image/png;base64,', '');
+        image = image.replace('url("data:image/jpg;base64,', '');
+        image = image.replace('")', '');
+        if (image == "none") {
+            return "";
+        } else
+            return image;
     }
 
 });

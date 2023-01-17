@@ -121,7 +121,6 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-//            dd($request->input());
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -197,7 +196,6 @@ class AdminController extends Controller
     {
 
         if ($request->ajax()) {
-//            dd($request->input());
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $id,
