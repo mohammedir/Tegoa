@@ -889,6 +889,21 @@
     <!--end::Content-->
 @endsection
 @section('js')
+    <!--begin::Vendors Javascript(used for this page only)-->
+    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
+    <!--end::Vendors Javascript-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{{asset('pages/js/admin-management/drivers/add-drivers.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/drivers/edit-drivers.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/drivers/list.js')}}" defer></script>
+    <script src="{{asset('pages/js/admin-management/drivers/index.js')}}" defer></script>
+    <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}" defer></script>
+    <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
+    <!--end::Custom Javascript-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         function getStatusDrivers(el)
@@ -990,21 +1005,5 @@
         });
 
     </script>
-
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{asset('pages/js/admin-management/drivers/add-drivers.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/drivers/edit-drivers.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/drivers/list.js')}}" defer></script>
-    <script src="{{asset('pages/js/admin-management/drivers/index.js')}}" defer></script>
-    <script src="{{asset('assets/js/widgets.bundle.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/widgets.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/apps/chat/chat.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/upgrade-plan.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}" defer></script>
-    <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
-    <!--end::Custom Javascript-->
     <!--end::Javascript-->
 @endsection
