@@ -67,7 +67,7 @@ class EmergencyController extends Controller
                                     <!--end::Svg Icon-->
                                 </button>';
                     if (Auth::user()->hasPermissionTo('emergencies_edit')) {
-                        $actions = '<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_emergencies">
+                        $actions = $actions.'<button id="edit" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_update_emergencies">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                     <span class="svg-icon svg-icon-3">
 																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,8 +90,8 @@ class EmergencyController extends Controller
 																</span>
                                     <!--end::Svg Icon-->
                                 </button>';
-                        return $actions;
                     }
+                    return $actions;
                 })
                 ->rawColumns(['others'])
                 ->escapeColumns([])

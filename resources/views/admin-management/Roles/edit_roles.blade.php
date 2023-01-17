@@ -80,11 +80,13 @@
                         <!--begin::Card footer-->
                         @if($role->id != 1)
                         <div class="card-footer pt-0">
+                            @can('roles_edit')
                                     <button data-id="{{$role->id}}" type="button"
                                             class="kt_modal_edit_role btn btn-light btn-active-primary"
                                             data-bs-toggle="modal"
                                             data-bs-target="#kt_modal_update_role">{{__("web.Edit Role")}}
                                     </button>
+                            @endcan
                                     <button type="button" data-id="{{$role->id}}"
                                             class="d-none btn delete_role btn btn-light btn-active-light-danger my-1"
                                             data-bs-toggle="modal"

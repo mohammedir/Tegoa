@@ -17,6 +17,7 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_table_users")) && ((e = $(t).DataTable({
                         searchable: true,
+                        order: [[0, "asc"]],
                         ajax: {
                             "url": app_url + "/" + language + "/admins",
                             "type": 'GET',
@@ -50,7 +51,12 @@ $(function () {
                                 data: 'others',
                                 name: 'others'
                             }
-                        ], language: {
+                        ],"columnDefs": [{
+                            "render": function (data, type, full, meta) {
+                                return meta.row + 1; // adds id to serial no
+                            },
+                            "targets": 0
+                        }], language: {
                             url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
                         },
                     })).on("draw", (function () {

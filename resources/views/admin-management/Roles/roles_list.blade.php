@@ -123,12 +123,14 @@
                                     @php
                                         $static_roles = [1];
                                     @endphp
+                                    @can('roles_delete')
                                     @if(!in_array($role->id,$static_roles))
                                             <button type="button" data-id="{{$role->id}}"
                                                     class="btn delete_role btn btn-light btn-active-light-danger my-1">
                                                 @lang('web.Delete')
                                             </button>
                                     @endif
+                                    @endcan
                                         <button data-id="{{$role->id}}" type="button"
                                                 class="d-none kt_modal_edit_role btn btn-light btn-active-light-primary my-1"
                                                 data-bs-toggle="modal"
