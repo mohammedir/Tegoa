@@ -67,10 +67,7 @@ $(function () {
                         const i = t.querySelector('[data-kt-permissions-modal-action="submit"]');
                         i.addEventListener("click", (function (t) {
                             $(".errors").html("");
-                            var formData = new FormData(document.getElementById("kt_modal_add_drivers_form"));
-                            $.each($("input[type='file']").files, function(i, file) {
-                                formData.append('file', file);
-                            });
+                            var formData = new FormData(e);
                             $(':input[type="submit"]').prop('disabled', true);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
@@ -79,9 +76,11 @@ $(function () {
                                         },
                                         type: "POST",
                                         url: app_url + "/" + language +"/drivers",
-                                        data: formData,
-                                        processData: false,  // tell jQuery not to process the data
+                                        async: true,
+                                        cache: false,
+                                        processData: false,
                                         contentType: false,
+                                        data: formData,
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
                                                 $(':input[type="submit"]').prop('disabled', false);
