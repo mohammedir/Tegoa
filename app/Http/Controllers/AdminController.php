@@ -246,31 +246,7 @@ class AdminController extends Controller
                 $data->full_name = $request->name;
                 $data->email = $request->email;
                 $data->mobile_number = $request->mobile;
-                $type = 0;
-                switch ($request->roles_id) {
-                    case 67: //Admin
-                        $type = 0;
-                        break;
-                    case 68: //Case Manager
-                        $type = 1;
-                        break;
-                    case 69: //Specialists
-                        $type = 2;
-                        break;
-                    case 70: //Facilitators
-                        $type = 3;
-                        break;
-                    case 71: //Supervisors
-                        $type = 4;
-                        break;
-                    case 72: //Case Managers Supervisors
-                        $type = 5;
-                        break;
-                    case 73: //Specialist Supervisors
-                        $type = 6;
-                        break;
-                }
-                $data->user_type = $type;
+                $data->user_type = 0;
                 $data->user_status = 1;
                 $data->roles_id = $request->roles_id;
                 $data->updated_at = Carbon::now();
