@@ -145,27 +145,46 @@
                     </div>
                     <!--end::Statistics Widget 5-->
                 </div>
+                <div class="col-xl-3">
+                    <!--begin::Statistics Widget 5-->
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body d-flex align-items-center pt-3 pb-0">
+                            <div class="d-flex flex-column flex-grow-1 py-2 py-lg-13 me-2">
+                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Total system users')</a>
+                                <span class="text fs-1 fw-bold me-2"
+                                      style="color: #ceb115 !important">  {{$mostPopularPage->page}}</span>
+
+                            </div>
+                            <span class="text-dark fs-1 fw-bold me-2">{{$mostPopularPage->count}}</span>
+
+                        </div>
+                        <!--end:: Body-->
+                    </div>
+                    <!--end::Statistics Widget 5-->    </div>
+                <!--end::Statistics Widget 5-->
             </div>
-            <!--end::Row-->
-            <!--begin::Charts Widget 1-->
-            <div class="card card-xl-stretch mb-xl-8">
-                <!--begin::Header-->
-                <div class="card-header border-0 pt-7">
-                    <!--begin::Title-->
-                    <h3 class="card-title align-items-start flex-column">
+        </div>
+        <!--end::Row-->
+        <!--begin::Charts Widget 1-->
+        <div class="card card-xl-stretch mb-xl-8">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-7">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start flex-column">
                         <span class="card-label fw-bold fs-3 mb-1">
 
                         </span>
 
-                    </h3>
-                    <!--end::Title-->
-                    <!--begin::Toolbar-->
-                    <div class="card-toolbar">
-                        <!--begin::Menu-->
-                        <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                            <span class="svg-icon svg-icon-2">
+                </h3>
+                <!--end::Title-->
+                <!--begin::Toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Menu-->
+                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                        <span class="svg-icon svg-icon-2">
 																<svg xmlns="http://www.w3.org/2000/svg" width="24px"
                                                                      height="24px" viewBox="0 0 24 24">
 																	<g stroke="none" stroke-width="1" fill="none"
@@ -181,72 +200,72 @@
 																	</g>
 																</svg>
 															</span>
-                            <!--end::Svg Icon-->
-                        </button>
-                        <!--begin::Menu 1-->
-                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
-                             id="kt_menu_63b87e7dc3642">
-                            <!--begin::Header-->
-                            <!--begin::Header-->
-                            <div class="px-7 py-5">
-                                <div class="fs-5 text-dark fw-bold">@lang('web.Filter Options')</div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Menu separator-->
-                            <div class="separator border-gray-200"></div>
-                            <!--end::Menu separator-->
-                            <!--begin::Form-->
-                            <div class="px-7 py-5">
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fw-semibold">@lang('web.From')</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <div>
-                                        <input class="form-control form-control-solid" type="date" placeholder="From"
-                                               id="start_date" name="start_date"/>
-                                    </div>
-                                    <!--end::Input-->
-                                    <!--begin::Label-->
-                                    <br>
-                                    <label class="form-label fw-semibold">@lang('web.To')</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <div>
-                                        <input class="form-control form-control-solid" type="date" placeholder="To"
-                                               id="end_date" name="end_date"/>
-                                    </div>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset"
-                                            class="btn btn-sm btn-light btn-active-light-primary me-2 reset"
-                                            data-kt-menu-dismiss="true">@lang('web.Reset')</button>
-                                    <button type="submit" class="btn btn-sm btn-primary apply"
-                                            data-kt-menu-dismiss="true">@lang('web.Apply')</button>
-                                </div>
-                                <!--end::Actions-->
-                            </div>
-                            <!--end::Form-->
-                            <!--end::Form-->
+                        <!--end::Svg Icon-->
+                    </button>
+                    <!--begin::Menu 1-->
+                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+                         id="kt_menu_63b87e7dc3642">
+                        <!--begin::Header-->
+                        <!--begin::Header-->
+                        <div class="px-7 py-5">
+                            <div class="fs-5 text-dark fw-bold">@lang('web.Filter Options')</div>
                         </div>
-                        <!--end::Menu 1-->
-                        <!--end::Menu-->
+                        <!--end::Header-->
+                        <!--begin::Menu separator-->
+                        <div class="separator border-gray-200"></div>
+                        <!--end::Menu separator-->
+                        <!--begin::Form-->
+                        <div class="px-7 py-5">
+                            <!--begin::Input group-->
+                            <div class="mb-10">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">@lang('web.From')</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <div>
+                                    <input class="form-control form-control-solid" type="date" placeholder="From"
+                                           id="start_date" name="start_date"/>
+                                </div>
+                                <!--end::Input-->
+                                <!--begin::Label-->
+                                <br>
+                                <label class="form-label fw-semibold">@lang('web.To')</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <div>
+                                    <input class="form-control form-control-solid" type="date" placeholder="To"
+                                           id="end_date" name="end_date"/>
+                                </div>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Actions-->
+                            <div class="d-flex justify-content-end">
+                                <button type="reset"
+                                        class="btn btn-sm btn-light btn-active-light-primary me-2 reset"
+                                        data-kt-menu-dismiss="true">@lang('web.Reset')</button>
+                                <button type="submit" class="btn btn-sm btn-primary apply"
+                                        data-kt-menu-dismiss="true">@lang('web.Apply')</button>
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Form-->
+                        <!--end::Form-->
                     </div>
-                    <!--end::Toolbar-->
+                    <!--end::Menu 1-->
+                    <!--end::Menu-->
                 </div>
-                <!--end::Header-->
-                <!--begin::Body-->
-                <div class="card-body">
-                    <canvas id="myBarChart"></canvas>
-                </div>
-                <!--end::Body-->
+                <!--end::Toolbar-->
             </div>
-            <!--end::Charts Widget 1-->
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body">
+                <canvas id="myBarChart"></canvas>
+            </div>
+            <!--end::Body-->
         </div>
+        <!--end::Charts Widget 1-->
+    </div>
     </div>
     <!--end::Content container-->
     </div>

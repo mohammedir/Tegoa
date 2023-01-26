@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Page;
 use App\Models\Transportation;
 use App\Models\User;
 use Carbon\Carbon;
@@ -17,13 +18,14 @@ class DashboardController extends Controller
         $users = User::all()->count();
         $passengers = User::all()->where('user_type','==',1)->count();
         $drivers = User::all()->where('user_type','==',2)->count();
+        $mostPopularPage = Page::orderBy('count', 'desc')->first();
 
         $percentPassengers = $passengers  == 0 ? 0 : $passengers / ($passengers + $drivers) * 100;
         $totalPassengers = number_format((float)$percentPassengers, 0, '.', ',');
 
         $percentDrivers = $drivers == 0 ? 0 : $drivers / ($passengers + $drivers) * 100;
         $totalDrivers = number_format((float)$percentDrivers, 0, '.', ',');
-        return view('dashboard',compact('users','passengers','drivers','totalPassengers','totalDrivers'));
+        return view('dashboard',compact('users','passengers','drivers','totalPassengers','totalDrivers','mostPopularPage'));
     }
 
     public function statistics(Request $request){
@@ -136,4 +138,5 @@ class DashboardController extends Controller
         curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
         $result = curl_exec($ch );
     }
+
 }
