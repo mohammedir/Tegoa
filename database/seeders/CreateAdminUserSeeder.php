@@ -45,7 +45,7 @@ class CreateAdminUserSeeder extends Seeder
             'home',
             'news',
             'activities',
-            'tours',
+            'tour',
             'emergencies',
             'reserves',
             'settings',

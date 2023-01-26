@@ -151,9 +151,9 @@
                         <!--begin::Body-->
                         <div class="card-body d-flex align-items-center pt-3 pb-0">
                             <div class="d-flex flex-column flex-grow-1 py-2 py-lg-13 me-2">
-                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Total system users')</a>
+                                <a class="card-title fw-bold text-primary fs-5 mb-3 d-block">@lang('web.Most Page visited')</a>
                                 <span class="text fs-1 fw-bold me-2"
-                                      style="color: #ceb115 !important">  {{$mostPopularPage->page}}</span>
+                                      style="color: #ceb115 !important">@lang('web.' . $mostPopularPage->page)</span>
 
                             </div>
                             <span class="text-dark fs-1 fw-bold me-2">{{$mostPopularPage->count}}</span>

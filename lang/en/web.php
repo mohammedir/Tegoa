@@ -64,6 +64,9 @@ return [
     'requested' => 'requested',
     'Accepted' => 'accepted',
     'rejected' => 'rejected',
+    'home' => 'Home',
+    'reserves' => 'Reserves',
+
 
     /*users*/
     'Admin List' => 'Admins List',
@@ -162,6 +165,7 @@ return [
     'PhotosNews' => 'Photos',
     'Edit_news_info' => 'Edit news info',
     'News_Details' => 'News Details',
+    'Most Page visited' => 'Most visited pages',
 
 
     'titleEnter' => 'Enter a news title',

@@ -65,6 +65,8 @@ return [
     'requested' => 'طلب',
     'Accepted' => 'مقبول',
     'rejected' => 'مرفوض',
+    'home' => 'الصفحة الرئيسية',
+    'reserves' => 'الحوجوزات',
 
     /*users*/
     'Admin List' => 'قائمة المشرفين',
@@ -165,6 +167,7 @@ return [
     'PhotosNews' => 'صورة',
     'Edit_news_info' => 'تعديل معلومات الأخبار',
     'News_Details' => 'بيانات الخبر',
+    'Most Page visited' => 'اكثر الصفحات زيارة',
 
 
     'titleEnter' => 'أدخل عنوان الخبر',
