@@ -53,7 +53,7 @@ class AuthController extends Controller
                 $user->address = $request->address;
                 $user->gender = $request->gender;
                 $user->user_status = 1;
-                $user->user_type = 1;
+                $user->user_type = $request->user_type;
                 $user->fcm_token = $fcm_token;
                 $user->save();
                 $token = $user->createToken('passenger');
@@ -140,7 +140,7 @@ class AuthController extends Controller
                 }
                 $user->address = $request->address;
                 $user->fcm_token = $fcm_token;
-                $user->user_type = 2;
+                $user->user_type = $request->user_type;
                 $user->save();
                 $car = new Car();
                 $car->user_id = $user->id;
