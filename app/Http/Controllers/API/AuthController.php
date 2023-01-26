@@ -57,7 +57,10 @@ class AuthController extends Controller
                 $token = $user->createToken('passenger');
                 $user->update(['api_token' =>$token->plainTextToken]);
                 $user->sendEmailVerificationNotification();
-                return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
+                $res = [
+                    'user' => $user,
+                ];
+                return  $this->api_response(200,true,trans('api.register passenger done') , $res , 200);
             }catch (Exception $e){
                 $user->findOrFail($user->id)->delete();
                 return  $this->setError(200 ,false, trans('api.An error occurred during the sending process, please try again') , 200);
@@ -202,7 +205,6 @@ class AuthController extends Controller
     }
 
     public function passenger_login(Request $request){
-        $fcm_token = $request->header('X-User-FCM-Token');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
@@ -220,7 +222,6 @@ class AuthController extends Controller
             $data = Auth::user();
             $token = $data->createToken('passenger');
             $data->api_token = $token->plainTextToken;
-            $data->fcm_token = $fcm_token;
             $data->save();
 
             return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
@@ -231,7 +232,6 @@ class AuthController extends Controller
         }
     }
     public function driver_login(Request $request){
-        $fcm_token = $request->header('X-User-FCM-Token');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
@@ -250,7 +250,6 @@ class AuthController extends Controller
             $data = Auth::user();
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
-            $data->fcm_token = $fcm_token;
             $data->save();
 
             return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
