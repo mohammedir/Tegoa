@@ -22,7 +22,6 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
-        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -53,23 +52,21 @@ class AuthController extends Controller
                 $user->address = $request->address;
                 $user->gender = $request->gender;
                 $user->user_status = 1;
-                $user->user_type = $request->user_type;
-                $user->fcm_token = $fcm_token;
+                $user->user_type = 1;
                 $user->save();
                 $token = $user->createToken('passenger');
                 $user->update(['api_token' =>$token->plainTextToken]);
                 $user->sendEmailVerificationNotification();
                 return  $this->api_response(200,true,trans('api.register passenger done') , $user , 200);
-            }catch (Exception){
+            }catch (Exception $e){
                 $user->findOrFail($user->id)->delete();
-                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+                return  $this->setError(200 ,false, trans('api.An error occurred during the sending process, please try again') , 200);
             }
         }else{
-            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
+            return  $this->setError(200 ,false, $validator->errors()->first() , 200);
         }
     }
     public function driver_register(Request $request){
-        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -139,8 +136,7 @@ class AuthController extends Controller
                     $user->driverlicense = $comPic;
                 }
                 $user->address = $request->address;
-                $user->fcm_token = $fcm_token;
-                $user->user_type = $request->user_type;
+                $user->user_type = 2;
                 $user->save();
                 $car = new Car();
                 $car->user_id = $user->id;
@@ -194,7 +190,7 @@ class AuthController extends Controller
                 $user->sendEmailVerificationNotification();
                 return  $this->api_response(200,true,trans('api.account has been created but car is under review, we will inform you when it get reviewed') , $res , 200);
 
-            }catch (Exception){
+            }catch (Exception $e){
                 $user->findOrFail($user->id)->delete();
                 return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
             }
@@ -208,31 +204,31 @@ class AuthController extends Controller
     public function passenger_login(Request $request){
         $fcm_token = $request->header('X-User-FCM-Token');
         $input = $request->all();
-      $validation = Validator::make($input,[
-          'email' => 'required|email',
-          'password' => 'required',
-      ],[
-          'email.required' => trans("api.email field is required"),
-          'email.email' => trans("api.The email must be a valid email address"),
-          'password.required' => trans("api.password field is required"),
-      ]);
+        $validation = Validator::make($input,[
+            'email' => 'required|email',
+            'password' => 'required',
+        ],[
+            'email.required' => trans("api.email field is required"),
+            'email.email' => trans("api.The email must be a valid email address"),
+            'password.required' => trans("api.password field is required"),
+        ]);
 
-      if ($validation->fails()){
-          return  $this->setError(400 ,false, $validation->errors()->first(), 400);
-      }
-      if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
-          $data = Auth::user();
-          $token = $data->createToken('passenger');
-          $data->api_token = $token->plainTextToken;
-          $data->fcm_token = $fcm_token;
-          $data->save();
+        if ($validation->fails()){
+            return  $this->setError(400 ,false, $validation->errors()->first(), 400);
+        }
+        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
+            $data = Auth::user();
+            $token = $data->createToken('passenger');
+            $data->api_token = $token->plainTextToken;
+            $data->fcm_token = $fcm_token;
+            $data->save();
 
-          return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
-      }else{
-          return  $this->setError(400 ,false, trans('api.user not found') , 400);
+            return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+        }else{
+            return  $this->setError(400 ,false, trans('api.user not found') , 400);
 
 
-      }
+        }
     }
     public function driver_login(Request $request){
         $fcm_token = $request->header('X-User-FCM-Token');
