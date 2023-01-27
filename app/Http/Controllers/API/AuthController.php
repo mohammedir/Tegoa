@@ -223,8 +223,10 @@ class AuthController extends Controller
             $token = $data->createToken('passenger');
             $data->api_token = $token->plainTextToken;
             $data->save();
-
-            return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+            $res = [
+                'user' => $data,
+            ];
+            return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
         }else{
             return  $this->setError(400 ,false, trans('api.user not found') , 400);
 
@@ -251,8 +253,11 @@ class AuthController extends Controller
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
             $data->save();
+            $res = [
+                'user' => $data,
+            ];
 
-            return  $this->api_response(200 ,true,trans('api.login done') , $data , 200);
+            return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
         }else{
             return  $this->setError(400 ,false, trans('api.user not found') , 400);
 
