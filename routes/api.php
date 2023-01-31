@@ -51,7 +51,7 @@ Route::controller(GuestController::class)
 Route::controller(PassengerController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
-        Route::get('/passenger/edit_profile', 'edit_profile')->name('news');
+        Route::get('/passenger/edit_profile', 'edit_profile');
         Route::post('/passenger/update_profile', 'update_profile')->middleware('localization');
         Route::post('/passenger/change_password', 'change_password')->middleware('localization');
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
@@ -65,12 +65,15 @@ Route::controller(PassengerController::class)
 Route::controller(DriverController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
+        Route::get('/driver/edit_profile', 'edit_profile');
+        Route::post('/driver/update_profile', 'update_profile')->middleware('localization');
+        Route::get('/driver/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
+        Route::post('/driver/change_password', 'change_password')->middleware('localization');
+        Route::post('/driver/edit_car', 'update_car')->middleware('localization');
+        Route::post('/driver/find_transportion', 'find_transportion');
         Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
         Route::post('/driver/start_trip', 'start_trip');
         Route::post('/driver/end_trip', 'end_trip');
-        Route::post('/driver/change_password', 'change_password');
-        Route::get('/driver/reset-password-with-email', 'reset_password_with_email');
-        Route::post('/driver/find_transportion', 'find_transportion');
         Route::post('/driver/rating ', 'rating')->middleware('localization');
         Route::post('/driver/report_passenger ', 'report_passenger')->middleware('localization');
 

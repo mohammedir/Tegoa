@@ -42,10 +42,13 @@ class NewPasswordController extends Controller
         ]);
         if ($validator->passes()){
             $passenger = User::query()->where('api_token','=',$request->token)->get()->first();
+            if($passenger){
             $passenger->password = Hash::make($request->password);
             $passenger->save();
-            return redirect()->back()->with('message', 'Password changed success ');
-
+            return redirect()->back()->with('message', trans('web.Password changed success'));
+            }else{
+                return redirect()->back()->with('message', trans('web.The current link is not valid. Please request a new link'));
+            }
         }else{
             return
                   back()->withInput($request->only('email'))

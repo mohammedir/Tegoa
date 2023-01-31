@@ -332,4 +332,8 @@ return [
     'minPrice' => 'يجب ألا يقل هذا الحقل عن 1 أحرف',
 
     'in' => 'النوع المحدد غير صالح',
+
+    'Password changed success' => 'تم تغيير كلمة المرور بنجاح',
+    'The current link is not valid. Please request a new link' => 'الرابط الحالي غير صالح. الرجاء طلب ارتباط جديد',
+
 ];

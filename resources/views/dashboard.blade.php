@@ -167,7 +167,7 @@
         </div>
         <!--end::Row-->
         <!--begin::Charts Widget 1-->
-        <div class="card card-xl-stretch mb-xl-8">
+        <div style="margin: 1rem 2rem" class="card card-xl-stretch mb-xl-8">
             <!--begin::Header-->
             <div class="card-header border-0 pt-7">
                 <!--begin::Title-->
@@ -371,7 +371,6 @@
         window.onload = function () {
             startFun();
         };
-
         function startFun() {
             let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
             if (chartStatus != undefined) {
