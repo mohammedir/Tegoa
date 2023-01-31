@@ -173,7 +173,7 @@ class AuthController extends Controller
                     $car->passengersinsurance = $comPic;
                 }
                 $car->save();
-                if ($request->hasFile('carphotos')) {
+                /*if ($request->hasFile('carphotos')) {
                     $photos = new Photos();
                     $compFileName =  $request->file('carphotos')->getClientOriginalName();
                     $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
@@ -183,6 +183,20 @@ class AuthController extends Controller
                     $photos->images = $comPic;
                     $photos->car_id = $car->id;
                     $photos->save();
+                }*/
+                if ($files =$request->file('carphotos')) {
+                    $photos = new Photos();
+                    foreach ($files as $file) {
+                        $compFileName =  $file->getClientOriginalName();
+                        $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                        $extenshion = $file->getClientOriginalExtension();
+                        $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                        $path = $file->move('images/cars',$comPic);
+                        Photos::create([
+                            'images' => $comPic,
+                            'car_id' => $car->id,
+                        ]);
+                    }
                 }
                 $token = $user->createToken('driver');
                 $user->update(['api_token' =>$token->plainTextToken]);
@@ -250,11 +264,14 @@ class AuthController extends Controller
         }
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
+            $car = Car::query()->where('user_id','=',$data->id)->get()->first();
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
             $data->save();
             $res = [
                 'user' => $data,
+                'car' => $car
+
             ];
 
             return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);

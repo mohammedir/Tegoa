@@ -331,4 +331,7 @@ return [
     'minPrice' => 'This field must be at least 1 characters',
 
 
+    'Password changed success' => 'Password changed success',
+    'The current link is not valid. Please request a new link' => 'The current link is not valid. Please request a new link',
+
 ];

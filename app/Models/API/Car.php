@@ -23,11 +23,15 @@ class Car extends Model
         'passengersinsurance',
 
     ];
+    protected $casts = [
+        'carphotos' => 'array'
+    ];
 
-    public function getCarphotosAttribute($value)
+
+    /*public function getCarphotosAttribute($value)
     {
         return url(asset('images/cars/'.$value));
-    }
+    }*/
     public function getCarlicenseAttribute($value)
     {
         return url(asset('images/cars/'.$value));
@@ -39,6 +43,11 @@ class Car extends Model
     public function getPassengersinsuranceAttribute($value)
     {
         return url(asset('images/cars/'.$value));
+    }
+    protected $appends = ['gallerys'];
+    public function getGallerysAttribute($id)
+    {
+        return  Photos::query()->where('car_id','=',$id)->select('car_id','images')->get();;
     }
 
 }
