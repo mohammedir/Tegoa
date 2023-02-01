@@ -10,6 +10,7 @@ use App\Mail\updateProfile;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
+use App\Models\Place;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,60 +25,62 @@ class PassengerController extends Controller
 
     //2
 
-   /* public function index(Request $request){
-        return $request->user();
-    }
-    public function register(Request $request){
+    /* public function index(Request $request){
+         return $request->user();
+     }
+     public function register(Request $request){
 
-        $validator = Validator::make($request->all(),[
-            'full_name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
-        ]);
-        if ($validator->passes()) {
-            $user = new User();
-            $user->full_name = $request->full_name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->user_type = 1;
-            $user->save();
+         $validator = Validator::make($request->all(),[
+             'full_name' => 'required',
+             'email' => 'required|email|unique:users',
+             'password' => 'required|confirmed',
+         ]);
+         if ($validator->passes()) {
+             $user = new User();
+             $user->full_name = $request->full_name;
+             $user->email = $request->email;
+             $user->password = Hash::make($request->password);
+             $user->user_type = 1;
+             $user->save();
 
-            return $user;
-        }else{
-            return response()->json(['error'=>$validator->errors()->all()],409);
+             return $user;
+         }else{
+             return response()->json(['error'=>$validator->errors()->all()],409);
 
-        }
-    }
+         }
+     }
 
-    public function login(Request $request){
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        if (Auth::attempt($credentials)){
-            $user = Auth::user();
-            $token = md5(time().'.'.md5($request->email));
-            $user->forceFill([
-                'api_token' => $token,
-            ])->save();
-            return response()->json([
-                'token' => $token
-            ]);
-        }
-        return response()->json([
-            'message' => 'The provided  credentials do not match our records'
-        ]);
+     public function login(Request $request){
+         $credentials = $request->validate([
+             'email' => 'required|email',
+             'password' => 'required'
+         ]);
+         if (Auth::attempt($credentials)){
+             $user = Auth::user();
+             $token = md5(time().'.'.md5($request->email));
+             $user->forceFill([
+                 'api_token' => $token,
+             ])->save();
+             return response()->json([
+                 'token' => $token
+             ]);
+         }
+         return response()->json([
+             'message' => 'The provided  credentials do not match our records'
+         ]);
 
-    }
+     }
 
-    public function logout(Request $request){
-        return $request;
-        return response()->json(['message'=>'success']);
-    }*/
+     public function logout(Request $request){
+         return $request;
+         return response()->json(['message'=>'success']);
+     }*/
 
     public function edit_profile(Request $request){
-
-        return  $this->api_response(200,true,trans('api.user info ') , $request->user() , 200);
+        $res = [
+            'user' => $request->user(),
+        ];
+        return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
 
     }
     public function update_profile(Request $request){
@@ -115,10 +118,15 @@ class PassengerController extends Controller
                     $passenger->full_name = $request->full_name;
                     $passenger->mobile_number = $request->mobile_number;
                     $passenger->address = $request->address;
-                    $passenger->fcm_token = $fcm_token;
-                    Mail::to($request->email)->send(new updateProfile($passenger));
+                    if ($fcm_token){
+                        $passenger->fcm_token = $fcm_token;
+                    }
+                    Mail::to($passenger->email)->send(new updateProfile($passenger));
                     $passenger->save();
-                    return  $this->api_response(200,true,trans('api.The data has been modified successfully') , $passenger , 200);
+                    $res = [
+                        'user' => $passenger,
+                    ];
+                    return  $this->api_response(200,true,trans('api.The data has been modified successfully') , $res , 200);
                 }catch (Exception $e){
                     return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
                 }
@@ -131,13 +139,11 @@ class PassengerController extends Controller
             return  $this->setError(500,false, $validator->errors()->first() , 500);
 
         }
-        }
-
+    }
     public function change_password(Request $request){
         $validator = Validator::make($request->all(),[
             'current_password' => 'required',
             'new_password' => 'required||min:8|confirmed',
-
         ]);
         if ($validator->passes()) {
             $passenger = User::query()->find($request->user()->id);
@@ -146,8 +152,11 @@ class PassengerController extends Controller
                 $passenger->password = Hash::make($request->new_password);
                 $passenger->fcm_token = $fcm_token;
                 $passenger->save();
+                $res = [
+                    'user' => $request->user(),
+                ];
                 Mail::to($passenger->email)->send(new updatePassword($passenger));
-                return  $this->api_response(200,true,trans('api.changed password successfully') , $request->user() , 200);
+                return  $this->api_response(200,true,trans('api.changed password successfully') , $res , 200);
             }else{
                 return  $this->setError(500,false, trans('api.the current password is not true') , 500);
             }
@@ -156,7 +165,6 @@ class PassengerController extends Controller
 
         }
     }
-
     public function reset_password_with_email(Request $request){
         try {
             $passenger = User::query()->find($request->user()->id);
@@ -169,13 +177,10 @@ class PassengerController extends Controller
     public function reset_password_view(Request $request , $id){
         $passenger = User::query()->where('api_token','=',$id)->get()->first();
         return view('reset_password_view',compact('passenger'));
-
     }
-
     public function update_password_with_email(Request $request){
         $validator = Validator::make($request->all(),[
             'password' => 'required|min:8|confirmed',
-
         ]);
         if ($validator->passes()){
             $passenger = User::query()->find($request->user_id);
@@ -188,7 +193,6 @@ class PassengerController extends Controller
 
         }
     }
-
     public function find_transportion(Request $request){
         $validator = Validator::make($request->all(),[
             'lat_from' => 'required',
@@ -240,7 +244,7 @@ class PassengerController extends Controller
                     return  $this->setError(403,false, "api.Passenger email, no verification" , 500);
                 }
             }else{
-               return  $this->setError(500,false, "api.Passenger id not correct" , 500);
+                return  $this->setError(500,false, "api.Passenger id not correct" , 500);
 
             }
         }
@@ -294,6 +298,20 @@ class PassengerController extends Controller
         }
     }
 
+    public function get_data_expected(Request $request){
+        $settings = Settings::query()->find(1);
+        $places =  Place::query()->find($request->destination_id);
+        $price = $settings->public_price_per_km;
+        if ($request->vehicle_type == 2)
+            $price = $settings->private_price_per_km;
+
+        $originLatLng = [$request->lat_from,$request->lng_from];
+        $destinationLatLng = [$places->lat,$places->long];
+        $apiKey = 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA';
+        $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
+        return $this->api_response(200, true, trans('api.data expected'), $result, 200);
+
+    }
 
     public function settings(){
         $settings = Settings::query()->get();

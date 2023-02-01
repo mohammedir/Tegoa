@@ -7,11 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Mail\changePassword;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
+use App\Models\API\Car;
+use App\Models\API\Photos;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -21,76 +24,177 @@ use Exception;
 
 class DriverController extends Controller
 {
-
-
+    /* I use it to get data driver*/
     public function edit_profile(Request $request){
+        $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
+        $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+        foreach ($carphotos as  $key=>$carphotos){
+            $image[$key] = url(asset('/images/cars/'.$carphotos->images));
+            $car->carphotos = $image;
+        }
 
-        return  $this->api_response(200,true,trans('api.user info ') , $request->user() , 200);
+        $res = [
+            'user' => $request->user(),
+            'car' => $car,
+        ];
+        return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
 
     }
+    /* I use this function to update the data driver*/
     public function update_profile(Request $request){
+        $driver = User::query()->find($request->user()->id);
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
+            'personalphoto' => 'required',
             'full_name' => 'required',
             'email' => 'required',
             'mobile_number' => 'required',
             'address' => 'required',
 
+        ],[
+            'personalphoto.required' => trans("api.personalphoto field is required"),
+            'full_name.required' => trans("api.full name field is required"),
+            'mobile_number.required' => trans("api.mobile_number field is required"),
+            'mobile_number.unique' => trans("api.The mobile number has already been taken"),
+            'address.required' => trans("api.address field is required"),
         ]);
         if ($validator->passes()) {
-            $passenger = User::query()->find($request->user()->id);
-            $passenger->full_name = $request->full_name;
-            $passenger->email = $request->email;
-            $passenger->mobile_number = $request->mobile_number;
-            $passenger->address = $request->address;
-            $passenger->save();
-            Mail::to($request->email)->send(new updateProfile($passenger));
-
-            return  $this->api_response(200,true,trans('api.user info ') , $passenger , 200);
-
+            try {
+                if ($request->hasFile('personalphoto')){
+                    $compFileName =  $request->file('personalphoto')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('personalphoto')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('personalphoto')->move('images/users',$comPic);
+                    $driver->personalphoto = $comPic;
+                }
+                $driver->full_name = $request->full_name;
+                $driver->mobile_number = $request->mobile_number;
+                $driver->address = $request->address;
+                if ($fcm_token){
+                    $driver->fcm_token = $fcm_token;
+                }
+                Mail::to($driver->email)->send(new updateProfile($driver));
+                $driver->save();
+                $res = [
+                    'user' => $driver,
+                ];
+                return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
+            }catch (Exception $e){
+                return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
+            }
 
         }else{
             return  $this->setError(500,false, $validator->errors()->first() , 500);
 
         }
         }
-
-    public function change_password(Request $request){
+    public function update_car(Request $request){
+        $driver = User::query()->find($request->user()->id);
+        $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
-            'current_password' => 'required',
-            'new_password' => 'required||min:8|confirmed',
+            'vehicle_type' => 'required',
+            'car_number' => $request->car_number == $car->car_number ? '' : 'required|unique:cars',
+            'car_brand' => 'required',
+            'insurance_number' => 'required',
+            'insurance_expiry_date' => 'required|date',
+            'carlicense' => 'required',
+            'carphotos' => 'required',
 
+
+        ],[
+            'vehicle_type.required' => trans("api.The vehicle type field is required."),
+            'car_number.required' => trans("api.The car number field is required"),
+            'car_number.unique' => trans("api.The car number has already been taken"),
+            'car_brand.required' => trans("api.The car brand field is required"),
+            'insurance_number.required' => trans("api.The insurance number field is required"),
+            'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
+            'carlicense.required' => trans("api.The carlicense field is required"),
+            'carphotos.required' => trans("api.carphotos field is required"),
         ]);
         if ($validator->passes()) {
-            $passenger = User::query()->find($request->user()->id);
-            if (Hash::check($request->current_password,$passenger->password) ){
-                $passenger->password = Hash::make($request->new_password);
-                $passenger->save();
-                Mail::to($passenger->email)->send(new updatePassword($passenger));
-                return  $this->api_response(200,true,trans('api.changed password successfully ') , $request->user() , 200);
-            }else{
-                return  $this->setError(500,false, trans('api.the current password is not true') , 500);
+            try {
+                $car->type = $request->vehicle_type;
+                $car->car_number = $request->car_number;
+                $car->car_brand = $request->car_brand;
+                $car->insurance_number = $request->insurance_number;
+                $car->insurance_expiry_date = $request->insurance_expiry_date;
+
+                if ($request->hasFile('carlicense')) {
+                    $compFileName =  $request->file('carlicense')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('carlicense')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('carlicense')->move('images/cars',$comPic);
+                    $car->carlicense = $comPic;
+                }
+                if ($files =$request->file('carphotos')) {
+                    $photos = new Photos();
+                    Photos::query()->where('car_id','=',$car->id)->delete();
+
+                    foreach ($files as $file) {
+                        $compFileName =  $file->getClientOriginalName();
+                        $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                        $extenshion = $file->getClientOriginalExtension();
+                        $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                        $path = $file->move('images/cars',$comPic);
+
+                        Photos::create([
+                            'images' => $comPic,
+                            'car_id' => $car->id,
+                        ]);
+                    }
+                }
+
+                Mail::to($driver->email)->send(new updateProfile($driver));
+                $car->save();
+                $res = [
+                    'user' => $driver,
+                    'car' => $car,
+                ];
+                return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
+            }catch (Exception $e){
+                return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
             }
+
         }else{
             return  $this->setError(500,false, $validator->errors()->first() , 500);
 
         }
     }
-
+    public function change_password(Request $request){
+        $validator = Validator::make($request->all(),[
+            'current_password' => 'required',
+            'new_password' => 'required||min:8|confirmed',
+        ]);
+        if ($validator->passes()) {
+            $driver = User::query()->find($request->user()->id);
+            if (Hash::check($request->current_password,$driver->password) ){
+                $driver->password = Hash::make($request->new_password);
+                $driver->save();
+                Mail::to($driver->email)->send(new updatePassword($driver));
+                return  $this->api_response(200,true,trans('api.changed password successfully ') , $request->user() , 200);
+            }else{
+                return  $this->setError(200,false, trans('api.the current password is not true') , 200);
+            }
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
+        }
+    }
     public function reset_password_with_email(Request $request){
         try {
-            $passenger = User::query()->find($request->user()->id);
-            Mail::to($passenger->email)->send(new changePassword($passenger));
+            $driver = User::query()->find($request->user()->id);
+            Mail::to($driver->email)->send(new changePassword($driver));
             return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it ') , "" , 200);
         } catch (\Exception $e) {
-            return  $this->setError(500,false, "api.Something went wrong, please try again later!" , 500);
+            return  $this->setError(200,false, "api.Something went wrong, please try again later!" , 200);
         }
     }
     public function reset_password_view(Request $request , $id){
         $passenger = User::query()->where('api_token','=',$id)->get()->first();
         return view('reset_password_view',compact('passenger'));
-
     }
-
     public function update_password_with_email(Request $request){
         $validator = Validator::make($request->all(),[
             'password' => 'required|min:8|confirmed',
@@ -101,50 +205,41 @@ class DriverController extends Controller
             $passenger->password = Hash::make($request->password);
             $passenger->save();
             \Illuminate\Support\Facades\Session::flash('message', 'This is a message!');
-
         }else{
             \Illuminate\Support\Facades\Session::flash('message', $validator->errors()->first());
-
         }
     }
-
+    public function available_transportion(){
+        $available_transportion = TransportationRequests::query()->where('status','=',1)->get();
+        return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
+    }
     public function accept_transportion(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
-
         ]);
-        /*1*/
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
-            if ($driver || $transportation){
+            if ($driver && $transportation){
                 if ($transportation->status == 1){
                   $transportation->driver_id = $request->user()->id;
                   $transportation->status = 2;
                   $transportation->save();
                   return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
-                }else if ($transportation->status == 2 &&$transportation->driver_id == $request->user()->id){
+                }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else{
-                    return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
+                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
                 }
-
-
             }else{
-                return  $this->setError(400 ,false, trans('api.driver or transportation not found') , 400);
-
+                return  $this->setError(200 ,false, trans('api.driver or transportation not found') , 200);
             }
         }
-
-
-
     }
-
     public function start_trip(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
         ]);
-        /*1*/
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
@@ -155,23 +250,18 @@ class DriverController extends Controller
                     $transportation->save();
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
                 }else{
-                    return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
+                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
                 }
-
-
             }else{
-                return  $this->setError(400 ,false, trans('api.driver or transportation not found') , 400);
-
+                return  $this->setError(200 ,false, trans('api.driver or transportation not found') , 200);
             }
         }
-
     }
     public function end_trip(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
             'time_end_trip' => 'required',
         ]);
-        /*1*/
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
@@ -182,19 +272,15 @@ class DriverController extends Controller
                     $transportation->save();
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
                 }else{
-                    return  $this->setError(400 ,false, trans('api.The order was taken by another driver') , 400);
+                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
                 }
 
-
             }else{
-                return  $this->setError(400 ,false, trans('api.driver or transportation not found') , 400);
+                return  $this->setError(200 ,false, trans('api.driver or transportation not found') , 200);
 
             }
         }
-
     }
-
-
     public function rating(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
@@ -206,7 +292,6 @@ class DriverController extends Controller
             $transportation->save();
         }
         return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
-
     }
     public function report_passenger(Request $request){
         $validator = Validator::make($request->all(),[
@@ -222,6 +307,5 @@ class DriverController extends Controller
     public function settings(){
         $settings = Settings::query()->get();
         return  $this->api_response(200,true,trans('api.Settings ') , $settings , 200);
-
     }
 }

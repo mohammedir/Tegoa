@@ -50,4 +50,19 @@ function getUserName($id){
     return $user->full_name;
 }
 
+function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , $price)
+{
+    $client =  new \yidas\googleMaps\Client(['key'=>$apiKey]);
 
+    $response = $client->distanceMatrix(implode(',', $originLatLng), implode(',', $destinationLatLng));
+    //dd($response['rows'][0]['elements'][0]['distance']['text']);
+    $distance = $response['rows'][0]['elements'][0]['distance']['text'];
+    $duration = $response['rows'][0]['elements'][0]['duration']['text'];
+
+
+    return [
+        'distance' => $distance,
+        'arrival_time' => $duration,
+        'expected_cost' => ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price
+    ];
+}
