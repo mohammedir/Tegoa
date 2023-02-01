@@ -22,6 +22,7 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -198,6 +199,11 @@ class AuthController extends Controller
                         ]);
                     }
                 }
+                $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+                foreach ($carphotos as  $key=>$carphotos){
+                    $image[$key] = url(asset('/images/cars/'.$carphotos->images));
+                    $car->carphotos = $image;
+                }
                 $token = $user->createToken('driver');
                 $user->update(['api_token' =>$token->plainTextToken]);
                 $res = [
@@ -265,6 +271,13 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
             $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+            $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+
+            $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+            foreach ($carphotos as  $key=>$carphotos){
+                $image[$key] = url(asset('/images/cars/'.$carphotos->images));
+                $car->carphotos = $image;
+            }
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
             $data->save();

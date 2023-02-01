@@ -10,6 +10,7 @@ use App\Mail\updateProfile;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
+use App\Models\Place;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -139,12 +140,10 @@ class PassengerController extends Controller
 
         }
     }
-
     public function change_password(Request $request){
         $validator = Validator::make($request->all(),[
             'current_password' => 'required',
             'new_password' => 'required||min:8|confirmed',
-
         ]);
         if ($validator->passes()) {
             $passenger = User::query()->find($request->user()->id);
@@ -166,7 +165,6 @@ class PassengerController extends Controller
 
         }
     }
-
     public function reset_password_with_email(Request $request){
         try {
             $passenger = User::query()->find($request->user()->id);
@@ -179,13 +177,10 @@ class PassengerController extends Controller
     public function reset_password_view(Request $request , $id){
         $passenger = User::query()->where('api_token','=',$id)->get()->first();
         return view('reset_password_view',compact('passenger'));
-
     }
-
     public function update_password_with_email(Request $request){
         $validator = Validator::make($request->all(),[
             'password' => 'required|min:8|confirmed',
-
         ]);
         if ($validator->passes()){
             $passenger = User::query()->find($request->user_id);
@@ -198,7 +193,6 @@ class PassengerController extends Controller
 
         }
     }
-
     public function find_transportion(Request $request){
         $validator = Validator::make($request->all(),[
             'lat_from' => 'required',
@@ -304,6 +298,20 @@ class PassengerController extends Controller
         }
     }
 
+    public function get_data_expected(Request $request){
+        $settings = Settings::query()->find(1);
+        $places =  Place::query()->find($request->destination_id);
+        $price = $settings->public_price_per_km;
+        if ($request->vehicle_type == 2)
+            $price = $settings->private_price_per_km;
+
+        $originLatLng = [$request->lat_from,$request->lng_from];
+        $destinationLatLng = [$places->lat,$places->long];
+        $apiKey = 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA';
+        $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
+        return $this->api_response(200, true, trans('api.data expected'), $result, 200);
+
+    }
 
     public function settings(){
         $settings = Settings::query()->get();

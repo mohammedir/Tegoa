@@ -17,7 +17,6 @@ class Car extends Model
         'created_at', 'updated_at'
     ];
     protected $fillable = [
-        'carphotos',
         'carlicense',
         'carinsurance',
         'passengersinsurance',
