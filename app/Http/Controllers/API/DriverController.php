@@ -24,7 +24,7 @@ use Exception;
 
 class DriverController extends Controller
 {
-    /* I use it to get data driver*/
+    /* I use it to get data driver.*/
     public function edit_profile(Request $request){
         $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
         $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
