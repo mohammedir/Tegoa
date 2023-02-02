@@ -22,7 +22,7 @@ use Exception;
 
 class PassengerController extends Controller
 {
-    //2
+    //
     /* public function index(Request $request){
          return $request->user();
      }
