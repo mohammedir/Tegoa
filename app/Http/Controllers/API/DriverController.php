@@ -70,14 +70,6 @@ class DriverController extends Controller
                 $driver->full_name = $request->full_name;
                 $driver->mobile_number = $request->mobile_number;
                 $driver->address = $request->address;
-                if ($request->hasFile('driverlicense')) {
-                    $compFileName =  $request->file('driverlicense')->getClientOriginalName();
-                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                    $extenshion = $request->file('driverlicense')->getClientOriginalExtension();
-                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                    $path = $request->file('driverlicense')->move('images/users',$comPic);
-                    $driver->driverlicense = $comPic;
-                }
                 if ($fcm_token){
                     $driver->fcm_token = $fcm_token;
                 }
@@ -127,7 +119,14 @@ class DriverController extends Controller
                 $car->car_brand = $request->car_brand;
                 $car->insurance_number = $request->insurance_number;
                 $car->insurance_expiry_date = $request->insurance_expiry_date;
-
+                if ($request->hasFile('driverlicense')) {
+                    $compFileName =  $request->file('driverlicense')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('driverlicense')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('driverlicense')->move('images/users',$comPic);
+                    $driver->driverlicense = $comPic;
+                }
                 if ($request->hasFile('carlicense')) {
                     $compFileName =  $request->file('carlicense')->getClientOriginalName();
                     $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
@@ -135,6 +134,22 @@ class DriverController extends Controller
                     $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
                     $path = $request->file('carlicense')->move('images/cars',$comPic);
                     $car->carlicense = $comPic;
+                }
+                if ($request->hasFile('carinsurance')) {
+                    $compFileName =  $request->file('carinsurance')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('carinsurance')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('carinsurance')->move('images/cars',$comPic);
+                    $car->carinsurance = $comPic;
+                }
+                if ($request->hasFile('passengersinsurance')) {
+                    $compFileName =  $request->file('passengersinsurance')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('passengersinsurance')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
+                    $car->passengersinsurance = $comPic;
                 }
                 if ($files =$request->file('carphotos')) {
                     $photos = new Photos();

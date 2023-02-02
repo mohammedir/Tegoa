@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'driverlicense'
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -56,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'roles_name'  => 'array'
     ];
 
-    public function getPersonalphotoAttribute($value)
+    public function getPersonalPhotoAttribute($value)
     {
         return url(asset('images/users/'.$value));
     }
