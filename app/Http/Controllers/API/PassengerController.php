@@ -22,9 +22,7 @@ use Exception;
 
 class PassengerController extends Controller
 {
-
     //2
-
     /* public function index(Request $request){
          return $request->user();
      }
@@ -307,7 +305,7 @@ class PassengerController extends Controller
 
         $originLatLng = [$request->lat_from,$request->lng_from];
         $destinationLatLng = [$places->lat,$places->long];
-        $apiKey = 'AIzaSyBSNQLhR2yEuFkYAoU_q4sXlvsd_8lOMBA';
+        $apiKey = $settings->map_key;
         $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
         return $this->api_response(200, true, trans('api.data expected'), $result, 200);
 
