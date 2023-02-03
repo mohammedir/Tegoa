@@ -68,7 +68,8 @@ class DriverController extends Controller
                     $driver->personalphoto = $comPic;
                 }
                 $driver->full_name = $request->full_name;
-                $driver->mobile_number = $request->mobile_number;
+                if ($request->mobile_number != $request->mobile_number)
+                    $driver->mobile_number = $request->mobile_number;
                 $driver->address = $request->address;
                 if ($fcm_token){
                     $driver->fcm_token = $fcm_token;
@@ -80,7 +81,7 @@ class DriverController extends Controller
                 ];
                 return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
             }catch (Exception $e){
-                return  $this->setError(200 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 200);
+                return  $this->setError(200 ,false, $e , 200);
             }
 
         }else{
@@ -119,6 +120,14 @@ class DriverController extends Controller
                 $car->car_brand = $request->car_brand;
                 $car->insurance_number = $request->insurance_number;
                 $car->insurance_expiry_date = $request->insurance_expiry_date;
+                if ($request->hasFile('personalphoto')){
+                    $compFileName =  $request->file('personalphoto')->getClientOriginalName();
+                    $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
+                    $extenshion = $request->file('personalphoto')->getClientOriginalExtension();
+                    $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
+                    $path = $request->file('personalphoto')->move('images/users',$comPic);
+                    $driver->personalphoto = $comPic;
+                }
                 if ($request->hasFile('driverlicense')) {
                     $compFileName =  $request->file('driverlicense')->getClientOriginalName();
                     $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
@@ -207,17 +216,18 @@ class DriverController extends Controller
 
                 Mail::to($driver->email)->send(new updateProfile($driver));
                 $car->save();
+                $driver->save();
                 $res = [
                     'user' => $driver,
                     'car' => $car,
                 ];
                 return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
             }catch (Exception $e){
-                return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
+                return  $this->setError(200 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 200);
             }
 
         }else{
-            return  $this->setError(500,false, $validator->errors()->first() , 500);
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
 
         }
     }
