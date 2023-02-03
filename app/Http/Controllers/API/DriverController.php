@@ -47,7 +47,7 @@ class DriverController extends Controller
         $validator = Validator::make($request->all(),[
             'personalphoto' => 'required',
             'full_name' => 'required',
-            'mobile_number' => 'required',
+            'mobile_number' => $request->mobile_number == $request->mobile_number ? 'required' : 'required|unique:users',
             'address' => 'required',
 
         ],[
