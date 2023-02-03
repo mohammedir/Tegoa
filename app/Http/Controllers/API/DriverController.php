@@ -267,8 +267,9 @@ class DriverController extends Controller
             \Illuminate\Support\Facades\Session::flash('message', $validator->errors()->first());
         }
     }
-    public function available_transportion(){
-        $available_transportion = TransportationRequests::query()->where('status','=',1)->get();
+    public function available_transportion(Request $request){
+        $driver = User::query()->find($request->user()->id);
+        $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)->get();
         return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
     }
     public function accept_transportion(Request $request){

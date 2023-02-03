@@ -173,20 +173,21 @@ class AuthController extends Controller
                     $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
                     $car->passengersinsurance = $comPic;
                 }
-               /* if ($request->hasFile('carphotos')) {
+                if ($request->hasFile('carphotos')) {
                     $photos = new Photos();
                     $compFileName =  $request->file('carphotos')->getClientOriginalName();
                     $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                     $extenshion = $request->file('carphotos')->getClientOriginalExtension();
                     $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
                     $path = $request->file('carphotos')->move('images/cars',$comPic);
-                    $photos->images = $comPic;
-                    $photos->car_id = $car->id;
                     $car->carphotos = $comPic;
-                    $photos->save();
-                }*/
+                    $car->save();
+                    Photos::create([
+                        'images' => $comPic,
+                        'car_id' => $car->id,
+                    ]);
+                }
 
-                $car->save();
 
                 /*array of car photo*/
                 /*if ($files =$request->file('carphotos')) {
