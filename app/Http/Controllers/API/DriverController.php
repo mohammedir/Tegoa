@@ -312,7 +312,7 @@ class DriverController extends Controller
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
         if ($validator->passes()){
-            if ($driver || $transportation){
+            if ($transportation){
                 if ($transportation->status == 2){
                     $transportation->start_trip = now();
                     $transportation->status = 3;
