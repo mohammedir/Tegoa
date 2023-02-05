@@ -223,7 +223,6 @@ class PassengerController extends Controller
                         $transportation_requests->expected_cost = $request->expected_cost;
                         $transportation_requests->arrival_time = $request->arrival_time;
                         $transportation_requests->save();
-
                         $user = User::query()->find(1);
                         /*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
                         FCMService::send(
@@ -236,7 +235,7 @@ class PassengerController extends Controller
                         );
                         return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
                     }catch (Exception){
-                        return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+                        return  $this->setError(200 ,false, trans('api.An error occurred during the sending process, please try again') , 200);
                     }
                 }else{
                     return  $this->setError(403,false, "api.Passenger email, no verification" , 500);
