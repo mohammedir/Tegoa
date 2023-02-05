@@ -90,7 +90,6 @@ class PassengerController extends Controller
             'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
             'gender' => 'required|numeric',
-            'vehicle_type' => 'required|numeric',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:users,email|max:255',
             'mobile' => 'required|numeric|unique:users,mobile_number',
         ], [
@@ -110,9 +109,6 @@ class PassengerController extends Controller
             'gender.required' => trans("web.required"),
             'gender.numeric' => trans("web.numeric"),
 
-            'vehicle_type.required' => trans("web.required"),
-            'vehicle_type.numeric' => trans("web.numeric"),
-
             'email.required' => trans("web.required"),
             'email.email' => trans("web.email"),
             'email.max' => trans("web.max"),
@@ -129,7 +125,6 @@ class PassengerController extends Controller
             $data->full_name = $request->name;
             $data->address = $request->address;
             $data->gender = $request->gender;
-            $data->vehicle_type = $request->vehicle_type;
             $data->email = $request->email;
             $data->mobile_number = $request->mobile;
             $data->password = Hash::make($request->password);
@@ -147,19 +142,13 @@ class PassengerController extends Controller
         if ($request->ajax()) {
             $passenger = Passenger::find($passenger->id);
 
-            if ($passenger->vehicle_type == 1) {
-                $type = trans('web.public');
-            } else {
-                $type = trans('web.private');
-            }
-
             if ($passenger->gender == 1) {
                 $gender = trans('web.Male');
             } else {
                 $gender = trans('web.Female');
             }
 
-            return response()->json(['driver' => $passenger, 'gender' => $gender, 'type' => $type]);
+            return response()->json(['driver' => $passenger, 'gender' => $gender]);
         }
     }
 
@@ -177,7 +166,6 @@ class PassengerController extends Controller
             'name_edit' => 'required|string|max:255',
             'address_edit' => 'required|string|max:255',
             'gender_edit' => 'required|numeric',
-            'vehicle_type_edit' => 'required|numeric',
             'email_edit' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $passenger->id,
             'mobile_edit' => 'required|numeric|unique:users,mobile_number,' . $passenger->id,
         ], [
@@ -191,9 +179,6 @@ class PassengerController extends Controller
 
             'gender_edit.required' => trans("web.required"),
             'gender_edit.numeric' => trans("web.numeric"),
-
-            'vehicle_type_edit.required' => trans("web.required"),
-            'vehicle_type_edit.numeric' => trans("web.numeric"),
 
             'email_edit.required' => trans("web.required"),
             'email_edit.email' => trans("web.email"),
@@ -212,7 +197,6 @@ class PassengerController extends Controller
             $data->full_name = $request->name_edit;
             $data->address = $request->address_edit;
             $data->gender = $request->gender_edit;
-            $data->vehicle_type = $request->vehicle_type_edit;
             $data->email = $request->email_edit;
             $data->mobile_number = $request->mobile_edit;
             $data->save();

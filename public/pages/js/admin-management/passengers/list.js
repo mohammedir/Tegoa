@@ -31,7 +31,6 @@ $(function () {
                 $("#mobile_edit").val(response.mobile_number);
                 $("#address_edit").val(response.address);
                 $("#gender_edit").val(response.gender);
-                $("#vehicle_type_edit").val(response.vehicle_type);
             }
         });
     }

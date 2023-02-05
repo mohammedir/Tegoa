@@ -306,25 +306,6 @@
                                             <!--end::Input-->
                                         </div>
 
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.type')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select id="vehicle_type" class="form-control form-control-solid" name="vehicle_type">
-                                                <option value="1">@lang('web.public')</option>
-                                                <option value="2">@lang('web.private')</option>
-                                            </select>
-                                            <strong id="vehicle_type_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
                                     </div>
                                 </div>
 
@@ -496,25 +477,6 @@
                                             <!--end::Input-->
                                         </div>
 
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">@lang('web.type')</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
-                                                   data-bs-trigger="hover" data-bs-html="true"
-                                                   data-bs-content="@lang('web.required')"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select id="vehicle_type_edit" class="form-control form-control-solid" name="vehicle_type_edit">
-                                                <option value="1">@lang('web.public')</option>
-                                                <option value="2">@lang('web.private')</option>
-                                            </select>
-                                            <strong id="vehicle_type_edit_error" class="errors text-danger"
-                                                    role="alert"></strong>
-                                            <!--end::Input-->
-                                        </div>
-
                                     </div>
                                 </div>
                                 <!--begin::Actions-->
@@ -645,17 +607,6 @@
                                     <hr>
 
                                     <div class="row">
-                                        <div class="fv-row col-md-6 mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-semibold form-label mb-2">
-                                                <span style="font-weight: bold">@lang('web.type') :</span>
-                                            </label>
-                                            <br>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <span id="type_show"></span>
-                                            <!--end::Input-->
-                                        </div>
 
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
