@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'roles_name'  => 'array'
     ];
 
-    public function getPersonalPhotoAttribute($value)
+    public function getPersonalphotoAttribute($value)
     {
         return url(asset('images/users/'.$value));
     }

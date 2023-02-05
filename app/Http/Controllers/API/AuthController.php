@@ -189,26 +189,6 @@ class AuthController extends Controller
                     ]);
                 }
 
-                /*array of car photo*/
-                /*if ($files =$request->file('carphotos')) {
-                    $photos = new Photos();
-                    foreach ($files as $file) {
-                        $compFileName =  $file->getClientOriginalName();
-                        $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
-                        $extenshion = $file->getClientOriginalExtension();
-                        $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
-                        $path = $file->move('images/cars',$comPic);
-                        Photos::create([
-                            'images' => $comPic,
-                            'car_id' => $car->id,
-                        ]);
-                    }
-                }*/
-               /* $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
-                foreach ($carphotos as  $key=>$carphotos){
-                    $image[$key] = url(asset('/images/cars/'.$carphotos->images));
-                    $car->carphotos = $image;
-                }*/
                 $token = $user->createToken('driver');
                 $user->update(['api_token' =>$token->plainTextToken]);
                 $res = [
@@ -278,11 +258,7 @@ class AuthController extends Controller
             $car = Car::query()->where('user_id','=',$data->id)->get()->first();
             $car = Car::query()->where('user_id','=',$data->id)->get()->first();
 
-            $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
-            foreach ($carphotos as  $key=>$carphotos){
-                $image[$key] = url(asset('/images/cars/'.$carphotos->images));
-                $car->carphotos = $image;
-            }
+
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
             $data->save();
@@ -294,7 +270,7 @@ class AuthController extends Controller
 
             return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
         }else{
-            return  $this->setError(400 ,false, trans('api.user not found') , 400);
+            return  $this->setError(200 ,false, trans('api.user not found') , 200);
 
 
         }
