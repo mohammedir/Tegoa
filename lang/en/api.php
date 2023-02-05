@@ -61,7 +61,7 @@ return [
     'Tour Guids List' => 'Tour Guids List',
     'Tourism Activities List' => 'Tourism Activities List',
 
-
+    'There are currently no drivers available, please try again later' => 'There are currently no drivers available, please try again later'
 
 
 ];

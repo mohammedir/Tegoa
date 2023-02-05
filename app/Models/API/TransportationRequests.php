@@ -29,6 +29,7 @@ class TransportationRequests extends Model
         'distance',
         'expected_cost',
         'arrival_time',
+        'driver_id'
 
 
     ];

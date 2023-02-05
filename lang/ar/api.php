@@ -29,6 +29,8 @@ return [
     'Passenger email, no verification' => 'لم تقم بالتحقق من البريد الألكتروني اذا كنت تريد ارسال بريد تحقق اخر قم بالضغط على زر ارسال',
     'An email has been sent to verify your email' => 'تم ارسال بريد للتحقق على الايميل الخاص بك',
 
+
+
     /*driver register*/
     'personalphoto field is required' => 'حقل الصورة الشخصية مطلوب',
     'The car number has already been taken' => 'رقم السيارة مسجل من قبل',
@@ -66,7 +68,7 @@ return [
     'Tourism Activities List' => 'قائمة الأنشطة السياحية',
 
 
-
+    'There are currently no drivers available, please try again later' => 'لايوجد اي سائق متوفر حالياً يرجى المحاول لاحقاً'
 
 
 

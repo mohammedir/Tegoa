@@ -233,9 +233,22 @@ class PassengerController extends Controller
 
                             ]
                         );
-                        return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
-                    }catch (Exception){
-                        return  $this->setError(200 ,false, trans('api.An error occurred during the sending process, please try again') , 200);
+                        $time_wating = 1 ;
+                        $status = TransportationRequests::query()->find($transportation_requests->id);
+
+                        while($status->status == 1 && $time_wating <= 10){
+                            sleep(2);
+                            $status->refresh()->status;
+                            $time_wating ++ ;
+                        }
+                        if ($time_wating == 11){
+                            $status->status = 5;
+                            $status->save();
+                            return $this->api_response(200, true, trans('api.There are currently no drivers available, please try again later'), $status, 200);
+                        }
+                        return $this->api_response(200, true, trans('api.find_transportion'), $status, 200);
+                    }catch (Exception $e){
+                        return  $this->setError(200 ,false, $e , 200);
                     }
                 }else{
                     return  $this->setError(403,false, "api.Passenger email, no verification" , 500);
