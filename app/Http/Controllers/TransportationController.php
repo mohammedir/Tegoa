@@ -18,7 +18,7 @@ class TransportationController extends Controller
 
     public function index(Request $request)
     {
-        $transportations_all = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
+        $transportations_all = DB::table('transportation_requests')->where('status','=',4)->orderBy('id', 'desc')->paginate(10);
         return view('transportations.index', compact('transportations_all'));
     }
 
