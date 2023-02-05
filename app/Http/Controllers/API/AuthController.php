@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\API\Car;
 use App\Models\API\Photos;
 use App\Models\API\User;
+use App\Models\API\UserApi;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -116,7 +117,7 @@ class AuthController extends Controller
         ]);
         if ($validator->passes()) {
             try {
-                $user = new User();
+                $user = new UserApi();
                 $user->full_name = $request->full_name;
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password);
@@ -187,7 +188,6 @@ class AuthController extends Controller
                         'car_id' => $car->id,
                     ]);
                 }
-
 
                 /*array of car photo*/
                 /*if ($files =$request->file('carphotos')) {
