@@ -24,6 +24,8 @@ class CreateCarsTable extends Migration
             $table->string('insurance_number');
             $table->date('insurance_expiry_date');
             $table->text('carphotos')->nullable();
+            $table->text('carphotos2')->nullable();
+            $table->text('carphotos3')->nullable();
             $table->text('carlicense')->nullable();
             $table->text('carinsurance')->nullable();
             $table->text('passengersinsurance')->nullable();

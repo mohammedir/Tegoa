@@ -22,6 +22,7 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
+        $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -172,19 +173,24 @@ class AuthController extends Controller
                     $path = $request->file('passengersinsurance')->move('images/cars',$comPic);
                     $car->passengersinsurance = $comPic;
                 }
-                $car->save();
-                /*if ($request->hasFile('carphotos')) {
+                if ($request->hasFile('carphotos')) {
                     $photos = new Photos();
                     $compFileName =  $request->file('carphotos')->getClientOriginalName();
                     $fileNameOnly = pathinfo($compFileName, PATHINFO_FILENAME);
                     $extenshion = $request->file('carphotos')->getClientOriginalExtension();
                     $comPic = str_replace(' ','_',$fileNameOnly).'-'.rand().'_'.time().'.'.$extenshion;
                     $path = $request->file('carphotos')->move('images/cars',$comPic);
-                    $photos->images = $comPic;
-                    $photos->car_id = $car->id;
-                    $photos->save();
-                }*/
-                if ($files =$request->file('carphotos')) {
+                    $car->carphotos = $comPic;
+                    $car->save();
+                    Photos::create([
+                        'images' => $comPic,
+                        'car_id' => $car->id,
+                    ]);
+                }
+
+
+                /*array of car photo*/
+                /*if ($files =$request->file('carphotos')) {
                     $photos = new Photos();
                     foreach ($files as $file) {
                         $compFileName =  $file->getClientOriginalName();
@@ -197,7 +203,12 @@ class AuthController extends Controller
                             'car_id' => $car->id,
                         ]);
                     }
-                }
+                }*/
+               /* $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+                foreach ($carphotos as  $key=>$carphotos){
+                    $image[$key] = url(asset('/images/cars/'.$carphotos->images));
+                    $car->carphotos = $image;
+                }*/
                 $token = $user->createToken('driver');
                 $user->update(['api_token' =>$token->plainTextToken]);
                 $res = [
@@ -209,11 +220,11 @@ class AuthController extends Controller
 
             }catch (Exception $e){
                 $user->findOrFail($user->id)->delete();
-                return  $this->setError(400 ,false, trans('api.An error occurred during the sending process, please try again') , 400);
+                return  $this->setError(200 ,false, trans('api.An error occurred during the sending process, please try again') , 200);
             }
 
         }else{
-            return  $this->setError(400 ,false, $validator->errors()->first() , 400);
+            return  $this->setError(200 ,false, $validator->errors()->first() , 200);
 
         }
     }
@@ -265,6 +276,13 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
             $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+            $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+
+            $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+            foreach ($carphotos as  $key=>$carphotos){
+                $image[$key] = url(asset('/images/cars/'.$carphotos->images));
+                $car->carphotos = $image;
+            }
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
             $data->save();

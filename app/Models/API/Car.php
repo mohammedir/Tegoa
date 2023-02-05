@@ -17,7 +17,6 @@ class Car extends Model
         'created_at', 'updated_at'
     ];
     protected $fillable = [
-        'carphotos',
         'carlicense',
         'carinsurance',
         'passengersinsurance',
@@ -28,10 +27,22 @@ class Car extends Model
     ];
 
 
-    /*public function getCarphotosAttribute($value)
+  /*  public function getCarphotosAttribute($value)
     {
         return url(asset('images/cars/'.$value));
     }*/
+    public function getCarphotosAttribute($value)
+    {
+        return url(asset('images/cars/'.$value));
+    }
+    public function getCarphotos2Attribute($value)
+    {
+        return url(asset('images/cars/'.$value));
+    }
+    public function getCarphotos3Attribute($value)
+    {
+        return url(asset('images/cars/'.$value));
+    }
     public function getCarlicenseAttribute($value)
     {
         return url(asset('images/cars/'.$value));

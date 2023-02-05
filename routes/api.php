@@ -55,6 +55,7 @@ Route::controller(PassengerController::class)
         Route::post('/passenger/update_profile', 'update_profile')->middleware('localization');
         Route::post('/passenger/change_password', 'change_password')->middleware('localization');
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
+        Route::post('/passenger/get_data_expected', 'get_data_expected')->middleware('localization');
         Route::post('/passenger/find_transportion', 'find_transportion')->middleware('localization');
         Route::get('/passenger/my_transportion', 'my_transportion')->middleware('localization');
         Route::post('/passenger/send_email_verification ', 'verification_email')->middleware('localization');
@@ -70,6 +71,7 @@ Route::controller(DriverController::class)
         Route::get('/driver/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
         Route::post('/driver/change_password', 'change_password')->middleware('localization');
         Route::post('/driver/edit_car', 'update_car')->middleware('localization');
+        Route::get('/driver/available_transportion', 'available_transportion')->middleware('localization');
         Route::post('/driver/find_transportion', 'find_transportion');
         Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
         Route::post('/driver/start_trip', 'start_trip');

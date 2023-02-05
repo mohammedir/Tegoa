@@ -49,4 +49,14 @@ class User extends Authenticatable
         'roles_name'  => 'array'
     ];
 
+
+    public function getPersonalphotoAttribute($value)
+    {
+        return url(asset('images/users/'.$value));
+    }
+    public function getDriverlicenseAttribute($value)
+    {
+        return url(asset('images/users/'.$value));
+    }
+
 }
