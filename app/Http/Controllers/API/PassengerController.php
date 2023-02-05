@@ -233,7 +233,7 @@ class PassengerController extends Controller
 
                             ]
                         );
-                        $time_wating = 1 ;
+                       /* $time_wating = 1 ;
                         $status = TransportationRequests::query()->find($transportation_requests->id);
 
                         while($status->status == 1 && $time_wating <= 10){
@@ -245,8 +245,9 @@ class PassengerController extends Controller
                             $status->status = 5;
                             $status->save();
                             return $this->api_response(200, true, trans('api.There are currently no drivers available, please try again later'), $status, 200);
-                        }
-                        return $this->api_response(200, true, trans('api.find_transportion'), $status, 200);
+                        }*/
+
+                        return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
                     }catch (Exception $e){
                         return  $this->setError(200 ,false, $e , 200);
                     }
