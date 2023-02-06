@@ -61,7 +61,14 @@ return [
     'Tour Guids List' => 'Tour Guids List',
     'Tourism Activities List' => 'Tourism Activities List',
 
-    'There are currently no drivers available, please try again later' => 'There are currently no drivers available, please try again later'
+    'There are currently no drivers available, please try again later' => 'There are currently no drivers available, please try again later',
 
 
+    /*find_transportion*/
+    'lat_from field is required' => 'lat from field is required',
+    'lng_from field is required' => 'lng from field is required',
+    'lat_to field is required' => 'lat to field is required',
+    'lng_to field is required' => 'lng to field is required',
+    'departure_time field is required' => 'departure time field is required',
+    'number_of_passenger field is required' => 'number of passenger field is required',
 ];
