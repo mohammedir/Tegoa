@@ -71,4 +71,10 @@ return [
     'lng_to field is required' => 'lng to field is required',
     'departure_time field is required' => 'departure time field is required',
     'number_of_passenger field is required' => 'number of passenger field is required',
+
+
+    'waiting driver' => 'waiting driver',
+    'accept driver' => 'accept driver',
+    'start trip' => 'start trip',
+    'trip is complete' => 'trip is complete',
 ];

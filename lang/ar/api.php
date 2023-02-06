@@ -78,4 +78,10 @@ return [
     'lng_to field is required' => 'خط الطول لموقع المغادرة مطلوب',
     'departure_time field is required' => 'حقل وقط المغادرة مطلوب',
     'number_of_passenger field is required' => 'حقل عدد الركاب مطلوب',
+
+
+    'waiting driver' => 'بانتظار سائق',
+    'accept driver' => 'تم قبول الطلب',
+    'start trip' => 'اثناء الرحلة',
+    'trip is complete' => 'الرحلة مكتملة',
 ];

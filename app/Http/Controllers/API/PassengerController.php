@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\changePassword;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
+use App\Models\API\Map;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
@@ -271,9 +272,21 @@ class PassengerController extends Controller
     }
 
     public function my_transportion(Request $request){
-        $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
-        return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+        try {
+            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
+            foreach ($Mytransportation as $mytransportation){
+                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $mytransportation->destination = '';
+                $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
 
+                if ($place){
+                    $mytransportation->destination = $place->name;
+                }
+            }
+            return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+        }catch (Exception $e){
+            return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
+        }
     }
     public function verification_email(Request $request){
         try {
