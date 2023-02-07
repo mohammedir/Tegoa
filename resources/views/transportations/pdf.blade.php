@@ -7,7 +7,7 @@
     <title>transportations</title>
     <style>
         body {
-            font-family: 'examplefont', sans-serif;
+            font-family: arial, sans-serif;
             letter-spacing: -0.3px;
         }
 
