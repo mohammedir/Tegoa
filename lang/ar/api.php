@@ -68,8 +68,20 @@ return [
     'Tourism Activities List' => 'قائمة الأنشطة السياحية',
 
 
-    'There are currently no drivers available, please try again later' => 'لايوجد اي سائق متوفر حالياً يرجى المحاول لاحقاً'
+    'There are currently no drivers available, please try again later' => 'لايوجد اي سائق متوفر حالياً يرجى المحاول لاحقاً',
 
 
+    /*find_transportion*/
+    'lat_from field is required' => 'خط العرض الحالي مطلوب',
+    'lng_from field is required' => 'خط الطول الحالي مطلوب',
+    'lat_to field is required' => 'خط العرض لموقع المغادرة مطلوب',
+    'lng_to field is required' => 'خط الطول لموقع المغادرة مطلوب',
+    'departure_time field is required' => 'حقل وقط المغادرة مطلوب',
+    'number_of_passenger field is required' => 'حقل عدد الركاب مطلوب',
 
+
+    'waiting driver' => 'بانتظار سائق',
+    'accept driver' => 'تم قبول الطلب',
+    'start trip' => 'اثناء الرحلة',
+    'trip is complete' => 'الرحلة مكتملة',
 ];

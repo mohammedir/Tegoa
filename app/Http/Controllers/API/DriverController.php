@@ -8,6 +8,7 @@ use App\Mail\changePassword;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
 use App\Models\API\Car;
+use App\Models\API\Map;
 use App\Models\API\Photos;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
@@ -278,9 +279,22 @@ class DriverController extends Controller
         }
     }
     public function available_transportion(Request $request){
-        $driver = User::query()->find($request->user()->id);
-        $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)->get();
-        return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
+        try {
+            $driver = User::query()->find($request->user()->id);
+            $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)->get();
+            foreach ($available_transportion as $mytransportation){
+                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $mytransportation->destination = '';
+                $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
+                if ($place){
+                    $mytransportation->destination = $place->name;
+                }
+            }
+            return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
+        }catch (Exception $e){
+            return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
+
+        }
     }
     public function accept_transportion(Request $request){
         $validator = Validator::make($request->all(),[

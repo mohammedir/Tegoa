@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\changePassword;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
+use App\Models\API\Map;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
@@ -40,14 +41,11 @@ class PassengerController extends Controller
              $user->password = Hash::make($request->password);
              $user->user_type = 1;
              $user->save();
-
              return $user;
          }else{
              return response()->json(['error'=>$validator->errors()->all()],409);
-
          }
      }
-
      public function login(Request $request){
          $credentials = $request->validate([
              'email' => 'required|email',
@@ -68,7 +66,6 @@ class PassengerController extends Controller
          ]);
 
      }
-
      public function logout(Request $request){
          return $request;
          return response()->json(['message'=>'success']);
@@ -109,7 +106,6 @@ class PassengerController extends Controller
                 'address.required' => trans("api.address field is required"),
             ]);
         }
-
         if ($validator->passes()) {
             if ($passenger){
                 try {
@@ -128,7 +124,6 @@ class PassengerController extends Controller
                 }catch (Exception $e){
                     return  $this->setError(400 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 400);
                 }
-
             }else{
                 return  $this->setError(400 ,false, trans('api.user not found') , 400);
             }
@@ -203,6 +198,17 @@ class PassengerController extends Controller
             'distance' => 'required',
             'expected_cost' => 'required',
             'arrival_time' => 'required',
+        ],[
+            'lat_from.required' => trans("api.lat_from field is required"),
+            'lng_from.required' => trans("api.lng_from field is required"),
+            'lat_to.required' => trans("api.lat_to field is required"),
+            'lng_to.required' => trans("api.lng_to field is required"),
+            'departure_time.required' => trans("api.departure_time field is required"),
+            'number_of_passenger.required' => trans("api.number_of_passenger field is required"),
+            'vehicle_type.required' => trans("api.The vehicle type field is required."),
+            'distance.required' => trans("api.distance field is required"),
+            'expected_cost.required' => trans("api.expected_cost field is required"),
+            'arrival_time.required' => trans("api.arrival_time field is required"),
 
         ]);
         $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->user()->id)->get()->first();
@@ -230,10 +236,9 @@ class PassengerController extends Controller
                             [
                                 'title' => 'Request a new trip from ' . getUserName($request->user()->id),
                                 'body' => 'your body',
-
                             ]
                         );
-                        $time_wating = 1 ;
+                       /* $time_wating = 1 ;
                         $status = TransportationRequests::query()->find($transportation_requests->id);
 
                         while($status->status == 1 && $time_wating <= 10){
@@ -245,18 +250,21 @@ class PassengerController extends Controller
                             $status->status = 5;
                             $status->save();
                             return $this->api_response(200, true, trans('api.There are currently no drivers available, please try again later'), $status, 200);
-                        }
-                        return $this->api_response(200, true, trans('api.find_transportion'), $status, 200);
+                        }*/
+
+                        return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
                     }catch (Exception $e){
-                        return  $this->setError(200 ,false, $e , 200);
+                        return  $this->setError(200 ,false, substr($e->getMessage(), 0, 100) , 200);
                     }
                 }else{
-                    return  $this->setError(403,false, "api.Passenger email, no verification" , 500);
+                    return  $this->setError(200,false, "api.Passenger email, no verification" , 200);
                 }
             }else{
-                return  $this->setError(500,false, "api.Passenger id not correct" , 500);
+                return  $this->setError(200,false, "api.Passenger id not correct" , 200);
 
             }
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
 
 
@@ -264,9 +272,21 @@ class PassengerController extends Controller
     }
 
     public function my_transportion(Request $request){
-        $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
-        return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+        try {
+            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
+            foreach ($Mytransportation as $mytransportation){
+                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $mytransportation->destination = '';
+                $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
 
+                if ($place){
+                    $mytransportation->destination = $place->name;
+                }
+            }
+            return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+        }catch (Exception $e){
+            return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
+        }
     }
     public function verification_email(Request $request){
         try {
@@ -274,7 +294,7 @@ class PassengerController extends Controller
             return $this->api_response(200, true, trans('api.An email has been sent to verify your email'), "", 200);
 
         }catch (Exception $e){
-            return  $this->setError(500,false, $e , 500);
+            return  $this->setError(200,false, substr($e->getMessage(), 0, 100) , 200);
 
         }
     }
@@ -283,6 +303,9 @@ class PassengerController extends Controller
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
             'rating_car' => 'required',
+        ],[
+            'transportation_id.required' => trans("api.transportation_id field is required"),
+            'rating_car.required' => trans("api.rating_car field is required"),
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
@@ -290,10 +313,12 @@ class PassengerController extends Controller
             $transportation->rating_driver = $request->rating_driver;
             $transportation->rating_time = $request->rating_time;
             $transportation->save();
+            return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
+
         }
-
-        return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
-
     }
 
     public function report_driver(Request $request){
