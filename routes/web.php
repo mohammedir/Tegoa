@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::post('/accept/car', [CarController::class, 'accept']);
     Route::post('/decline/car', [CarController::class, 'decline']);
     Route::get('/delete/image/cars/', [CarController::class, 'deleteImage']);
+    Route::get('/getUnRegisterUsersCard', [CarController::class, 'getUnRegisterUsersCard']);
 
     Route::resource('news', NewsController::class);
     Route::resource('places', PlaceController::class);
@@ -89,6 +90,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('transportations', TransportationController::class);
     Route::get('/search', [TransportationController::class, 'fetch_data']);
     Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
+    Route::get('/downloadPdf', [TransportationController::class, 'downloadPdf']);
 
     Route::get('/settings/update/one/', [SettingController::class, 'updateOne']);
     Route::resource('settings', SettingController::class);

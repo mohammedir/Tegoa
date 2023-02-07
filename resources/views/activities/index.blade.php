@@ -873,6 +873,110 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+        let end = document.getElementById("end_date");
+        end.addEventListener("change", function() {
+            let startDate = $('#start_date').val();
+            let endDate = $('#end_date').val();
+
+            if (startDate === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.you must add start date before')',
+                    footer: ''
+                })
+                end.value = "";
+            }else if(endDate <  startDate){
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The end date cannot be more than start date')',
+                    footer: ''
+                })
+                end.value = "";
+            }
+
+        });
+
+
+        // Get the input element
+        let start = document.getElementById("start_date");
+
+        // Add a change event listener to the input
+        start.addEventListener("change", function() {
+            end.value = "";
+            // Get the current date
+            let today = new Date();
+
+            // Get the input date
+            let inputDate = new Date(start.value);
+
+            // Compare the input date with the current date
+            if (inputDate < today && inputDate.toDateString() !== today.toDateString()) {
+                // If the input date is in the past and not today, display an error message
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The start date cannot be in the past!')',
+                    footer: ''
+                })
+                start.value = "";
+            }
+        });
+
+
+        let end_edit = document.getElementById("end_date_edit");
+        end_edit.addEventListener("change", function() {
+            let startDate = $('#start_date_edit').val();
+            let endDate = $('#end_date_edit').val();
+
+            if (startDate === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.you must add start date before')',
+                    footer: ''
+                })
+                end_edit.value = "";
+            }else if(endDate <  startDate){
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The end date cannot be more than start date')',
+                    footer: ''
+                })
+                end_edit.value = "";
+            }
+
+        });
+
+
+        // Get the input element
+        let start_edit = document.getElementById("start_date_edit");
+
+        // Add a change event listener to the input
+        start_edit.addEventListener("change", function() {
+            end_edit.value = "";
+            // Get the current date
+            let today = new Date();
+
+            // Get the input date
+            let inputDate = new Date(start_edit.value);
+
+            // Compare the input date with the current date
+            if (inputDate < today && inputDate.toDateString() !== today.toDateString()) {
+                // If the input date is in the past and not today, display an error message
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The start date cannot be in the past!')',
+                    footer: ''
+                })
+                start_edit.value = "";
+            }
+        });
+    </script>
+    <script>
         function getStatusEmergency(el) {
             var id = el.id;
             var isChecked = el.checked;

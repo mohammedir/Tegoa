@@ -6,6 +6,11 @@ $(function () {
         "use strict";
         /*Table Actions*/
 
+        $(document).on('click', '#delete', function () {
+            let id = $(this).data('id');
+            confirm_delete_car(id);
+        });
+
         $(document).on('click', '#button1', function () {
             let id = $(this).data('id');
             confirm_delete(id);
@@ -26,6 +31,61 @@ $(function () {
             success: function (response) {
                 $("#edit_id").val(id);
                 $("#permission_name_edit").val(response.permission.name);
+
+            }
+        });
+    }
+
+    function confirm_delete_car(id) {
+        const o = "sads";
+        Swal.fire({
+            text: language === "en" ? "Are you sure you want to delete this item?" : "هل أنت متأكد أنك تريد حذف هذا البند؟",
+            icon: "warning",
+            showCancelButton: !0,
+            buttonsStyling: !1,
+            confirmButtonText: language === "en" ? "Yes, delete!" : "نعم ، احذف!",
+            cancelButtonText: language === "en" ? "No, cancel" : "لا ، إلغاء",
+            customClass: {
+                confirmButton: "btn fw-bold btn-danger",
+                cancelButton: "btn fw-bold btn-active-light-primary"
+            }
+        });
+        var confirm_delete = document.getElementsByClassName("swal2-confirm");
+        confirm_delete[0].addEventListener('click', function () {
+            delete_user_car(id);
+        });
+    }
+
+    function delete_user_car(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'DELETE',
+            url: "cars/" + id ,
+            data: {
+                id: id,
+                car_id: $('#car_edit_id').text()
+            },
+            success: function (response) {
+                if (response['success']) {
+                    Swal.fire({
+                        text: language === "en" ? "You have deleted the car!." : "لقد قمت بحذف السيارة !.",
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
+                        customClass: {confirmButton: "btn fw-bold btn-primary"}
+                    });
+                    $('#kt_cars_table').DataTable().ajax.reload();
+                } else if (response['error']) {
+                    Swal.fire({
+                        text: language === "en" ? "The car was not deleted because it had pre-transportations orders" : "لم يتم حذف السيارة لان لديها اوامر نقل مسبقا",
+                        icon: "error",
+                        buttonsStyling: !1,
+                        confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
+                        customClass: {confirmButton: "btn fw-bold btn-primary"}
+                    });
+                }
 
             }
         });
@@ -57,13 +117,13 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'GET',
-            url: "/delete/image/cars/" ,
+            url: "/delete/image/cars/",
             data: {
-                id:id,
-                car_id : $('#car_edit_id').text()
+                id: id,
+                car_id: $('#car_edit_id').text()
             },
             success: function (response) {
-                if(response.image){
+                if (response.image) {
                     Swal.fire({
                         text: language === "en" ? "You have deleted the item!." : "لقد قمت بحذف العنصر !.",
                         icon: "success",
@@ -73,7 +133,7 @@ $(function () {
                     });
                     // location.reload();
                     $('div#photos_show_edit').empty();
-                    $.each(response.image, function( index, value ) {
+                    $.each(response.image, function (index, value) {
                         var img = $('<img class="btn" id="image_id" style="max-width: 400px;max-height: 300px;">');
                         var btn = $('<button type="button" class="btn btn-danger"  id="button1"><i class="bi bi-trash"></i></button>');
                         img.attr('src', app_url + '/images/cars/' + value);
@@ -81,7 +141,7 @@ $(function () {
                         img.appendTo('#photos_show_edit');
                         btn.appendTo('#photos_show_edit');
                     });
-                }else{
+                } else {
                     Swal.fire({
                         text: language === "en" ? "Form has been successfully submitted!" : "تم تقديم النموذج بنجاح!",
                         icon: "success",
@@ -121,7 +181,7 @@ $(function () {
                                 icon: "success",
                                 buttonsStyling: !1,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                                customClass: {confirmButton: "btn fw-bold btn-primary"}
                             }).then((function () {
                                 e.row($(n)).remove().draw()
                             })) : "cancel" === t.dismiss && Swal.fire({
@@ -129,7 +189,7 @@ $(function () {
                                 icon: "error",
                                 buttonsStyling: !1,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: { confirmButton: "btn fw-bold btn-primary" }
+                                customClass: {confirmButton: "btn fw-bold btn-primary"}
                             })
                         }))
                     }))
@@ -178,7 +238,7 @@ $(function () {
                                 name: 'action',
 
                             },
-                        ],language: {
+                        ], language: {
                             url: language === "en" ? "//cdn.datatables.net/plug-ins/1.13.1/i18n/en-GB.json" : "//cdn.datatables.net/plug-ins/1.13.1/i18n/ar.json",
                         },
                     })).on("draw", (function () {

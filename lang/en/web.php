@@ -146,6 +146,11 @@ return [
     'Photos_license' => 'License photo',
     'Photos_insurance' => 'Insurance photo',
     'Photos_passengersinsurance' => 'Passengers insurance photo',
+    'Photos_cars' => 'Photos cars',
+    'Photo_carlicense' => 'Photo car license',
+    'Photo_carinsurance' => 'Photo car insurance',
+    'creat_car_info' => 'Add car',
+    'driver' => 'Driver',
 
     'numberEnter' => 'Enter a car number',
     'brandEnter' => 'Enter a car brand',
@@ -253,7 +258,7 @@ return [
     'scooter_number' => 'Scooter Number',
     '4-wheels' => '4-wheels',
     '3-wheels' => '3-wheels',
-    'Edit_emergency_info' => 'Edit emergency info',
+    'Edit_emergency_info' => 'Edit emergency information',
     'Emergency_Details' => 'Emergency Details',
 
     'phone_numberEmergencyEnter' => 'Enter a emergency phone number',
@@ -269,7 +274,7 @@ return [
     'end_date' => 'End date',
     'required_tools' => 'Required tools',
     'Activity_Details' => 'Activity Details',
-    'Edit_avtivity_info' => 'Edit activity info',
+    'Edit_avtivity_info' => 'Edit activity information',
 
     'nameActivityEnter' => 'Enter a activity name',
     'descriptionActivityEnter' => 'Enter a activity description',
@@ -277,7 +282,7 @@ return [
 
     /*transportations*/
     'transportations' => 'Transportation orders',
-    'Filter Options' => 'Filter Options',
+    'Filter Options' => 'Filter Options and export',
     'From' => 'From:',
     'To' => 'To:',
     'Apply' => 'Apply',
@@ -295,6 +300,8 @@ return [
     'SearchDriver' => 'Search for driver',
     'The start and end date must be added !' => 'The start and end date must be added !',
     'Sorry' => 'Sorry',
+    'type:' => 'type:',
+    'Export' => 'Export',
 
     /*settings*/
     'Settings_list' => 'Settings',
@@ -329,9 +336,17 @@ return [
     'in' => 'The selected type is invalid',
     'regexPrice' => 'The price format is invalid, the correct format (12.1)',
     'minPrice' => 'This field must be at least 1 characters',
+    'minPhone' => 'The phone number must be at least 10 numbers',
+    'maxPhone' => 'The phone number must not be greater than 14 numbers',
 
 
     'Password changed success' => 'Password changed success',
     'The current link is not valid. Please request a new link' => 'The current link is not valid. Please request a new link',
+    'Driver has transportations, cannot be deleted' => 'Driver has transportations, cannot be deleted',
+    'Passenger has transportations, cannot be deleted' => 'Passenger has transportations, cannot be deleted',
+    'you must add start date before' => 'You must add start date before',
+    'The end date cannot be more than start date' => 'The end date cannot be less than start date',
+    'The start date cannot be in the past!' => 'The start date cannot be in the past!',
+
 
 ];

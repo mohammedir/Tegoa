@@ -106,7 +106,7 @@ $(function () {
                     $('#kt_drivers_table').DataTable().ajax.reload();
                 } else if (response['error']) {
                     Swal.fire({
-                        text: language === "en" ? "The item was not deleted." : "لم يتم حذف العنصر.",
+                        text: response.error,
                         icon: "error",
                         buttonsStyling: !1,
                         confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",

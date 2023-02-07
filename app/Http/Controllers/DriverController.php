@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -69,6 +70,19 @@ class DriverController extends Controller
                                 </button>
                                 <!--end::Update-->';
                     }
+                    if (Auth::user()->hasPermissionTo('driver_delete')) {
+                        $actions = $actions . ' <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                    <span class="svg-icon svg-icon-3">
+																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
+																		<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
+																		<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+																	</svg>
+																</span>
+                                    <!--end::Svg Icon-->
+                                </button>';
+                    }
                     return $actions;
 
                 })
@@ -94,7 +108,7 @@ class DriverController extends Controller
             'gender' => 'required|numeric',
             'vehicle_type' => 'required|numeric',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|unique:users,email|max:255',
-            'mobile' => 'required|numeric|unique:users,mobile_number',
+            'mobile' => 'required|string|min:10|max:14|unique:users,mobile_number',
             'fileupload' => 'required',
             'fileuploadsss' =>'required'
         ], [
@@ -126,6 +140,8 @@ class DriverController extends Controller
             'mobile.required' => trans("web.required"),
             'mobile.numeric' => trans("web.numeric"),
             'mobile.unique' => trans("web.uniqueNumber"),
+            'mobile.min' => trans("web.minPhone"),
+            'mobile.max' => trans("web.maxPhone"),
 
             'fileupload.mimes' => trans("web.mimes"),
             'fileupload.required' => trans("web.uploaded"),
@@ -211,7 +227,7 @@ class DriverController extends Controller
             'gender_edit' => 'required|numeric',
             'vehicle_type_edit' => 'required|numeric',
             'email_edit' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|max:255|unique:users,email,' . $driver->id,
-            'mobile_edit' => 'required|numeric|unique:users,mobile_number,' . $driver->id,
+            'mobile_edit' => 'required|string|min:10|max:14|unique:users,mobile_number,' . $driver->id,
             'fileuploads' => 'required',
             'fileuploadss' => 'required',
         ], [
@@ -238,6 +254,8 @@ class DriverController extends Controller
             'mobile_edit.required' => trans("web.required"),
             'mobile_edit.numeric' => trans("web.numeric"),
             'mobile_edit.unique' => trans("web.uniqueNumber"),
+            'mobile_edit.min' => trans("web.minPhone"),
+            'mobile_edit.max' => trans("web.maxPhone"),
 
             'fileuploads.required' => trans("web.mimes"),
             'fileuploadss.required' => trans("web.mimes"),
@@ -281,10 +299,18 @@ class DriverController extends Controller
 
     }
 
-    public function destroy(Request $request,Driver $driver)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if ($user->transportations->count()) {
+            return response()->json(['error' => trans('web.Driver has transportations, cannot be deleted')]);
+        }else{
+            $user->delete();
+            return response()->json(['success' => 'success']);
+        }
     }
+
     public function changeStatus(Request $request)
     {
         if ($request->ajax()){

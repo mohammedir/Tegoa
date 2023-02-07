@@ -67,5 +67,15 @@ class User extends Authenticatable
         return $value;
     }
 
+    public function transportations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Transportation::class,'driver_id');
+    }
+
+    public function passengers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Transportation::class,'passenger_id');
+    }
+
 
 }

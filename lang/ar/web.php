@@ -147,7 +147,11 @@ return [
     'Photos_license' => 'صورة الترخيص',
     'Photos_insurance' => 'صورة التأمين',
     'Photos_passengersinsurance' => 'صورة تأمين الركاب',
-
+    'Photos_cars' => 'صور سيارات',
+    'Photo_carlicense' => 'صورة رخصة سيارة',
+    'Photo_carinsurance' => 'صورة تأمين السيارة',
+    'creat_car_info' => 'أضف سيارة',
+    'driver' => 'السائق',
 
     'numberEnter' => 'أدخل رقم السيارة',
     'brandEnter' => 'أدخل ماركة السيارة',
@@ -280,7 +284,7 @@ return [
 
     /*transportations*/
     'transportations' => 'أوامر النقل',
-    'Filter Options' => 'خيارات التصفية',
+    'Filter Options' => 'خيارات التصفية و التصدير',
     'From' => 'من:',
     'To' => 'الى:',
     'Apply' => 'تطبيق',
@@ -298,6 +302,8 @@ return [
     'SearchDriver' => 'ابحث عن سائق',
     'The start and end date must be added !' => 'يجب إضافة تاريخ البدء والانتهاء !',
     'Sorry' => 'المعذرة!',
+    'type:' => 'النوع:',
+    'Export' => 'تصدير',
 
     /*settings*/
     'Settings_list' => 'إعدادات',
@@ -330,10 +336,15 @@ return [
     'regex' => ' تنسيق البريد الإلكتروني غير صالح',
     'regexPrice' => 'تنسيق السعر غير صالح ، التنسيق الصحيح (12.1)',
     'minPrice' => 'يجب ألا يقل هذا الحقل عن 1 أحرف',
-
+    'minPhone' => 'يجب ألا يقل رقم الهاتف عن 10 أرقام',
+    'maxPhone' => 'يجب ألا يزيد رقم الهاتف عن 14 رقمًا',
     'in' => 'النوع المحدد غير صالح',
 
     'Password changed success' => 'تم تغيير كلمة المرور بنجاح',
     'The current link is not valid. Please request a new link' => 'الرابط الحالي غير صالح. الرجاء طلب ارتباط جديد',
-
+    'Driver has transportations, cannot be deleted' => 'سائق لديه اوامر النقل ، لا يمكن حذفه',
+    'Passenger has transportations, cannot be deleted' => 'الراكب لديه اوامر نقل ، لا يمكن حذفه',
+    'you must add start date before' => 'يجب عليك إضافة تاريخ البدء من قبل',
+    'The end date cannot be more than start date' => 'لا يمكن أن يكون تاريخ الانتهاء أقل من تاريخ البدء',
+    'The start date cannot be in the past!' => 'لا يمكن أن يكون تاريخ البدء في الماضي!',
 ];

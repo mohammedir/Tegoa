@@ -130,11 +130,25 @@
                                     </div>
                                     <!--end::Input-->
                                 </div>
+                                <div class="mb-10">
+                                    <label class="form-label fw-semibold">@lang('web.type:')</label>
+                                    <div class="mb-0">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="pdf" id="Check2"
+                                                   name="radio2" checked/>
+                                            <label class="form-check-label" for="Check2">
+                                                Pdf
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--end::Input group-->
                                 <!--begin::Actions-->
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2 reset" data-kt-menu-dismiss="true">@lang('web.Reset')</button>
                                     <button type="submit" class="btn btn-sm btn-primary apply" data-kt-menu-dismiss="true">@lang('web.Apply')</button>
+                                    <button type="submit" class="btn btn-sm btn-success export" data-kt-menu-dismiss="true" style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")margin-right: 10px; @else margin-left: 10px; @endif">@lang('web.Export')</button>
+
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -236,6 +250,23 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+        $('.export').click(function(){
+            var start = $("#start_date").val();
+            var end = $("#end_date").val();
+                $.ajax({
+                    type: 'get',
+                    url: '/downloadPdf',
+                    data: {start:start,end:end},
+                    success: function (response) {
+                        var blob = new Blob([response]);
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "transportations.pdf";
+                        link.click();
+                    }
+                });
+        })
+
         $('.apply').click(function(){
             var start = $("#start_date").val();
             var end = $("#end_date").val();

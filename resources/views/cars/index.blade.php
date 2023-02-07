@@ -88,7 +88,29 @@
                     </div>
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
-
+                    <div class="card-toolbar">
+                        <!--begin::Button-->
+                        @can('places_create')
+                            <button type="button" class="btn btn-light-primary addNew" data-bs-toggle="modal"
+                                    data-bs-target="#kt_modal_add_car" id="save">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                <span class="svg-icon svg-icon-3">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+														<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5"
+                                                              fill="currentColor"/>
+														<rect x="10.8891" y="17.8033" width="12" height="2" rx="1"
+                                                              transform="rotate(-90 10.8891 17.8033)"
+                                                              fill="currentColor"/>
+														<rect x="6.01041" y="10.9247" width="12" height="2" rx="1"
+                                                              fill="currentColor"/>
+													</svg>
+												</span>
+                                <!--end::Svg Icon-->@lang('web.Add_Car')
+                            </button>
+                        @endcan
+                        <!--end::Button-->
+                    </div>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -121,7 +143,300 @@
             </div>
             <!--end::Card-->
             <!--begin::Modals-->
-            <!--begin::Modal - Update permissions-->
+            <!--begin::Modal - create cars-->
+            <div class="modal fade" id="kt_modal_add_car" tabindex="-1" aria-hidden="true">
+                <!--begin::Modal dialog-->
+                <div class="modal-dialog modal-dialog-centered w-500px">
+                    <!--begin::Modal content-->
+                    <div class="modal-content">
+                        <!--begin::Modal header-->
+                        <div class="modal-header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bold">@lang('web.creat_car_info')</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                 data-kt-permissionss-modal-action="close">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+																<rect opacity="0.5" x="6" y="17.3137" width="16"
+                                                                      height="2" rx="1"
+                                                                      transform="rotate(-45 6 17.3137)"
+                                                                      fill="currentColor"/>
+																<rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                                                      transform="rotate(45 7.41422 6)"
+                                                                      fill="currentColor"/>
+															</svg>
+														</span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                            <!--begin::Notice-->
+                            <!--end::Notice-->
+                            <!--begin::Form-->
+                            <form id="kt_modal_add_car_form" class="form" action="#" enctype="multipart/form-data" style="font-size: 15px;">
+                                @csrf
+                                <div class="d-flex flex-column scroll-y me-n7 pe-7"
+                                     id="kt_modal_edit_event_scroll" data-kt-scroll="true"
+                                     data-kt-scroll-activate="{default: false, lg: true}"
+                                     data-kt-scroll-max-height="auto"
+                                     data-kt-scroll-dependencies="#kt_modal_edit_event_header"
+                                     data-kt-scroll-wrappers="#kt_modal_edit_event_scroll"
+                                     data-kt-scroll-offset="300px">
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.driver')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select id="driver" class="form-select form-select-solid" name="driver">
+{{--                                            @foreach(\App\Models\User::all() as $user)--}}
+{{--                                                <option value="{{$user->id}}">--}}
+{{--                                                   {{$user->full_name}}--}}
+{{--                                                </option>--}}
+{{--                                            @endforeach--}}
+                                        </select>
+                                        <strong id="driver_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.type')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select id="type" class="form-select form-select-solid" name="type">
+                                            @foreach(\App\Models\Car::type as $type)
+                                                <option value="{{$type}}">
+                                                    @if($type == 1)
+                                                        @lang('web.public')
+                                                    @else
+                                                        @lang('web.private')
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <strong id="type_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.Car_number')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input id="number" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                               placeholder="@lang('web.numberEnter')" name="number"/>
+                                        <strong id="number_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.Car_brand')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input id="brand" class="form-control form-control-solid"
+                                               placeholder="@lang('web.brandEnter')" name="brand"/>
+                                        <strong id="brand_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.Car_insurance')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input id="insurance_number" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                               placeholder="@lang('web.insurance_numberEnter')"
+                                               name="insurance_number"/>
+                                        <strong id="insurance_number_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.insurance_expiry_date')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="date" id="insurance_expiry_date_" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl" @endif
+                                        class="form-control form-control-solid"
+                                               placeholder="@lang('web.insurance_expiry_dateEnter')"
+                                               name="insurance_expiry_date"/>
+                                        <strong id="insurance_expiry_date_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photos_cars')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos" name="photos[]" accept="image/png, image/jpg, image/jpeg" multiple
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <strong id="photos_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photo_carlicense')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos_carlicense" name="photos_carlicense" accept="image/png, image/jpg, image/jpeg"
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_carlicense"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens_photos_carlicense" style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_carlicense"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens_photos_carlicense" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <strong id="photos_carlicense_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photo_carinsurance')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos_carinsurance" name="photos_carinsurance" accept="image/png, image/jpg, image/jpeg"
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_carinsurance"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens_photos_carinsurance" style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_carinsurance"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens_photos_carinsurance" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <strong id="photos_carinsurance_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--begin::Actions-->
+                                <div class="text-center pt-15">
+                                    <button type="reset" class="btn btn-light me-3"
+                                            data-kt-permissionss-modal-action="cancel">@lang('web.Discard')</button>
+                                    <button type="submit" class="btn btn-primary"
+                                            data-kt-permissionss-modal-action="submit">
+                                        <span class="indicator-label">@lang('web.Submit')</span>
+                                        <span class="indicator-progress">@lang('web.Please wait...')
+																<span
+                                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                </div>
+                                <!--end::Actions-->
+
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Modal body-->
+                    </div>
+                    <!--end::Modal content-->
+                </div>
+                <!--end::Modal dialog-->
+            </div>
+            <!--end::Modal - create cars-->
+            <!--begin::Modal - Update cars-->
             <div class="modal fade" id="kt_modal_update_car" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered w-500px">
@@ -185,6 +500,34 @@
                                                         @lang('web.public')
                                                     @else
                                                         @lang('web.private')
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <strong id="type_edit_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">@lang('web.status')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.required')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select id="status" class="form-select form-select-solid" name="status">
+                                            @foreach(\App\Models\Car::Status as $status)
+                                                <option value="{{$status}}">
+                                                    @if($type == 0)
+                                                        @lang('web.review')
+                                                    @elseif($status == 1)
+                                                        @lang('web.accepted')
+                                                    @else
+                                                        @lang('web.declined')
                                                     @endif
                                                 </option>
                                             @endforeach
@@ -327,8 +670,8 @@
                 </div>
                 <!--end::Modal dialog-->
             </div>
-            <!--end::Modal - Update permissions-->
-            <!--begin::Modal - Update permissions-->
+            <!--end::Modal - Update cars-->
+            <!--begin::Modal - show cars-->
             <div class="modal fade" id="kt_modal_detail_car" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-600px">
@@ -496,7 +839,7 @@
                 </div>
                 <!--end::Modal dialog-->
             </div>
-            <!--end::Modal - Update permissions-->
+            <!--end::Modal - show cars-->
             <!--end::Modals-->
         </div>
         <!--end::Content container-->
@@ -514,6 +857,30 @@
 
         actualBtn.addEventListener('change', function () {
             fileChosen.textContent = trans;
+        })
+
+        const actualBtns = document.getElementById('photos');
+
+        const fileChosens = document.getElementById('file-chosens');
+
+        actualBtns.addEventListener('change', function () {
+            fileChosens.textContent = trans;
+        })
+
+        const actualBtnsss = document.getElementById('photos_carlicense');
+
+        const fileChosensss = document.getElementById('file-chosens_photos_carlicense');
+
+        actualBtnsss.addEventListener('change', function () {
+            fileChosensss.textContent = trans;
+        })
+
+        const actualBtnssss = document.getElementById('photos_carinsurance');
+
+        const fileChosenssss = document.getElementById('file-chosens_photos_carinsurance');
+
+        actualBtnssss.addEventListener('change', function () {
+            fileChosenssss.textContent = trans;
         })
 
     </script>
@@ -538,7 +905,7 @@
                         $("#user_show").html(response.user);
                         $('div#photos_show').empty();
                         $.each(response.image, function (index, value) {
-                            var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;">');
+                            var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;"><br>');
                             img.attr('src', app_url + '/images/cars/' + value);
                             img.appendTo('#photos_show');
                         });
@@ -577,6 +944,7 @@
                         $("#insurance_number_edit").val(response.car.insurance_number);
                         $("#insurance_expiry_date_edit").val(response.car.insurance_expiry_date);
                         $("#type_edit").val(response.car.type);
+                        $("#status").val(response.car.status);
                         $("#user_edit").val(response.user);
                         $('div#photos_show_edit').empty();
                         $.each(response.image, function (index, value) {
@@ -600,6 +968,7 @@
     <script src="{{asset('assets/plugins/custom/datatables/datatables.bundle.js')}}" defer></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{{asset('pages/js/admin-management/cars/add-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/update-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/edit-cars.js')}}" defer></script>
     <script src="{{asset('pages/js/admin-management/cars/list.js')}}" defer></script>

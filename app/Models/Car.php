@@ -13,4 +13,9 @@ class Car extends Model
     protected $guarded = [];
     const Status =[0,1,2];
     const type =[1,2];
+
+    public function driver() {
+        return $this->belongsTo(Driver::class,'user_id');
+    }
+
 }

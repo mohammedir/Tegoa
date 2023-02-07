@@ -66,3 +66,11 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
         'expected_cost' => ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price
     ];
 }
+
+function marginFunction(){
+    if (\Illuminate\Support\Facades\App::getLocale() == "ar"){
+        return 'margin-right: 10px;';
+    }else{
+        return 'margin-left: 10px;';
+    }
+}
