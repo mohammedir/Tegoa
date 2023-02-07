@@ -258,11 +258,12 @@
                     url: '/downloadPdf',
                     data: {start:start,end:end},
                     success: function (response) {
-                        var blob = new Blob([response]);
                         var link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = "transportations.pdf";
+                        link.href = response.file;
+                        link.download = response.name;
+                        document.body.appendChild(link);
                         link.click();
+                        document.body.removeChild(link);
                     }
                 });
         })

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ __('event.register') }}</title>
+    <title>transportations</title>
     <style>
         body {
-            font-family: arial, sans-serif;
+            font-family: 'examplefont', sans-serif;
             letter-spacing: -0.3px;
         }
 
