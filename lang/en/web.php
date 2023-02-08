@@ -152,6 +152,9 @@ return [
     'Photo_carinsurance' => 'Photo car insurance',
     'creat_car_info' => 'Add car',
     'driver' => 'Driver',
+    'alert' => 'Alert',
+    'alert1' => 'A driver must be added first, then you can add a car to this new driver.You can add a car only for a driver who does not already own a car',
+    'Photo_passengersinsurance' => 'Photo passenger insurance',
 
     'numberEnter' => 'Enter a car number',
     'brandEnter' => 'Enter a car brand',

@@ -76,7 +76,11 @@
                                    placeholder="@lang('web.SearchDriver')"/>
                         </div>
                         <!--end::Search-->
+
+
                     </div>
+
+
                     <!--end::Card title-->
                     <!--begin::Card toolbar-->
                     <!--begin::Card toolbar-->
@@ -149,8 +153,8 @@
                                     <!--begin::Actions-->
                                     <div class="d-flex justify-content-end">
                                         <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2 reset" data-kt-menu-dismiss="true">@lang('web.Reset')</button>
-                                        <button  class="btn btn-sm btn-primary apply" data-kt-menu-dismiss="true">@lang('web.Apply')</button>
-                                        <button type="submit" class="btn btn-sm btn-success" data-kt-menu-dismiss="true" style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")margin-right: 10px; @else margin-left: 10px; @endif">@lang('web.Export')</button>
+                                        <button type="button" class="btn btn-sm btn-primary apply" data-kt-menu-dismiss="true">@lang('web.Apply')</button>
+                                        <button type="submit" class="btn btn-sm btn-success export" data-kt-menu-dismiss="true" style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")margin-right: 10px; @else margin-left: 10px; @endif">@lang('web.Export')</button>
                                     </div>
                                 </form>
 
@@ -253,23 +257,39 @@
 @endsection
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(".export").click(function(event) {
+            var start_date = $("input[name='start_date']").val();
+            var end_date = $("input[name='end_date']").val();
+
+            if ((start_date === "" && end_date !== "") || (start_date !== "" && end_date === "")) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '@lang('web.Sorry')',
+                    text: '@lang('web.The start and end date must be added !')',
+                    footer: ''
+                })
+                event.preventDefault();
+            }
+        });
+    </script>
     <script type="text/javascript">
-        $('.export').click(function(){
-            var start = $("#start_date").val();
-            var end = $("#end_date").val();
-                $.ajax({
-                    type: 'get',
-                    url: '/downloadPdf',
-                    data: {start:start,end:end},
-                    success: function (response) {
-                        var blob = new Blob([response]);
-                        var link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = "transportations.pdf";
-                        link.click();
-                    }
-                });
-        })
+        // $('.export').click(function(){
+        //     var start = $("#start_date").val();
+        //     var end = $("#end_date").val();
+        //         $.ajax({
+        //             type: 'get',
+        //             url: '/downloadPdf',
+        //             data: {start:start,end:end},
+        //             success: function (response) {
+        //                 var blob = new Blob([response]);
+        //                 var link = document.createElement('a');
+        //                 link.href = window.URL.createObjectURL(blob);
+        //                 link.download = "transportations.pdf";
+        //                 link.click();
+        //             }
+        //         });
+        // })
 
         $('.apply').click(function(){
             var start = $("#start_date").val();

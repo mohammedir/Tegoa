@@ -86,6 +86,7 @@ class CarController extends Controller
             'photos' => $request->photos != 'undefined' ? 'required|array' : '',
             'photos_carlicense' => $request->photos_carlicense != 'undefined' ? 'required|mimes:jpeg,png,jpg' : '',
             'photos_carinsurance' => $request->photos_carinsurance != 'undefined' ? 'required|mimes:jpeg,png,jpg' : '',
+            'photos_passengersinsurance' => $request->photos_passengersinsurance != 'undefined' ? 'required|mimes:jpeg,png,jpg' : '',
         ], [
             'driver.required' => trans("web.required"),
             'driver.numeric' => trans("web.numeric"),
@@ -114,6 +115,9 @@ class CarController extends Controller
             'photos_carinsurance.required' => trans("web.required"),
             'photos_carinsurance.mimes' => trans("web.mimes"),
 
+            'photos_passengersinsurance.required' => trans("web.required"),
+            'photos_passengersinsurance.mimes' => trans("web.mimes"),
+
 
         ]);
         if ($validator->passes()) {
@@ -137,6 +141,11 @@ class CarController extends Controller
             $name2 = time() . rand(1, 100) . '.' . $value2->extension();
             $value2->move('images/cars/', $name2);
             $data->carinsurance = $name2;
+
+            $value4 = $request->photos_passengersinsurance;
+            $name4 = time() . rand(1, 100) . '.' . $value4->extension();
+            $value4->move('images/cars/', $name4);
+            $data->passengersinsurance = $name4;
 
             $value3 = $request->photos[0];
             $name_value3 = time() . rand(1, 100);

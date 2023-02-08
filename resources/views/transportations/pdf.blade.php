@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title>transportations</title>
     <style>
         body {
@@ -64,40 +65,33 @@
             <td>{{getUserName($p->passenger_id)}}</td>
             <td>
                 <div class="ratings">
-                    {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $p->rating_car) !!}
-                    {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $p->rating_car) !!}
+                    {{$p->rating_car}} star
                 </div>
             </td>
             <td>
                 <div class="ratings">
                     <div class="ratings">
-                        {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $p->rating_time) !!}
-                        {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $p->rating_time) !!}
+                        {{$p->rating_time}} star
                     </div>
                 </div>
             </td>
             <td>
                 <div class="ratings">
                     <div class="ratings">
-                        {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $p->rating_driver) !!}
-                        {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $p->rating_driver) !!}
+                        {{$p->rating_driver}} star
                     </div>
                 </div>
             </td>
             <td>
                 <div class="ratings">
                     <div class="ratings">
-                        {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $p->rating_passenger) !!}
-                        {!! str_repeat('<span><i class="fa fa-star"></i>', 5 - $p->rating_passenger) !!}
+                        {{$p->rating_passenger}} star
                     </div>
                 </div>
             </td>
             <td>
                 @if($p->complaint)
-                    <button id="show" data-id="{{$p->id}}"
-                            class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3"
-                            data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i
-                            class="bi bi-eye"></i></button>
+                    {{$p->complaint}}
                 @endif
             </td>
         </tr>
@@ -105,6 +99,7 @@
     </tbody>
 </table>
 </body>
+<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 
 </html>
 

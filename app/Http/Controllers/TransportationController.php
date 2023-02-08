@@ -105,6 +105,8 @@ class TransportationController extends Controller
             $pd = DB::table('transportation_requests')->where('status', '=', 4)->whereBetween('created_at', [$request->start_date, $request->end_date])->get();
             $pdf = PDF::loadView('transportations.pdf', ['pd' => $pd]);
             return $pdf->download('Transportations.pdf');
+        }else{
+            return redirect()->back()->with(['error'=>'Please select start date and end date']);
         }
     }
 
