@@ -64,7 +64,9 @@ $(function () {
                 customClass: {confirmButton: "btn btn-primary"}
             }).then((function (e) {
                 e.isConfirmed
+/*
                 window.location.reload(true);
+*/
             }))
             submit_button.disabled = !1
         }), 1000));//2e3 == 1000
