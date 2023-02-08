@@ -455,7 +455,7 @@
                                                     id="file-chosens_photos_passengersinsurance" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                         @endif
                                         <!--end::Input-->
-                                        <strong id="photos_carinsurance_error" class="errors text-danger"
+                                        <strong id="photos_passengersinsurance_error" class="errors text-danger"
                                                 role="alert"></strong>
                                         <!--end::Input-->
                                     </div>
