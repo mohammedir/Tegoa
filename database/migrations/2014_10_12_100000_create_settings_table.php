@@ -17,6 +17,7 @@ class CreateSettingsTable extends Migration
 
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->longText('municipality')->nullable();
             $table->double('public_price_per_km');
             $table->double('private_price_per_km');
             $table->string('map_key');

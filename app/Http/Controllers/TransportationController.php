@@ -7,7 +7,8 @@ use App\Models\User;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
+
 class TransportationController extends Controller
 {
 
@@ -98,7 +99,7 @@ class TransportationController extends Controller
     {
         if ($request->start == null && $request->end == null) {
             $pd = DB::table('transportation_requests')->where('status', '=', 4)->get();
-            $pdf = PDF::loadView('transportations.pdf', ['pd' => $pd]);
+            $pdf = PDF::loadView('transportations.pdf', compact('pd'));
             return $pdf->download('Transportations.pdf');
         } elseif ($request->start !== null && $request->end !== null) {
             $pd = DB::table('transportation_requests')->where('status', '=', 4)->whereBetween('created_at', [$request->start, $request->end])->get();

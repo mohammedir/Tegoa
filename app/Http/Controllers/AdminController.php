@@ -92,7 +92,7 @@ class AdminController extends Controller
                                 </button>
                                 </a>    <!--end::Update-->
                                 ';
-                        if (Auth::user()->hasPermissionTo('admin_delete')) {
+                        if (Auth::user()->hasPermissionTo('admins_delete')) {
                             $actions = $actions . ' <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                     <span class="svg-icon svg-icon-3">

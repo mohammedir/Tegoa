@@ -113,6 +113,8 @@ return [
     'users_create'=>'انشاء المستخدمين',
     'users_edit'=>'تعديل المستخدمين',
     'users_delete'=>'حذف المستخدمين',
+    'admins_delete' => 'حذف مدراء النظام',
+
     /*----------------------------*/
     'Permission Name' => 'اسم الصلاحيه',
     'Add Permission' => 'اضافه صلاحيه',
@@ -347,4 +349,8 @@ return [
     'you must add start date before' => 'يجب عليك إضافة تاريخ البدء من قبل',
     'The end date cannot be more than start date' => 'لا يمكن أن يكون تاريخ الانتهاء أقل من تاريخ البدء',
     'The start date cannot be in the past!' => 'لا يمكن أن يكون تاريخ البدء في الماضي!',
+
+    'About the municipality_En' => 'عن البلدية (English)',
+    'About the municipality_Ar' => 'عن البلدية (Arabic)',
+
 ];

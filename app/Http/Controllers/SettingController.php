@@ -41,6 +41,7 @@ class SettingController extends Controller
         ]);
         if ($validator->passes()) {
             $data = Setting::find(1);
+            $data->municipality = ["en" => $request->about_municipality_en, "ar" => $request->about_municipality_ar];
             $data->public_price_per_km = $request->public_price;
             $data->private_price_per_km = $request->private_price;
             $data->map_key = $request->key;

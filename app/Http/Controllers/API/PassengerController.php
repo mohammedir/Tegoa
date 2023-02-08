@@ -267,18 +267,15 @@ class PassengerController extends Controller
             return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
 
-
-
     }
 
     public function my_transportion(Request $request){
         try {
-            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->get();
+            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->where('status','!=',5)->get();
             foreach ($Mytransportation as $mytransportation){
                 $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                 $mytransportation->destination = '';
                 $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
-
                 if ($place){
                     $mytransportation->destination = $place->name;
                 }
@@ -295,10 +292,8 @@ class PassengerController extends Controller
 
         }catch (Exception $e){
             return  $this->setError(200,false, substr($e->getMessage(), 0, 100) , 200);
-
         }
     }
-
     public function rating(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
@@ -317,40 +312,44 @@ class PassengerController extends Controller
 
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
-
         }
     }
-
     public function report_driver(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
             'text_report' => 'required',
+        ],[
+            'transportation_id.required' => trans("api.transportation_id field is required"),
+            'text_report.required' => trans("api.text_report field is required"),
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             $transportation->complaint = $request->text_report;
             $transportation->save();
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
     }
-
     public function get_data_expected(Request $request){
-        $settings = Settings::query()->find(1);
-        $places =  Place::query()->find($request->destination_id);
-        $price = $settings->public_price_per_km;
-        if ($request->vehicle_type == 2)
-            $price = $settings->private_price_per_km;
+        try {
+            $settings = Settings::query()->find(1);
+            $places =  Place::query()->find($request->destination_id);
+            $price = $settings->public_price_per_km;
+            if ($request->vehicle_type == 2)
+                $price = $settings->private_price_per_km;
 
-        $originLatLng = [$request->lat_from,$request->lng_from];
-        $destinationLatLng = [$places->lat,$places->long];
-        $apiKey = $settings->map_key;
-        $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
-        return $this->api_response(200, true, trans('api.data expected'), $result, 200);
-
+            $originLatLng = [$request->lat_from,$request->lng_from];
+            $destinationLatLng = [$places->lat,$places->long];
+            $apiKey = $settings->map_key;
+            $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
+            return $this->api_response(200, true, trans('api.data expected'), $result, 200);
+        }catch (Exception $e){
+            return  $this->setError(200,false, substr($e->getMessage(), 0, 100) , 200);
+        }
     }
 
     public function settings(){
         $settings = Settings::query()->get();
         return  $this->api_response(200,true,trans('api.Settings ') , $settings , 200);
-
     }
 }

@@ -138,17 +138,21 @@ class CarController extends Controller
             $value2->move('images/cars/', $name2);
             $data->carinsurance = $name2;
 
-
+            $value3 = $request->photos[0];
+            $name_value3 = time() . rand(1, 100);
+            $name3 = $name_value3 . '.' . $value3->extension();
+            $data->carphotos = $name3;
             $data->save();
 
             foreach ($request->photos as $photo) {
                 $value = $photo;
-                $name = time() . rand(1, 100) . '.' . $value->extension();
+                $name = $name_value3 . '.' . $value->extension();
                 $value->move('images/cars/', $name);
                 $pic = new Photos();
                 $pic->images = $name;
                 $pic->car_id = $data->id;
                 $pic->save();
+
             }
 
             return response()->json(['success' => $data]);

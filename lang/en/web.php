@@ -112,6 +112,7 @@ return [
     'users_create' => 'users_create',
     'users_edit' => 'users_edit',
     'users_delete' => 'users_delete',
+    'admins_delete' => 'admins_delete',
     /*----------------------------*/
     'Permission Name' => 'Permission Name',
     'Add Permission' => 'Add Permission',
@@ -348,5 +349,6 @@ return [
     'The end date cannot be more than start date' => 'The end date cannot be less than start date',
     'The start date cannot be in the past!' => 'The start date cannot be in the past!',
 
-
+    'About the municipality_En' => 'About the municipality (English)',
+    'About the municipality_Ar' => 'About the municipality (Arabic)',
 ];

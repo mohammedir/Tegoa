@@ -58,11 +58,10 @@
     </tr>
     </thead>
     <tbody>
-
     @foreach ($pd as $p)
         <tr>
-            <td>{{\App\Models\User::find($p->driver_id)->full_name}}</td>
-            <td>{{\App\Models\User::find($p->passenger_id)->full_name}}</td>
+            <td>{{getUserName($p->driver_id)}}</td>
+            <td>{{getUserName($p->passenger_id)}}</td>
             <td>
                 <div class="ratings">
                     {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $p->rating_car) !!}

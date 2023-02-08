@@ -57,6 +57,42 @@
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label
+                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_En') }}
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <textarea id="about_municipality_en" type="text"
+                                                      class="form-control form-control-solid"
+                                                      placeholder="@lang('web.About the municipality_En')"
+                                                      name="about_municipality_en">{{$settings->getTranslation('municipality', 'en')}}</textarea>
+                                            <strong id="article_en_edit_error" class="errors text-danger"
+                                                    role="alert"></strong>
+                                            <!--end::Input-->
+                                        </div>
+
+                                        <div class="col-md-6 mb-7">
+                                            <!--begin::Label-->
+                                            <label
+                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_Ar') }}
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <textarea id="about_municipality_ar" type="number" name="about_municipality_ar"
+                                                      class="form-control form-control-solid mb-3 mb-lg-0"
+                                                      placeholder="{{ __('web.About the municipality_Ar') }}"
+                                            >{{$settings->getTranslation('municipality', 'ar')}}</textarea>
+                                            <strong id="startPage_text_ar_error" class="errors text-danger"
+                                                    role="alert">
+                                            </strong>
+                                            <!--end::Input-->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="col-md-6 mb-7">
+                                            <!--begin::Label-->
+                                            <label
                                                 class="required fw-bold fs-6 mb-2">{{ __('web.public_price_per_km') }}
                                             </label>
                                             <!--end::Label-->
@@ -106,7 +142,6 @@
                                             </strong>
                                             <!--end::Input-->
                                         </div>
-
                                     </div>
                                     <!--end::Scroll-->
                                 </form>

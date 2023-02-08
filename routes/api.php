@@ -34,7 +34,7 @@ Route::post('passenger_login',[AuthController::class,'passenger_login'])->middle
 Route::post('driver_login',[AuthController::class,'driver_login'])->middleware('localization');
 Route::post('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 Route::get('user',[AuthController::class,'index'])->middleware('auth:sanctum');
-Route::get('settings',[PassengerController::class,'settings']);
+Route::get('settings',[PassengerController::class,'settings'])->middleware('localization');
 Route::post('fcm_token',[AuthController::class,'fcm_token'])->middleware('auth:sanctum');
 
 Route::controller(GuestController::class)

@@ -70,7 +70,7 @@ class DriverController extends Controller
                                 </button>
                                 <!--end::Update-->';
                     }
-                    if (Auth::user()->hasPermissionTo('driver_delete')) {
+                    if (Auth::user()->hasPermissionTo('drivers_delete')) {
                         $actions = $actions . ' <button id="delete" data-id="' . $data->id . '" class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                     <span class="svg-icon svg-icon-3">

@@ -22,11 +22,11 @@ class CreateTransportationRequestsTable extends Migration
             $table->string('lng_from');
             $table->string('lat_to');
             $table->string('lng_to');
-            $table->string('destination');
+            $table->string('destination')->nullable();
             $table->string('departure_time');
             $table->bigInteger('number_of_passenger');
             $table->bigInteger('vehicle_type')->comment('1(public)/ 2(private)');
-            $table->string('distance');
+            $table->string('distance')->nullable();
             $table->string('expected_cost');
             $table->string('arrival_time');
             $table->foreignId('driver_id')->nullable()->constrained('users')->cascadeOnDelete();
