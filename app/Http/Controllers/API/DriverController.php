@@ -308,6 +308,7 @@ class DriverController extends Controller
                     $transportation->driver_id = $request->user()->id;
                     $transportation->status = 2;
                     $transportation->save();
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
                     if ($transportation->status == 2){
                         $transportation->status = trans('api.accept driver');
                     }
