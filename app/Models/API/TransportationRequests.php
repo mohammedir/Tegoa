@@ -48,4 +48,13 @@ class TransportationRequests extends Model
         }
     }*/
 
+    protected function status_string(): Attribute
+    {
+        return Attribute::make(
+            set: fn (TransportationRequests $value) => [
+                'address_line_one' => $value->lat_to,
+                'address_line_two' => $value->lat_to,
+            ],
+        );
+    }
 }

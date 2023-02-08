@@ -30,7 +30,7 @@ class CreateTransportationRequestsTable extends Migration
             $table->string('expected_cost');
             $table->string('arrival_time');
             $table->foreignId('driver_id')->nullable()->constrained('users')->cascadeOnDelete();
-            $table->string('status')->default('1')->comment('1(waiting_driver)/2(accept_driver)/3(start_trip)/4(end_trip)/5(rejected)');
+            $table->integer('status')->default('1')->comment('1(waiting_driver)/2(accept_driver)/3(start_trip)/4(end_trip)/5(rejected)');
             $table->string('start_trip')->nullable();
             $table->string('end_trip')->nullable();
             $table->bigInteger('rating_car')->nullable();
