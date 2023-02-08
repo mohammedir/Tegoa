@@ -308,6 +308,9 @@ class DriverController extends Controller
                     $transportation->driver_id = $request->user()->id;
                     $transportation->status = 2;
                     $transportation->save();
+                    if ($transportation->status == 2){
+                        $transportation->status = trans('api.accept driver');
+                    }
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);

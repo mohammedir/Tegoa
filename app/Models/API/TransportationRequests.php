@@ -32,7 +32,7 @@ class TransportationRequests extends Model
         'driver_id'
     ];
 
-    public function getStatusAttribute($value)
+   /* public function getStatusAttribute($value)
     {
         switch ($value) {
             case 1:
@@ -46,6 +46,6 @@ class TransportationRequests extends Model
             default:
                 return $value;
         }
-    }
+    }*/
 
 }
