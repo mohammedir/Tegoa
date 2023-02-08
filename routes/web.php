@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth', 'verified', 'localeSessionRedirect', 'loc
     Route::resource('transportations', TransportationController::class);
     Route::get('/search', [TransportationController::class, 'fetch_data']);
     Route::get('/search/date/', [TransportationController::class, 'SearchDate']);
-    Route::get('/downloadPdf', [TransportationController::class, 'downloadPdf']);
+    Route::post('/downloadPdf', [TransportationController::class, 'downloadPdf']);
 
     Route::get('/settings/update/one/', [SettingController::class, 'updateOne']);
     Route::resource('settings', SettingController::class);

@@ -353,4 +353,5 @@ return [
     'About the municipality_En' => 'عن البلدية (English)',
     'About the municipality_Ar' => 'عن البلدية (Arabic)',
 
+    'digits_between' => 'يجب ان لا يكون الرقم اقل من 10 ارقام ولا يزيد عن 14 رقم',
 ];

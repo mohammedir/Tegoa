@@ -112,7 +112,7 @@ class EmergencyController extends Controller
             'title_ar' => 'required|string',
             'scooter_number' => 'required|numeric|unique:emergencies,scooter_number',
             'type' => 'required|numeric',
-            'phone_number' => 'required|numeric|unique:emergencies,phone_number',
+            'phone_number' => 'required|numeric|unique:emergencies,phone_number|digits_between:10,14',
             'fileupload' => 'required|mimes:jpeg,png,jpg'
         ], [
             'title_en.required' => trans("web.required"),
@@ -133,6 +133,7 @@ class EmergencyController extends Controller
             'phone_number.required' => trans("web.required"),
             'phone_number.numeric' => trans("web.numeric"),
             'phone_number.unique' => trans("web.uniqueNumber"),
+            'phone_number.digits_between' => trans("web.digits_between"),
 
             'fileupload.required' => trans("web.required"),
             'fileupload.mimes' => trans("web.mimes"),
@@ -192,7 +193,7 @@ class EmergencyController extends Controller
             'title_ar_edit' => 'required|string',
             'scooter_number_edit' => 'required|numeric|unique:emergencies,scooter_number,' . $emergency->id,
             'type_edit' => 'required|numeric',
-            'phone_number_edit' => 'required|numeric|unique:emergencies,phone_number,' . $emergency->id,
+            'phone_number_edit' => 'required|numeric|digits_between:10,14|unique:emergencies,phone_number,' . $emergency->id,
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
             'title_en_edit.required' => trans("web.required"),
@@ -213,6 +214,7 @@ class EmergencyController extends Controller
             'phone_number_edit.required' => trans("web.required"),
             'phone_number_edit.numeric' => trans("web.numeric"),
             'phone_number_edit.unique' => trans("web.uniqueNumber"),
+            'phone_number_edit.digits_between' => trans("web.digits_between"),
 
             'fileuploads.mimes' => trans("web.mimes"),
             'fileuploads.uploaded' => trans("web.uploaded"),

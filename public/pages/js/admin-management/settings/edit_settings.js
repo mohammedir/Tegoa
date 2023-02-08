@@ -5,8 +5,8 @@ $(function () {
         discard_button = document.getElementById('kt_modal_update_user_submit'),
         id = $('#user_id').val(),
         app_url = $('#app_url').val(),
-        about_municipality_en = $("#about_municipality_en"),
-        about_municipality_ar = $("#about_municipality_ar"),
+        about_municipality_en_input = $("#about_municipality_en"),
+        about_municipality_ar_input = $("#about_municipality_ar"),
         public_input = $("#public_price"),
         private_input = $("#private_price"),
         key_input = $("#key");
@@ -24,8 +24,8 @@ $(function () {
             let publics = public_input.val(),
                 privates = private_input.val(),
                 keys = key_input.val();
-                about_municipality_en = about_municipality_en.val();
-                about_municipality_ar = about_municipality_ar.val();
+                about_municipality_en = about_municipality_en_input.val();
+                about_municipality_ar = about_municipality_ar_input.val();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

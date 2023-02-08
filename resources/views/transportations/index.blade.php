@@ -107,50 +107,54 @@
                             <div class="separator border-gray-200"></div>
                             <!--end::Menu separator-->
                             <!--begin::Form-->
+
                             <div class="px-7 py-5">
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fw-semibold">@lang('web.From')</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <div>
-                                        <input class="form-control form-control-solid" type="date" placeholder="From"
-                                               id="start_date" name="start_date"/>
+                                <form method="post" action="{{url('/downloadPdf')}}">
+                                    @csrf
+                                    <!--begin::Input group-->
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fw-semibold">@lang('web.From')</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div>
+                                            <input class="form-control form-control-solid" type="date" placeholder="From"
+                                                   id="start_date" name="start_date"/>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Label-->
+                                        <br>
+                                        <label class="form-label fw-semibold">@lang('web.To')</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div>
+                                            <input class="form-control form-control-solid" type="date" placeholder="To"
+                                                   id="end_date" name="end_date"/>
+                                        </div>
+                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Input-->
-                                    <!--begin::Label-->
-                                    <br>
-                                    <label class="form-label fw-semibold">@lang('web.To')</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <div>
-                                        <input class="form-control form-control-solid" type="date" placeholder="To"
-                                               id="end_date" name="end_date"/>
-                                    </div>
-                                    <!--end::Input-->
-                                </div>
-                                <div class="mb-10">
-                                    <label class="form-label fw-semibold">@lang('web.type:')</label>
-                                    <div class="mb-0">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="pdf" id="Check2"
-                                                   name="radio2" checked/>
-                                            <label class="form-check-label" for="Check2">
-                                                Pdf
-                                            </label>
+                                    <div class="mb-10">
+                                        <label class="form-label fw-semibold">@lang('web.type:')</label>
+                                        <div class="mb-0">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="pdf" id="Check2"
+                                                       name="radio2" checked/>
+                                                <label class="form-check-label" for="Check2">
+                                                    Pdf
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2 reset" data-kt-menu-dismiss="true">@lang('web.Reset')</button>
-                                    <button type="submit" class="btn btn-sm btn-primary apply" data-kt-menu-dismiss="true">@lang('web.Apply')</button>
-                                    <button type="submit" class="btn btn-sm btn-success export" data-kt-menu-dismiss="true" style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")margin-right: 10px; @else margin-left: 10px; @endif">@lang('web.Export')</button>
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2 reset" data-kt-menu-dismiss="true">@lang('web.Reset')</button>
+                                        <button  class="btn btn-sm btn-primary apply" data-kt-menu-dismiss="true">@lang('web.Apply')</button>
+                                        <button type="submit" class="btn btn-sm btn-success" data-kt-menu-dismiss="true" style="@if(\Illuminate\Support\Facades\App::getLocale() == "ar")margin-right: 10px; @else margin-left: 10px; @endif">@lang('web.Export')</button>
+                                    </div>
+                                </form>
 
-                                </div>
-                                <!--end::Actions-->
+                            <!--end::Actions-->
                             </div>
                             <!--end::Form-->
                         </div>

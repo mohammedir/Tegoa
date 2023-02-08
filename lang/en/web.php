@@ -351,4 +351,7 @@ return [
 
     'About the municipality_En' => 'About the municipality (English)',
     'About the municipality_Ar' => 'About the municipality (Arabic)',
+
+    'digits_between' => 'The number must not be less than 10 digits and not more than 14 digits',
+
 ];

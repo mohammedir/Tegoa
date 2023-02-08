@@ -97,16 +97,15 @@ class TransportationController extends Controller
 
     public function downloadPdf(Request $request)
     {
-        if ($request->start == null && $request->end == null) {
+        if ($request->start_date == null && $request->end_date == null) {
             $pd = DB::table('transportation_requests')->where('status', '=', 4)->get();
             $pdf = PDF::loadView('transportations.pdf', compact('pd'));
             return $pdf->download('Transportations.pdf');
-        } elseif ($request->start !== null && $request->end !== null) {
-            $pd = DB::table('transportation_requests')->where('status', '=', 4)->whereBetween('created_at', [$request->start, $request->end])->get();
+        } elseif ($request->start_date !== null && $request->end_date !== null) {
+            $pd = DB::table('transportation_requests')->where('status', '=', 4)->whereBetween('created_at', [$request->start_date, $request->end_date])->get();
             $pdf = PDF::loadView('transportations.pdf', ['pd' => $pd]);
             return $pdf->download('Transportations.pdf');
         }
     }
-
 
 }

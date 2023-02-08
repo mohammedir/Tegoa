@@ -111,7 +111,7 @@ class TourController extends Controller
             'gender' => 'required|numeric',
             'spoken_languages' => 'required|array',
             'email' => 'required|email|unique:tour_guids|max:255',
-            'phone_number' => 'required|string|min:10|max:14',
+            'phone_number' => 'required|string|digits_between:10,14',
             'fileupload' => 'required|mimes:jpeg,png,jpg'
         ], [
             'name_en.required' => trans("web.required"),
@@ -140,8 +140,7 @@ class TourController extends Controller
 
             'phone_number.required' => trans("web.required"),
             'phone_number.numeric' => trans("web.numeric"),
-            'phone_number.min' => trans("web.minPhone"),
-            'phone_number.max' => trans("web.maxPhone"),
+            'phone_number.digits_between' => trans("web.digits_between"),
 
             'fileupload.required' => trans("web.required"),
             'fileupload.mimes' => trans("web.mimes"),
@@ -216,7 +215,7 @@ class TourController extends Controller
             'gender_edit' => 'required|numeric',
             'spoken_languages_edit' => 'required|array',
             'email_edit' => 'required|email|max:255|unique:tour_guids,email,' . $tour->id,
-            'phone_number_edit' => 'required|string|min:10|max:14',
+            'phone_number_edit' => 'required|string|digits_between:10,14',
             'fileuploads' => $request->fileuploads != 'undefined' ? 'mimes:jpeg,jpg,png|sometimes' : '',
         ], [
             'name_en_edit.required' => trans("web.required"),
@@ -245,8 +244,7 @@ class TourController extends Controller
 
             'phone_number_edit.required' => trans("web.required"),
             'phone_number_edit.numeric' => trans("web.numeric"),
-            'phone_number_edit.min' => trans("web.minPhone"),
-            'phone_number_edit.max' => trans("web.maxPhone"),
+            'phone_number_edit.digits_between' => trans("web.digits_between"),
 
             'fileuploads.mimes' => trans("web.mimes"),
 
