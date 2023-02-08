@@ -308,8 +308,10 @@ class DriverController extends Controller
                     $transportation->driver_id = $request->user()->id;
                     $transportation->status = 2;
                     $transportation->save();
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);

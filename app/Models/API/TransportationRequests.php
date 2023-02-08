@@ -32,7 +32,7 @@ class TransportationRequests extends Model
         'driver_id'
     ];
 
-    public function getStatusAttribute($value)
+   /* public function getStatusAttribute($value)
     {
         switch ($value) {
             case 1:
@@ -46,6 +46,15 @@ class TransportationRequests extends Model
             default:
                 return $value;
         }
-    }
+    }*/
 
+    protected function status_string(): Attribute
+    {
+        return Attribute::make(
+            set: fn (TransportationRequests $value) => [
+                'address_line_one' => $value->lat_to,
+                'address_line_two' => $value->lat_to,
+            ],
+        );
+    }
 }
