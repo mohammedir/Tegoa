@@ -57,5 +57,4 @@ class TransportationRequests extends Model
         $this->attributes['status_name'] = $value;
     }
 
-
 }
