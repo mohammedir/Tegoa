@@ -93,24 +93,24 @@
                 </div>
             </td>
             <td>
-                @switch($transportation->status)
+                @switch($p->status)
                     @case(1)
-                        <span class="badge badge-secondary">{{getStatusAttribute($transportation->status)}}</span>
+                        <span class="badge badge-secondary">{{getStatusAttribute($p->status)}}</span>
                         @break
                     @case(2)
-                        <span class="badge badge-primary">{{getStatusAttribute($transportation->status)}}</span>
+                        <span class="badge badge-primary">{{getStatusAttribute($p->status)}}</span>
                         @break
                     @case(3)
-                        <span class="badge badge-info">{{getStatusAttribute($transportation->status)}}</span>
+                        <span class="badge badge-info">{{getStatusAttribute($p->status)}}</span>
                         @break
                     @case(4)
-                        <span class="badge badge-success">{{getStatusAttribute($transportation->status)}}</span>
+                        <span class="badge badge-success">{{getStatusAttribute($p->status)}}</span>
                         @break
                     @case(5)
-                        <span class="badge badge-danger">{{getStatusAttribute($transportation->status)}}</span>
+                        <span class="badge badge-danger">{{getStatusAttribute($p->status)}}</span>
                         @break
                     @default
-                        {{$transportation->status}}
+                        {{$p->status}}
                 @endswitch
             </td>
             <td>
