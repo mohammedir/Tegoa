@@ -28,11 +28,12 @@ class DriverController extends Controller
     /* I use it to get data driver.*/
     public function edit_profile(Request $request){
         $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
-        $carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+        /*$carphotos = Photos::query()->where('car_id','=',$car->id)->get();
+
         foreach ($carphotos as  $key=>$carphotos){
             $image[$key] = url(asset('/images/cars/'.$carphotos->images));
             $car->carphotos = $image;
-        }
+        }*/
 
         $res = [
             'user' => $request->user(),
@@ -278,6 +279,8 @@ class DriverController extends Controller
             \Illuminate\Support\Facades\Session::flash('message', $validator->errors()->first());
         }
     }
+
+
     public function available_transportion(Request $request){
         try {
             $driver = User::query()->find($request->user()->id);
@@ -286,7 +289,8 @@ class DriverController extends Controller
                 $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                 $mytransportation->destination = '';
                 $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
-                $mytransportation->status_name = getStatusAttribute($mytransportation->status);
+                $mytransportation->driver_id = getUserName($mytransportation->driver_id);
+                $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
                 if ($place){
                     $mytransportation->destination = $place->name;
                 }
@@ -309,9 +313,14 @@ class DriverController extends Controller
                     $transportation->status = 2;
                     $transportation->save();
                     $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
+
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
@@ -333,7 +342,15 @@ class DriverController extends Controller
                     $transportation->start_trip = now();
                     $transportation->status = 3;
                     $transportation->save();
-                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation , 200);
+                }else if ($transportation->status == 3 && $transportation->driver_id == $request->user()->id){
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
                 }
@@ -345,7 +362,6 @@ class DriverController extends Controller
     public function end_trip(Request $request){
         $validator = Validator::make($request->all(),[
             'transportation_id' => 'required',
-            'time_end_trip' => 'required',
         ]);
         $driver = User::query()->where('user_type','=',2)->where('id','=',$request->user()->id)->get()->first();
         $transportation = TransportationRequests::query()->find($request->transportation_id);
@@ -355,7 +371,15 @@ class DriverController extends Controller
                     $transportation->end_trip = now();
                     $transportation->status = 4;
                     $transportation->save();
-                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , "" , 200);
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation , 200);
+                }else if ($transportation->status == 4 && $transportation->driver_id == $request->user()->id){
+                    $transportation->passenger_id = getUserName($transportation->passenger_id);
+                    $transportation->driver_id = getUserName($transportation->driver_id);
+                    $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
                 }
@@ -368,14 +392,21 @@ class DriverController extends Controller
     }
     public function rating(Request $request){
         $validator = Validator::make($request->all(),[
-            'transportation_id' => 'required',
+            'transportion_id' => 'required',
             'passenger_rating' => 'required',
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
-            $transportation->passenger_rating = $request->rating_passenger;
-            $transportation->save();
-            return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+             if ($transportation->status == 4){
+                $transportation->rating_passenger = $request->passenger_rating;
+                $transportation->save();
+                 $transportation->passenger_id = getUserName($transportation->passenger_id);
+                 $transportation->driver_id = getUserName($transportation->driver_id);
+                 $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                 return  $this->api_response(200,true,trans('api.Rating successfully ') , $transportation , 200);
+             }else{
+                 return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+             }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
@@ -387,9 +418,16 @@ class DriverController extends Controller
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
-            $transportation->complaint = $request->text_report;
-            $transportation->save();
-            return  $this->api_response(200,true,trans('api. Report passenger successfully ') , $transportation , 200);
+            if ($transportation->status == 4){
+                $transportation->complaint = $request->text_report;
+                $transportation->save();
+                $transportation->passenger_id = getUserName($transportation->passenger_id);
+                $transportation->driver_id = getUserName($transportation->driver_id);
+                $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                return  $this->api_response(200,true,trans('api.Report passenger successfully ') , $transportation , 200);
+            }else{
+                return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+            }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
         }

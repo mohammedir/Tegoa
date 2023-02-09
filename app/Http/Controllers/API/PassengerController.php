@@ -139,6 +139,24 @@ class PassengerController extends Controller
 
         }
     }
+    public function get_data_expected(Request $request){
+        try {
+            $settings = Settings::query()->find(1);
+            $places =  Place::query()->find($request->destination_id);
+            $price = $settings->public_price_per_km;
+            if ($request->vehicle_type == 2)
+                $price = $settings->private_price_per_km;
+
+            $originLatLng = [$request->lat_from,$request->lng_from];
+            $destinationLatLng = [$places->lat,$places->long];
+            $apiKey = $settings->map_key;
+            $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
+            return $this->api_response(200, true, trans('api.data expected'), $result, 200);
+        }catch (Exception $e){
+            return  $this->setError(200,false, substr($e->getMessage(), 0, 100) , 200);
+        }
+    }
+
     public function find_transportion(Request $request){
         $validator = Validator::make($request->all(),[
             'lat_from' => 'required',
@@ -182,6 +200,9 @@ class PassengerController extends Controller
                         $transportation_requests->expected_cost = $request->expected_cost;
                         $transportation_requests->arrival_time = $request->arrival_time;
                         $transportation_requests->save();
+                        $transportation_requests->passenger_id = getUserName($transportation_requests->passenger_id);
+
+
                         $user = User::query()->find(1);
                         /*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
                         FCMService::send(
@@ -231,7 +252,10 @@ class PassengerController extends Controller
                 $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
                 if ($place){
                     $mytransportation->destination = $place->name;
+
                 }
+                $mytransportation->driver_id = getUserName($mytransportation->passenger_id);
+                $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
             }
             return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
         }catch (Exception $e){
@@ -249,57 +273,58 @@ class PassengerController extends Controller
     }
     public function rating(Request $request){
         $validator = Validator::make($request->all(),[
-            'transportation_id' => 'required',
-            'rating_car' => 'required',
+            'transportion_id' => 'required',
+            'car' => 'required',
+
         ],[
-            'transportation_id.required' => trans("api.transportation_id field is required"),
-            'rating_car.required' => trans("api.rating_car field is required"),
+            'transportion_id.required' => trans("api.transportation_id field is required"),
+            'car.required' => trans("api.rating car is required"),
+
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
-            $transportation->rating_car = $request->rating_car;
-            $transportation->rating_driver = $request->rating_driver;
-            $transportation->rating_time = $request->rating_time;
-            $transportation->save();
-            return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+            if ($transportation->status == 4){
+                $transportation->rating_car = $request->rating_car;
+                $transportation->rating_driver = $request->rating_driver;
+                $transportation->rating_time = $request->rating_time;
+                $transportation->save();
+                $transportation->passenger_id = getUserName($transportation->passenger_id);
+                $transportation->driver_id = getUserName($transportation->driver_id);
+                $transportation->status_name = getStatusTypeAttribute($transportation->status);
 
+                return  $this->api_response(200,true,trans('api.Rating successfully') , $transportation , 200);
+            }else{
+                return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+            }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
     }
     public function report_driver(Request $request){
         $validator = Validator::make($request->all(),[
-            'transportation_id' => 'required',
+            'transportion_id' => 'required',
             'text_report' => 'required',
         ],[
-            'transportation_id.required' => trans("api.transportation_id field is required"),
+            'transportion_id.required' => trans("api.transportation_id field is required"),
             'text_report.required' => trans("api.text_report field is required"),
         ]);
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
-            $transportation->complaint = $request->text_report;
-            $transportation->save();
+            if ($transportation->status == 4){
+                $transportation->complaint = $request->text_report;
+                $transportation->save();
+                $transportation->passenger_id = getUserName($transportation->passenger_id);
+                $transportation->driver_id = getUserName($transportation->driver_id);
+                $transportation->status_name = getStatusTypeAttribute($transportation->status);
+                return  $this->api_response(200,true,trans('api.Report Driver Successfully') , $transportation , 200);
+            }else{
+                return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+            }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
     }
-    public function get_data_expected(Request $request){
-        try {
-            $settings = Settings::query()->find(1);
-            $places =  Place::query()->find($request->destination_id);
-            $price = $settings->public_price_per_km;
-            if ($request->vehicle_type == 2)
-                $price = $settings->private_price_per_km;
 
-            $originLatLng = [$request->lat_from,$request->lng_from];
-            $destinationLatLng = [$places->lat,$places->long];
-            $apiKey = $settings->map_key;
-            $result = getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey ,$price );
-            return $this->api_response(200, true, trans('api.data expected'), $result, 200);
-        }catch (Exception $e){
-            return  $this->setError(200,false, substr($e->getMessage(), 0, 100) , 200);
-        }
-    }
 
     public function settings(){
         $settings = Settings::query()->get();
