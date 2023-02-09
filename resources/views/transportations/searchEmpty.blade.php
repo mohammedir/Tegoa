@@ -33,8 +33,8 @@
     @if(count($transportations_alls))
     @foreach($transportations_alls as $transportation)
         <tr>
-            <td>{{\App\Models\User::find($transportation->driver_id)->full_name}}</td>
-            <td>{{\App\Models\User::find($transportation->passenger_id)->full_name}}</td>
+            <td>@if($transportation->driver_id) {{getUserName($transportation->driver_id)}} @endif</td>
+            <td>@if($transportation->passenger_id) {{getUserName($transportation->passenger_id)}} @endif</td>
             <td>
                 <div class="ratings">
                     {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_car) !!}

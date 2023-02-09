@@ -32,8 +32,8 @@
     <tbody class="fw-semibold text-gray-600">
     @foreach($transportations_all as $transportation)
         <tr>
-            <td>{{getUserName($transportation->driver_id)}}</td>
-            <td>{{getUserName($transportation->passenger_id)}}</td>
+            <td>@if($transportation->driver_id) {{getUserName($transportation->driver_id)}} @endif</td>
+            <td>@if($transportation->passenger_id) {{getUserName($transportation->passenger_id)}} @endif</td>
             <td>
                 <div class="ratings">
                     {!! str_repeat('<span> <i class="fa fa-star rating-color"></i>', $transportation->rating_car) !!}
