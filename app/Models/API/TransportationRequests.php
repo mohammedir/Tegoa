@@ -34,7 +34,8 @@ class TransportationRequests extends Model
 
     protected $casts = [
         'number_of_passenger' => 'integer',
-        'vehicle_type'  => 'integer'
+        'vehicle_type'  => 'integer',
+
     ];
 
    /* public function getStatusAttribute($value)

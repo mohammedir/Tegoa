@@ -94,3 +94,21 @@ function getStatusAttribute($value)
             return $value;
     }
 }
+
+function getStatusTypeAttribute($value)
+{
+    switch ($value) {
+        case 1:
+            return 'Waiting_Driver';
+        case 2:
+            return 'Accept_Driver';
+        case 3:
+            return 'Start_Trip';
+        case 4:
+            return 'End_Trip';
+        case 5:
+            return 'Rejected';
+        default:
+            return $value;
+    }
+}
