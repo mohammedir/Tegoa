@@ -353,8 +353,8 @@ return [
     'The end date cannot be more than start date' => 'لا يمكن أن يكون تاريخ الانتهاء أقل من تاريخ البدء',
     'The start date cannot be in the past!' => 'لا يمكن أن يكون تاريخ البدء في الماضي!',
 
-    'About the municipality_En' => 'عن البلدية (English)',
-    'About the municipality_Ar' => 'عن البلدية (Arabic)',
+    'About the municipality_En' => 'عن البلدية',
+    'About the municipality_Ar' => 'عن البلدية',
 
     'digits_between' => 'يجب ان لا يكون الرقم اقل من 10 ارقام ولا يزيد عن 14 رقم',
 ];

@@ -352,8 +352,8 @@ return [
     'The end date cannot be more than start date' => 'The end date cannot be less than start date',
     'The start date cannot be in the past!' => 'The start date cannot be in the past!',
 
-    'About the municipality_En' => 'About the municipality (English)',
-    'About the municipality_Ar' => 'About the municipality (Arabic)',
+    'About the municipality_En' => 'About the municipality',
+    'About the municipality_Ar' => 'About the municipality',
 
     'digits_between' => 'The number must not be less than 10 digits and not more than 14 digits',
 

@@ -57,7 +57,7 @@
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label
-                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_En') }}
+                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_En') }} (@lang('web.english'))
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
@@ -73,7 +73,7 @@
                                         <div class="col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label
-                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_Ar') }}
+                                                class="required fw-bold fs-6 mb-2">{{ __('web.About the municipality_Ar') }} (@lang('web.arabic'))
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
