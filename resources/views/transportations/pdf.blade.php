@@ -61,8 +61,8 @@
     <tbody>
     @foreach ($pd as $p)
         <tr>
-            <td>@if($transportation->driver_id) {{getUserName($transportation->driver_id)}} @endif</td>
-            <td>@if($transportation->passenger_id) {{getUserName($transportation->passenger_id)}} @endif</td>
+            <td>@if($p->driver_id) {{getUserName($p->driver_id)}} @endif</td>
+            <td>@if($p->passenger_id) {{getUserName($p->passenger_id)}} @endif</td>
             <td>
                 <div class="ratings">
                     {{$p->rating_car}} star
