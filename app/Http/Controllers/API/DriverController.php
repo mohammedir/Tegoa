@@ -286,6 +286,7 @@ class DriverController extends Controller
                 $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                 $mytransportation->destination = '';
                 $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
+                $mytransportation->status_name = getStatusAttribute($mytransportation->status);
                 if ($place){
                     $mytransportation->destination = $place->name;
                 }
@@ -293,7 +294,6 @@ class DriverController extends Controller
             return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
         }catch (Exception $e){
             return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
-
         }
     }
     public function accept_transportion(Request $request){
@@ -375,8 +375,10 @@ class DriverController extends Controller
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             $transportation->passenger_rating = $request->rating_passenger;
             $transportation->save();
+            return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
-        return  $this->api_response(200,true,trans('api.Rating successfully ') , "" , 200);
     }
     public function report_passenger(Request $request){
         $validator = Validator::make($request->all(),[
@@ -387,6 +389,9 @@ class DriverController extends Controller
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             $transportation->complaint = $request->text_report;
             $transportation->save();
+            return  $this->api_response(200,true,trans('api. Report passenger successfully ') , $transportation , 200);
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
         }
     }
     public function settings(){

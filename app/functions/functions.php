@@ -77,3 +77,19 @@ function marginFunction(){
         return 'margin-left: 10px;';
     }
 }
+
+function getStatusAttribute($value)
+{
+    switch ($value) {
+        case 1:
+            return trans('api.waiting driver');
+        case 2:
+            return trans('api.accept driver');
+        case 3:
+            return trans('api.start trip');
+        case 4:
+            return trans('api.trip is complete');
+        default:
+            return $value;
+    }
+}

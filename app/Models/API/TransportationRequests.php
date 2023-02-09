@@ -32,6 +32,7 @@ class TransportationRequests extends Model
         'driver_id'
     ];
 
+
    /* public function getStatusAttribute($value)
     {
         switch ($value) {
@@ -48,13 +49,8 @@ class TransportationRequests extends Model
         }
     }*/
 
-    protected function status_string(): Attribute
+    public function setStatusNameAttribute($value)
     {
-        return Attribute::make(
-            set: fn (TransportationRequests $value) => [
-                'address_line_one' => $value->lat_to,
-                'address_line_two' => $value->lat_to,
-            ],
-        );
+        $this->attributes['status_name'] = $value;
     }
 }
