@@ -352,7 +352,7 @@ class DriverController extends Controller
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
                     return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
                 }else{
-                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
+                    return  $this->setError(200 ,false, trans('api.You cannot start the trip. Please check the status of the request and try again') , 200);
                 }
             }else{
                 return  $this->setError(200 ,false, trans('api.driver or transportation not found') , 200);
@@ -381,7 +381,7 @@ class DriverController extends Controller
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
                     return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
                 }else{
-                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
+                    return  $this->setError(200 ,false, trans('api.You cannot end the trip. Please check the status of the request and try again') , 200);
                 }
 
             }else{
