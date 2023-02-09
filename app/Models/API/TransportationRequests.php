@@ -32,6 +32,10 @@ class TransportationRequests extends Model
         'driver_id'
     ];
 
+    protected $casts = [
+        'number_of_passenger' => 'integer',
+        'vehicle_type'  => 'integer'
+    ];
 
    /* public function getStatusAttribute($value)
     {
@@ -53,4 +57,6 @@ class TransportationRequests extends Model
     {
         $this->attributes['status_name'] = $value;
     }
+
+
 }

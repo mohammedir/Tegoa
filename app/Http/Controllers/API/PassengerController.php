@@ -23,53 +23,6 @@ use Exception;
 
 class PassengerController extends Controller
 {
-    //
-    /* public function index(Request $request){
-         return $request->user();
-     }
-     public function register(Request $request){
-
-         $validator = Validator::make($request->all(),[
-             'full_name' => 'required',
-             'email' => 'required|email|unique:users',
-             'password' => 'required|confirmed',
-         ]);
-         if ($validator->passes()) {
-             $user = new User();
-             $user->full_name = $request->full_name;
-             $user->email = $request->email;
-             $user->password = Hash::make($request->password);
-             $user->user_type = 1;
-             $user->save();
-             return $user;
-         }else{
-             return response()->json(['error'=>$validator->errors()->all()],409);
-         }
-     }
-     public function login(Request $request){
-         $credentials = $request->validate([
-             'email' => 'required|email',
-             'password' => 'required'
-         ]);
-         if (Auth::attempt($credentials)){
-             $user = Auth::user();
-             $token = md5(time().'.'.md5($request->email));
-             $user->forceFill([
-                 'api_token' => $token,
-             ])->save();
-             return response()->json([
-                 'token' => $token
-             ]);
-         }
-         return response()->json([
-             'message' => 'The provided  credentials do not match our records'
-         ]);
-
-     }
-     public function logout(Request $request){
-         return $request;
-         return response()->json(['message'=>'success']);
-     }*/
 
     public function edit_profile(Request $request){
         $res = [

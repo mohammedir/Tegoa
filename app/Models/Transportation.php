@@ -11,4 +11,9 @@ class Transportation extends Model
 {
     use HasFactory;
     protected $table = "transportation_requests";
+
+
+
+
+
 }
