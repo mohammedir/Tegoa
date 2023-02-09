@@ -61,12 +61,11 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
     //dd($response['rows'][0]['elements'][0]['distance']['text']);
     $distance = $response['rows'][0]['elements'][0]['distance']['text'];
     $duration = $response['rows'][0]['elements'][0]['duration']['text'];
-
-
+    $num = ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price;
     return [
         'distance' => $distance,
         'arrival_time' => $duration,
-        'expected_cost' => ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price
+        'expected_cost' => number_format($num,2)
     ];
 }
 
