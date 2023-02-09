@@ -82,15 +82,15 @@ function getStatusAttribute($value)
 {
     switch ($value) {
         case 1:
-            return '<span class="badge badge-secondary">' . trans('api.waiting driver') . '</span>';
+            return trans('api.waiting driver');
         case 2:
-            return '<span class="badge badge-primary">' . trans('api.accept driver') . '</span>';
+            return trans('api.accept driver');
         case 3:
-            return '<span class="badge badge-info">' . trans('api.start trip') . '</span>';
+            return trans('api.start trip');
         case 4:
-            return '<span class="badge badge-success">' . trans('api.trip is complete') . '</span>';
+            return trans('api.trip is complete');
         case 5:
-            return '<span class="badge badge-danger">' . trans('api.rejected') . '</span>';
+            return trans('api.rejected');
         default:
             return $value;
     }
