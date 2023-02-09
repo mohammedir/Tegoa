@@ -34,7 +34,12 @@ class TransportationRequests extends Model
 
     protected $casts = [
         'number_of_passenger' => 'integer',
-        'vehicle_type'  => 'integer'
+        'vehicle_type'  => 'integer',
+        'lat_from'  => 'double',
+        'lng_from'  => 'double',
+        'lat_to'  => 'double',
+        'lng_to'  => 'double',
+
     ];
 
    /* public function getStatusAttribute($value)
