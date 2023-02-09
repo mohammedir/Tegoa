@@ -189,10 +189,10 @@ class PassengerController extends Controller
                     try {
                         $transportation_requests = new TransportationRequests();
                         $transportation_requests->passenger_id = $request->user()->id;
-                        $transportation_requests->lat_from = $request->lat_from;
-                        $transportation_requests->lng_from = $request->lng_from;
-                        $transportation_requests->lat_to = $request->lat_to;
-                        $transportation_requests->lng_to = $request->lng_to;
+                        $transportation_requests->lat_from = floatval($request->lat_from);
+                        $transportation_requests->lng_from = floatval($request->lng_from);
+                        $transportation_requests->lat_to = floatval($request->lat_to);
+                        $transportation_requests->lng_to = floatval($request->lng_to);
                         $transportation_requests->departure_time = $request->departure_time;
                         $transportation_requests->number_of_passenger = $request->number_of_passenger;
                         $transportation_requests->vehicle_type = $request->vehicle_type;
