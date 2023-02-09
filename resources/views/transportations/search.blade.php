@@ -67,7 +67,27 @@
                     </div>
                 </div>
             </td>
-            <td>{{getStatusAttribute($transportation->status)}}</td>
+            <td>
+                @switch($transportation->status)
+                    @case(1)
+                        <span class="badge badge-secondary">{{getStatusAttribute($transportation->status)}}</span>
+                        @break
+                    @case(2)
+                        <span class="badge badge-primary">{{getStatusAttribute($transportation->status)}}</span>
+                        @break
+                    @case(3)
+                        <span class="badge badge-info">{{getStatusAttribute($transportation->status)}}</span>
+                        @break
+                    @case(4)
+                        <span class="badge badge-success">{{getStatusAttribute($transportation->status)}}</span>
+                        @break
+                    @case(5)
+                        <span class="badge badge-danger">{{getStatusAttribute($transportation->status)}}</span>
+                        @break
+                    @default
+                        {{$transportation->status}}
+                @endswitch
+            </td>
             <td>
                 @if($transportation->complaint)
                     <button id="show" data-id="{{$transportation->id}}"

@@ -87,7 +87,6 @@
                     @default
                   {{$transportation->status}}
                 @endswitch
-                
             </td>
             <td>
                 @if($transportation->complaint)
