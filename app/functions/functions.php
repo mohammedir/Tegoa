@@ -89,6 +89,8 @@ function getStatusAttribute($value)
             return trans('api.start trip');
         case 4:
             return trans('api.trip is complete');
+        case 5:
+            return trans('api.rejected');
         default:
             return $value;
     }

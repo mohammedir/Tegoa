@@ -19,7 +19,7 @@ class TransportationController extends Controller
 
     public function index(Request $request)
     {
-        $transportations_all = DB::table('transportation_requests')->where('status', '=', 4)->orderBy('id', 'desc')->paginate(10);
+        $transportations_all = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
         return view('transportations.index', compact('transportations_all'));
     }
 
@@ -36,14 +36,14 @@ class TransportationController extends Controller
                     }
                 }
                 foreach ($values as $value) {
-                    $transportations_Values = DB::table('transportation_requests')->where('status', '=', 4)->where('driver_id', 'LIKE', '%' . $value . "%")->orderBy('id', 'desc')->get();
+                    $transportations_Values = DB::table('transportation_requests')->where('driver_id', 'LIKE', '%' . $value . "%")->orderBy('id', 'desc')->get();
                     foreach ($transportations_Values as $v) {
                         $transportations_all[] = $v;
                     }
                 }
                 return view('transportations.search', compact('transportations_all'))->render();
             } else {
-                $transportations_alls = DB::table('transportation_requests')->where('status', '=', 4)->orderBy('id', 'desc')->paginate(10);
+                $transportations_alls = DB::table('transportation_requests')->orderBy('id', 'desc')->paginate(10);
                 return view('transportations.searchEmpty', compact('transportations_alls'))->render();
             }
         }
@@ -98,11 +98,11 @@ class TransportationController extends Controller
     public function downloadPdf(Request $request)
     {
         if ($request->start_date == null && $request->end_date == null) {
-            $pd = DB::table('transportation_requests')->where('status', '=', 4)->get();
+            $pd = DB::table('transportation_requests')->get();
             $pdf = PDF::loadView('transportations.pdf', compact('pd'));
             return $pdf->download('Transportations.pdf');
         } elseif ($request->start_date !== null && $request->end_date !== null) {
-            $pd = DB::table('transportation_requests')->where('status', '=', 4)->whereBetween('created_at', [$request->start_date, $request->end_date])->get();
+            $pd = DB::table('transportation_requests')->whereBetween('created_at', [$request->start_date, $request->end_date])->get();
             $pdf = PDF::loadView('transportations.pdf', ['pd' => $pd]);
             return $pdf->download('Transportations.pdf');
         }else{

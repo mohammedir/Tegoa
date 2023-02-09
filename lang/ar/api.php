@@ -84,4 +84,6 @@ return [
     'accept driver' => 'تم قبول الطلب',
     'start trip' => 'اثناء الرحلة',
     'trip is complete' => 'الرحلة مكتملة',
+    'rejected' => 'مرفوض',
+
 ];

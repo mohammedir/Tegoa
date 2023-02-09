@@ -77,4 +77,5 @@ return [
     'accept driver' => 'accept driver',
     'start trip' => 'start trip',
     'trip is complete' => 'trip is complete',
+    'rejected' => 'rejected',
 ];

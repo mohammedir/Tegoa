@@ -54,6 +54,9 @@
             @lang('web.Passenger')
         </th>
         <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
+            @lang('web.status')
+        </th>
+        <th class="@if(\Illuminate\Support\Facades\App::getLocale() == "en") min-w-125px @else text-start @endif">
             @lang('web.complaint')
         </th>
     </tr>
@@ -89,6 +92,7 @@
                     </div>
                 </div>
             </td>
+            <td>{{getStatusAttribute($transportation->status)}}</td>
             <td>
                 @if($p->complaint)
                     {{$p->complaint}}
