@@ -382,7 +382,7 @@ class DriverController extends Controller
     }
     public function report_passenger(Request $request){
         $validator = Validator::make($request->all(),[
-            'transportation_id' => 'required',
+            'transportion_id' => 'required',
             'text_report' => 'required',
         ]);
         if ($validator->passes()) {
