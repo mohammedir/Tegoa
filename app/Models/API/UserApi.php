@@ -54,7 +54,10 @@ class UserApi extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'roles_name'  => 'array'
+        'roles_name'  => 'array',
+        'gender' => 'integer',
+        'vehicle_type' => 'integer'
+
     ];
 
     public function getPersonalphotoAttribute($value)
