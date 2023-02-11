@@ -203,8 +203,8 @@ class PassengerController extends Controller
                         $transportation_requests->passenger_id = getUserName($transportation_requests->passenger_id);
 
 
-                        $user = User::query()->find(1);
-                        /*                $firebaseToken1 = User::whereNotNull('device_token')->pluck('device_token')->all();*/
+                        //$user = User::query()->find(1);
+                        $user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
                         FCMService::send(
                             $user->fcm_token,
                             [
