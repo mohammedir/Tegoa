@@ -357,4 +357,5 @@ return [
     'About the municipality_Ar' => 'عن البلدية',
 
     'digits_between' => 'يجب ان لا يكون الرقم اقل من 10 ارقام ولا يزيد عن 14 رقم',
+
 ];

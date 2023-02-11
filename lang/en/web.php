@@ -357,4 +357,5 @@ return [
 
     'digits_between' => 'The number must not be less than 10 digits and not more than 14 digits',
 
+
 ];

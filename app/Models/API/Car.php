@@ -23,7 +23,6 @@ class Car extends Model
 
     ];
     protected $casts = [
-        'carphotos' => 'array'
     ];
 
 
@@ -35,6 +34,7 @@ class Car extends Model
     {
         return url(asset('images/cars/'.$value));
     }
+
     public function getCarphotos2Attribute($value)
     {
         return url(asset('images/cars/'.$value));

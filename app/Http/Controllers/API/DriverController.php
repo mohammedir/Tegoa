@@ -39,7 +39,7 @@ class DriverController extends Controller
             'user' => $request->user(),
             'car' => $car,
         ];
-        return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
+        return  $this->api_response(200,true,trans('api.Profile Information') , $res , 200);
 
     }
     /* I use this function to update the data driver*/
@@ -81,9 +81,9 @@ class DriverController extends Controller
                 $res = [
                     'user' => $driver,
                 ];
-                return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
+                return  $this->api_response(200,true,trans('api.The profile data has been updated successfully') , $res , 200);
             }catch (Exception $e){
-                return  $this->setError(200 ,false, $e , 200);
+                return  $this->setError(200 ,false, substr($e->getMessage() , 0, 100) , 200);
             }
 
         }else{
@@ -219,7 +219,7 @@ class DriverController extends Controller
                     'user' => $driver,
                     'car' => $car,
                 ];
-                return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
+                return  $this->api_response(200,true,trans('api.The vehicle data has been updated successfully  ') , $res , 200);
             }catch (Exception $e){
                 return  $this->setError(200 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 200);
             }

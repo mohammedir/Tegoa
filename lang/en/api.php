@@ -78,4 +78,11 @@ return [
     'start trip' => 'start trip',
     'trip is complete' => 'trip is complete',
     'rejected' => 'rejected',
+
+
+    'The vehicle data has been updated successfully' => 'The vehicle data has been updated successfully',
+    'Profile Information' => 'Profile Information',
+    'The profile data has been updated successfully' => 'The profile data has been updated successfully',
+
 ];
+

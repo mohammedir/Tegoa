@@ -86,4 +86,8 @@ return [
     'trip is complete' => 'الرحلة مكتملة',
     'rejected' => 'مرفوض',
 
+    'The vehicle data has been updated successfully' => 'تم تحديث بيانات السيارة بنجاح',
+    'Profile Information' => 'معلومات الملف الشخصي',
+    'The profile data has been updated successfully' => 'تم تحديث بيانات الملف الشخصي بنجاح',
+
 ];
