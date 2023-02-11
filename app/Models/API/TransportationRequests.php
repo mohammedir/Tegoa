@@ -56,5 +56,13 @@ class TransportationRequests extends Model
     {
         $this->attributes['status_name'] = $value;
     }
+    public function setPassengerNameAttribute($value)
+    {
+        $this->attributes['passenger_name'] = $value;
+    }
+    public function setDriverNameAttribute($value)
+    {
+        $this->attributes['driver_name'] = $value;
+    }
 
 }

@@ -200,7 +200,7 @@ class PassengerController extends Controller
                         $transportation_requests->expected_cost = $request->expected_cost;
                         $transportation_requests->arrival_time = $request->arrival_time;
                         $transportation_requests->save();
-                        $transportation_requests->passenger_id = getUserName($transportation_requests->passenger_id);
+                        $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
 
 
                         //$user = User::query()->find(7);
@@ -249,12 +249,12 @@ class PassengerController extends Controller
             foreach ($Mytransportation as $mytransportation){
                 $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                 $mytransportation->destination = '';
-                $mytransportation->passenger_id = getUserName($mytransportation->passenger_id);
+                $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 if ($place){
                     $mytransportation->destination = $place->name;
 
                 }
-                $mytransportation->driver_id = getUserName($mytransportation->passenger_id);
+                $mytransportation->driver_name = getUserName($mytransportation->driver_id);
                 $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
             }
             return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
@@ -288,8 +288,8 @@ class PassengerController extends Controller
                 $transportation->rating_driver = $request->rating_driver;
                 $transportation->rating_time = $request->rating_time;
                 $transportation->save();
-                $transportation->passenger_id = getUserName($transportation->passenger_id);
-                $transportation->driver_id = getUserName($transportation->driver_id);
+                $transportation->passenger_name = getUserName($transportation->passenger_id);
+                $transportation->driver_name = getUserName($transportation->driver_id);
                 $transportation->status_name = getStatusTypeAttribute($transportation->status);
 
                 return  $this->api_response(200,true,trans('api.Rating successfully') , $transportation , 200);
@@ -313,8 +313,8 @@ class PassengerController extends Controller
             if ($transportation->status == 4){
                 $transportation->complaint = $request->text_report;
                 $transportation->save();
-                $transportation->passenger_id = getUserName($transportation->passenger_id);
-                $transportation->driver_id = getUserName($transportation->driver_id);
+                $transportation->passenger_name = getUserName($transportation->passenger_id);
+                $transportation->driver_name = getUserName($transportation->driver_id);
                 $transportation->status_name = getStatusTypeAttribute($transportation->status);
                 return  $this->api_response(200,true,trans('api.Report Driver Successfully') , $transportation , 200);
             }else{
