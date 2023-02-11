@@ -203,17 +203,15 @@ class PassengerController extends Controller
                         $transportation_requests->passenger_id = getUserName($transportation_requests->passenger_id);
 
 
-                        //$user = User::query()->find(1);
-                        $user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
-                        foreach ($user as $usersa){
+                        $user = User::query()->find(7);
+                        //$user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
                         FCMService::send(
-                            $usersa->fcm_token,
+                            $user->fcm_token,
                             [
                                 'title' => 'Request a new trip from ' . getUserName($request->user()->id),
                                 'body' => 'your body',
                             ]
                         );
-                        }
                        /* $time_wating = 1 ;
                         $status = TransportationRequests::query()->find($transportation_requests->id);
 
