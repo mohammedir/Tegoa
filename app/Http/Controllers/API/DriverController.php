@@ -101,8 +101,6 @@ class DriverController extends Controller
             'car_brand' => 'required',
             'insurance_number' => 'required',
             'insurance_expiry_date' => 'required|date',
-            'carlicense' => 'required',
-            'carphotos' => 'required',
 
 
         ],[
@@ -112,8 +110,6 @@ class DriverController extends Controller
             'car_brand.required' => trans("api.The car brand field is required"),
             'insurance_number.required' => trans("api.The insurance number field is required"),
             'insurance_expiry_date.date' => trans("api.The insurance expiry date is not a valid date"),
-            'carlicense.required' => trans("api.The carlicense field is required"),
-            'carphotos.required' => trans("api.carphotos field is required"),
         ]);
         if ($validator->passes()) {
             try {
