@@ -57,6 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'roles_name'  => 'array'
     ];
 
+    public function deviceTokens(){
+        return $this->hasMany(User::class);
+    }
+
     public function getPersonalphotoAttribute($value)
     {
         return url(asset('images/users/'.$value));
@@ -65,5 +69,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return url(asset('images/users/'.$value));
     }
+
+    public function routeNotificationForFcm()
+    {
+        return $this->fcm_token;
+    }
+
 
 }

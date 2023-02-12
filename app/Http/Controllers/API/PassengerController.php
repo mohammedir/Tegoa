@@ -12,6 +12,7 @@ use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
 use App\Models\Place;
+use App\Notifications\FcmNotification;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -202,14 +203,16 @@ class PassengerController extends Controller
                         $transportation_requests->save();
                         $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
 
-
-                        //$user = User::query()->find(7);
+                        $fcm = User::query()->find(12)->notify(new FcmNotification($transportation_requests));
+                        //$user = User::query()->find(12);
                         //$user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
                         /*FCMService::send(
                             $user->fcm_token,
                             [
                                 'title' => 'Request a new trip from ' . getUserName($request->user()->id),
-                                'body' => 'your body',
+                                'body' => 'The request is far from you'.$request->distance,
+                                'sound'        => 'default',
+
                             ]
                         );*/
                        /* $time_wating = 1 ;
