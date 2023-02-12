@@ -15,12 +15,14 @@ use App\Models\Place;
 use App\Notifications\FcmNotification;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use MongoDB\Driver\Session;
 use Exception;
+use Illuminate\Support\Facades\Notification;
 
 class PassengerController extends Controller
 {
@@ -30,7 +32,6 @@ class PassengerController extends Controller
             'user' => $request->user(),
         ];
         return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
-
     }
     public function update_profile(Request $request){
         $passenger = User::query()->where('id','=',$request->user()->id)->where('user_type','=',1)->get()->first();
@@ -203,7 +204,12 @@ class PassengerController extends Controller
                         $transportation_requests->save();
                         $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
 
-                        $fcm = User::query()->find(12)->notify(new FcmNotification($transportation_requests));
+                        /*$fcm = User::query()->find(12)->notify(new FcmNotification($transportation_requests));*/
+                        $users = User::query()->where('vehicle_type','=',$request->vehicle_type)->get();
+                        foreach ($users as $user){
+                            $user->notify(new FcmNotification($transportation_requests));
+                        }
+
                         //$user = User::query()->find(12);
                         //$user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
                         /*FCMService::send(

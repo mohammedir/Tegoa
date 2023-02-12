@@ -71,7 +71,7 @@ class FcmNotification extends Notification
             ->setData(['data1' => 'value', 'data2' => 'value2'])
              ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle('Request a new trip')
-                ->setBody('Your account has been activated.')
+                ->setBody('There is a new request that you can accept')
                 ->setImage('https://taqoa.shift-demo.one/images/logo_n.jpg'))
             ->setAndroid(
                 AndroidConfig::create()

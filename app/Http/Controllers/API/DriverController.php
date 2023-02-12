@@ -13,6 +13,8 @@ use App\Models\API\Photos;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
+use App\Notifications\FcmNotification;
+use App\Notifications\FcmToPassengerNotification;
 use App\Services\FCMService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -313,7 +315,7 @@ class DriverController extends Controller
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-
+                    User::query()->where('id','=',$transportation->passenger_id)->get()->first()->notify(new FcmToPassengerNotification($transportation));
                     return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_name = getUserName($transportation->passenger_id);

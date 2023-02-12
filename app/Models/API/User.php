@@ -75,5 +75,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->fcm_token;
     }
 
+   /* public function getDeviceTokens($value){
+
+        return User::query()->where('vehicle_type','=',$value)->get()->all();
+    }
+    public function routeNotificationForFcm()
+    {
+        return $this->getDeviceTokens();
+    }*/
 
 }
