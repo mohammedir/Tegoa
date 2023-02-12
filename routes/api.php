@@ -35,7 +35,6 @@ Route::post('driver_login',[AuthController::class,'driver_login'])->middleware('
 Route::post('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 Route::get('user',[AuthController::class,'index'])->middleware('auth:sanctum');
 Route::get('settings',[PassengerController::class,'settings'])->middleware('localization');
-Route::post('fcm_token',[AuthController::class,'fcm_token'])->middleware('auth:sanctum');
 
 Route::controller(GuestController::class)
     ->middleware('localization')
@@ -47,6 +46,8 @@ Route::controller(GuestController::class)
         Route::get('/contact_emergency', 'contact_emergency')->name('contact_emergency');
         Route::get('/news', 'news')->name('news');
         Route::get('/announcements', 'announcements')->name('announcements');
+        Route::get('/get_all_places','get_all_places')->name('get_all_places');
+        Route::post('/reset_using_email','reset_using_email')->name('reset_using_email');
     });
 Route::controller(PassengerController::class)
     ->middleware('auth:sanctum')

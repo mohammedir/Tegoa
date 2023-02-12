@@ -283,9 +283,6 @@ class AuthController extends Controller
         }
     }
 
-    public function fcm_token(Request $request){
-
-    }
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
