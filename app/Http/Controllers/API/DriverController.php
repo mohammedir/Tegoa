@@ -240,7 +240,7 @@ class DriverController extends Controller
                 $driver->password = Hash::make($request->new_password);
                 $driver->save();
                 Mail::to($driver->email)->send(new updatePassword($driver));
-                return  $this->api_response(200,true,trans('api.changed password successfully ') , $request->user() , 200);
+                return  $this->api_response(200,true,trans('api.changed password successfully') , $request->user() , 200);
             }else{
                 return  $this->setError(200,false, trans('api.the current password is not true') , 200);
             }
@@ -284,7 +284,7 @@ class DriverController extends Controller
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)
                 ->where('vehicle_type','=',$driver->vehicle_type)->get();
             foreach ($available_transportion as $mytransportation){
-                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $place = Map::query()->where('lat','=',substr($mytransportation->lat_to , 0, 15))->where('long','=',substr($mytransportation->lng_to , 0, 15))->get()->first();
                 $mytransportation->destination = '';
                 $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 $mytransportation->driver_name = getUserName($mytransportation->driver_id);
@@ -314,14 +314,14 @@ class DriverController extends Controller
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
                     User::query()->where('id','=',$transportation->passenger_id)->get()->first()->notify(new FcmToPassengerNotification($transportation));
-                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
+                    return  $this->api_response(200,true,trans('api.The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation, 200);
+                    return  $this->api_response(200,true,trans('api.The request has been successfully accepted') , $transportation, 200);
                 }else{
-                    return  $this->setError(200 ,false, trans('api.The order was taken by another driver') , 200);
+                    return  $this->setError(200 ,false, trans('api.The trip was taken by another driver') , 200);
                 }
             }else{
                 return  $this->setError(200 ,false, trans('api.driver or transportation not found') , 200);
@@ -343,12 +343,12 @@ class DriverController extends Controller
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation , 200);
+                    return  $this->api_response(200,true,trans('api.The request to start the trip has been completed successfully') , $transportation , 200);
                 }else if ($transportation->status == 3 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
+                    return  $this->api_response(200,true,trans('api.The request to start the trip has been completed successfully') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.You cannot start the trip. Please check the status of the request and try again') , 200);
                 }
@@ -372,12 +372,12 @@ class DriverController extends Controller
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    return  $this->api_response(200,true,trans('The request has been successfully accepted') , $transportation , 200);
+                    return  $this->api_response(200,true,trans('api.The trip has been completed successfully') , $transportation , 200);
                 }else if ($transportation->status == 4 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    return  $this->api_response(200,true,trans('The request to start the trip has been completed successfully') , $transportation, 200);
+                    return  $this->api_response(200,true,trans('api.The trip has been completed successfully') , $transportation, 200);
                 }else{
                     return  $this->setError(200 ,false, trans('api.You cannot end the trip. Please check the status of the request and try again') , 200);
                 }
@@ -401,7 +401,7 @@ class DriverController extends Controller
                  $transportation->passenger_name = getUserName($transportation->passenger_id);
                  $transportation->driver_name = getUserName($transportation->driver_id);
                  $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                 return  $this->api_response(200,true,trans('api.Rating successfully ') , $transportation , 200);
+                 return  $this->api_response(200,true,trans('api.Rating successfully') , $transportation , 200);
              }else{
                  return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
              }

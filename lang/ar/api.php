@@ -89,5 +89,15 @@ return [
     'The vehicle data has been updated successfully' => 'تم تحديث بيانات السيارة بنجاح',
     'Profile Information' => 'معلومات الملف الشخصي',
     'The profile data has been updated successfully' => 'تم تحديث بيانات الملف الشخصي بنجاح',
+    'The request has been successfully accepted' => 'تم قبول الطلب بنجاح',
+    'The trip was taken by another driver' => 'قام سائق اخر بأخذ الرحلة',
+    'The request to start the trip has been completed successfully' => 'تم استكمال طلب بدء الرحلة بنجاح',
+    'You cannot start the trip. Please check the status of the request and try again' => 'لا يمكنك بدء الرحلة. يرجى التحقق من حالة الطلب والمحاولة مرة أخرى',
+    'The trip has been completed successfully' => 'تم اكمال الرحلة بنجاح',
+    'Rating successfully' => 'شكرًا على استخدامك تطبيق تقوع',
+
+
+
+
 
 ];

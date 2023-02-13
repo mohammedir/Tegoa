@@ -83,6 +83,11 @@ return [
     'The vehicle data has been updated successfully' => 'The vehicle data has been updated successfully',
     'Profile Information' => 'Profile Information',
     'The profile data has been updated successfully' => 'The profile data has been updated successfully',
-
+    'The request has been successfully accepted' => 'The request has been successfully accepted',
+    'The trip was taken by another driver' => 'The trip was taken by another driver',
+    'The request to start the trip has been completed successfully' => 'The request to start the trip has been completed successfully',
+    'You cannot start the trip. Please check the status of the request and try again' => 'You cannot start the trip. Please check the status of the request and try again',
+    'The trip has been completed successfully' => 'The trip has been completed successfully',
+    'Rating successfully' => 'Thank you for using the Tekoa app',
 ];
 
