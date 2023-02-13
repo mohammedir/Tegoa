@@ -89,5 +89,6 @@ return [
     'You cannot start the trip. Please check the status of the request and try again' => 'You cannot start the trip. Please check the status of the request and try again',
     'The trip has been completed successfully' => 'The trip has been completed successfully',
     'Rating successfully' => 'Thank you for using the Tekoa app',
+    'You cannot receive requests until your identity has been verified by the administrator' => 'You cannot receive requests until your identity has been verified by the administrator',
 ];
 
