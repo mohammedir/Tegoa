@@ -18,10 +18,10 @@ class CreateTransportationRequestsTable extends Migration
         Schema::create('transportation_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('passenger_id')->constrained('users')->cascadeOnDelete();
-            $table->double('lat_from');
-            $table->double('lng_from');
-            $table->double('lat_to');
-            $table->double('lng_to');
+            $table->text('lat_from');
+            $table->text('lng_from');
+            $table->text('lat_to');
+            $table->text('lng_to');
             $table->string('destination')->nullable();
             $table->string('departure_time');
             $table->bigInteger('number_of_passenger');

@@ -284,7 +284,9 @@ class DriverController extends Controller
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)
                 ->where('vehicle_type','=',$driver->vehicle_type)->get();
             foreach ($available_transportion as $mytransportation){
-                $place = Map::query()->where('lat','=',substr($mytransportation->lat_to , 0, 15))->where('long','=',substr($mytransportation->lng_to , 0, 15))->get()->first();
+                $mytransportation->lat_to = substr($mytransportation->lat_to , 0, 15);
+                $mytransportation->lng_to = substr($mytransportation->lng_to , 0, 15);
+                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                 $mytransportation->destination = '';
                 $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 $mytransportation->driver_name = getUserName($mytransportation->driver_id);
