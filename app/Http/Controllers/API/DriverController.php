@@ -49,13 +49,11 @@ class DriverController extends Controller
         $driver = User::query()->find($request->user()->id);
         $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
-            'personalphoto' => 'required',
             'full_name' => 'required',
             'mobile_number' => $request->mobile_number == $request->mobile_number ? 'required' : 'required|unique:users',
             'address' => 'required',
 
         ],[
-            'personalphoto.required' => trans("api.personalphoto field is required"),
             'full_name.required' => trans("api.full name field is required"),
             'mobile_number.required' => trans("api.mobile_number field is required"),
             'mobile_number.unique' => trans("api.The mobile number has already been taken"),

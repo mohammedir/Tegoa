@@ -35,7 +35,6 @@ class PassengerController extends Controller
     }
     public function update_profile(Request $request){
         $passenger = User::query()->where('id','=',$request->user()->id)->where('user_type','=',1)->get()->first();
-        $fcm_token = $request->header('X-User-FCM-Token');
         if($passenger->mobile_number == $request->mobile_number){
             $validator = Validator::make($request->all(),[
                 'full_name' => 'required',
@@ -67,9 +66,6 @@ class PassengerController extends Controller
                     $passenger->full_name = $request->full_name;
                     $passenger->mobile_number = $request->mobile_number;
                     $passenger->address = $request->address;
-                    if ($fcm_token){
-                        $passenger->fcm_token = $fcm_token;
-                    }
                     Mail::to($passenger->email)->send(new updateProfile($passenger));
                     $passenger->save();
                     $res = [
@@ -187,7 +183,6 @@ class PassengerController extends Controller
         $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->user()->id)->get()->first();
         if ($validator->passes()){
             if ($passenger_id){
-                if ($passenger_id->email_verified_at != null) {
                     try {
                         $transportation_requests = new TransportationRequests();
                         $transportation_requests->passenger_id = $request->user()->id;
@@ -239,9 +234,6 @@ class PassengerController extends Controller
                     }catch (Exception $e){
                         return  $this->setError(200 ,false, substr($e->getMessage(), 0, 100) , 200);
                     }
-                }else{
-                    return  $this->setError(200,false, "api.Passenger email, no verification" , 200);
-                }
             }else{
                 return  $this->setError(200,false, "api.Passenger id not correct" , 200);
 
