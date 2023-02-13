@@ -252,7 +252,7 @@ class DriverController extends Controller
         try {
             $driver = User::query()->find($request->user()->id);
             Mail::to($driver->email)->send(new changePassword($driver));
-            return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it ') , "" , 200);
+            return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it') , "" , 200);
         } catch (\Exception $e) {
             return  $this->setError(200,false, "api.Something went wrong, please try again later!" , 200);
         }
@@ -280,22 +280,28 @@ class DriverController extends Controller
     public function available_transportion(Request $request){
         try {
             $driver = User::query()->find($request->user()->id);
+            $car = Car::query()->where('user_id','=',$request->user()->id)->where('is_email_verified','=',1)->get()->first();
             $available_transportion = TransportationRequests::query()->where('status','=',1)
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)
                 ->where('vehicle_type','=',$driver->vehicle_type)->get();
-            foreach ($available_transportion as $mytransportation){
-                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
-                $mytransportation->destination = '';
-                $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
-                $mytransportation->driver_name = getUserName($mytransportation->driver_id);
-                $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
-                if ($place){
-                    $mytransportation->destination = $place->name;
+            if ($car){
+                foreach ($available_transportion as $mytransportation){
+                    $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                    $mytransportation->destination = '';
+                    $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
+                    $mytransportation->driver_name = getUserName($mytransportation->driver_id);
+                    $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
+                    if ($place){
+                        $mytransportation->destination = $place->name;
+                    }
                 }
+                return  $this->api_response(200,true,trans('api.available transportion data') , $available_transportion , 200);
+            }else{
+                return  $this->api_response(200,false, 'api.You cannot receive requests until your identity has been verified by the administrator' , '' , 200);
+
             }
-            return  $this->api_response(200,true,trans('api.available transportion data ') , $available_transportion , 200);
         }catch (Exception $e){
-            return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
+            return  $this->api_response(200,false, substr($e->getMessage() , 0, 100) , '' , 200);
         }
     }
     public function accept_transportion(Request $request){

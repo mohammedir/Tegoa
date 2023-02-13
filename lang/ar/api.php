@@ -95,6 +95,8 @@ return [
     'You cannot start the trip. Please check the status of the request and try again' => 'لا يمكنك بدء الرحلة. يرجى التحقق من حالة الطلب والمحاولة مرة أخرى',
     'The trip has been completed successfully' => 'تم اكمال الرحلة بنجاح',
     'Rating successfully' => 'شكرًا على استخدامك تطبيق تقوع',
+    'You cannot receive requests until your identity has been verified by the administrator' => 'لا يمكنك استلام طلبات حتى يتم التحقق من هويتك من قبل المسؤول',
+
 
 
 

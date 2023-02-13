@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\changePassword;
 use App\Mail\updatePassword;
 use App\Mail\updateProfile;
+use App\Models\API\Car;
 use App\Models\API\Map;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
@@ -200,9 +201,12 @@ class PassengerController extends Controller
                         $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
 
                         /*$fcm = User::query()->find(12)->notify(new FcmNotification($transportation_requests));*/
-                        $users = User::query()->where('vehicle_type','=',$request->vehicle_type)->get();
+                        $users = User::query()->where('vehicle_type','=',$request->vehicle_type)->where('user_type','=',2)->get();
                         foreach ($users as $user){
-                            $user->notify(new FcmNotification($transportation_requests));
+                            $car = Car::query()->where('user_id','=',$user->id)->where('is_email_verified','=',1)->get()->first();
+                            if ($car){
+                                $user->notify(new FcmNotification($transportation_requests));
+                            }
                         }
 
                         //$user = User::query()->find(12);
@@ -248,7 +252,8 @@ class PassengerController extends Controller
         try {
             $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->where('status','!=',5)->get();
             foreach ($Mytransportation as $mytransportation){
-                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+
                 $mytransportation->destination = '';
                 $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 if ($place){

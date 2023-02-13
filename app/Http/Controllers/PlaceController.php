@@ -155,8 +155,8 @@ class PlaceController extends Controller
                 $data->address = ['en' => $request->address_en, "ar" => $request->address_ar];
                 $data->type = $request->type;
                 $data->type_station = $request->type_station;
-                $data->lat = $request->lat;
-                $data->long = $request->long;
+                $data->lat = (double)$request->lat;
+                $data->long = (double)$request->long;
 
                 if ($request->file('fileupload')) {
                     $value = $request->file('fileupload');
@@ -257,8 +257,8 @@ class PlaceController extends Controller
             $data->address = ['en' => $request->address_en_edit, "ar" => $request->address_ar_edit];
             $data->type = $request->type_edit;
             $data->type_station = $request->type_station_edit;
-            $data->lat = $request->lat_edit;
-            $data->long = $request->long_edit;
+            $data->lat = (double)$request->lat_edit;
+            $data->long = (double)$request->long_edit;
             if ($request->input('fileuploads') != 'undefined') {
                 $value = $request->file('fileuploads');
                 $name = time() . rand(1, 100) . '.' . $value->extension();
