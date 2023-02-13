@@ -297,7 +297,7 @@ class DriverController extends Controller
                 }
                 return  $this->api_response(200,true,trans('api.available transportion data') , $available_transportion , 200);
             }else{
-                return  $this->api_response(200,false,trans('api.You cannot receive requests until your identity has been verified by the administrator') , '' , 200);
+                return  $this->api_response(200,true,trans('api.You cannot receive requests until your identity has been verified by the administrator') , '' , 200);
 
             }
         }catch (Exception $e){
