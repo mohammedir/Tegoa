@@ -262,7 +262,10 @@ class CarController extends Controller
                 'insurance_number_edit' => 'required|string|max:255',
                 'insurance_expiry_date_edit' => 'required|date',
                 'status' => 'required|numeric',
-                'photos_edit.*' => 'sometimes|mimes:jpeg,png,jpg'
+                'photos_edit' => 'sometimes|mimes:jpeg,png,jpg',
+                'photos_carlicense_edit' => 'sometimes|mimes:jpeg,png,jpg',
+                'photos_carinsurance_edit' => 'sometimes|mimes:jpeg,png,jpg',
+                'photos_passengersinsurance_edit' => 'sometimes|mimes:jpeg,png,jpg'
             ], [
                 'type_edit.required' => trans("web.required"),
                 'type_edit.numeric' => trans("web.numeric"),
@@ -285,7 +288,9 @@ class CarController extends Controller
                 'insurance_expiry_date_edit.date' => trans("web.date"),
 
                 'photos_edit.uploaded' => trans("web.uploaded"),
-
+                'photos_carlicense_edit.uploaded' => trans("web.uploaded"),
+                'photos_carinsurance_edit.uploaded' => trans("web.uploaded"),
+                'photos_passengersinsurance_edit.uploaded' => trans("web.uploaded"),
             ]);
             if ($validator->passes()) {
                 $data = Car::find($id);
@@ -299,15 +304,54 @@ class CarController extends Controller
                 $data->save();
 
                 if ($request->file('photos_edit')) {
-                    foreach ($request->file('photos_edit') as $value) {
-                        $name = time() . rand(1, 100) . '.' . $value->extension();
-                        $value->move('images/cars/', $name);
-                        $image = new Photos();
-                        $image->images = $name;
-                        $image->car_id = $data->id;
-                        $image->save();
+
+                    $pic = $request->file('photos_edit');
+                    $name = time() . rand(1, 100) . '.' . $pic->extension();
+                    $pic->move('images/cars/', $name);
+                    $photos = $data->photo;
+                    if ($photos) {
+                        $photos->delete();
                     }
+                    $image = new Photos();
+                    $image->images = $name;
+                    $image->car_id = $data->id;
+                    $image->save();
+                    $data1 = Car::find($id);
+                    unlink('images/cars/' . $data1->carphotos);
+                    $data1->carphotos = $name;
+                    $data1->save();
                 }
+
+                if ($request->file('photos_carlicense_edit')) {
+                    $pic = $request->file('photos_carlicense_edit');
+                    $name = time() . rand(1, 100) . '.' . $pic->extension();
+                    $pic->move('images/cars/', $name);
+                    $data2 = Car::find($id);
+                    unlink('images/cars/' . $data2->carlicense);
+                    $data2->carlicense = $name;
+                    $data2->save();
+                }
+
+                if ($request->file('photos_carinsurance_edit')) {
+                    $pic = $request->file('photos_carinsurance_edit');
+                    $name = time() . rand(1, 100) . '.' . $pic->extension();
+                    $pic->move('images/cars/', $name);
+                    $data3 = Car::find($id);
+                    unlink('images/cars/' . $data3->carinsurance);
+                    $data3->carinsurance = $name;
+                    $data3->save();
+                }
+
+                if ($request->file('photos_passengersinsurance_edit')) {
+                    $pic = $request->file('photos_passengersinsurance_edit');
+                    $name = time() . rand(1, 100) . '.' . $pic->extension();
+                    $pic->move('images/cars/', $name);
+                    $data4 = Car::find($id);
+                    unlink('images/cars/' . $data4->passengersinsurance);
+                    $data4->passengersinsurance = $name;
+                    $data4->save();
+                }
+
 
                 return response()->json(['success' => $data]);
             }
@@ -321,9 +365,9 @@ class CarController extends Controller
         $driver = Driver::find($carId->user_id);
         if ($driver->transportations->count() > 0) {
             return response()->json(['error' => 'Cannot delete car, it has orders']);
-        }else{
+        } else {
             $carId->delete();
-            return response()->json(['success'=> 'delete car success']);
+            return response()->json(['success' => 'delete car success']);
         }
     }
 

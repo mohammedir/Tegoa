@@ -60,7 +60,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value && $(".errors").html("")  && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosens_photos_carlicense").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosens_photos_carinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
+                                t.value && $(".errors").html("")  && $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosens_photos_carlicense").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosens_photos_carinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && $("#file-chosens_photos_passengersinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") && n.hide()
                             }))
                         })), t.querySelector('[data-kt-permissionss-modal-action="cancel"]').addEventListener("click", (t => {
                             t.preventDefault(), Swal.fire({
@@ -72,7 +72,7 @@ $(function () {
                                 cancelButtonText: language === "en" ? "No, return" : "لا رجوع",
                                 customClass: {confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light"}
                             }).then((function (t) {
-                                t.value ? (e.reset(), $(".errors").html(""), n.hide() , $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") , $("#file-chosens_photos_carlicense").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") , $("#file-chosens_photos_carinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف")) : "cancel" === t.dismiss && Swal.fire({
+                                t.value ? (e.reset(), $(".errors").html(""), n.hide() , $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") , $("#file-chosens_photos_carlicense").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف"), $("#file-chosens_photos_passengersinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف") , $("#file-chosens_photos_carinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف")) : "cancel" === t.dismiss && Swal.fire({
                                     text: language === "en" ? "Your form has not been cancelled!." : "لم يتم إلغاء النموذج الخاص بك !.",
                                     icon: "error",
                                     buttonsStyling: !1,
@@ -130,6 +130,7 @@ $(function () {
                                                 $("#file-chosens").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                 $("#file-chosens_photos_carlicense").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
                                                 $("#file-chosens_photos_carinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
+                                                $("#file-chosens_photos_passengersinsurance").html(language === "en" ? "No file chosen" : " لم يتم اختيار ملف");
 
                                                 $("input").val("");
                                                 $("textarea").val("");

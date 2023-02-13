@@ -137,6 +137,8 @@ return [
     'insurance_expiry_date' => 'Insurance expiry date',
     'status' => 'status',
     'Photos' => 'Car photos',
+    'Photos_carlicense' => 'Photos car license',
+    'Photos_carinsurance' => 'Photos car insurance',
     'passengers_insurance' => 'Passengers insurance',
     'others' => 'others',
     'review' => 'in review',

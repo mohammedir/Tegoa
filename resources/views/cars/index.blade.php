@@ -14,10 +14,10 @@
             display: inline-block;
         }
 
-         #photos_edit {
-             margin-left: 0.3rem;
-             font-family: sans-serif;
-         }
+        #photos_edit {
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+        }
 
     </style>
     <!--begin::Toolbar-->
@@ -180,7 +180,8 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_add_car_form" class="form" action="#" enctype="multipart/form-data" style="font-size: 15px;">
+                            <form id="kt_modal_add_car_form" class="form" action="#" enctype="multipart/form-data"
+                                  style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_edit_event_scroll" data-kt-scroll="true"
@@ -193,18 +194,27 @@
                                         <!--begin::Block-->
                                         <div class="alert alert-warning d-flex align-items-center p-5 mb-10">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen048.svg-->
-                                            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="currentColor"/>
-<path d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z" fill="currentColor"/>
+                                            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4"><svg width="24"
+                                                                                                           height="24"
+                                                                                                           viewBox="0 0 24 24"
+                                                                                                           fill="none"
+                                                                                                           xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.3"
+      d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+      fill="currentColor"/>
+<path
+    d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z"
+    fill="currentColor"/>
 </svg>
 </span>
-                                            <!--end::Svg Icon-->                    <div class="d-flex flex-column">
+                                            <!--end::Svg Icon-->
+                                            <div class="d-flex flex-column">
                                                 <h4 class="mb-1 text-warning">@lang('web.alert')</h4>
                                                 <span>@lang('web.alert1')</span>
                                             </div>
                                         </div>
-                                                    <!--end::Svg Icon-->
-                                                    <!--begin::Label-->
+                                        <!--end::Svg Icon-->
+                                        <!--begin::Label-->
                                         <label class="fs-6 fw-semibold form-label mb-2">
                                             <span class="required">@lang('web.driver')</span>
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
@@ -214,11 +224,11 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select id="driver" class="form-select form-select-solid" name="driver">
-{{--                                            @foreach(\App\Models\User::all() as $user)--}}
-{{--                                                <option value="{{$user->id}}">--}}
-{{--                                                   {{$user->full_name}}--}}
-{{--                                                </option>--}}
-{{--                                            @endforeach--}}
+                                            {{--                                            @foreach(\App\Models\User::all() as $user)--}}
+                                            {{--                                                <option value="{{$user->id}}">--}}
+                                            {{--                                                   {{$user->full_name}}--}}
+                                            {{--                                                </option>--}}
+                                            {{--                                            @endforeach--}}
                                         </select>
                                         <strong id="driver_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -261,7 +271,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="number" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="number" type="text"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;"
+                                               @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.numberEnter')" name="number"/>
                                         <strong id="number_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -296,7 +308,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="insurance_number" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="insurance_number" type="text"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;"
+                                               @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_numberEnter')"
                                                name="insurance_number"/>
                                         <strong id="insurance_number_error" class="errors text-danger"
@@ -314,8 +328,10 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" id="insurance_expiry_date_" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl" @endif
-                                        class="form-control form-control-solid"
+                                        <input type="date" id="insurance_expiry_date_"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl"
+                                               @endif
+                                               class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_expiry_dateEnter')"
                                                name="insurance_expiry_date"/>
                                         <strong id="insurance_expiry_date_error" class="errors text-danger"
@@ -338,19 +354,22 @@
 
                                         <!--begin::Input-->
 
-                                        <input type="file" id="photos" name="photos[]" accept="image/png, image/jpg, image/jpeg" multiple
+                                        <input type="file" id="photos" name="photos[]"
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                             <label for="photos"
                                                    class="form-control form-control-solid"
                                                    style="color: #999595FF">Choose File: <span
-                                                    id="file-chosens" style="color: #5a6268">    No file chosen</span></label>
+                                                    id="file-chosens"
+                                                    style="color: #5a6268">    No file chosen</span></label>
                                         @else
                                             <label for="photos"
                                                    class="form-control form-control-solid"
                                                    style="color: #999595FF;">اختر ملف : <span
-                                                    id="file-chosens" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                    id="file-chosens"
+                                                    style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                         @endif
                                         <!--end::Input-->
                                         <strong id="photos_error" class="errors text-danger"
@@ -372,7 +391,8 @@
 
                                         <!--begin::Input-->
 
-                                        <input type="file" id="photos_carlicense" name="photos_carlicense" accept="image/png, image/jpg, image/jpeg"
+                                        <input type="file" id="photos_carlicense" name="photos_carlicense"
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -406,7 +426,8 @@
 
                                         <!--begin::Input-->
 
-                                        <input type="file" id="photos_carinsurance" name="photos_carinsurance" accept="image/png, image/jpg, image/jpeg"
+                                        <input type="file" id="photos_carinsurance" name="photos_carinsurance"
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -440,7 +461,9 @@
 
                                         <!--begin::Input-->
 
-                                        <input type="file" id="photos_passengersinsurance" name="photos_passengersinsurance" accept="image/png, image/jpg, image/jpeg"
+                                        <input type="file" id="photos_passengersinsurance"
+                                               name="photos_passengersinsurance"
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -521,7 +544,8 @@
                             <!--begin::Notice-->
                             <!--end::Notice-->
                             <!--begin::Form-->
-                            <form id="kt_modal_update_car_form" class="form" action="#" enctype="multipart/form-data" style="font-size: 15px;">
+                            <form id="kt_modal_update_car_form" class="form" action="#" enctype="multipart/form-data"
+                                  style="font-size: 15px;">
                                 @csrf
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_edit_event_scroll" data-kt-scroll="true"
@@ -595,7 +619,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="number_edit" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="number_edit" type="text"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;"
+                                               @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.numberEnter')" name="number_edit"/>
                                         <strong id="number_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
@@ -630,7 +656,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input id="insurance_number_edit" type="text" @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;" @endif class="form-control form-control-solid"
+                                        <input id="insurance_number_edit" type="text"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar")  style="direction: rtl;"
+                                               @endif class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_numberEnter')"
                                                name="insurance_number_edit"/>
                                         <strong id="insurance_number_edit_error" class="errors text-danger"
@@ -648,7 +676,9 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="date" id="insurance_expiry_date_edit" @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl" @endif
+                                        <input type="date" id="insurance_expiry_date_edit"
+                                               @if(\Illuminate\Support\Facades\App::getLocale() == "ar") style="direction: rtl"
+                                               @endif
                                                class="form-control form-control-solid"
                                                placeholder="@lang('web.insurance_expiry_dateEnter')"
                                                name="insurance_expiry_date_edit"/>
@@ -672,25 +702,148 @@
 
                                         <!--begin::Input-->
 
-                                        <input type="file" id="photos_edit" name="photos_edit[]" accept="image/png, image/jpg, image/jpeg" multiple
+                                        <input type="file" id="photos_edit" name="photos_edit"
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
                                                    style="color: #999595FF">Choose File: <span
-                                                    id="file-chosen" style="color: #5a6268">    No file chosen</span></label>
+                                                    id="file-chosen"
+                                                    style="color: #5a6268">    No file chosen</span></label>
                                         @else
                                             <label for="photos_edit"
                                                    class="form-control form-control-solid"
                                                    style="color: #999595FF;">اختر ملف : <span
-                                                    id="file-chosen" style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                                    id="file-chosen"
+                                                    style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
                                         @endif
                                         <!--end::Input-->
                                         <div class="photos_show_edit" id="photos_show_edit">
 
                                         </div>
                                         <strong id="passengers_insurance_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photos_carlicense')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos_carlicense_edit" name="photos_carlicense_edit"
+                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_carlicense_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens_photos_carlicense_edit"
+                                                    style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_carlicense_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens_photos_carlicense_edit"
+                                                    style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <div class="photos_show_photos_carlicense_edit" id="photos_show_photos_carlicense_edit">
+
+                                        </div>
+                                        <strong id="photos_carlicense_edit_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photos_carinsurance')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos_carinsurance_edit" name="photos_carinsurance_edit"
+                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_carinsurance_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens_photos_carinsurance_edit"
+                                                    style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_carinsurance_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens_photos_carinsurance_edit"
+                                                    style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <div class="photos_show_photos_carinsurance_edit" id="photos_show_photos_carinsurance_edit">
+
+                                        </div>
+                                        <strong id="photos_carinsurance_edit_error" class="errors text-danger"
+                                                role="alert"></strong>
+                                        <!--end::Input-->
+                                    </div>
+
+                                    <div class="fv-row col-12 mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-semibold form-label mb-2">
+                                            <span>@lang('web.Photos_passengersinsurance')</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover"
+                                               data-bs-trigger="hover" data-bs-html="true"
+                                               data-bs-content="@lang('web.Allowed file types: png, jpg, jpeg.')"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+
+
+                                        <!--begin::Input-->
+
+                                        <input type="file" id="photos_passengersinsurance_edit" name="photos_passengersinsurance_edit"
+                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               hidden/>
+
+                                        @if(\Illuminate\Support\Facades\App::getLocale() == "en")
+                                            <label for="photos_passengersinsurance_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF">Choose File: <span
+                                                    id="file-chosens_photos_passengersinsurance_edit"
+                                                    style="color: #5a6268">    No file chosen</span></label>
+                                        @else
+                                            <label for="photos_passengersinsurance_edit"
+                                                   class="form-control form-control-solid"
+                                                   style="color: #999595FF;">اختر ملف : <span
+                                                    id="file-chosens_photos_passengersinsurance_edit"
+                                                    style="color: #5a6268">    لم يتم اختيار ملف     </span></label>
+                                        @endif
+                                        <!--end::Input-->
+                                        <div class="photos_show_photos_passengersinsurance_edit" id="photos_show_photos_passengersinsurance_edit">
+
+                                        </div>
+                                        <strong id="photos_passengersinsurance_edit_error" class="errors text-danger"
                                                 role="alert"></strong>
                                         <!--end::Input-->
                                     </div>
@@ -939,6 +1092,30 @@
             fileChosensssss.textContent = trans;
         })
 
+        const actualBtnssssss = document.getElementById('photos_carlicense_edit');
+
+        const fileChosenssssss = document.getElementById('file-chosens_photos_carlicense_edit');
+
+        actualBtnssssss.addEventListener('change', function () {
+            fileChosenssssss.textContent = trans;
+        })
+
+        const actualBtnsssssss = document.getElementById('photos_carinsurance_edit');
+
+        const fileChosensssssss = document.getElementById('file-chosens_photos_carinsurance_edit');
+
+        actualBtnsssssss.addEventListener('change', function () {
+            fileChosensssssss.textContent = trans;
+        })
+
+        const actualBtnssssssss = document.getElementById('photos_passengersinsurance_edit');
+
+        const fileChosenssssssss = document.getElementById('file-chosens_photos_passengersinsurance_edit');
+
+        actualBtnssssssss.addEventListener('change', function () {
+            fileChosenssssssss.textContent = trans;
+        })
+
     </script>
     <script>const
             language = $('#language').val(),
@@ -992,7 +1169,7 @@
                 let id = $(this).data('id');
                 $.ajax({
                     type: 'GET',
-                    url:  "/cars/" + id + "/edit",
+                    url: "/cars/" + id + "/edit",
                     success: function (response) {
                         $("#car_edit_id").html(response.car.id);
                         $("#number_edit").val(response.car.car_number);
@@ -1003,14 +1180,27 @@
                         $("#status").val(response.car.status);
                         $("#user_edit").val(response.user);
                         $('div#photos_show_edit').empty();
+                        $('div#photos_show_photos_carlicense_edit').empty();
+                        $('div#photos_show_photos_carinsurance_edit').empty();
+                        $('div#photos_show_photos_passengersinsurance_edit').empty();
                         $.each(response.image, function (index, value) {
                             var img = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
-                            var btn = $('<input type="hidden" id="id_image"><button type="button" class="btn btn-icon btn-circle btn-active-color-danger w-25px h-25px bg-body shadow"  id="button1"><i class="bi bi-trash"></i></button>');
                             img.attr('src', app_url + '/images/cars/' + value);
-                            btn.attr('data-id', value);
                             img.appendTo('#photos_show_edit');
-                            btn.appendTo('#photos_show_edit');
                         });
+
+                            var imgs = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
+                            imgs.attr('src', app_url + '/images/cars/' + response.car.carlicense);
+                            imgs.appendTo('#photos_show_photos_carlicense_edit');
+
+                            var imgss = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
+                            imgss.attr('src', app_url + '/images/cars/' + response.car.carinsurance);
+                            imgss.appendTo('#photos_show_photos_carinsurance_edit');
+
+                            var imgsss = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
+                            imgsss.attr('src', app_url + '/images/cars/' + response.car.passengersinsurance);
+                            imgsss.appendTo('#photos_show_photos_passengersinsurance_edit');
+
 
 
                     },
@@ -1037,7 +1227,5 @@
     <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}" defer></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
-
-
 
 @endsection

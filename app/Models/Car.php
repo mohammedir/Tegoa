@@ -18,4 +18,10 @@ class Car extends Model
         return $this->belongsTo(Driver::class,'user_id');
     }
 
+    public function photo() {
+        return $this->hasone(Photos::class);
+    }
+
+
+
 }
