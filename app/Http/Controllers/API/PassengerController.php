@@ -248,7 +248,8 @@ class PassengerController extends Controller
         try {
             $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->where('status','!=',5)->get();
             foreach ($Mytransportation as $mytransportation){
-                $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+
                 $mytransportation->destination = '';
                 $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 if ($place){

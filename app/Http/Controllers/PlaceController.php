@@ -155,8 +155,8 @@ class PlaceController extends Controller
                 $data->address = ['en' => $request->address_en, "ar" => $request->address_ar];
                 $data->type = $request->type;
                 $data->type_station = $request->type_station;
-                $data->lat = $request->lat;
-                $data->long = $request->long;
+                $data->lat = (double)$request->lat;
+                $data->long = (double)$request->long;
 
                 if ($request->file('fileupload')) {
                     $value = $request->file('fileupload');
