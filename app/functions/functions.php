@@ -69,7 +69,11 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
             'expected_cost' => number_format($num,2)
     ];
     }else{
-        return trans('api.No path can be set between you and the point you wish to go');
+        return [
+            'distance' => '',
+            'arrival_time' => '',
+            'expected_cost' => ''
+        ];
     }
 }
 
