@@ -24,6 +24,10 @@ $(function () {
                         },
                         columns: [
                             {
+                                data: 'id',
+                                name: 'id'
+                            },
+                            {
                                 data: 'Name',
                                 name: 'Name'
                             },
