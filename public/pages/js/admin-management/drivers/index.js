@@ -2,10 +2,13 @@ $(function () {
     const
         language = $('#language').val(),
         app_url = $('#app_url').val();
-    let id = 0, core_name = "";
+    let id = 0, core_name = "",
+     searchInput = $('#txt_name').val();
+
     $(document).ready(function () {
         "use strict";
         get_forms();
+        console.log(searchInput);
     });
 
 
@@ -17,6 +20,9 @@ $(function () {
                 init: function () {
                     (t = document.querySelector("#kt_drivers_table")) && ((e = $(t).DataTable({
                         searchable: true,
+                        "search": {
+                            "search": searchInput
+                        },
                         order: [[0, "asc"]],
                         ajax: {
                             "url": app_url + "/" + language + "/drivers",

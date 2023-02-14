@@ -68,7 +68,7 @@
 													</span>
                             <!--end::Svg Icon-->
 
-                            <input type="text" data-kt-ecommerce-forms-filter="search" value="{{ isset($_GET['input_value']) ? $_GET['input_value'] : '' }}"
+                            <input type="text" data-kt-ecommerce-forms-filter="search" id="txt_name" value="{{ isset($_GET['input_value']) ? $_GET['input_value'] : '' }}"
                                    class="form-control form-control-solid w-250px ps-15"
                                    placeholder="@lang('web.Search')"/>
                         </div>
