@@ -83,7 +83,7 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
             sin($lng_diff / 2) * sin($lng_diff / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         $distance = $earth_radius * $c; // km
-
+        $distance = $distance +20;
         // Calculate the estimated arrival time based on the speed of travel
         $time = $distance / ($speed/60); // hours
 
