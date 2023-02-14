@@ -301,6 +301,9 @@ class CarController extends Controller
                 $data->insurance_expiry_date = $request->insurance_expiry_date_edit;
 //                $data->user_id = Auth::user()->id;
                 $data->status = $request->status;
+                if ($request->status == 0 || $request->status == 2){
+                    $data->is_email_verified = null;
+                }
                 $data->save();
 
                 if ($request->file('photos_edit')) {
