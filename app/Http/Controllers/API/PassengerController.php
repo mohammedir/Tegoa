@@ -248,6 +248,25 @@ class PassengerController extends Controller
 
     }
 
+    public function get_transportion_by_id(Request $request){
+        $validator = Validator::make($request->all(),[
+            'transportion_id' => 'required',
+        ],[
+            'transportion_id.required' => trans("api.transportion_id field is required"),
+        ]);
+        if ($validator->passes()){
+            $transportation_requests =  TransportationRequests::find($request->transportion_id);
+            $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
+            $transportation_requests->driver_name = getUserName($transportation_requests->driver_id);
+            $transportation_requests->status_name = getStatusTypeAttribute($transportation_requests->status);
+
+            return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
+
+        }else{
+            return  $this->setError(200,false, $validator->errors()->first() , 200);
+        }
+    }
+
     public function my_transportion(Request $request){
         try {
             $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->where('status','!=',5)->get();
