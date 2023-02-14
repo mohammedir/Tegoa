@@ -745,7 +745,7 @@
                                         <!--begin::Input-->
 
                                         <input type="file" id="photos_carlicense_edit" name="photos_carlicense_edit"
-                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -785,7 +785,7 @@
                                         <!--begin::Input-->
 
                                         <input type="file" id="photos_carinsurance_edit" name="photos_carinsurance_edit"
-                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
@@ -825,7 +825,7 @@
                                         <!--begin::Input-->
 
                                         <input type="file" id="photos_passengersinsurance_edit" name="photos_passengersinsurance_edit"
-                                               accept="image/png, image/jpg, image/jpeg" multiple
+                                               accept="image/png, image/jpg, image/jpeg"
                                                hidden/>
 
                                         @if(\Illuminate\Support\Facades\App::getLocale() == "en")
