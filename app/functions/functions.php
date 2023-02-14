@@ -58,16 +58,16 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
     $client =  new \yidas\googleMaps\Client(['key'=>$apiKey]);
 
     $response = $client->distanceMatrix(implode(',', $originLatLng), implode(',', $destinationLatLng));
+    if ($response['rows'][0]['elements'][0]['status'] == "OK"){
     //dd($response['rows'][0]['elements'][0]['distance']['text']);
     $distance = $response['rows'][0]['elements'][0]['distance']['text'];
     $duration = $response['rows'][0]['elements'][0]['duration']['text'];
     $num = ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price;
-    if ($distance){
-        return [
+    return [
             'distance' => $distance,
             'arrival_time' => $duration,
             'expected_cost' => number_format($num,2)
-        ];
+    ];
     }else{
         return trans('api.No path can be set between you and the point you wish to go');
     }
