@@ -58,6 +58,7 @@ Route::controller(PassengerController::class)
         Route::get('/passenger/reset-password-with-email', 'reset_password_with_email')->middleware('localization');
         Route::post('/passenger/get_data_expected', 'get_data_expected')->middleware('localization');
         Route::post('/passenger/find_transportion', 'find_transportion')->middleware('localization');
+        Route::post('/passenger/get_transportion_by_id', 'get_transportion_by_id')->middleware('localization');
         Route::get('/passenger/my_transportion', 'my_transportion')->middleware('localization');
         Route::post('/passenger/send_email_verification ', 'verification_email')->middleware('localization');
         Route::post('/passenger/rating ', 'rating')->middleware('localization');
