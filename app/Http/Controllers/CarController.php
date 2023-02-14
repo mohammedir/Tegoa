@@ -61,15 +61,17 @@ class CarController extends Controller
                 })
                 ->addColumn('others', function ($data) {
                     if (Auth::user()->hasPermissionTo('cars_edit')) {
+                        $other = '<div style="display:flex;">';
                         if ($data->status == 0 || $data->status == 2) {
-                            $other = '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
+                            $other .= '<button id="show" data-id="' . $data->id . '" data-bs-toggle="modal" data-bs-target="#kt_modal_detail_car"  class="btn btn-warning" style="color:black;font-weight: bold; width: 90px !important; margin-left: 10px;">
                                     ' . trans('web.Details') . '</button>';
                         } else {
-                            $other = '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning btn-block" style="color:black;font-weight: bold; width: 90px !important;">
+                            $other .= '<button id="edit" data-id="' . $data->id . '"  data-bs-toggle="modal" data-bs-target="#kt_modal_update_car" class="btn btn-warning" style="color:black;font-weight: bold; width: 90px !important; margin-left: 10px;">
                                     ' . trans('web.Edit') . '</button>';
                         }
-                        $other = $other . '<button id="delete" data-id="' . $data->id . '"  class="btn btn-danger btn-block" style="font-weight: bold; ' . marginFunction() . ' ">
+                        $other .= '<button id="delete" data-id="' . $data->id . '"  class="btn btn-danger" style="font-weight: bold; margin-left: 10px;">
                                     ' . trans('web.Delete') . '</button>';
+                        $other .= '</div>';
                         return $other;
                     }
                 })
