@@ -69,11 +69,31 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
             'expected_cost' => number_format($num,2)
     ];
     }else{
+
+        $lat1 = deg2rad($originLatLng[0]);
+        $lng1 = deg2rad($originLatLng[1]);
+        $lat2 = deg2rad($destinationLatLng[0]);
+        $lng2 = deg2rad($destinationLatLng[0]);
+        $speed = 20;
+        $earth_radius = 6371; // km
+        $lat_diff = deg2rad($lat2 - $lat1);
+        $lng_diff = deg2rad($lng2 - $lng1);
+        $a = sin($lat_diff / 2) * sin($lat_diff / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($lng_diff / 2) * sin($lng_diff / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $earth_radius * $c; // km
+
+        // Calculate the estimated arrival time based on the speed of travel
+        $time = $distance / ($speed/60); // hours
+
+        // Return the distance and estimated arrival time as an array
         return [
-            'distance' => '',
-            'arrival_time' => '',
-            'expected_cost' => ''
+            'distance' =>floor($distance)." km",
+            'arrival_time' => floor($time)." mins",
+            'expected_cost' => number_format(floor($distance)*$price,2)
         ];
+
     }
 }
 
@@ -119,4 +139,25 @@ function getStatusTypeAttribute($value)
         default:
             return $value;
     }
+}
+function getDistanceAndArrivalTime($lat1, $lng1, $lat2, $lng2, $speed , $price) {
+    // Calculate the distance between the two points using the Haversine formula
+    $earth_radius = 6371; // km
+    $lat_diff = deg2rad($lat2 - $lat1);
+    $lng_diff = deg2rad($lng2 - $lng1);
+    $a = sin($lat_diff / 2) * sin($lat_diff / 2) +
+        cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+        sin($lng_diff / 2) * sin($lng_diff / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    $distance = $earth_radius * $c; // km
+
+    // Calculate the estimated arrival time based on the speed of travel
+    $time = $distance / $speed; // hours
+
+    // Return the distance and estimated arrival time as an array
+    return [
+        'distance' =>floor($distance)." km",
+        'arrival_time' => floor($time)." hours",
+        'expected_cost' => number_format(floor($distance)*$price,2)
+    ];
 }
