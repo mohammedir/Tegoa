@@ -62,11 +62,15 @@ function getDistanceAndEtaByLatLng($originLatLng, $destinationLatLng, $apiKey , 
     $distance = $response['rows'][0]['elements'][0]['distance']['text'];
     $duration = $response['rows'][0]['elements'][0]['duration']['text'];
     $num = ($response['rows'][0]['elements'][0]['distance']['value']/1000)*$price;
-    return [
-        'distance' => $distance,
-        'arrival_time' => $duration,
-        'expected_cost' => number_format($num,2)
-    ];
+    if ($distance){
+        return [
+            'distance' => $distance,
+            'arrival_time' => $duration,
+            'expected_cost' => number_format($num,2)
+        ];
+    }else{
+        return trans('api.No path can be set between you and the point you wish to go');
+    }
 }
 
 function marginFunction(){

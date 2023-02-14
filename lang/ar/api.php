@@ -96,6 +96,7 @@ return [
     'The trip has been completed successfully' => 'تم اكمال الرحلة بنجاح',
     'Rating successfully' => 'شكرًا على استخدامك تطبيق تقوع',
     'You cannot receive requests until your identity has been verified by the administrator' => 'لا يمكنك استلام طلبات حتى يتم التحقق من هويتك من قبل المسؤول',
+    'No path can be set between you and the point you wish to go' => 'لا يمكن تحديد مسار بينك وبين النقطة التي ترغب في الذهاب لها',
 
 
 
