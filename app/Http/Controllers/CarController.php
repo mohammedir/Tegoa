@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Driver;
 use App\Models\Photos;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -24,7 +25,7 @@ class CarController extends Controller
     {
         $cars = Car::query()->get();
         if ($request->ajax()) {
-            $data = Car::query()->where('is_email_verified', "=", 1)->get();
+            $data = Car::query()->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
                     return '<a href="' . route("drivers.index") . '">' . User::find($data->user_id)->full_name . '</a>';
@@ -47,6 +48,16 @@ class CarController extends Controller
                         $status = '<div style="color: red">' . trans('web.declined') . '</div>';
                     }
                     return $status;
+                })
+                ->editColumn('email', function ($data) {
+                    if ($data->is_email_verified == 1) {
+                        $email = '<div style="color: #00ff15">' . trans('web.Yes') . '</div>';
+                    } elseif ($data->is_email_verified == null) {
+                        $email = '<div style="color: #ff0000">' . trans('web.No') . '</div>';
+                    }else{
+                        $email = 'error';
+                    }
+                    return $email;
                 })
                 ->addColumn('others', function ($data) {
                     if (Auth::user()->hasPermissionTo('cars_edit')) {
@@ -204,7 +215,12 @@ class CarController extends Controller
                     'body' => 'This email to inform you that the registered vehicle is enabled successfully'
                 ];
                 $user = User::find($car->user_id)->email;
-                Mail::to($user)->send(new \App\Mail\StatusCar($details));
+                try {
+                    Mail::to($user)->send(new \App\Mail\StatusCar($details));
+                    return response()->json(['response' => $car, 'email_status' => 'success']);
+                } catch (Exception $e) {
+                    return response()->json(['response' => $car, 'email_status' => 'failed']);
+                }
             }
 
             return response()->json(['response' => $car]);
@@ -301,9 +317,6 @@ class CarController extends Controller
                 $data->insurance_expiry_date = $request->insurance_expiry_date_edit;
 //                $data->user_id = Auth::user()->id;
                 $data->status = $request->status;
-                if ($request->status == 0 || $request->status == 2){
-                    $data->is_email_verified = null;
-                }
                 $data->save();
 
                 if ($request->file('photos_edit')) {

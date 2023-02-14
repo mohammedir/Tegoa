@@ -39,6 +39,7 @@ $(function () {
                             }))
                         })), t.querySelector('[data-kt-permissions-modal-actions="cancel"]').addEventListener("click", (t => {
                             $(".errors").html("");
+                            $(':input[type="submit"]').prop('disabled', true);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
@@ -49,6 +50,7 @@ $(function () {
                                         data: {id:$('#car_show_id').text()},
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1,
                                                         Swal.fire({
@@ -75,6 +77,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 $(".errors").html("");
                                                 print_error(response.error);
                                             }
@@ -93,6 +96,7 @@ $(function () {
                         const i = t.querySelector('[data-kt-permissions-modal-actions="submit"]');
                         i.addEventListener("click", (function (t) {
                             $(".errors").html("");
+                            $(':input[type="submit"]').prop('disabled', true);
                             t.preventDefault(), o && o.validate().then((function (t) {
                                 "Valid" == t ? $.ajax({
                                         headers: {
@@ -103,6 +107,7 @@ $(function () {
                                         data: {id:$('#car_show_id').text()},
                                         success: function (response) {
                                             if ($.isEmptyObject(response.error)) {
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 (i.setAttribute("data-kt-indicator", "on"), i.disabled = !0, setTimeout((function () {
                                                     i.removeAttribute("data-kt-indicator"), i.disabled = !1,
                                                         Swal.fire({
@@ -129,6 +134,7 @@ $(function () {
                                                     confirmButtonText: language === "en" ? "Ok, got it!" : "حسنًا ، فهمت!",
                                                     customClass: {confirmButton: "btn btn-primary"}
                                                 })
+                                                $(':input[type="submit"]').prop('disabled', false);
                                                 $(".errors").html("");
                                                 print_error(response.error);
                                             }

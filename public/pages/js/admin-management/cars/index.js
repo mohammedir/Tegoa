@@ -43,6 +43,10 @@ $(function () {
                                 name: 'status'
                             },
                             {
+                                data: 'email',
+                                name: 'email'
+                            },
+                            {
                                 data: 'others',
                                 name: 'others'
                             }

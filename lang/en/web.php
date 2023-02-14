@@ -157,6 +157,7 @@ return [
     'alert' => 'Alert',
     'alert1' => 'A driver must be added first, then you can add a car to this new driver.You can add a car only for a driver who does not already own a car',
     'Photo_passengersinsurance' => 'Photo passenger insurance',
+    'verified' => 'Email verification',
 
     'numberEnter' => 'Enter a car number',
     'brandEnter' => 'Enter a car brand',
@@ -358,6 +359,8 @@ return [
     'About the municipality_Ar' => 'About the municipality',
 
     'digits_between' => 'The number must not be less than 10 digits and not more than 14 digits',
+    'Yes' => 'Yes',
+    'No' => 'No',
 
 
 ];
