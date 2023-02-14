@@ -28,7 +28,7 @@ class CarController extends Controller
             $data = Car::query()->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
-                    return '<a href="' . route("drivers.index") . '">' . User::find($data->user_id)->full_name . '</a>';
+                    return '<a href="' . route("drivers.index") . '?input_value='.User::find($data->user_id)->full_name.'"">' . User::find($data->user_id)->full_name . '</a>';
                 })
                 ->editColumn('car_number', function ($data) {
                     return Str::limit($data->car_number, 20);;
