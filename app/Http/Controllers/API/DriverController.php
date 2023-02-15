@@ -280,7 +280,7 @@ class DriverController extends Controller
     public function available_transportion(Request $request){
         try {
             $driver = User::query()->find($request->user()->id);
-            $car = Car::query()->where('user_id','=',$request->user()->id)->where('is_email_verified','=',1)->get()->first();
+            $car = Car::query()->where('user_id','=',$request->user()->id)->where('status','=',1)->get()->first();
             $available_transportion = TransportationRequests::query()->where('status','=',1)
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)
                 ->where('vehicle_type','=',$driver->vehicle_type)->get();
