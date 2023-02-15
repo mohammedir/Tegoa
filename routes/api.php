@@ -74,10 +74,10 @@ Route::controller(DriverController::class)
         Route::post('/driver/change_password', 'change_password')->middleware('localization');
         Route::post('/driver/edit_car', 'update_car')->middleware('localization');
         Route::get('/driver/available_transportion', 'available_transportion')->middleware('localization');
-        Route::post('/driver/find_transportion', 'find_transportion');
+        Route::post('/driver/find_transportion', 'find_transportion')->middleware('localization');
         Route::post('/driver/accept_transportion', 'accept_transportion')->middleware('localization');
-        Route::post('/driver/start_trip', 'start_trip');
-        Route::post('/driver/end_trip', 'end_trip');
+        Route::post('/driver/start_trip', 'start_trip')->middleware('localization');
+        Route::post('/driver/end_trip', 'end_trip')->middleware('localization');
         Route::post('/driver/rating ', 'rating')->middleware('localization');
         Route::post('/driver/report_passenger ', 'report_passenger')->middleware('localization');
 

@@ -296,7 +296,7 @@ class DriverController extends Controller
                 }
                 return  $this->api_response(200,true,trans('api.available transportion data') , $available_transportion , 200);
             }else{
-                return  $this->api_response(200,false, 'api.You cannot receive requests until your identity has been verified by the administrator' , '' , 200);
+                return  $this->api_response(200,false, trans('api.You cannot receive requests until your identity has been verified by the administrator') , [] , 200);
 
             }
         }catch (Exception $e){
@@ -408,7 +408,7 @@ class DriverController extends Controller
                  $transportation->status_name = getStatusTypeAttribute($transportation->status);
                  return  $this->api_response(200,true,trans('api.Rating successfully') , $transportation , 200);
              }else{
-                 return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+                 return  $this->setError(200,false, trans("api.You can't rate because the trip is not finished yet") , 200);
              }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
@@ -429,7 +429,7 @@ class DriverController extends Controller
                 $transportation->status_name = getStatusTypeAttribute($transportation->status);
                 return  $this->api_response(200,true,trans('api.Report passenger successfully ') , $transportation , 200);
             }else{
-                return  $this->setError(200,false, "api.You can't rate because the trip is not finished yet" , 200);
+                return  $this->setError(200,false, trans("api.You can't rate because the trip is not finished yet") , 200);
             }
         }else{
             return  $this->setError(200,false, $validator->errors()->first() , 200);
