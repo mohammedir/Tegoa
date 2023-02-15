@@ -281,9 +281,8 @@ class DriverController extends Controller
         try {
             $driver = User::query()->find($request->user()->id);
             $car = Car::query()->where('user_id','=',$request->user()->id)->where('status','=',1)->get()->first();
-            $available_transportion = TransportationRequests::query()->where('status','=',1)
-                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)
-                ->where('vehicle_type','=',$driver->vehicle_type)->get();
+            $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)
+                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->get();
             if ($car){
                 foreach ($available_transportion as $mytransportation){
                     $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
