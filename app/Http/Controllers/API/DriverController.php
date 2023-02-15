@@ -101,8 +101,6 @@ class DriverController extends Controller
             'car_brand' => 'required',
             'insurance_number' => 'required',
             'insurance_expiry_date' => 'required|date',
-
-
         ],[
             'vehicle_type.required' => trans("api.The vehicle type field is required."),
             'car_number.required' => trans("api.The car number field is required"),
@@ -219,7 +217,7 @@ class DriverController extends Controller
                     'user' => $driver,
                     'car' => $car,
                 ];
-                return  $this->api_response(200,true,trans('api.The vehicle data has been updated successfully  ') , $res , 200);
+                return  $this->api_response(200,true,trans('api.The vehicle data has been updated successfully') , $res , 200);
             }catch (Exception $e){
                 return  $this->setError(200 ,false, trans('api.An error occurred during the modification process. Please check that the converted data is correct again') , 200);
             }

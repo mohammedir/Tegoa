@@ -203,7 +203,7 @@ class PassengerController extends Controller
                         /*$fcm = User::query()->find(12)->notify(new FcmNotification($transportation_requests));*/
                         $users = User::query()->where('vehicle_type','=',$request->vehicle_type)->where('user_type','=',2)->get();
                         foreach ($users as $user){
-                            $car = Car::query()->where('user_id','=',$user->id)->where('is_email_verified','=',1)->get()->first();
+                            $car = Car::query()->where('user_id','=',$user->id)->where('status','=',1)->get()->first();
                             if ($car){
                                 $user->notify(new FcmNotification($transportation_requests));
                             }

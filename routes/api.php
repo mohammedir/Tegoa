@@ -63,7 +63,6 @@ Route::controller(PassengerController::class)
         Route::post('/passenger/send_email_verification ', 'verification_email')->middleware('localization');
         Route::post('/passenger/rating ', 'rating')->middleware('localization');
         Route::post('/passenger/report_driver ', 'report_driver')->middleware('localization');
-
     });
 Route::controller(DriverController::class)
     ->middleware('auth:sanctum')
@@ -80,8 +79,6 @@ Route::controller(DriverController::class)
         Route::post('/driver/end_trip', 'end_trip')->middleware('localization');
         Route::post('/driver/rating ', 'rating')->middleware('localization');
         Route::post('/driver/report_passenger ', 'report_passenger')->middleware('localization');
-
-
     });
 Route::get('/passenger/reset_password_view/{id}', [PassengerController::class,'reset_password_view']);
 Route::post('/passenger/update-password-with-email', [PassengerController::class,'update_password_with_email']);
