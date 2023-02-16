@@ -29,8 +29,10 @@ class PassengerController extends Controller
 {
 
     public function edit_profile(Request $request){
+
         $res = [
             'user' => $request->user(),
+            'car' => ''
         ];
         return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
     }
@@ -71,6 +73,7 @@ class PassengerController extends Controller
                     $passenger->save();
                     $res = [
                         'user' => $passenger,
+                        'car' => ''
                     ];
                     return  $this->api_response(200,true,trans('api.The data has been modified successfully') , $res , 200);
                 }catch (Exception $e){
@@ -99,6 +102,8 @@ class PassengerController extends Controller
                 $passenger->save();
                 $res = [
                     'user' => $request->user(),
+                    'car' => ''
+
                 ];
                 Mail::to($passenger->email)->send(new updatePassword($passenger));
                 return  $this->api_response(200,true,trans('api.changed password successfully') , $res , 200);
@@ -179,9 +184,9 @@ class PassengerController extends Controller
             'distance.required' => trans("api.distance field is required"),
             'expected_cost.required' => trans("api.expected_cost field is required"),
             'arrival_time.required' => trans("api.arrival_time field is required"),
-
         ]);
         $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->user()->id)->get()->first();
+        $place = Map::query()->where('lat' ,'=',$request->lat_to)->where('long','=',$request->lng_to)->get()->first();
         if ($validator->passes()){
             if ($passenger_id){
                     try {
@@ -197,6 +202,10 @@ class PassengerController extends Controller
                         $transportation_requests->distance = $request->distance;
                         $transportation_requests->expected_cost = $request->expected_cost;
                         $transportation_requests->arrival_time = $request->arrival_time;
+                        $transportation_requests->destination = '';
+                        if ($place){
+                            $transportation_requests->destination = $place->name;
+                        }
                         $transportation_requests->save();
                         $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
 
@@ -268,11 +277,10 @@ class PassengerController extends Controller
 
     public function my_transportion(Request $request){
         try {
-            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->where('status','!=',5)->get();
+            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
                 $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
 
-                $mytransportation->destination = '';
                 $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                 if ($place){
                     $mytransportation->destination = $place->name;
