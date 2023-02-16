@@ -208,7 +208,6 @@ class PassengerController extends Controller
                                 $user->notify(new FcmNotification($transportation_requests));
                             }
                         }
-
                         //$user = User::query()->find(12);
                         //$user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
                         /*FCMService::send(

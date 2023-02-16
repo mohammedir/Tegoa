@@ -47,6 +47,7 @@ class DriverController extends Controller
     /* I use this function to update the data driver*/
     public function update_profile(Request $request){
         $driver = User::query()->find($request->user()->id);
+        $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
         $fcm_token = $request->header('X-User-FCM-Token');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
@@ -80,6 +81,7 @@ class DriverController extends Controller
                 $driver->save();
                 $res = [
                     'user' => $driver,
+                    'car' => $car,
                 ];
                 return  $this->api_response(200,true,trans('api.The profile data has been updated successfully') , $res , 200);
             }catch (Exception $e){
@@ -280,7 +282,7 @@ class DriverController extends Controller
             $driver = User::query()->find($request->user()->id);
             $car = Car::query()->where('user_id','=',$request->user()->id)->where('status','=',1)->get()->first();
             $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)
-                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)->get();
+                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)->orderBy('id', 'DESC')->get();
             if ($car){
                 foreach ($available_transportion as $mytransportation){
                     $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
