@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Spatie\Translatable\HasTranslations;
 use function Symfony\Component\String\u;
 
@@ -39,6 +40,14 @@ class TourGuids extends Model
         return Attribute::make(
             get: fn ($value) => $this->getTranslation('address',app()->getLocale()),
         );
+    }
+    public function getSpokenLanguagesAttribute($value){
+        if (App::isLocale('en')) {
+            return $value;
+        }else{
+            return getArLang($value);
+        }
+
     }
 
 

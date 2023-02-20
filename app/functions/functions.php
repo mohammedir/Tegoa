@@ -161,3 +161,13 @@ function getDistanceAndArrivalTime($lat1, $lng1, $lat2, $lng2, $speed , $price) 
         'expected_cost' => number_format(floor($distance)*$price,2)
     ];
 }
+
+function getArLang($value){
+/*    $array = ['English', 'Arabic','French'];*/
+    $array = json_decode($value);
+    $translatedArray = array_map(function ($value) {
+        return trans('api.'.$value);
+    }, $array);
+
+    return $translatedArray;
+}
