@@ -214,20 +214,20 @@ class PassengerController extends Controller
                         foreach ($users as $user){
                             $car = Car::query()->where('user_id','=',$user->id)->where('status','=',1)->get()->first();
                             if ($car){
-                                $user->notify(new FcmNotification($transportation_requests));
+                                try {
+                                    $user->notify(new FcmNotification($transportation_requests));
+                                } catch (Exception $e) {
+                                    if ($e->getCode() === 'messaging/registration-token-not-registered') {
+                                        // Handle the case when the FCM token is expired or invalid
+                                        // Log the error or take appropriate action
+                                    } else {
+                                        // Handle other messaging exceptions
+                                        // Log the error or take appropriate action
+                                    }
+                                }
                             }
                         }
-                        //$user = User::query()->find(12);
-                        //$user = User::whereNotNull('fcm_token')->where('vehicle_type',$request->vehicle_type)->where('user_type',2)->pluck('fcm_token')->all();
-                        /*FCMService::send(
-                            $user->fcm_token,
-                            [
-                                'title' => 'Request a new trip from ' . getUserName($request->user()->id),
-                                'body' => 'The request is far from you'.$request->distance,
-                                'sound'        => 'default',
 
-                            ]
-                        );*/
                        /* $time_wating = 1 ;
                         $status = TransportationRequests::query()->find($transportation_requests->id);
 
