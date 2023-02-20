@@ -214,17 +214,9 @@ class PassengerController extends Controller
                         foreach ($users as $user){
                             $car = Car::query()->where('user_id','=',$user->id)->where('status','=',1)->get()->first();
                             if ($car){
-                                try {
-                                    $user->notify(new FcmNotification($transportation_requests));
-                                } catch (Exception $e) {
-                                    if ($e->getCode() === 'messaging/registration-token-not-registered') {
-                                        return  $this->setError(200 ,false, substr($e->getMessage(), 0, 100) , 200);
 
-                                    } else {
-                                        // Handle other messaging exceptions
-                                        // Log the error or take appropriate action
-                                    }
-                                }
+                                    $user->notify(new FcmNotification($transportation_requests));
+
                             }
                         }
 
