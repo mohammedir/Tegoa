@@ -213,6 +213,7 @@ class AuthController extends Controller
     }
 
     public function passenger_login(Request $request){
+        $headerFCM = $request->hasHeader('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
@@ -230,8 +231,11 @@ class AuthController extends Controller
             $data = Auth::user();
             $token = $data->createToken('passenger');
             $data->api_token = $token->plainTextToken;
-            if ($request->fcmToken)
+            if ($request->fcmToken){
                 $data->fcm_token = $request->fcmToken;
+            }elseif ($headerFCM){
+                $data->fcm_token = $headerFCM;
+            }
             $data->save();
             $res = [
                 'user' => $data,
@@ -244,6 +248,7 @@ class AuthController extends Controller
         }
     }
     public function driver_login(Request $request){
+        $headerFCM = $request->hasHeader('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
@@ -266,8 +271,11 @@ class AuthController extends Controller
 
             $token = $data->createToken('driver');
             $data->api_token = $token->plainTextToken;
-            if ($request->fcmToken)
+            if ($request->fcmToken){
                 $data->fcm_token = $request->fcmToken;
+            }elseif ($headerFCM){
+                $data->fcm_token = $headerFCM;
+            }
             $data->save();
             $res = [
                 'user' => $data,

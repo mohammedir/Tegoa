@@ -24,7 +24,6 @@ class TourGuids extends Model
         'image',
 
     ];
-
     public function getImageAttribute($value)
     {
         return url(asset('images/tours/'.$value));
