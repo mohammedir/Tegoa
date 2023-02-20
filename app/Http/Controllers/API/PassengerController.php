@@ -218,8 +218,8 @@ class PassengerController extends Controller
                                     $user->notify(new FcmNotification($transportation_requests));
                                 } catch (Exception $e) {
                                     if ($e->getCode() === 'messaging/registration-token-not-registered') {
-                                        // Handle the case when the FCM token is expired or invalid
-                                        // Log the error or take appropriate action
+                                        return  $this->setError(200 ,false, substr($e->getMessage(), 0, 100) , 200);
+
                                     } else {
                                         // Handle other messaging exceptions
                                         // Log the error or take appropriate action
