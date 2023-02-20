@@ -163,7 +163,6 @@ function getDistanceAndArrivalTime($lat1, $lng1, $lat2, $lng2, $speed , $price) 
 }
 
 function getArLang($value){
-/*    $array = ['English', 'Arabic','French'];*/
     $array = json_decode($value);
     $translatedArray = array_map(function ($value) {
         return trans('api.'.$value);

@@ -356,14 +356,11 @@
                                                 <option value="Ukrainian">Ukrainian</option>
                                                 <option value="Urdu">Urdu</option>
                                             </select>
-
                                             <strong id="spoken_languages_error" class="errors text-danger"
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
-
                                     </div>
-
                                     <div class="row">
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
@@ -384,7 +381,6 @@
                                                     role="alert"></strong>
                                             <!--end::Input-->
                                         </div>
-
                                         <div class="fv-row col-md-6 mb-7">
                                             <!--begin::Label-->
                                             <label class="fs-6 fw-semibold form-label mb-2">
