@@ -316,9 +316,9 @@ class PassengerController extends Controller
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             if ($transportation->status == 4){
-                $transportation->rating_car = $request->rating_car;
-                $transportation->rating_driver = $request->rating_driver;
-                $transportation->rating_time = $request->rating_time;
+                $transportation->rating_car = $request->car;
+                $transportation->rating_driver = $request->driver;
+                $transportation->rating_time = $request->time;
                 $transportation->save();
                 $transportation->passenger_name = getUserName($transportation->passenger_id);
                 $transportation->driver_name = getUserName($transportation->driver_id);
