@@ -23,6 +23,7 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
+        $headerFCM = $request->hasHeader('fcmToken');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -54,8 +55,11 @@ class AuthController extends Controller
                 $user->gender = $request->gender;
                 $user->user_status = 1;
                 $user->user_type = 1;
-                if ($request->fcmToken)
+                if ($request->fcmToken){
                     $user->fcm_token = $request->fcmToken;
+                }elseif ($headerFCM){
+                    $user->fcm_token = $headerFCM;
+                }
                 $user->save();
                 $token = $user->createToken('passenger');
                 $user->update(['api_token' =>$token->plainTextToken]);
@@ -73,6 +77,7 @@ class AuthController extends Controller
         }
     }
     public function driver_register(Request $request){
+        $headerFCM = $request->hasHeader('fcmToken');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -143,8 +148,11 @@ class AuthController extends Controller
                 }
                 $user->address = $request->address;
                 $user->user_type = 2;
-                if ($request->fcmToken)
+                if ($request->fcmToken){
                     $user->fcm_token = $request->fcmToken;
+                }elseif ($headerFCM){
+                    $user->fcm_token = $headerFCM;
+                }
                 $user->save();
                 $car = new Car();
                 $car->user_id = $user->id;
