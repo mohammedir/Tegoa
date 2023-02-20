@@ -41,14 +41,14 @@ class TourGuids extends Model
             get: fn ($value) => $this->getTranslation('address',app()->getLocale()),
         );
     }
-    public function getSpokenLanguagesAttribute($value){
+   /* public function getSpokenLanguagesAttribute($value){
         if (App::isLocale('en')) {
             return $value;
         }else{
             return getArLang($value);
         }
 
-    }
+    }*/
 
 
 }
