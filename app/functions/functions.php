@@ -169,5 +169,5 @@ function getArLang($value){
         return trans('api.'.$value);
     }, $array);
 
-    return $translatedArray;
+    return json_encode($translatedArray);
 }
