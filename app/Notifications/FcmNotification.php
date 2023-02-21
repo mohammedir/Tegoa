@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\API\TransportationRequests;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -23,9 +24,11 @@ class FcmNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($transportation_requests)
     {
         //
+        $this->transportation_requests = $transportation_requests;
+
     }
 
     /**
@@ -52,7 +55,6 @@ class FcmNotification extends Notification
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
-
     /**
      * Get the array representation of the notification.
      *
@@ -70,7 +72,7 @@ class FcmNotification extends Notification
         return FcmMessage::create()
             ->setData(['data1' => 'value', 'data2' => 'value2'])
              ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle('Request a new trip')
+                ->setTitle('Request a new trip from '.getUserName($this->transportation_requests->passenger_id))
                 ->setBody('There is a new request that you can accept')
                 ->setImage('https://taqoa.shift-demo.one/images/logo_n.jpg'))
             ->setAndroid(
