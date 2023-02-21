@@ -51,7 +51,6 @@ class GuestController extends Controller
         return  $this->api_response(200,true,trans('api.Contact Emergency List') , $contactEmergency , 200);
     }
     public function news(){
-
         $news = News::query()->where('type','=',1)->where('status','=',1)->get()->all();
         $pages = Pages::query()->find(2);
         $pages->increment('count');
@@ -61,8 +60,6 @@ class GuestController extends Controller
         $announcements = Announcements::query()->where('type','=',2)->where('status','=',1)->get()->all();
         return  $this->api_response(200,true,trans('api.Announcements List') , $announcements , 200);
     }
-
-
     public function get_all_places(){
         $places = Map::query()->get()->all();
         return  $this->api_response(200,true,trans('api.Places List') , $places , 200);

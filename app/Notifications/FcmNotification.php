@@ -41,7 +41,6 @@ class FcmNotification extends Notification
     {
         return [FcmChannel::class];
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -88,5 +87,4 @@ class FcmNotification extends Notification
         // $message is what is returned by `toFcm`
         return 'app'; // name of the firebase project to use
     }
-
 }

@@ -29,10 +29,8 @@ class PassengerController extends Controller
 {
 
     public function edit_profile(Request $request){
-
         $res = [
             'user' => $request->user(),
-            'car' => ''
         ];
         return  $this->api_response(200,true,trans('api.user info ') , $res , 200);
     }
@@ -73,7 +71,6 @@ class PassengerController extends Controller
                     $passenger->save();
                     $res = [
                         'user' => $passenger,
-                        'car' => ''
                     ];
                     return  $this->api_response(200,true,trans('api.The data has been modified successfully') , $res , 200);
                 }catch (Exception $e){
@@ -102,8 +99,6 @@ class PassengerController extends Controller
                 $passenger->save();
                 $res = [
                     'user' => $request->user(),
-                    'car' => ''
-
                 ];
                 Mail::to($passenger->email)->send(new updatePassword($passenger));
                 return  $this->api_response(200,true,trans('api.changed password successfully') , $res , 200);
