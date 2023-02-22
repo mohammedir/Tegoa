@@ -68,8 +68,12 @@ class GuestController extends Controller
     public function reset_using_email(Request $request){
         try {
             $user = User::query()->where('email','=',$request->email)->get()->first();
-            Mail::to($user->email)->send(new changePassword($user));
-            return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it ') , "" , 200);
+            if ($user){
+                Mail::to($user->email)->send(new changePassword($user));
+                return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it') , "" , 200);
+            }else{
+                return  $this->api_response(200,true,trans('api.This e-mail is not registered') , "" , 200);
+            }
         } catch (\Exception $e) {
             return  $this->setError(200,false, "api.Something went wrong, please try again later!" , 200);
         }

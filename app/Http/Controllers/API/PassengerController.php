@@ -9,6 +9,7 @@ use App\Mail\updatePassword;
 use App\Mail\updateProfile;
 use App\Models\API\Car;
 use App\Models\API\Map;
+use App\Models\API\Pages;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
 use App\Models\API\User;
@@ -29,6 +30,8 @@ class PassengerController extends Controller
 {
 
     public function edit_profile(Request $request){
+        $pages = Pages::query()->find(7);
+        $pages->increment('count');
         $res = [
             'user' => $request->user(),
         ];
@@ -182,6 +185,8 @@ class PassengerController extends Controller
         ]);
         $passenger_id = User::query()->where('user_type','=',1)->where('id','=',$request->user()->id)->get()->first();
         $place = Map::query()->where('lat' ,'=',$request->lat_to)->where('long','=',$request->lng_to)->get()->first();
+        $pages = Pages::query()->find(6);
+        $pages->increment('count');
         if ($validator->passes()){
             if ($passenger_id){
                     try {
@@ -338,7 +343,7 @@ class PassengerController extends Controller
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             if ($transportation->status == 4){
-                $transportation->complaint = $request->text_report;
+                $transportation->complaintPassenger = $request->text_report;
                 $transportation->save();
                 $transportation->passenger_name = getUserName($transportation->passenger_id);
                 $transportation->driver_name = getUserName($transportation->driver_id);

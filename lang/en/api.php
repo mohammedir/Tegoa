@@ -8,6 +8,7 @@ return [
     'changed password successfully' => 'changed password successfully',
     'the current password is not true' => 'the current password is not true',
     'Reset link has  been send to your email, please check it' => 'Reset link has  been send to your email, please check it',
+    'This e-mail is not registered' => 'This e-mail is not registered',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'account has been created but car is under review, we will inform you when it get reviewed',
 

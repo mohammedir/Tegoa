@@ -9,6 +9,7 @@ use App\Mail\updatePassword;
 use App\Mail\updateProfile;
 use App\Models\API\Car;
 use App\Models\API\Map;
+use App\Models\API\Pages;
 use App\Models\API\Photos;
 use App\Models\API\Settings;
 use App\Models\API\TransportationRequests;
@@ -29,6 +30,8 @@ class DriverController extends Controller
 {
     /* I use it to get data driver.*/
     public function edit_profile(Request $request){
+        $pages = Pages::query()->find(7);
+        $pages->increment('count');
         $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
         /*$carphotos = Photos::query()->where('car_id','=',$car->id)->get();
 
@@ -420,7 +423,7 @@ class DriverController extends Controller
         if ($validator->passes()) {
             $transportation = TransportationRequests::query()->find($request->transportion_id);
             if ($transportation->status == 4){
-                $transportation->complaint = $request->text_report;
+                $transportation->complaintDriver = $request->text_report;
                 $transportation->save();
                 $transportation->passenger_name = getUserName($transportation->passenger_id);
                 $transportation->driver_name = getUserName($transportation->driver_id);

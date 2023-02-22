@@ -8,6 +8,7 @@ return [
     'changed password successfully' => 'تم تغيير كلمة المرور بنجاح',
     'the current password is not true' => 'كلمة المرور الحالية غير صحيحة',
     'Reset link has  been send to your email, please check it' => 'تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني ، يرجى التحقق منه',
+    'This e-mail is not registered' => 'هذا البريد الاكتروني غير مسجل',
     /*driver_register*/
     'account has been created but car is under review, we will inform you when it get reviewed' => 'تم إنشاء الحساب ولكن السيارة قيد المراجعة ، سنبلغك عندما تتم مراجعتها',
 
