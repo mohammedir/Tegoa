@@ -94,5 +94,7 @@ return [
     'No path can be set between you and the point you wish to go' => 'No path can be set between you and the point you wish to go',
     'There are no requests to display' => 'There are no requests to display',
     'Report passenger successfully' => 'The complaint has been successfully received and will be considered and dealt with by the competent authorities',
-    ];
+    'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support' => 'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support',
+
+];
 

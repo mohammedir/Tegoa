@@ -281,10 +281,10 @@ class DriverController extends Controller
     public function available_transportion(Request $request){
         try {
             $driver = User::query()->find($request->user()->id);
-            $car = Car::query()->where('user_id','=',$request->user()->id)->where('status','=',1)->get()->first();
+            $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
             $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)->orderBy('id', 'DESC')->get();
-            if ($car){
+            if ($car->status == 1){
                 foreach ($available_transportion as $mytransportation){
                     $place = Map::query()->where('lat','=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
                     $mytransportation->destination = '';
@@ -296,9 +296,10 @@ class DriverController extends Controller
                     }
                 }
                 return  $this->api_response(200,true,trans('api.There are no requests to display') , $available_transportion , 200);
-            }else{
+            }elseif ($car->status == 0){
                 return  $this->api_response(200,true, trans('api.You cannot receive requests until your identity has been verified by the administrator') , [] , 200);
-
+            }elseif ($car->status == 2){
+                return  $this->api_response(200,true, trans('api.Your request to receive trip requests has been rejected. If I have an objection, please contact technical support') , [] , 200);
             }
         }catch (Exception $e){
             return  $this->api_response(200,false, substr($e->getMessage() , 0, 100) , '' , 200);
