@@ -300,6 +300,8 @@ return [
     'Time' => 'Time',
     'Passenger' => 'Passenger',
     'complaint' => 'Complaint',
+    'complaintPassenger' => 'Complaint Passenger',
+    'complaintDriver' => 'Complaint Driver',
     'No data available in table' => 'No data available in table',
     'transportation_Details' => 'Complaint Details',
     'transportations_list' => 'Transportations list',

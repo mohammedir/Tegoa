@@ -75,8 +75,10 @@ class TransportationController extends Controller
     public function show(Request $request, Transportation $transportation)
     {
         if ($request->ajax()) {
-            $activity = Transportation::find($transportation->id);
-            return response()->json($activity->complaint);
+            $transportation = Transportation::find($transportation->id);
+            $transportationPassenger = $transportation->complaintPassenger;
+            $transportationDriver = $transportation->complaintDriver;
+            return response()->json(['passenger'=>$transportationPassenger,'driver'=>$transportationDriver]);
         }
     }
 

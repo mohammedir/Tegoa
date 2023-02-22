@@ -90,7 +90,7 @@
                 @endswitch
             </td>
             <td>
-                @if($transportation->complaint)
+                @if($transportation->complaintPassenger || $transportation->complaintDriver)
                     <button id="show" data-id="{{$transportation->id}}"
                             class="btn btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-dark-primary w-30px h-30px me-3"
                             data-bs-toggle="modal" data-bs-target="#kt_modal_show_complaint"><i

@@ -228,9 +228,14 @@
                                     <input type="hidden" name="news_edit_id" id="news_edit_id">
                                     <!--begin::Input group-->
                                     <label class="fs-6 fw-semibold form-label mb-2">
-                                        <span style="font-weight: bold;">@lang('web.complaint') :</span>
+                                        <span style="font-weight: bold;">@lang('web.complaintPassenger') :</span>
                                     </label>
                                     <textarea disabled id="complaint_show" name="complaint_show" class="form-control form-control-solid" style="height: 155px;"></textarea>
+                                    <br>
+                                    <label class="fs-6 fw-semibold form-label mb-2">
+                                        <span style="font-weight: bold;">@lang('web.complaintDriver') :</span>
+                                    </label>
+                                    <textarea disabled id="complaint_show1" name="complaint_show1" class="form-control form-control-solid" style="height: 155px;"></textarea>
                                 </div>
                                 <div class="text-center pt-15">
                                     <button type="button" class="btn btn-light me-3"
@@ -386,7 +391,8 @@
                     type: 'GET',
                     url: "/transportations/" + id,
                     success: function (response) {
-                        $("#complaint_show").html(response);
+                        $("#complaint_show").html(response.passenger);
+                        $("#complaint_show1").html(response.driver);
                     },
                 });
 

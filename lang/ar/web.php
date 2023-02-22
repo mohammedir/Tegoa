@@ -303,6 +303,8 @@ return [
     'Time' => 'وقت',
     'Passenger' => 'راكب',
     'complaint' => 'شكوى',
+    'complaintPassenger' => 'شكوى الراكب',
+    'complaintDriver' => 'شكوى السائق',
     'No data available in table' => 'لا توجد بيانات متوفرة في الجدول',
     'transportation_Details' => 'تفاصيل شكوى',
     'transportations_list' => 'قائمة النقل',
