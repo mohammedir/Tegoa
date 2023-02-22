@@ -25,7 +25,7 @@ class CarController extends Controller
     {
         $cars = Car::query()->get();
         if ($request->ajax()) {
-            $data = Car::query()->get();
+            $data = Car::query()->orderBy('id', 'DESC')->get();
             return Datatables::of($data)->addIndexColumn()
                 ->editColumn('Name', function ($data) {
                     return '<a href="' . route("drivers.index") . '?input_value='.User::find($data->user_id)->full_name.'"">' . User::find($data->user_id)->full_name . '</a>';
