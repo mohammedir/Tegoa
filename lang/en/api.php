@@ -92,6 +92,7 @@ return [
     'Rating successfully' => 'Thank you for using the Tekoa app',
     'You cannot receive requests until your identity has been verified by the administrator' => 'You cannot receive requests until your identity has been verified by the administrator',
     'No path can be set between you and the point you wish to go' => 'No path can be set between you and the point you wish to go',
-    'There are no requests to display' => 'There are no requests to display'
+    'There are no requests to display' => 'There are no requests to display',
+    'Report passenger successfully' => 'The complaint has been successfully received and will be considered and dealt with by the competent authorities',
     ];
 

@@ -428,7 +428,7 @@ class DriverController extends Controller
                 $transportation->passenger_name = getUserName($transportation->passenger_id);
                 $transportation->driver_name = getUserName($transportation->driver_id);
                 $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                return  $this->api_response(200,true,trans('api.Report passenger successfully ') , $transportation , 200);
+                return  $this->api_response(200,true,trans('api.Report passenger successfully') , $transportation , 200);
             }else{
                 return  $this->setError(200,false, trans("api.You can't rate because the trip is not finished yet") , 200);
             }
