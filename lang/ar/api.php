@@ -100,7 +100,7 @@ return [
     'No path can be set between you and the point you wish to go' => 'لا يمكن تحديد مسار بينك وبين النقطة التي ترغب في الذهاب لها',
     'There are no requests to display' => 'لا يوجد طلبات لعرضها',
     'Report passenger successfully' => 'تم استلام الشكوى بنجاح وسيتم النظر فيها والتعامل معها من قبل الجهات المختصة',
-    'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support' => 'تم رفض طلبك لتلقي طلبات الرحلة. إذا كان لدي اعتراض ، يرجى الاتصال بالدعم الفني',
+    'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support' => 'تم رفض طلبك لتلقي طلبات الرحلة. إذا كان لديك اعتراض ، يرجى الاتصال بالدعم الفني',
 
     'English' => 'إنجليزي',
     'Arabic' => 'عربي',

@@ -76,7 +76,7 @@ class TransportationController extends Controller
     {
         if ($request->ajax()) {
             $transportation = Transportation::find($transportation->id);
-            $transportationPassenger = $transportation->complaintPassenger;
+            $transportationPassenger = $transportation->complaint;
             $transportationDriver = $transportation->complaintDriver;
             return response()->json(['passenger'=>$transportationPassenger,'driver'=>$transportationDriver]);
         }

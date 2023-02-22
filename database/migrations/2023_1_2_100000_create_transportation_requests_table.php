@@ -37,7 +37,7 @@ class CreateTransportationRequestsTable extends Migration
             $table->bigInteger('rating_driver')->nullable();
             $table->bigInteger('rating_time')->nullable();
             $table->bigInteger('rating_passenger')->nullable();
-            $table->longText('complaintPassenger')->nullable();
+            $table->longText('complaint')->nullable();
             $table->longText('complaintDriver')->nullable();
             $table->timestamps();
 
