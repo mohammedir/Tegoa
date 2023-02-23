@@ -321,7 +321,16 @@ class DriverController extends Controller
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
                     $transportation->driver_name = getUserName($transportation->driver_id);
                     $transportation->status_name = getStatusTypeAttribute($transportation->status);
-                    User::query()->where('id','=',$transportation->passenger_id)->get()->first()->notify(new FcmToPassengerNotification($transportation));
+                    try {
+                        User::query()->where('id','=',$transportation->passenger_id)->get()->first()->notify(new FcmToPassengerNotification($transportation));
+                    } catch (Exception $e) {
+                        if ($e->getCode() === 'messaging/registration-token-not-registered') {
+                            return  $this->setError(200 ,false, substr($e->getMessage(), 0, 100) , 200);
+                        } else {
+                            // Handle other messaging exceptions
+                            // Log the error or take appropriate action
+                        }
+                    }
                     return  $this->api_response(200,true,trans('api.The request has been successfully accepted') , $transportation, 200);
                 }else if ($transportation->status == 2 && $transportation->driver_id == $request->user()->id){
                     $transportation->passenger_name = getUserName($transportation->passenger_id);
