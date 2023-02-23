@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     }
     public function passenger_register(Request $request){
-        $headerFCM = $request->hasHeader('fcmToken');
+        $headerFCM = $request->header('fcmToken');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -77,7 +77,7 @@ class AuthController extends Controller
         }
     }
     public function driver_register(Request $request){
-        $headerFCM = $request->hasHeader('fcmToken');
+        $headerFCM = $request->header('fcmToken');
         $validator = Validator::make($request->all(),[
             'full_name' => 'required',
             'email' => 'required|email|regex:/(.+)@(.+)\.(.+)/i|string|unique:users,email',
@@ -256,7 +256,7 @@ class AuthController extends Controller
         }
     }
     public function driver_login(Request $request){
-        $headerFCM = $request->hasHeader('fcmToken');
+        $headerFCM = $request->header('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
