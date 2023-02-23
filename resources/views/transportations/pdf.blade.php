@@ -114,8 +114,8 @@
                 @endswitch
             </td>
             <td>
-                @if($p->complaintPassenger || $p->complaintDriver)
-                    {{$p->complaintPassenger}}
+                @if($p->complain || $p->complaintDriver)
+                    {{$p->complaint}}
                 @endif
             </td>
         </tr>
