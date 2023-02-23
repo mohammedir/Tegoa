@@ -221,7 +221,7 @@ class AuthController extends Controller
     }
 
     public function passenger_login(Request $request){
-        $headerFCM = $request->hasHeader('fcmToken');
+        $headerFCM = $request->header('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
             'email' => 'required|email',
