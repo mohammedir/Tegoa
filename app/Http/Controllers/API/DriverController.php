@@ -117,6 +117,7 @@ class DriverController extends Controller
         if ($validator->passes()) {
             try {
                 $car->type = $request->vehicle_type;
+                $driver->vehicle_type = $request->vehicle_type;
                 $car->car_number = $request->car_number;
                 $car->car_brand = $request->car_brand;
                 $car->insurance_number = $request->insurance_number;
