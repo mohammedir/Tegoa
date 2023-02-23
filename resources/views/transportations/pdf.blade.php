@@ -114,7 +114,7 @@
                 @endswitch
             </td>
             <td>
-                @if($p->complain || $p->complaintDriver)
+                @if($p->complaint || $p->complaintDriver)
                     {{$p->complaint}}
                 @endif
             </td>
