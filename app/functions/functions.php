@@ -170,3 +170,12 @@ function getArLang($value){
 
     return json_encode($translatedArray,JSON_UNESCAPED_UNICODE);
 }
+
+function getUserNumber($value){
+    if ($value){
+        $user = User::query()->find($value);
+        return $user->mobile_number;
+    }
+    return '';
+
+}

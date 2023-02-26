@@ -267,6 +267,8 @@ class PassengerController extends Controller
             $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
             $transportation_requests->driver_name = getUserName($transportation_requests->driver_id);
             $transportation_requests->status_name = getStatusTypeAttribute($transportation_requests->status);
+            $transportation_requests->driver_phone = getUserNumber($transportation_requests->driver_id);
+            $transportation_requests->passenger_phone = getUserNumber($transportation_requests->passenger_id);
 
             return $this->api_response(200, true, trans('api.find_transportion'), $transportation_requests, 200);
 
@@ -288,6 +290,8 @@ class PassengerController extends Controller
                 }
                 $mytransportation->driver_name = getUserName($mytransportation->driver_id);
                 $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
+                $mytransportation->driver_phone = getUserNumber($mytransportation->driver_id);
+                $mytransportation->passenger_phone = getUserNumber($mytransportation->passenger_id);
             }
             return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
         }catch (Exception $e){

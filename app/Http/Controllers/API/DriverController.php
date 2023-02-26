@@ -292,6 +292,9 @@ class DriverController extends Controller
                     $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
                     $mytransportation->driver_name = getUserName($mytransportation->driver_id);
                     $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
+                    $mytransportation->passenger_phone = getUserNumber($mytransportation->passenger_id);
+                    $mytransportation->driver_phone = getUserNumber($mytransportation->driver_id);
+
                     if ($place){
                         $mytransportation->destination = $place->name;
                     }
