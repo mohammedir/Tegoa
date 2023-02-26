@@ -277,7 +277,7 @@ class AuthController extends Controller
         }
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
-            if ($data->user_status = 1 ){
+            if ($data->user_status == 1 ){
                 $car = Car::query()->where('user_id','=',$data->id)->get()->first();
                 $car = Car::query()->where('user_id','=',$data->id)->get()->first();
                 $token = $data->createToken('driver');
@@ -294,7 +294,7 @@ class AuthController extends Controller
 
                 ];
                 return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
-            }elseif ($data->user_status = 2){
+            }else{
                 return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
         }else{
