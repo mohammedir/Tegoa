@@ -255,8 +255,6 @@ class AuthController extends Controller
             }
         }else{
             return  $this->setError(400 ,false, trans('api.user not found') , 400);
-
-
         }
     }
     public function driver_login(Request $request){
@@ -299,7 +297,6 @@ class AuthController extends Controller
             }
         }else{
             return  $this->setError(200 ,false, trans('api.user not found') , 200);
-
 
         }
     }
