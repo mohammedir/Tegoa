@@ -237,7 +237,7 @@ class AuthController extends Controller
         }
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
             $data = Auth::user();
-            if ($data->user_status = 1) {
+            if ($data->user_status == 1) {
                 $token = $data->createToken('passenger');
                 $data->api_token = $token->plainTextToken;
                 if ($request->fcmToken) {
@@ -250,7 +250,7 @@ class AuthController extends Controller
                     'user' => $data,
                 ];
                 return $this->api_response(200, true, trans('api.login done'), $res, 200);
-            }elseif ($data->user_status = 2){
+            }else {
                 return  $this->setError(400 ,false, trans('api.Your account has been suspended by admin') , 400);
             }
         }else{
