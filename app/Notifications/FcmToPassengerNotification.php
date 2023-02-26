@@ -78,7 +78,7 @@ class FcmToPassengerNotification extends Notification
                     ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
                     ->setNotification(AndroidNotification::create()->setColor('#FF884B')->setDefaultSound(true)->setIcon('https://taqoa.shift-demo.one/images/logo_n.jpg'))
             )->setApns(
-                ApnsConfig::create()
+                ApnsConfig::create()->setPayload(['aps' => ['sound' =>'default']])
                     ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios')));
     }
     public function fcmProject($notifiable, $message)
