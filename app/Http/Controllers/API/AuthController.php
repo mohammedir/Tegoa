@@ -237,18 +237,22 @@ class AuthController extends Controller
         }
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
             $data = Auth::user();
-            $token = $data->createToken('passenger');
-            $data->api_token = $token->plainTextToken;
-            if ($request->fcmToken){
-                $data->fcm_token = $request->fcmToken;
-            }elseif ($headerFCM){
-                $data->fcm_token = $headerFCM;
+            if ($data->user_status = 1) {
+                $token = $data->createToken('passenger');
+                $data->api_token = $token->plainTextToken;
+                if ($request->fcmToken) {
+                    $data->fcm_token = $request->fcmToken;
+                } elseif ($headerFCM) {
+                    $data->fcm_token = $headerFCM;
+                }
+                $data->save();
+                $res = [
+                    'user' => $data,
+                ];
+                return $this->api_response(200, true, trans('api.login done'), $res, 200);
+            }elseif ($data->user_status = 2){
+                return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
-            $data->save();
-            $res = [
-                'user' => $data,
-            ];
-            return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
         }else{
             return  $this->setError(400 ,false, trans('api.user not found') , 400);
 
@@ -273,25 +277,26 @@ class AuthController extends Controller
         }
         if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
-            $car = Car::query()->where('user_id','=',$data->id)->get()->first();
-            $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+            if ($data->user_status = 1 ){
+                $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+                $car = Car::query()->where('user_id','=',$data->id)->get()->first();
+                $token = $data->createToken('driver');
+                $data->api_token = $token->plainTextToken;
+                if ($request->fcmToken){
+                    $data->fcm_token = $request->fcmToken;
+                }elseif ($headerFCM){
+                    $data->fcm_token = $headerFCM;
+                }
+                $data->save();
+                $res = [
+                    'user' => $data,
+                    'car' => $car
 
-
-            $token = $data->createToken('driver');
-            $data->api_token = $token->plainTextToken;
-            if ($request->fcmToken){
-                $data->fcm_token = $request->fcmToken;
-            }elseif ($headerFCM){
-                $data->fcm_token = $headerFCM;
+                ];
+                return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
+            }elseif ($data->user_status = 2){
+                return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
-            $data->save();
-            $res = [
-                'user' => $data,
-                'car' => $car
-
-            ];
-
-            return  $this->api_response(200 ,true,trans('api.login done') , $res , 200);
         }else{
             return  $this->setError(200 ,false, trans('api.user not found') , 200);
 
