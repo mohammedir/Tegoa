@@ -14,8 +14,9 @@ class TransportationRequests extends Model
     protected $guarded = [];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'updated_at'
     ];
+
     protected $fillable = [
         'passenger_id',
         'lat_from',
