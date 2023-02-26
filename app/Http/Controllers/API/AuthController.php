@@ -251,7 +251,7 @@ class AuthController extends Controller
                 ];
                 return $this->api_response(200, true, trans('api.login done'), $res, 200);
             }else {
-                return  $this->setError(400 ,false, trans('api.Your account has been suspended by admin') , 400);
+                return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
         }else{
             return  $this->setError(400 ,false, trans('api.user not found') , 400);
