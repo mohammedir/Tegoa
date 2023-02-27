@@ -23,10 +23,10 @@ class FcmToPassengerNotification extends Notification
      *
      * @return void
      */
-    public function __construct($transportation_requests)
+    public function __construct($transportation)
     {
         //
-        $this->transportation_requests = $transportation_requests;
+        $this->$transportation = $transportation;
 
     }
 
@@ -73,7 +73,7 @@ class FcmToPassengerNotification extends Notification
             ->setData(['data1' => 'value', 'data2' => 'value2'])
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                 ->setTitle('Your trip request has been successfully accepted')
-                ->setBody('The captain'.getUserName($this->transportation_requests->driver_id) .'is on his way to you')
+                ->setBody('The captain'.getUserName($this->transportation->driver_id) .'is on his way to you')
                 ->setImage('https://taqoa.shift-demo.one/images/logo_n.jpg'))
             ->setAndroid(
                 AndroidConfig::create()
