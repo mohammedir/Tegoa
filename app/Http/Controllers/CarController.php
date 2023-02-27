@@ -186,13 +186,13 @@ class CarController extends Controller
     public function show(Request $request, $id)
     {
         if ($request->ajax()) {
-            $images = [];
+//            $images = [];
             $car = Car::find($id);
             $user = User::find($car->user_id)->full_name;
-            $image = Photos::where('car_id', $car->id)->get();
-            foreach ($image as $value) {
-                $images[] = $value->images;
-            }
+//            $image = Photos::where('car_id', $car->id)->get();
+//            foreach ($image as $value) {
+//                $images[] = $value->images;
+//            }
             $type = "";
             if ($car->type == 1) {
                 $type = trans('web.public');
@@ -201,7 +201,7 @@ class CarController extends Controller
             }
 
 
-            return response()->json(['type' => $type, 'car' => $car, 'user' => $user, 'image' => $images]);
+            return response()->json(['type' => $type, 'car' => $car, 'user' => $user, 'image' => $car->carphotos]);
         }
     }
 
@@ -262,11 +262,11 @@ class CarController extends Controller
             $images = [];
             $car = Car::find($id);
             $user = User::find($car->user_id)->full_name;
-            $image = Photos::where('car_id', $car->id)->get();
-            foreach ($image as $value) {
-                $images[] = $value->images;
-            }
-            return response()->json(['car' => $car, 'user' => $car, 'image' => $images]);
+//            $image = Photos::where('car_id', $car->id)->get();
+//            foreach ($image as $value) {
+//                $images[] = $value->images;
+//            }
+            return response()->json(['car' => $car, 'user' => $car, 'image' => $car->carphotos]);
         }
     }
 

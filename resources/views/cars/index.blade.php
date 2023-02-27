@@ -1139,11 +1139,17 @@
                         $("#type_show").html(response.type);
                         $("#user_show").html(response.user);
                         $('div#photos_show').empty();
-                        $.each(response.image, function (index, value) {
-                            var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;"><br>');
-                            img.attr('src', app_url + '/images/cars/' + value);
-                            img.appendTo('#photos_show');
-                        });
+                        // $.each(response.image, function (index, value) {
+                        //     var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;"><br>');
+                        //     img.attr('src', app_url + '/images/cars/' + value);
+                        //     img.appendTo('#photos_show');
+                        // });
+
+                        var img = $('<img id="image_id" style="max-width: 400px;max-height: 300px;"><br>');
+                        img.attr('src', app_url + '/images/cars/' + response.image);
+                        img.appendTo('#photos_show');
+
+
                         $('div#photos_carlicense_show').empty();
                         var img_carlicense = $('<img id="image_carlicense_id" style="max-width: 400px;max-height: 300px;">');
                         img_carlicense.attr('src', app_url + '/images/cars/' + response.car.carlicense);
@@ -1185,11 +1191,15 @@
                         $('div#photos_show_photos_carlicense_edit').empty();
                         $('div#photos_show_photos_carinsurance_edit').empty();
                         $('div#photos_show_photos_passengersinsurance_edit').empty();
-                        $.each(response.image, function (index, value) {
-                            var img = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
-                            img.attr('src', app_url + '/images/cars/' + value);
-                            img.appendTo('#photos_show_edit');
-                        });
+                        // $.each(response.image, function (index, value) {
+                        //     var img = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
+                        //     img.attr('src', app_url + '/images/cars/' + value);
+                        //     img.appendTo('#photos_show_edit');
+                        // });
+
+                        var img = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
+                        img.attr('src', app_url + '/images/cars/' + response.image);
+                        img.appendTo('#photos_show_edit');
 
                             var imgs = $('<br><img class="btn" id="image_id" style="max-width: 300px;max-height: 300px;">');
                             imgs.attr('src', app_url + '/images/cars/' + response.car.carlicense);
