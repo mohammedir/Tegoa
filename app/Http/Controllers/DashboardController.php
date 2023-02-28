@@ -66,13 +66,13 @@ class DashboardController extends Controller
     public function SearchDateStatistics(Request $request)
     {
         if ($request->ajax()) {
-            $requested = DB::table('transportation_requests')->whereBetween('created_at', [$request->start, $request->end])->orderBy('created_at', 'ASC')->get()->groupBy(function ($data) {
+            $requested = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
-            $accepted = DB::table('transportation_requests')->whereBetween('created_at', [$request->start, $request->end])->orderBy('created_at', 'ASC')->where('status', 4)->get()->groupBy(function ($data) {
+            $accepted = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->where('status', 4)->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
-            $rejected = DB::table('transportation_requests')->whereBetween('created_at', [$request->start, $request->end])->orderBy('created_at', 'ASC')->where('status', 5)->get()->groupBy(function ($data) {
+            $rejected = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->where('status', 5)->get()->groupBy(function ($data) {
                 return Carbon::parse($data->created_at)->format('d-m');
             });
 
