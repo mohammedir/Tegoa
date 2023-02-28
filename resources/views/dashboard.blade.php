@@ -286,6 +286,7 @@
         var labels = [];
     </script>
     <script type="text/javascript">
+        var languages = "{{\Illuminate\Support\Facades\App::getLocale()}}";
         $('.apply').click(function () {
             data1 = [];
             data2 = [];
@@ -359,7 +360,7 @@
                             });
                             myLineChart1.update();
                             $( ".trans" ).empty();
-                            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (language === "en" ? "Transportation requests Between " : "طلبات النقل بين ") + '(' + start + '-' + end + ')' + '</span>');
+                            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (languages === "en" ? "Transportation requests Between " : "طلبات النقل بين ") + '(' + start + '-' + end + ')' + '</span>');
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -382,7 +383,7 @@
             $('#start_date').val('');
             $('#end_date').val('');
             $( ".trans" ).empty();
-            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (language === "en" ? "Transportation requests  " : "طلبات النقل  ") + '</span>');
+            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (languages === "en" ? "Transportation requests  " : "طلبات النقل  ") + '</span>');
 
             let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
             chartStatus.destroy();
