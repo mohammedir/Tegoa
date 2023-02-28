@@ -173,7 +173,12 @@
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column">
                         <span class="card-label fw-bold fs-3 mb-1">
-
+                            <span class="card-label fw-bold fs-3 mb-1">@lang('web.Recent Transportation Statistics')</span>
+                            <br>
+                            <br>
+                            <div class="trans">
+                                <span class="text-muted fw-semibold fs-5">@lang('web.Transportation requests')</span>
+                            </div>
                         </span>
 
                 </h3>
@@ -353,6 +358,8 @@
                                 data3.push(item);
                             });
                             myLineChart1.update();
+                            $( ".trans" ).empty();
+                            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (language === "en" ? "Transportation requests Between " : "طلبات النقل بين ") + '(' + start + '-' + end + ')' + '</span>');
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -365,6 +372,54 @@
                     }
                 });
             }
+        })
+
+        $('.reset').click(function () {
+            data1 = [];
+            data2 = [];
+            data3 = [];
+            labels = [];
+            $('#start_date').val('');
+            $('#end_date').val('');
+            $( ".trans" ).empty();
+            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (language === "en" ? "Transportation requests  " : "طلبات النقل  ") + '</span>');
+
+            let chartStatus = Chart.getChart("myBarChart"); // <canvas> id
+            chartStatus.destroy();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Chart.defaults.font.size = 18;
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: '@lang('web.requested')',
+                    data: data1,
+                    fill: false,
+                    borderColor: '#648fc5',
+                    tension: 0.1,
+                }, {
+                    label: '@lang('web.Accepted')',
+                    data: data2,
+                    fill: false,
+                    borderColor: '#5eab97',
+                    tension: 0.1
+                }, {
+                    label: '@lang('web.rejected')',
+                    data: data3,
+                    fill: false,
+                    borderColor: '#A45976',
+                    tension: 0.1
+                }]
+            };
+            var ctx = document.getElementById("myBarChart");
+            var myLineChart1 = new Chart(ctx, {
+                type: 'line',
+                data: data,
+            });
+            startFun();
         })
     </script>
     <script>

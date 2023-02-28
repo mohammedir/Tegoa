@@ -66,6 +66,9 @@ return [
     'rejected' => 'rejected',
     'home' => 'Home',
     'reserves' => 'Reserves',
+    'Recent Transportation Statistics' => 'Recent Transportation Statistics',
+    'Transportation requests' => 'Transportation requests',
+
 
 
     /*users*/
@@ -289,7 +292,7 @@ return [
 
     /*transportations*/
     'transportations' => 'Transportation orders',
-    'Filter Options' => 'Filter Options and export',
+    'Filter Options' => 'Filter Options',
     'From' => 'From:',
     'To' => 'To:',
     'Apply' => 'Apply',

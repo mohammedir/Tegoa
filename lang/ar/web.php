@@ -67,6 +67,8 @@ return [
     'rejected' => 'مرفوض',
     'home' => 'الصفحة الرئيسية',
     'reserves' => 'الحوجوزات',
+    'Recent Transportation Statistics' => 'إحصاءات النقل الأخيرة',
+    'Transportation requests' => 'طلبات النقل',
 
     /*users*/
     'Admin List' => 'قائمة المشرفين',
@@ -292,7 +294,7 @@ return [
 
     /*transportations*/
     'transportations' => 'أوامر النقل',
-    'Filter Options' => 'خيارات التصفية و التصدير',
+    'Filter Options' => 'خيارات التصفية',
     'From' => 'من:',
     'To' => 'الى:',
     'Apply' => 'تطبيق',
