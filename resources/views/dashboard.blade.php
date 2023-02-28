@@ -360,7 +360,7 @@
                             });
                             myLineChart1.update();
                             $( ".trans" ).empty();
-                            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (languages === "en" ? "Transportation requests Between " : "طلبات النقل بين ") + '(' + start + '-' + end + ')' + '</span>');
+                            $(".trans").append('<span class="text-muted fw-semibold fs-5">' + (languages === "en" ? "Transportation requests Between " : "طلبات النقل بين ") + '(' + start + ' - ' + end + ')' + '</span>');
                         } else {
                             Swal.fire({
                                 icon: 'error',
