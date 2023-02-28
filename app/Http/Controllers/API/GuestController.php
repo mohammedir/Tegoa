@@ -20,8 +20,6 @@ use Illuminate\Support\Facades\Mail;
 class GuestController extends Controller
 {
     //
-
-
     public function stations(){
         $stations = Stations::query()->where('type','=',3)->get();
         return  $this->api_response(200,true,trans('api.Stations List') , $stations , 200);
@@ -31,7 +29,6 @@ class GuestController extends Controller
         $map = Map::query()->where('type','!=',3)->get();
         return  $this->api_response(200,true,trans('api.Map List') , $map , 200);
     }
-
     public function tourism_activities(){
         $tourismActivities = TourismActivities::query()->where('status','=',1)->get()->all();
         $pages = Pages::query()->find(3);
@@ -78,7 +75,5 @@ class GuestController extends Controller
             return  $this->setError(200,false, "api.Something went wrong, please try again later!" , 200);
         }
     }
-
-
 
 }
