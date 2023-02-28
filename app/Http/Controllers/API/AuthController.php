@@ -304,7 +304,10 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
-        $request->user()->fcm_token = "";
+        $user = User::query()->find($request->user()->id);
+        $user->api_token = '';
+        $user->fcm_token = '';
+        $user->save();
         return  $this->api_response(200 ,true,trans('api.Success logout') , "" , 200);
 
     }
