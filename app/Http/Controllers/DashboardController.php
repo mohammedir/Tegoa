@@ -32,7 +32,7 @@ class DashboardController extends Controller
     {
         if ($request->ajax()) {
             $now = Carbon::now();
-            $tenDaysAgo = $now->copy()->subDays(12);
+            $tenDaysAgo = $now->copy()->subDays(10);
 
             $requested = DB::table('transportation_requests')
                 ->whereBetween('created_at', [$tenDaysAgo, $now])
@@ -85,6 +85,7 @@ class DashboardController extends Controller
             ]);
         }
     }
+
 
 
     public function SearchDateStatistics(Request $request)
