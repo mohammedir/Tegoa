@@ -471,16 +471,16 @@
                 data: {statistics: 1},
                 dataType: 'json',
                 success: function (data) {
-                    jQuery.each(data.historyRequested.slice(0, 10), function (index, item) {
+                    jQuery.each(data.historyRequested.slice(0, 12), function (index, item) {
                         labels.push(item);
                     });
-                    jQuery.each(data.countRequested.slice(0, 10), function (index, item) {
+                    jQuery.each(data.countRequested.slice(0, 12), function (index, item) {
                         data1.push(item);
                     });
-                    jQuery.each(data.countAccepted.slice(0, 10), function (index, item) {
+                    jQuery.each(data.countAccepted.slice(0, 12), function (index, item) {
                         data2.push(item);
                     });
-                    jQuery.each(data.countRejected.slice(0, 10), function (index, item) {
+                    jQuery.each(data.countRejected.slice(0, 12), function (index, item) {
                         data3.push(item);
                     });
                     myLineChart1.update();
