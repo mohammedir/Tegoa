@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\Transportation;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,19 +63,22 @@ class DashboardController extends Controller
 
             $historyRequested = [];
             $countRequested = [];
-            foreach ($requested as $days => $values) {
-                $historyRequested[] = $days;
-                $countRequested[] = count($values);
+            foreach (CarbonPeriod::create($tenDaysAgo, $now)->days() as $day) {
+                $formattedDay = $day->format('d-m');
+                $historyRequested[] = $formattedDay;
+                $countRequested[] = count($requested[$formattedDay] ?? []);
             }
 
             $countAccepted = [];
-            foreach ($accepted as $values) {
-                $countAccepted[] = count($values);
+            foreach (CarbonPeriod::create($tenDaysAgo, $now)->days() as $day) {
+                $formattedDay = $day->format('d-m');
+                $countAccepted[] = count($accepted[$formattedDay] ?? []);
             }
 
             $countRejected = [];
-            foreach ($rejected as $values) {
-                $countRejected[] = count($values);
+            foreach (CarbonPeriod::create($tenDaysAgo, $now)->days() as $day) {
+                $formattedDay = $day->format('d-m');
+                $countRejected[] = count($rejected[$formattedDay] ?? []);
             }
 
             return response([
@@ -85,6 +89,7 @@ class DashboardController extends Controller
             ]);
         }
     }
+
 
 
 
