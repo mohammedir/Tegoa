@@ -96,38 +96,60 @@ class DashboardController extends Controller
     public function SearchDateStatistics(Request $request)
     {
         if ($request->ajax()) {
-            $requested = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->get()->groupBy(function ($data) {
-                return Carbon::parse($data->created_at)->format('d-m');
-            });
-            $accepted = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->where('status', 4)->get()->groupBy(function ($data) {
-                return Carbon::parse($data->created_at)->format('d-m');
-            });
-            $rejected = DB::table('transportation_requests')->whereDate('created_at', '>=', $request->start)->whereDate('created_at', '<=', $request->end)->orderBy('created_at', 'ASC')->where('status', 5)->get()->groupBy(function ($data) {
-                return Carbon::parse($data->created_at)->format('d-m');
-            });
+            $requested = DB::table('transportation_requests')
+                ->whereDate('created_at', '>=', $request->start)
+                ->whereDate('created_at', '<=', $request->end)
+                ->orderBy('created_at', 'ASC')
+                ->get()
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->created_at)->format('d-m');
+                });
+            $accepted = DB::table('transportation_requests')
+                ->whereDate('created_at', '>=', $request->start)
+                ->whereDate('created_at', '<=', $request->end)
+                ->orderBy('created_at', 'ASC')
+                ->where('status', 4)
+                ->get()
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->created_at)->format('d-m');
+                });
+            $rejected = DB::table('transportation_requests')
+                ->whereDate('created_at', '>=', $request->start)
+                ->whereDate('created_at', '<=', $request->end)
+                ->orderBy('created_at', 'ASC')
+                ->where('status', 5)
+                ->get()
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->created_at)->format('d-m');
+                });
 
 
             $historyRequested = [];
             $countRequested = [];
             foreach ($requested as $days => $values) {
                 $historyRequested[] = $days;
-                $countRequested[] = count($values);
+                $countRequested[] = count($values->toArray());
             }
 
             $countAccepted = [];
             foreach ($accepted as $values) {
-                $countAccepted[] = count($values);
+                $countAccepted[] = count($values->toArray());
             }
 
             $countRejected = [];
             foreach ($rejected as $values) {
-                $countRejected[] = count($values);
+                $countRejected[] = count($values->toArray());
             }
 
-            return response(['historyRequested' => $historyRequested, 'countRequested' => $countRequested,'countAccepted' => $countAccepted,'countRejected' => $countRejected]);
-
+            return response([
+                'historyRequested' => $historyRequested,
+                'countRequested' => $countRequested,
+                'countAccepted' => $countAccepted,
+                'countRejected' => $countRejected,
+            ]);
         }
     }
+
 
     public function fcm(){
 
