@@ -254,7 +254,7 @@ class AuthController extends Controller
                 return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
         }else{
-            return  $this->setError(400 ,false, trans('api.user not found') , 400);
+            return  $this->setError(400 ,false, trans('api.failed') , 400);
         }
     }
     public function driver_login(Request $request){
@@ -296,7 +296,7 @@ class AuthController extends Controller
                 return  $this->setError(200 ,false, trans('api.Your account has been suspended by admin') , 200);
             }
         }else{
-            return  $this->setError(200 ,false, trans('api.user not found') , 200);
+            return  $this->setError(200 ,false, trans('api.failed') , 200);
 
         }
     }

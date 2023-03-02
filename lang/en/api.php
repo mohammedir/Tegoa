@@ -50,6 +50,7 @@ return [
 
     'user not found' => 'user not found',
     'login done' => 'login done',
+    'failed' => 'These credentials do not match our records.',
 
 
     /*Guest*/
