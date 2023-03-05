@@ -285,12 +285,7 @@ class PassengerController extends Controller
                 ->where('status', '!=', 5) // Check if the status value is not 1
                 ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
-                $departure_time = Carbon::parse($mytransportation->departure_time); // convert to Carbon instance
-                if ($mytransportation->status == 1 && $departure_time->lessThan($time)){
-                    $t = TransportationRequests::find($mytransportation->id);
-                    $t->status = 5;
-                    $t->save();
-                }
+
                     $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
 
                     $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
