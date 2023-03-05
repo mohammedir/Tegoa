@@ -281,17 +281,21 @@ class PassengerController extends Controller
         try {
             $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
-                $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
+                if ($mytransportation->departure_time > now()->format('h:i A') && $mytransportation->status == 1){
 
-                $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
-                if ($place){
-                    $mytransportation->destination = $place->name;
+                }else {
+                    $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
 
+                    $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
+                    if ($place){
+                        $mytransportation->destination = $place->name;
+
+                    }
+                    $mytransportation->driver_name = getUserName($mytransportation->driver_id);
+                    $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
+                    $mytransportation->driver_phone = getUserNumber($mytransportation->driver_id);
+                    $mytransportation->passenger_phone = getUserNumber($mytransportation->passenger_id);
                 }
-                $mytransportation->driver_name = getUserName($mytransportation->driver_id);
-                $mytransportation->status_name = getStatusTypeAttribute($mytransportation->status);
-                $mytransportation->driver_phone = getUserNumber($mytransportation->driver_id);
-                $mytransportation->passenger_phone = getUserNumber($mytransportation->passenger_id);
             }
             return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
         }catch (Exception $e){
