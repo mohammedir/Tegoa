@@ -16,6 +16,7 @@ use App\Models\API\User;
 use App\Models\Place;
 use App\Notifications\FcmNotification;
 use App\Services\FCMService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -278,10 +279,18 @@ class PassengerController extends Controller
     }
 
     public function my_transportion(Request $request){
+        $time = now()->format('h:i A');
         try {
-            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)->orderBy('id', 'DESC')->get();
+            $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)
+                ->where('status', '!=', 5) // Check if the status value is not 1
+                ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
-
+                $departure_time = Carbon::parse($mytransportation->departure_time); // convert to Carbon instance
+                if ($mytransportation->status == 1 && $departure_time->lessThan($time)){
+                    $t = TransportationRequests::find($mytransportation->id);
+                    $t->status = 5;
+                    $t->save();
+                }
                     $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
 
                     $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
