@@ -103,7 +103,7 @@ return [
     'Report passenger successfully' => 'تم استلام الشكوى بنجاح وسيتم النظر فيها والتعامل معها من قبل الجهات المختصة',
     'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support' => 'تم رفض طلبك لتلقي طلبات الرحلة. إذا كان لديك اعتراض ، يرجى الاتصال بالدعم الفني',
     'Your account has been suspended by admin' => 'تم تعليق حسابك بواسطة المسؤول',
-
+    'my transportation' => 'لا يوجد طلبات لعرضها',
     'English' => 'إنجليزي',
     'Arabic' => 'عربي',
     'French' => 'فرنسي',

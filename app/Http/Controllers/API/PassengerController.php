@@ -310,7 +310,7 @@ class PassengerController extends Controller
                     $mytransportation->passenger_phone = getUserNumber($mytransportation->passenger_id);
 
             }
-            return  $this->api_response(200,true,trans('api.my transportation ') , $Mytransportation , 200);
+            return  $this->api_response(200,true,trans('api.my transportation') , $Mytransportation , 200);
         }catch (Exception $e){
             return  $this->api_response(200,true, substr($e->getMessage() , 0, 100) , '' , 200);
         }

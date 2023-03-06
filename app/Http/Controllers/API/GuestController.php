@@ -65,7 +65,7 @@ class GuestController extends Controller
 
     public function reset_using_email(Request $request){
         try {
-            $user = User::query()->where('email','=',$request->email)->where('user_type','=',$request->user_type)->get()->first();
+            $user = User::query()->where('email','=',$request->email)->get()->first();
             if ($user){
                 Mail::to($user->email)->send(new changePassword($user));
                 return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it') , "" , 200);
