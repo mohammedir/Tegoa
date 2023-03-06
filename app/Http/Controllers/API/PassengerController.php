@@ -286,10 +286,10 @@ class PassengerController extends Controller
             $Mytransportation  = TransportationRequests::query()->where('passenger_id','=',$request->user()->id)
                 ->where('status', '!=', 5)
                 ->when($type == 'End_Trip', function ($query) use ($value) {
-                    $query->where('status', '=', 4); // Check if departure time is greater than the current time
+                    $query->where('status', '=', 4);
                 })
                 ->when($type == 'All', function ($query) use ($value) {
-                    $query->where('status', '!=', 4); // Check if departure time is greater than the current time
+                    $query->where('status', '!=', 4);
                 })
                 ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
