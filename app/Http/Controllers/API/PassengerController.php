@@ -270,6 +270,11 @@ class PassengerController extends Controller
         ]);
         if ($validator->passes()){
             $transportation_requests =  TransportationRequests::find($request->transportion_id);
+            $departure_time = Carbon::parse($transportation_requests->departure_time);
+            $time = now()->format('h:i A');
+            if ($transportation_requests->status == 1 && $departure_time->lessThan($time)){
+                TransportationRequests::query()->where('id', $request->transportion_id)->update(['status' => 5]);
+            }
             $transportation_requests->passenger_name = getUserName($transportation_requests->passenger_id);
             $transportation_requests->driver_name = getUserName($transportation_requests->driver_id);
             $transportation_requests->status_name = getStatusTypeAttribute($transportation_requests->status);
