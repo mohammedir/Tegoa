@@ -288,7 +288,7 @@ class DriverController extends Controller
             $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
             $available_transportion = TransportationRequests::query()->where('status','=',1)
                 ->where('vehicle_type','=',$driver->vehicle_type)
-                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)->where('status','!=',5)
+                ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)->where('status','!=',4)
                 ->orderBy('id', 'DESC')->get();
             if ($type == 'End_Trip'){
                 $available_transportion = TransportationRequests::query()->where('status','=',4)
