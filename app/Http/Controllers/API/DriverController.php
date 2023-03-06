@@ -289,6 +289,7 @@ class DriverController extends Controller
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)
                 ->when($type == 'End_Trip', function ($query) use ($value) {
                     $query->where('status', '=', 4);
+                    $query->where('status', '!=', 1);
                 })
                 ->when($type == 'All', function ($query) use ($value) {
                     $query->where('status', '!=', 4);
