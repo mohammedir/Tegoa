@@ -288,6 +288,9 @@ class PassengerController extends Controller
                 ->when($type == 'End_Trip', function ($query) use ($value) {
                     $query->where('status', '=', 4); // Check if departure time is greater than the current time
                 })
+                ->when($type == 'All', function ($query) use ($value) {
+                    $query->where('status', '!=', 4); // Check if departure time is greater than the current time
+                })
                 ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
                /* $departure_time = Carbon::parse($mytransportation->departure_time);
