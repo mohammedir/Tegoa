@@ -282,17 +282,13 @@ class DriverController extends Controller
     public function available_transportion(Request $request){
         $type = $request->input('status_type');
         $value = 0;
+
         try {
             $driver = User::query()->find($request->user()->id);
             $car = Car::query()->where('user_id','=',$request->user()->id)->get()->first();
-            $available_transportion = TransportationRequests::query()->where('status','!=',5)->where('vehicle_type','=',$driver->vehicle_type)
-                ->when($type == 'End_Trip', function ($query) use ($value) {
-                    $query->where('status', '=', 4);
-                })
-                ->when($type == 'All', function ($query) use ($value) {
-                    $query->where('status', '!=', 4);
-                })
+            $available_transportion = TransportationRequests::query()->where('status','=',1)->where('vehicle_type','=',$driver->vehicle_type)
                 ->orWhere('status','!=',1)->where('driver_id','=',$request->user()->id)->where('vehicle_type','=',$driver->vehicle_type)
+
                 ->orderBy('id', 'DESC')->get();
             if ($car->status == 1){
                 foreach ($available_transportion as $mytransportation){
