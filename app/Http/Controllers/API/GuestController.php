@@ -71,8 +71,6 @@ class GuestController extends Controller
                 return  $this->api_response(200,true,trans('api.Reset link has  been send to your email, please check it') , "" , 200);
             }else{
                 return  $this->api_response(200,true,trans('api.This e-mail is not registereds') , "" , 200);
-                return  $this->setError(200,false, (string)$request->user_type , 200);
-
             }
         } catch (\Exception $e) {
             return  $this->setError(200,false, "api.Something went wrong, please try again later!" , 200);

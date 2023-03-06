@@ -104,6 +104,7 @@ return [
     'Your request to receive trip requests has been rejected. If I have an objection, please contact technical support' => 'تم رفض طلبك لتلقي طلبات الرحلة. إذا كان لديك اعتراض ، يرجى الاتصال بالدعم الفني',
     'Your account has been suspended by admin' => 'تم تعليق حسابك بواسطة المسؤول',
     'my transportation' => 'لا يوجد طلبات لعرضها',
+    'This e-mail is not registereds' => 'هذا الايميل غير مسجل',
     'English' => 'إنجليزي',
     'Arabic' => 'عربي',
     'French' => 'فرنسي',
