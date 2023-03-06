@@ -14,6 +14,7 @@ return [
     'my transportation' => 'There are no requests to display',
     'This e-mail is not registereds' => 'This e-mail is not registereds',
 
+    'The time entered for departure is incorrect. Please add a value greater than the current time' => 'The time entered for departure is incorrect. Please add a value greater than the current time',
 
 
 

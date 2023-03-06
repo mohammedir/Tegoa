@@ -105,6 +105,7 @@ return [
     'Your account has been suspended by admin' => 'تم تعليق حسابك بواسطة المسؤول',
     'my transportation' => 'لا يوجد طلبات لعرضها',
     'This e-mail is not registereds' => 'هذا الايميل غير مسجل',
+    'The time entered for departure is incorrect. Please add a value greater than the current time' => 'الوقت المدخل للمغادرة غير صحيح يرجى اضافة قيمة اكبر من الوقت الحالى',
     'English' => 'إنجليزي',
     'Arabic' => 'عربي',
     'French' => 'فرنسي',
