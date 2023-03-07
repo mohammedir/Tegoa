@@ -5,6 +5,7 @@ use App\Models\API\User;
 use App\Models\Permission;
 use App\Models\RolesPermission;
 use App\Services\FCMService;
+use Carbon\Carbon;
 
 function get_permission_by_name($name)
 {
@@ -178,4 +179,15 @@ function getUserNumber($value){
     }
     return '';
 
+}
+function isTimeLessThanNow(string $timeString): bool
+{
+    // Parse the input string into a Carbon object.
+    $time = Carbon::parse($timeString);
+
+    // Get the current time as a Carbon object.
+    $now = Carbon::now()->format('h:i A');
+
+    // Compare the two times.
+    return $time->lessThan($now);
 }
