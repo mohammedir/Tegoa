@@ -202,7 +202,7 @@ class PassengerController extends Controller
                         $transportation_requests->lng_from = $request->lng_from;
                         $transportation_requests->lat_to = $request->lat_to;
                         $transportation_requests->lng_to = $request->lng_to;
-                        $transportation_requests->departure_time = $request->departure_time;
+                        $transportation_requests->departure_time = (string)$request->departure_time;
                         $transportation_requests->number_of_passenger = $request->number_of_passenger;
                         $transportation_requests->vehicle_type = $request->vehicle_type;
                         $transportation_requests->distance = $request->distance;
@@ -303,10 +303,10 @@ class PassengerController extends Controller
                 })
                 ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
-                /*$departure_time = Carbon::parse($mytransportation->departure_time);
+                $departure_time = Carbon::parse($mytransportation->departure_time);
                 if ($mytransportation->status == 1 && $departure_time->lessThan($time)){
                     TransportationRequests::query()->where('id', $mytransportation->id)->update(['status' => 5]);
-                }*/
+                }
                     $place = Map::query()->where('lat' ,'=',$mytransportation->lat_to)->where('long','=',$mytransportation->lng_to)->get()->first();
 
                     $mytransportation->passenger_name = getUserName($mytransportation->passenger_id);
