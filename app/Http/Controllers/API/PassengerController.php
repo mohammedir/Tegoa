@@ -202,7 +202,7 @@ class PassengerController extends Controller
                         $transportation_requests->lng_from = $request->lng_from;
                         $transportation_requests->lat_to = $request->lat_to;
                         $transportation_requests->lng_to = $request->lng_to;
-                        $transportation_requests->departure_time = (string)$request->departure_time;
+                        $transportation_requests->departure_time = mb_convert_encoding($request->departure_time, 'UTF-8', 'auto');;
                         $transportation_requests->number_of_passenger = $request->number_of_passenger;
                         $transportation_requests->vehicle_type = $request->vehicle_type;
                         $transportation_requests->distance = $request->distance;
