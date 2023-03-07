@@ -190,7 +190,7 @@ class PassengerController extends Controller
         $pages->increment('count');
         if ($validator->passes()){
             $time = now()->format('h:i A');
-            $departure_time = Carbon::parse($request->departure_time)->timestamp;
+            $departure_time = Carbon::parse($request->departure_time);
             if ($departure_time->lessThan($time)){
                 return  $this->setError(200,false, trans("api.The time entered for departure is incorrect. Please add a value greater than the current time") , 200);
             }
