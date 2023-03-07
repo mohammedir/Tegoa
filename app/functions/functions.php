@@ -183,11 +183,9 @@ function getUserNumber($value){
 function isTimeLessThanNow(string $timeString)//: bool
 {
     // Parse the input string into a Carbon object.
-    dd($timeString);
-    $time = Carbon::parse($timeString);
     // Get the current time as a Carbon object.
     $now = Carbon::now()->format('h:i A');
 
     // Compare the two times.
-    return $time->lessThan($now);
+    return $timeString->lessThan($now);
 }
