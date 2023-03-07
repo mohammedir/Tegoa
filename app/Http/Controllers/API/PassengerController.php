@@ -303,8 +303,6 @@ class PassengerController extends Controller
                 })
                 ->orderBy('id', 'DESC')->get();
             foreach ($Mytransportation as $mytransportation){
-                //dd($mytransportation->departure_time);
-                //$departure_time = Carbon::parse($mytransportation->departure_time);
                 if ($mytransportation->status == 1 && isTimeLessThanNow($mytransportation->departure_time)){
                     TransportationRequests::query()->where('id', $mytransportation->id)->update(['status' => 5]);
                 }
