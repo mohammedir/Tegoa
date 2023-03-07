@@ -189,11 +189,18 @@ class PassengerController extends Controller
         $pages = Pages::query()->find(6);
         $pages->increment('count');
         if ($validator->passes()){
+            /*$time = now()->format('h:i A');
+            $departure_time = Carbon::parse($request->departure_time);
+            if ($departure_time->lessThan($time)){
+                return  $this->setError(200,false, trans("api.The time entered for departure is incorrect. Please add a value greater than the current time") , 200);
+            }*/
             if ($passenger_id){
                     try {
                         $transportation_requests = new TransportationRequests();
                         if ($transportation_requests->status == 1 && isTimeLessThanNow($transportation_requests->departure_time)){
                             TransportationRequests::query()->where('id', $transportation_requests->id)->update(['status' => 5]);
+                            return  $this->setError(200,false, trans("api.The time entered for departure is incorrect. Please add a value greater than the current time") , 200);
+
                         }
                         $transportation_requests->passenger_id = $request->user()->id;
                         $transportation_requests->lat_from = $request->lat_from;
