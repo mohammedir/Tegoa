@@ -197,10 +197,8 @@ class PassengerController extends Controller
             if ($passenger_id){
                     try {
                         $transportation_requests = new TransportationRequests();
-                        if ($transportation_requests->status == 1 && isTimeLessThanNow($transportation_requests->departure_time)){
-                            TransportationRequests::query()->where('id', $transportation_requests->id)->update(['status' => 5]);
+                        if (isTimeLessThanNow($request->departure_time)){
                             return  $this->setError(200,false, trans("api.The time entered for departure is incorrect. Please add a value greater than the current time") , 200);
-
                         }
                         $transportation_requests->passenger_id = $request->user()->id;
                         $transportation_requests->lat_from = $request->lat_from;
