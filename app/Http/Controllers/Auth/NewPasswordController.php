@@ -41,7 +41,7 @@ class NewPasswordController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         if ($validator->passes()){
-            $passenger = User::query()->find($request->id);
+            $passenger = User::query()->find($request->token);
             if($passenger){
             $passenger->password = Hash::make($request->password);
             $passenger->save();
