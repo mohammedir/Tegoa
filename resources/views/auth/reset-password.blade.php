@@ -50,7 +50,7 @@
                             <!--end::Title-->
                         </div>
                         <!-- Password Reset Token -->
-                        <input type="hidden" name="email" value="{{ $request->email }}">
+                        <input type="hidden" name="id" value="{{ $request->id }}">
                         @if(session()->has('message'))
                             <div class="alert alert-success" style="background-color: #cfe9cf;font-size: 22px;text-align: center;">
                                 {{ session()->get('message') }}
