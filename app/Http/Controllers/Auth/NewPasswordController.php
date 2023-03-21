@@ -41,7 +41,7 @@ class NewPasswordController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         if ($validator->passes()){
-            $passenger = User::query()->where('api_token','=',$request->token)->get()->first();
+            $passenger = User::query()->where('email','=',$request->email)->get()->first();
             if($passenger){
             $passenger->password = Hash::make($request->password);
             $passenger->save();

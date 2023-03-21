@@ -60,8 +60,9 @@
                                                             <tr>
                                                                 <td align="center" width="100%" style="padding: 0 15px;text-align: justify;color: rgb(76, 76, 76);font-size: 12px;line-height: 18px;">
                                                                     <h3 style="font-weight: 600; padding: 0px; margin: 0px; font-size: 16px; line-height: 24px; text-align: center;" class="title-color">Hi {{$details->full_name}},</h3>
+
                                                                     <p style="margin: 20px 0 30px 0;font-size: 15px;text-align: center;">You have requested to change the password via e-mail. Click the button below to transfer to change the password</p>
-                                                                        <div style="font-weight: 200; text-align: center; margin: 25px;"><a href="{{url('reset-password/'.$details->api_token)}}"  style="padding:0.6em 1em;border-radius:600px;color:#ffffff;font-size:14px;text-decoration:none;font-weight:bold" class="button-color">Click here</a></div>
+                                                                        <div style="font-weight: 200; text-align: center; margin: 25px;"><a href="{{url('reset-password/'.$details->email)}}"  style="padding:0.6em 1em;border-radius:600px;color:#ffffff;font-size:14px;text-decoration:none;font-weight:bold" class="button-color">Click here</a></div>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
