@@ -42,6 +42,7 @@ class NewPasswordController extends Controller
         ]);
         if ($validator->passes()){
             $passenger = User::query()->find($request->id);
+            dd($passenger);
             if($passenger){
             $passenger->password = Hash::make($request->password);
             $passenger->save();
