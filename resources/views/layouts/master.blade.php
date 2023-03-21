@@ -2,11 +2,11 @@
 <html @if(App::getLocale() == 'en') lang="en" style="direction: ltr;" @else lang="ar" style="direction: rtl;" @endif>
 <!--begin::Head-->
 <head><base href=""/>
-    <title>Taqoa</title>
+    <title>Tuqu' Municipality</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <meta name="description" content="Taqoa"/>
-    <meta name="keywords" content="Taqoa" />
+    <meta name="description" content="Tuqu' Municipality"/>
+    <meta name="keywords" content="Tuqu' Municipality" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
