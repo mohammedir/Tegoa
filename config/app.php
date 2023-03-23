@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Teqoa municipality'),
+    'name' => env('APP_NAME', 'Tuqu municipality'),
 
     /*
     |--------------------------------------------------------------------------

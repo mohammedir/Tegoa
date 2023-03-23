@@ -224,18 +224,17 @@ class AuthController extends Controller
         $headerFCM = $request->header('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
         ],[
             'email.required' => trans("api.email field is required"),
-            'email.email' => trans("api.The email must be a valid email address"),
             'password.required' => trans("api.password field is required"),
         ]);
 
         if ($validation->fails()){
             return  $this->setError(400 ,false, $validation->errors()->first(), 400);
         }
-        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
+        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 1]) || Auth::attempt(['mobile_number' => $input['email'],'password' => $input['password'] , 'user_type' => 1])){
             $data = Auth::user();
             if ($data->user_status == 1) {
                 $token = $data->createToken('passenger');
@@ -261,22 +260,20 @@ class AuthController extends Controller
         $headerFCM = $request->header('fcmToken');
         $input = $request->all();
         $validation = Validator::make($input,[
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
 
         ],[
             'email.required' => trans("api.email field is required"),
-            'email.email' => trans("api.The email must be a valid email address"),
             'password.required' => trans("api.password field is required"),
         ]);
 
         if ($validation->fails()){
             return  $this->setError(400 ,false, $validation->errors()->first(), 400);
         }
-        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
+        if (Auth::attempt(['email' => $input['email'],'password' => $input['password'] , 'user_type' => 2]) || Auth::attempt(['mobile_number' => $input['email'],'password' => $input['password'] , 'user_type' => 2])){
             $data = Auth::user();
             if ($data->user_status == 1 ){
-                $car = Car::query()->where('user_id','=',$data->id)->get()->first();
                 $car = Car::query()->where('user_id','=',$data->id)->get()->first();
                 $token = $data->createToken('driver');
                 $data->api_token = $token->plainTextToken;

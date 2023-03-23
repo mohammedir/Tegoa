@@ -213,7 +213,7 @@ class CarController extends Controller
             $car->save();
             if ($car) {
                 $details = [
-                    'title' => 'Mail from Teqoa',
+                    'title' => 'Mail from Tuqu Municipality',
                     'body' => 'This email to inform you that the registered vehicle is enabled successfully'
                 ];
                 $user = User::find($car->user_id)->email;

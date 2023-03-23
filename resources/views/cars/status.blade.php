@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Teqoa Company</title>
+    <title>Tuqu Municipality</title>
 </head>
 <body>
 <h1>{{ $details['title'] }}</h1>
